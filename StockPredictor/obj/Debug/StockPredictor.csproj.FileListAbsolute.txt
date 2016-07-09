@@ -1,0 +1,80 @@
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\StockPredictor.exe.config
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\StockPredictor.exe
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\StockPredictor.pdb
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.AWT.WinForms.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Beans.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Charsets.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Cldrdata.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Corba.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Core.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Jdbc.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Localedata.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Management.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Media.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Misc.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Naming.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Nashorn.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Remoting.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Security.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.SwingAWT.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Text.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Tools.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Util.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.XML.API.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.XML.Bind.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.XML.Crypto.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.XML.Parse.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.XML.Transform.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.XML.WebServices.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.XML.XPath.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.Runtime.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\bin\Debug\IKVM.Runtime.JNI.dll
+D:\Visual Studio Projects\StockPredictor\StockPredictor\obj\Debug\StockPredictor.csprojResolveAssemblyReference.cache
+D:\Visual Studio Projects\StockPredictor\StockPredictor\obj\Debug\StockPredictor.Properties.Resources.resources
+D:\Visual Studio Projects\StockPredictor\StockPredictor\obj\Debug\StockPredictor.csproj.GenerateResource.Cache
+D:\Visual Studio Projects\StockPredictor\StockPredictor\obj\Debug\StockPredictor.exe
+D:\Visual Studio Projects\StockPredictor\StockPredictor\obj\Debug\StockPredictor.pdb
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\StockPredictor.exe.config
+D:\VisualStudioProjects\StockPredictor\StockPredictor\obj\Debug\StockPredictor.exe
+D:\VisualStudioProjects\StockPredictor\StockPredictor\obj\Debug\StockPredictor.pdb
+D:\VisualStudioProjects\StockPredictor\StockPredictor\obj\Debug\StockPredictor.csprojResolveAssemblyReference.cache
+D:\VisualStudioProjects\StockPredictor\StockPredictor\obj\Debug\StockPredictor.Form1.resources
+D:\VisualStudioProjects\StockPredictor\StockPredictor\obj\Debug\StockPredictor.Properties.Resources.resources
+D:\VisualStudioProjects\StockPredictor\StockPredictor\obj\Debug\StockPredictor.csproj.GenerateResource.Cache
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\StockPredictor.exe
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\StockPredictor.pdb
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\HtmlAgilityPack.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.AWT.WinForms.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Beans.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Charsets.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Cldrdata.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Corba.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Core.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Jdbc.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Localedata.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Management.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Media.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Misc.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Naming.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Nashorn.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Remoting.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Security.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.SwingAWT.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Text.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Tools.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.Util.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.XML.API.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.XML.Bind.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.XML.Crypto.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.XML.Parse.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.XML.Transform.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.XML.WebServices.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.OpenJDK.XML.XPath.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.Runtime.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\IKVM.Runtime.JNI.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\NetSpell.SpellChecker.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\slf4j-api.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\stanford-postagger-3.6.0.dll
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\HtmlAgilityPack.pdb
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\HtmlAgilityPack.xml
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\NetSpell.SpellChecker.xml
