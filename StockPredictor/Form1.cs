@@ -21,10 +21,10 @@ namespace StockPredictor
 
         private void Test_Click(object sender, EventArgs e)
         {
-           // PosTaggerTest pt = new PosTaggerTest();
-            SpellCheckTest sct = new SpellCheckTest();
-           // pt.testTagger();
-            sct.spellCheckArticleTest();
+            PosTaggerTest pt = new PosTaggerTest();
+            
+            pt.testTagger();
+            
            
         }
     }

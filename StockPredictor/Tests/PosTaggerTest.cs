@@ -6,29 +6,33 @@ using System.IO;
 using System.Windows.Forms;
 using edu.stanford.nlp.tagger.maxent;
 using System.Collections.Generic;
+using System;
 
 namespace StockPredictor.Tests
 {
     class PosTaggerTest
     {
         PosTagger pt = new PosTagger();
-        // Text for tagging
-       string text = "A Part-Of-Speech Tagger (POS Tagger) is Gileard a piece of software that reads text"
-                   + "in some language and assigns parts of speech to each word (and other token),"
-                   + " such as noun, verb, adjective, etc., although generally computational "
+        string text = "Is Gileard a piece of software that reads text or has it increased earnings after a major acquisition and is the best performing stock?"
+                   + "In some language and assigns parts of speech to each word (and other token),"
+                   + " such as noun, verb, adjective, etc., although generally computational and disastrous after the credit crunch."
                    + "applications use more fine-grained POS tags like 'noun-plural'."
-                   + "Here is a new sentence to be scanned for sintax with GILD."
+                   + "Here is a new sentence to decrease earnings and be scanned high risk for sintax with GILD."
+            + "Gileard best performing stock this year, with a significant decrease in short interest."
                     + "Here is a new sentence to be scanned for sintax with IBB."
-            +"Now for sibbling checking for named entites."
-                    + "Here is a new sentence  to be scanned for sintax with NASDAQ.";
+         + "Here is a new sentence to be scanned for sintax with NASDAQ.";
 
         string text2 = "gild. Ibb. Nasdaq. Hlep.";
-        
+        // get the base folder for the project
+        public static string GetAppFolder()
+        {
+            return Path.GetDirectoryName(Application.ExecutablePath).Replace(@"TextMiningPractice\bin\Debug", string.Empty);
+        }
+
         // this method tests that the tagger is working 
         public void testTagger()
         {
-            fileReaderWriter frw = new fileReaderWriter();
-            var jarRoot = Path.Combine(frw.GetAppFolder(), @"packages\stanford-postagger-2015-12-09");
+            var jarRoot = Path.Combine(GetAppFolder(), @"packages\stanford-postagger-2015-12-09");
             Console.WriteLine(jarRoot.ToString());
             var modelsDirectory = jarRoot + @"\models";
 
@@ -37,7 +41,7 @@ namespace StockPredictor.Tests
 
          
             // Put a space before full stops
-            text = text.Replace(".", " .");
+            text = text.Replace(".", " .").Replace("!"," . ").Replace("?"," . ");
 
             var sentences = MaxentTagger.tokenizeText(new java.io.StringReader(text)).toArray();
             foreach (ArrayList sentence in sentences)
@@ -49,30 +53,56 @@ namespace StockPredictor.Tests
 
         public void getNamedEntitiesTest()
         {
-            pt.getNameEntites(text);
+            pt.nameEntites(text, "exampleExcel");
         }
         //test the POS tagger which extracts named entites
         public void posTaggerNamedTest()
         {
-           // Counter counter = new Counter();
-            List<ArrayList> collection = new List<ArrayList>();
-            collection = pt.getNameEntites(text);
-          //  int sentences = counter.countSentenceCollection(collection);
-         //   int words = counter.countWordCollection(collection);
-         //   Console.WriteLine("There are " + sentences + " sentences in the named test");
-         //   Console.WriteLine("There are " + words + " words in the named test");
+           pt.nameEntites(text, "exampleExcel");
+
         }
         //test the Tagger that extracts noun phrases
         public void posTaggerNounTest()
         {
-          //  Counter counter = new Counter();
-            List<ArrayList> collection = new List<ArrayList>();
-            collection = pt.getNounPhrase(text);
-          //  int sentences = counter.countSentenceCollection(collection);
-          //  int words = counter.countWordCollection(collection);
-          //  Console.WriteLine("There are " + sentences + " sentences in the noun test");
-          //  Console.WriteLine("There are " + words + " words in the noun test");
+           string str = pt.tagArticles(text);
+           pt.nounPhrase(str, "exampleExcel");
+
         }
+
+        public void testNounNamed()
+        {
+            pt.processNamedNoun(text, "exampleExcel1");
+        }
+
+        public string tagArticle(string str)
+        {
+           str = text;
+            str = str.Replace(".", " . ");
+            var watch2 = System.Diagnostics.Stopwatch.StartNew();
+            fileReaderWriter frw = new fileReaderWriter();
+            try
+            {
+                var jarRoot = Path.Combine(frw.GetAppFolder(), @"packages\stanford-postagger-2015-12-09");
+                Console.WriteLine(jarRoot.ToString());
+                var modelsDirectory = jarRoot + @"\models";
+                // Loading POS Tagger
+                var tagger = new MaxentTagger(modelsDirectory + @"\english-left3words-distsim.tagger");
+                var taggedSentence = tagger.tagString(str);
+
+                Console.Write("all articles have been tagged");
+                watch2.Stop();
+                var elapsedMs21 = watch2.ElapsedMilliseconds;
+                Console.WriteLine("Overall Time " + elapsedMs21);
+                return taggedSentence;
+
+            }//end try
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            watch2.Stop();
+            var elapsedMs2 = watch2.ElapsedMilliseconds;
+            Console.WriteLine("Overall Time " + elapsedMs2);
+            return str;
+        }
+
 
     }
 }

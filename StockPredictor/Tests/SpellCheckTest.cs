@@ -11,7 +11,7 @@ namespace StockPredictor.Tests
     class SpellCheckTest
     {
         // Text for tagging
-        string text = "A shshsh Part-Of-Speech Tagger (POS Tagger) is Gileard stock decreased a piece of software that reads text"
+        string text = "A Part-Of-Speech Tagger (POS Tagger) is Gileard stock decreased a piece of software that reads text"
                     + "in some language and assigns parts of short sellers increased speech to each word (and other token),"
                     + " such as noun, verb, adjective, etc., although generally computational "
                     + "applications use more fine-grained POS tags like 'noun-plural'."
@@ -31,7 +31,7 @@ namespace StockPredictor.Tests
             //start a stop watch to time method
             var watch = System.Diagnostics.Stopwatch.StartNew();
             SpellCheck sp = new SpellCheck();
-            Console.WriteLine(sp.spellCheckArticle(text));
+            sp.spellCheckArticle(text);
             //stop the watch to time method
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
@@ -66,12 +66,6 @@ namespace StockPredictor.Tests
             }//end first foreach
             Console.WriteLine("SpellCheck sentence " + totalTime);
 
-        }
-
-        public void spellCheckArticleTest()
-        {
-            SpellCheck sc = new SpellCheck();
-          Console.WriteLine(sc.spellCheckArticle(text));
         }
     }
 }

@@ -149,6 +149,11 @@
       <HintPath>..\packages\IKVM.8.1.5717.0\lib\IKVM.Runtime.JNI.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NetSpell.SpellChecker, Version=2.1.7.41329, Culture=neutral, PublicKeyToken=318b389f0db66e46">
       <HintPath>..\packages\NetSpell.2.1.7\lib\NetSpell.SpellChecker.dll</HintPath>
       <Private>True</Private>
@@ -180,14 +185,27 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\BagOfWords.cs" />
+    <Compile Include="Helpers\CalculatorMethods.cs" />
+    <Compile Include="Helpers\ExcelMethods.cs" />
     <Compile Include="Helpers\fileReaderWriter.cs" />
+    <Compile Include="Helpers\GoogleMethods.cs" />
+    <Compile Include="Helpers\LinkCleaner.cs" />
+    <Compile Include="Helpers\Mining.cs" />
     <Compile Include="Helpers\Porter2.cs" />
     <Compile Include="Helpers\PosTagger.cs" />
     <Compile Include="Helpers\SpellCheck.cs" />
+    <Compile Include="Helpers\StemMethods.cs" />
+    <Compile Include="Helpers\StopWords.cs" />
+    <Compile Include="Helpers\TermFrequency.cs" />
+    <Compile Include="Helpers\TextCleaner.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\BagOfWordsTest.cs" />
+    <Compile Include="Tests\MiningTest.cs" />
     <Compile Include="Tests\PosTaggerTest.cs" />
     <Compile Include="Tests\SpellCheckTest.cs" />
+    <Compile Include="Tests\TermFrequencyTest.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

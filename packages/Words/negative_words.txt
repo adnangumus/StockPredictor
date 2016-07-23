@@ -1,4 +1,5 @@
 abysmal
+accused
 adverse
 alarming
 angry
@@ -100,6 +101,7 @@ hard
 hard-hearted
 harmful
 hate
+heat
 hideous
 homely
 horrendous
