@@ -20,19 +20,36 @@ Boost
 Bounce	
 Breakthrough	
 bull
-Bright	Brilliant	Brimming
-Buy	Charming
- cheap		Coy
+Bright	
+Brilliant	
+Brimming
+Buy	
+Charming
+cheap		
+Coy
 Dazzling
-Delicious	Delightful
-Deluxe	Dependable	Diamond
+Delicious	
+Delightful
+Deluxe
+Dependable	
+Diamond
 Distinctive
-Divine	Dreamy	Drool	Dynamic
-Easy	Economy	Ecstatic	Effervescent
-Efficient	Energy	Enhance
-Enjoy	Enormous	Enticing
-Essence	Essential	Exactly	Excellent
-Exceptional	Exciting	Exclusive	Exhilaration
+Divine	
+Dynamic
+Easy
+Ecstatic
+Effervescent
+Efficient
+Energy
+Enhance
+Enjoy
+Enormous
+Enticing
+Essence
+Essential
+Excellent
+Exceptional
+Exciting	Exclusive	Exhilaration
 	Exquisite	
 	Eye-catching	Fabled	Fair
 Famous	Fantastic	Fashionable	Fascinating
@@ -58,7 +75,10 @@ Miracle
 Mouthwatering	momentum	Multi	
 Nutritious
 Opulent	Outlasts	
-Outstanding			Paradise
+Outstanding
+Overweight
+Outperform			
+Paradise
 Pamper	Passionate	Peak	Pearl
 Perfect	phenomenal	Pleasure	
 Plenty	Plum	Plump	
@@ -68,7 +88,8 @@ Prime	Prize	Protection	Proud
 Pure	Quality	Radiant	Ravishing
 Real	Reap	Recommendation	Refined
 Refreshing	Relax	Reliable	Renowned
-Reputation	Rewarding	revolutionize	Rich
+Reputation	Rewarding	
+respectable	revolutionize	Rich
 Right	Rosy	Royal	Safety
 Save	Satisfaction	Seductive
 Select	Sensitive	Sensational	Serene

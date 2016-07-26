@@ -22,7 +22,9 @@ broken
 callous
 cannibalize
 can't
+chaotic
 clumsy
+cut
 coarse
 cold
 cold-hearted
@@ -45,11 +47,13 @@ decaying
 damage
 damaging
 dastardly
+deceleration
 deplorable
 depressed
 deprived
 deformed
 devastate
+Despite
 distress
 destroy
 deny
@@ -103,6 +107,7 @@ harmful
 hate
 heat
 hideous
+hold
 homely
 horrendous
 horrible
@@ -208,6 +213,7 @@ sticky
 stinky
 stormy
 stressful
+struggle
 stuck
 stupid
 substandard
@@ -218,6 +224,7 @@ toll
 terrible
 terrifying
 threaten
+trim
 ugly
 undermine
 uncertain

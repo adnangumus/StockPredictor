@@ -22,6 +22,7 @@ broken
 callous
 cannib
 can't
+chaotic
 clumsi
 coars
 cold
@@ -40,17 +41,20 @@ crimin
 critic
 cruel
 cut
+cut
 damag
 damag
 dastard
 dead
 decay
+deceler
 deform
 deni
 deplor
 depress
 depriv
 despic
+despit
 destroy
 detriment
 devast
@@ -103,6 +107,7 @@ harm
 hate
 heat
 hideous
+hold
 home
 horrend
 horribl
@@ -208,6 +213,7 @@ sticki
 stinki
 stormi
 stress
+struggl
 stuck
 stupid
 substandard
@@ -218,6 +224,7 @@ terribl
 terrifi
 threaten
 toll
+trim
 ugli
 uncertain
 undermin

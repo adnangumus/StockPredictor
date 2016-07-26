@@ -18,18 +18,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 A1
 abund
 ace
@@ -73,11 +61,8 @@ depend
 diamond
 distinct
 divin
-dreami
-drool
 dynam
 easi
-economi
 ecstat
 effervesc
 effici
@@ -179,9 +164,11 @@ multi
 nutriti
 opul
 outlast
+outperform
 outstand
 oversold
 overst
+overweight
 pamper
 paradis
 passion
@@ -220,6 +207,7 @@ relax
 reliabl
 renown
 reput
+respect
 revolution
 reward
 rich
