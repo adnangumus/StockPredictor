@@ -4,7 +4,7 @@ HZNP
 NASDAQ
 NYSE
 BIIB
-Gilead
+Gileard
 HVC
 hepatitis
 Epclusa

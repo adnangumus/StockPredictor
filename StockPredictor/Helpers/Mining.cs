@@ -34,8 +34,8 @@ namespace StockPredictor.Helpers
                     }
 
                 }
-                catch (Exception ex) { Console.WriteLine(ex.Message); }
-
+                catch (Exception ex) { Console.WriteLine("get article line 37 :" + ex.Message); }
+            
                 return Text;
             }
 
@@ -62,7 +62,7 @@ namespace StockPredictor.Helpers
                     Parallel.ForEach(distinctLinks,
                     new ParallelOptions { MaxDegreeOfParallelism = 30 }, link =>
                     {
-                        //Console.WriteLine(link);
+                        Console.WriteLine(link);
                         article = getArticle(link);
                        // Console.WriteLine(article);
                         allArticles += article;
@@ -76,7 +76,7 @@ namespace StockPredictor.Helpers
                     articles = sc.spellCheckArticle(allArticles);
 
                 }
-                catch (Exception ex) { Console.WriteLine(ex.Message); }
+                catch (Exception ex) { Console.WriteLine("get all articles : " + ex.Message); }
                 return articles;
             }
         }

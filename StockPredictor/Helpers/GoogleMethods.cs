@@ -65,7 +65,8 @@ namespace StockPredictor
 
                 }
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            catch (Exception ex) {
+                Console.WriteLine(ex.Message); }
 
             return links;
         }

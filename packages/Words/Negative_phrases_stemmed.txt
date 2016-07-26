@@ -7,12 +7,19 @@ competit emerg
 credit crunch 
 dead money 
 declin demand 
+declin earn 
 declin unit state 
 decreas earn 
+earn declin 
+earn miss 
+fall cliff 
 gone nowher 
 high risk 
 increas short interest 
 limit upsid 
+low confid 
+lower target 
+miss earn 
 negat earn 
 negat public 
 overpr 
@@ -20,6 +27,7 @@ price goug
 reflect bad 
 reject market author 
 sale decreas 
+sale miss 
 signific risk 
 state budget 
 stay away 

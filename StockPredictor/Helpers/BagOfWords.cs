@@ -119,8 +119,7 @@ namespace StockPredictor.Helpers
             //add the output data to an excel file
             ExcelMethods em = new ExcelMethods();
             //add the data to special excel file for only this specific out put for this stock
-            string newFileName = fileName + "Bag";
-            em.saveDataToExcel(newFileName, "Bag", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
+            em.saveDataToExcel(fileName, "Bag", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
           posWordPercentage, negWordPercentage,
            positivePhraseCount, negativePhraseCount,
            posPhrasePercentage, negPhrasePercentage);

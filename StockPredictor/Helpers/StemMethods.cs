@@ -12,6 +12,8 @@ namespace StockPredictor.Helpers
     class StemMethods
     {
         //stem all the lists
+        //this method will stem the words in the positive and negative word and phrase lists
+        //it will create a new lists to store them
         public void stemAll()
         {
             String fromFile = "Negative_phrases.txt";

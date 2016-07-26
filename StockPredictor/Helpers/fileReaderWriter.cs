@@ -17,7 +17,7 @@ namespace StockPredictor.Helpers
             string path = "";
             try
             {
-                return Path.GetDirectoryName(Application.ExecutablePath).Replace(@"TextMiningPractice\bin\Debug", string.Empty);
+                return Path.GetDirectoryName(Application.ExecutablePath).Replace(@"StockPredictor\bin\Debug", string.Empty);
             }
             catch (Exception ex)
             { Console.WriteLine(ex.Message); }

@@ -17,8 +17,8 @@ namespace StockPredictor.Tests
                    + "In some language and assigns parts of speech to each word (and other token),"
                    + " such as noun, verb, adjective, etc., although generally computational and disastrous after the credit crunch."
                    + "applications use more fine-grained POS tags like 'noun-plural'."
-                   + "Here is a new sentence to decrease earnings and be scanned high risk for sintax with GILD."
-            + "Gileard best performing stock this year, with a significant decrease in short interest."
+                   + "Here is a new sentence to decrease earnings and be scanned high risk for sintax with GILD . "
+            + " Gileard best performing stock this year, with a significant decrease in short interest."
                     + "Here is a new sentence to be scanned for sintax with IBB."
          + "Here is a new sentence to be scanned for sintax with NASDAQ.";
 

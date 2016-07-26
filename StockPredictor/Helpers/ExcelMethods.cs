@@ -8,6 +8,7 @@ namespace StockPredictor.Helpers
     class ExcelMethods
     {
         private string excelFilePath = string.Empty;
+        private string fileFolderPath = string.Empty;
         private int rowNumber = 1; // define first row number to enter data in excel
 
         Excel.Application myExcelApplication;
@@ -18,6 +19,12 @@ namespace StockPredictor.Helpers
         {
             get { return excelFilePath; }
             set { excelFilePath = value; }
+        }
+        //for storing the folder path for the excel files
+        public string FileFolderPath
+        {
+            get { return fileFolderPath; }
+            set { fileFolderPath = value; }
         }
 
         public int Rownumber
@@ -36,6 +43,8 @@ namespace StockPredictor.Helpers
             if (!File.Exists(excelFilePath))
             {
              var workBook = myExcelApplication.Workbooks.Add(Type.Missing);
+                // Try to create the directory.
+                DirectoryInfo di = Directory.CreateDirectory(fileFolderPath);
                 workBook.SaveAs(excelFilePath);
             }
             //open the excel work sheet
@@ -103,7 +112,7 @@ namespace StockPredictor.Helpers
 
         }
 
-        //this method will take the out put data from the methods and save it to an excel file
+        //this method will take the out put data from the methods and save it to an excel file      
         public void saveDataToExcel(string fileName,string method, string elapsedMs, int wordCount, int sentenceCount, int posWordCount, int negWordCount,
            int posWordPercentage, int negWordPercentage,
             int positivePhraseCount, int negativePhraseCount,
@@ -113,7 +122,11 @@ namespace StockPredictor.Helpers
             string date = DateTime.Now.ToString();
             //file reader class for reading files
             fileReaderWriter frw = new fileReaderWriter();
-            string filePath = Path.Combine(frw.GetAppFolder(), @"packages\Data\" + fileName).ToString();
+            //create a path that puts the stock information into unique folders with the name of the stock and method on seperate 
+            //excel sheets
+            string folderPath = Path.Combine(frw.GetAppFolder(), @"packages\Data\" + fileName).ToString();
+            fileFolderPath = folderPath;
+            string filePath = Path.Combine(fileFolderPath + @"\" + fileName + method).ToString();
             ExcelFilePath = filePath;
             openExcel();
             addDataToExcel(date, method, elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,

@@ -41,7 +41,9 @@ namespace StockPredictor.Helpers
             List<string> terms = frw.getWordsFromList("Positive_stem_word_list.txt");
             foreach (string term in terms)
             {
-                if (word.ToLower() == term.ToLower() && term != "" && term != " ") { return 1; }
+                if (word.ToLower() == term.ToLower() && term != "" && term != " ")
+                {
+                    return 1; }
             }
             return 0;
         }

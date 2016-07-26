@@ -1,89 +1,119 @@
-Absolutely	Absorbing	Abundance	Ace
-Active	Admirable	Adore	Agree
-Alert	A1	Alive	Amazing
-Appealing	Approval	Aroma	Attraction
-Award	Bargain	Beaming	Beats
-Beautiful	Best	Better	Bits
-Boost	Bounce	Breakthrough	Breezy	bull
-Brief	Bright	Brilliant	Brimming
-Buy	Care	Certain	Charming
-Chic cheap	Choice	Clean	Clear
-Colourful	Comfy	Compliment	Confidence
-Connoisseur	Cool	Courteous	Coy
-Creamy	Crisp	Cuddly	Dazzling
-Debonair	Delicate	Delicious	Delightful
-Deluxe	Dependable	Desire	Diamond
-Difference	Dimple	Discerning	Distinctive
+Abundance
+Ace
+Admirable	
+Adore	
+Agree
+A1	
+Alive	
+Amazing
+Appealing	
+Approval	
+Attraction
+Award	
+Bargain	
+Beaming	
+Beats
+Beautiful	
+Best	
+Better	
+Boost	
+Bounce	
+Breakthrough	
+bull
+Bright	Brilliant	Brimming
+Buy	Charming
+ cheap		Coy
+Dazzling
+Delicious	Delightful
+Deluxe	Dependable	Diamond
+Distinctive
 Divine	Dreamy	Drool	Dynamic
 Easy	Economy	Ecstatic	Effervescent
-Efficient	Endless	Energy	Enhance
-Enjoy	Enormous	Ensure	Enticing
+Efficient	Energy	Enhance
+Enjoy	Enormous	Enticing
 Essence	Essential	Exactly	Excellent
 Exceptional	Exciting	Exclusive	Exhilaration
-Exotic	Expert	Exquisite	Extol
-Extra	Eye-catching	Fabled	Fair
+	Exquisite	
+	Eye-catching	Fabled	Fair
 Famous	Fantastic	Fashionable	Fascinating
-Fab	Fast	Favourite	Fetching
+Fab	Favourite	Fetching
 Finest	Finesse	First	Fizz
-Flair	Flattering	Flip	Flourishing
-Foolproof	Forever	Fragrance	Free
-Freshness	Friendly	Full	Fun
+Flair	Flattering Flourishing
+Foolproof	Forever	
+Freshness	Friendly	Fun
 Galore	Generous	Genius	Gentle
 Giggle	Glamorous	Glitter	Glorious
 Glowing	Go-ahead	Golden	Goodness
 Gorgeous	Graceful	Grand	Great
 Guaranteed	Happy	Healthy	Heartwarming
 Heavenly help	Ideal	Immaculate	Impressive
-Incredible	Inspire	Instant	Interesting
+Incredible	Inspire	
 Invigorating	Invincible	Inviting	Irresistible
 Jewel	Joy	Juicy	Jump	Keenest
-Kind	Kissable		Know-how
-Leads	Legend	Leisure	Light
-Lingering	Logical	Longest	Lovely
-Lucky	Luscious	Luxurious	Magic
-Matchless	Magnifies it	Maxi	Memorable
-Mighty	Miracle	Modern	More
-Mouthwatering	momentum	Multi	Munchy	Natural
-Need	New	Nice	Nutritious
-O.K.	Opulent	Outlasts	Outrageous
-Outstanding	Palate	Palatial	Paradise
+Kind		Know-how
+Leads	Legend	Leisure	
+	Lovely
+Lucky	Luscious	Luxurious	Magic	
+Miracle	
+Mouthwatering	momentum	Multi	
+Nutritious
+Opulent	Outlasts	
+Outstanding			Paradise
 Pamper	Passionate	Peak	Pearl
-Perfect	phenomenal	Pick-me-up	Pleasure	Pleases
-Plenty	Plum	Plump	Plus
-Popular	Positive	Power	Precious
+Perfect	phenomenal	Pleasure	
+Plenty	Plum	Plump	
+Positive	Power	Precious
 Prefer	Prestige	Priceless	Pride
 Prime	Prize	Protection	Proud
-Pure	Quality	Quantity	Quenching
-Quick	Quiet	Radiant	Ravishing
+Pure	Quality	Radiant	Ravishing
 Real	Reap	Recommendation	Refined
 Refreshing	Relax	Reliable	Renowned
-Reputation	Rest	Rewarding	revolutionize	Rich
+Reputation	Rewarding	revolutionize	Rich
 Right	Rosy	Royal	Safety
-Save	Satisfaction	Scores	Seductive
+Save	Satisfaction	Seductive
 Select	Sensitive	Sensational	Serene
-Service	Sexy	Shapely	Share
-Sheer	Shy	Silent	Silver
-Simple	Singular	Sizzling	Skilful
-Slick	Smashing	Smiles	Solar
+Service	Sexy	Shapely	
+Sheer	Silver
+Sizzling	Skilful
+Slick	Smashing	Smiles
 Smooth	Soft	Sound	Sparkling
-Special	Spectacular	Speed	Spicy
-Splendid	Spice	Spotless	Spruce
-Star	Strong	Stunning	Stylish
-Subtle	Success	Succulent	Sun
+Special	Spectacular	Spicy
+Splendid	Spotless	Spruce
+Star	strength Stunning	Stylish
+Success	Succulent	
 Superb	Superlative	Supersonic	Supreme
 Sure	Sweet	Swell	Symphony
-Tan	Tangy	Tasty	Tempting
+Tempting
 Terrific	Thoroughbred	Thrilling	Thriving
-Timeless	Tingle	Tiny	Top
-Totally	Traditional	Transformation	Treat
-Treasure	Trendy	True	Trust
-Ultimate	Ultra	Unbeatable	Unblemished
-Undeniably	Undoubtedly	U	Unique
-Unquestionnably	Unrivalled	Unsurpassed	Valued
-Valuable	Vanish	Varied	Versatile
+Timeless	Top
+Transformation	Treat
+Treasure
+Unbeatable	Unblemished
+Unrivalled	Unsurpassed
+Varied	Versatile
 Victor	Vigorous	Vintage	V.I.P.
-Vital	Vivacious	Warm	Wealth
-Wee	Whiz	Whole	Whopper
+Vivacious
+Wee	Whiz
 Winner	Wise	Wonderful	Worthy
-Wow!	Youthful	Yule	Young
+Youthful	Yule
 Zap	Zeal	Zest	Zip
+acquired
+bolster
+benefit
+boost 
+blockbuster
+breakthrough
+exceed
+expand
+extensive
+grow
+higher
+innovate
+long
+merger
+momentum
+overstated
+oversold
+profit
+rebound
+recovery 

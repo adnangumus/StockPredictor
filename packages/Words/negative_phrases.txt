@@ -5,11 +5,17 @@ decline United States
 decline demand
 decrease earnings
 dead money
+earning miss
+miss earning
+earning decline
+decline earning
 fall cliff
 gone nowhere
 high risk
 increase short interest
 limited upside
+low confidence
+lower target
 negative publicity
 negative earnings
 overpriced
@@ -17,6 +23,7 @@ price gouging
 reflect badly
 rejected marketing authorization
 sales decreased
+sales miss
 stay away
 significant risk
 state budgets
