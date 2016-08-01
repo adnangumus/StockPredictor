@@ -209,6 +209,7 @@ smelli
 sob
 sorri
 spite
+stall
 sticki
 stinki
 stormi

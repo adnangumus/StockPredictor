@@ -36,7 +36,6 @@ Diamond
 Distinctive
 Divine	
 Dynamic
-Easy
 Ecstatic
 Effervescent
 Efficient
@@ -49,21 +48,36 @@ Essence
 Essential
 Excellent
 Exceptional
-Exciting	Exclusive	Exhilaration
-	Exquisite	
-	Eye-catching	Fabled	Fair
-Famous	Fantastic	Fashionable	Fascinating
-Fab	Favourite	Fetching
-Finest	Finesse	First	Fizz
-Flair	Flattering Flourishing
-Foolproof	Forever	
-Freshness	Friendly	Fun
-Galore	Generous	Genius	Gentle
-Giggle	Glamorous	Glitter	Glorious
-Glowing	Go-ahead	Golden	Goodness
+Exciting
+Exclusive
+Exhilaration
+Exquisite	
+Eye-catching	
+Fabled
+Fair
+Famous	
+Fantastic
+Fascinating
+Fab
+Favourite
+Fetching
+Finest
+Finesse
+Fizz
+Flair
+Flourishing
+Foolproof
+Freshness
+Generous
+Genius
+Glorious
+Glowing
+Go-ahead
+Golden
+Goodness
 Gorgeous	Graceful	Grand	Great
 Guaranteed	Happy	Healthy	Heartwarming
-Heavenly help	Ideal	Immaculate	Impressive
+Heavenly	Ideal	Immaculate	Impressive
 Incredible	Inspire	
 Invigorating	Invincible	Inviting	Irresistible
 Jewel	Joy	Juicy	Jump	Keenest
@@ -90,14 +104,13 @@ Real	Reap	Recommendation	Refined
 Refreshing	Relax	Reliable	Renowned
 Reputation	Rewarding	
 respectable	revolutionize	Rich
-Right	Rosy	Royal	Safety
-Save	Satisfaction	Seductive
+Right	Save	Satisfaction	Seductive
 Select	Sensitive	Sensational	Serene
 Service	Sexy	Shapely	
 Sheer	Silver
 Sizzling	Skilful
 Slick	Smashing	Smiles
-Smooth	Soft	Sound	Sparkling
+Smooth	Soft	Sparkling
 Special	Spectacular	Spicy
 Splendid	Spotless	Spruce
 Star	strength Stunning	Stylish

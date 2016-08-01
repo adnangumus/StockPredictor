@@ -32,7 +32,7 @@ namespace StockPredictor.Helpers
             }
             return 0;
         }
-        //check if a word corresponds to the psoitive word list
+        //check if a word corresponds to the positive word list and return a value of 1 or 0
         public int isPositiveWord(string word)
         {
             //initiate class to read files
@@ -43,7 +43,9 @@ namespace StockPredictor.Helpers
             {
                 if (word.ToLower() == term.ToLower() && term != "" && term != " ")
                 {
-                    return 1; }
+                    Console.WriteLine("Positive word : " + term);
+                    return 1;                  
+                }
             }
             return 0;
         }
@@ -74,6 +76,7 @@ namespace StockPredictor.Helpers
                 if (sentence.Contains(term) && term != "" && term != " ")
                 {
                     count ++;
+                    //Console.WriteLine("P term : " + term);
                 }
             }
             return count;
