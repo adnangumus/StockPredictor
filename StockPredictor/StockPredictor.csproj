@@ -202,6 +202,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\BagOfWordsTest.cs" />
+    <Compile Include="Tests\ExcelMethodsTest.cs" />
     <Compile Include="Tests\MiningTest.cs" />
     <Compile Include="Tests\PosTaggerTest.cs" />
     <Compile Include="Tests\SpellCheckTest.cs" />

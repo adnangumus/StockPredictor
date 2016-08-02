@@ -62,8 +62,11 @@ namespace StockPredictor
 
         private void button2_Click(object sender, EventArgs e)
         {
-            PosTaggerTest ptt = new PosTaggerTest();
-            ptt.posTaggerNamedTest();
+            //  PosTaggerTest ptt = new PosTaggerTest();
+            //  ptt.posTaggerNamedTest();
+
+            ExcelMethodsTest emt = new ExcelMethodsTest();
+            emt.testSaveDataToExcel();
         }
     }
 }
