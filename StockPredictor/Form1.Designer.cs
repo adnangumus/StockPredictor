@@ -28,60 +28,98 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.Run = new System.Windows.Forms.Button();
+            this.Stem = new System.Windows.Forms.Button();
             this.Test = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.tbOutput = new System.Windows.Forms.TextBox();
+            this.tbInput = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            // 
+            // Run
+            // 
+            this.Run.Location = new System.Drawing.Point(37, 90);
+            this.Run.Name = "Run";
+            this.Run.Size = new System.Drawing.Size(100, 23);
+            this.Run.TabIndex = 0;
+            this.Run.Text = "Run";
+            this.Run.UseVisualStyleBackColor = false;
+            this.Run.Click += new System.EventHandler(this.Run_Click);
+            // 
+            // Stem
+            // 
+            this.Stem.Location = new System.Drawing.Point(280, 90);
+            this.Stem.Name = "Stem";
+            this.Stem.Size = new System.Drawing.Size(75, 23);
+            this.Stem.TabIndex = 1;
+            this.Stem.Text = "Stem Lists";
+            this.Stem.UseVisualStyleBackColor = true;
+            this.Stem.Click += new System.EventHandler(this.Stem_Click);
             // 
             // Test
             // 
-            this.Test.Location = new System.Drawing.Point(37, 33);
+            this.Test.Location = new System.Drawing.Point(280, 61);
             this.Test.Name = "Test";
             this.Test.Size = new System.Drawing.Size(75, 23);
-            this.Test.TabIndex = 0;
-            this.Test.Text = "Run";
-            this.Test.UseVisualStyleBackColor = false;
+            this.Test.TabIndex = 2;
+            this.Test.Text = "Test";
+            this.Test.UseVisualStyleBackColor = true;
             this.Test.Click += new System.EventHandler(this.Test_Click);
             // 
-            // button1
+            // tbOutput
             // 
-            this.button1.Location = new System.Drawing.Point(167, 33);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Stem Lists";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.tbOutput.AcceptsReturn = true;
+            this.tbOutput.Location = new System.Drawing.Point(37, 119);
+            this.tbOutput.Multiline = true;
+            this.tbOutput.Name = "tbOutput";
+            this.tbOutput.ReadOnly = true;
+            this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbOutput.Size = new System.Drawing.Size(327, 506);
+            this.tbOutput.TabIndex = 3;
             // 
-            // button2
+            // tbInput
             // 
-            this.button2.Location = new System.Drawing.Point(37, 4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Test";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.tbInput.Location = new System.Drawing.Point(37, 61);
+            this.tbInput.Name = "tbInput";
+            this.tbInput.Size = new System.Drawing.Size(100, 20);
+            this.tbInput.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(37, 42);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(99, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Input Stock Symbol";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(436, 637);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.tbInput);
+            this.Controls.Add(this.tbOutput);
             this.Controls.Add(this.Test);
+            this.Controls.Add(this.Stem);
+            this.Controls.Add(this.Run);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
+        private System.Windows.Forms.Button Run;
+        private System.Windows.Forms.Button Stem;
         private System.Windows.Forms.Button Test;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.TextBox tbOutput;
+        private System.Windows.Forms.TextBox tbInput;
     }
 }
 

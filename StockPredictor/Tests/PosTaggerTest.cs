@@ -73,6 +73,7 @@ namespace StockPredictor.Tests
         {
             pt.processNamedNoun(text, "exampleExcel1");
         }
+     
 
         public string tagArticle(string str)
         {

@@ -184,6 +184,10 @@ namespace StockPredictor.Helpers
 
 
             }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Excel document couldn't be closed: This might require you to restart your computer to resolve" + ex.Message);
+            }
             finally
             {
                 if (myExcelApplication != null)

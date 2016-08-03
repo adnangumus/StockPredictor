@@ -116,8 +116,17 @@ namespace StockPredictor.Helpers
             int posPhrasePercentage = cm.getPositivePercentage(positivePhraseCount, negativePhraseCount);
             int negPhrasePercentage = cm.getNegativePercentage(positivePhraseCount, negativePhraseCount);
             Console.WriteLine("Percentage Positive = " + cm.getPositivePercentage(posWordCount, negWordCount) + "% " + "Negative percentage = " + cm.getNegativePercentage(posWordCount, negWordCount) + "% ");
-            //add the output data to an excel file
-            ExcelMethods em = new ExcelMethods();
+
+            //out put information to text box
+            Form1.Instance.AppendOutputText("\r\n");
+            Form1.Instance.AppendOutputText("Bag of words processing time : " + elapsedMs + "\r\n");
+            Form1.Instance.AppendOutputText("Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n");
+            Form1.Instance.AppendOutputText("P W = " + posWordCount + " N W = " + negWordCount + "\r\n");
+            Form1.Instance.AppendOutputText("P P = " + positivePhraseCount + " N P = " + negativePhraseCount + "\r\n");
+            Form1.Instance.AppendOutputText("Percentage Positive = " + cm.getPositivePercentage(posWordCount, negWordCount) + " % " + "Negative percentage = " + cm.getNegativePercentage(posWordCount, negWordCount) + " % " + "\r\n");
+            //Form1.Instance.AppendOutputText(+"\r\n");
+        //add the output data to an excel file
+        ExcelMethods em = new ExcelMethods();
             //add the data to special excel file for only this specific out put for this stock
             em.saveDataToExcel(fileName, "Bag", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
           posWordPercentage, negWordPercentage,

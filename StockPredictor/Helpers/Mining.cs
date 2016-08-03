@@ -71,7 +71,10 @@ namespace StockPredictor.Helpers
                     //stop the watch to time method
                     watch.Stop();
                     var elapsedMs = watch.ElapsedMilliseconds;
-                    Console.WriteLine("Parallel Text retrival time : " + elapsedMs);                
+                    Console.WriteLine("Parallel Text retrival time : " + elapsedMs);
+                //out put information to text box   
+                Form1.Instance.AppendOutputText("\r\n");
+                Form1.Instance.AppendOutputText("Parallel Text retrival time : " + elapsedMs + "\r\n");
                     //  tc.removePunctuation(allArticles)
                     articles = sc.spellCheckArticle(allArticles);
 

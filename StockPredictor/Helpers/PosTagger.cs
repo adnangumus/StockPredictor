@@ -22,12 +22,12 @@ namespace StockPredictor
             //tag the articles first
             string taggedArticles = tagArticles(articles);
             //process the named entites
-            Task taskA = new Task(() => nameEntites(taggedArticles, fileName));
+            Task taskA = Task.Run(() => nameEntites(taggedArticles, fileName));
             //process the noun phrases
             Task taskB = new Task(() => nounPhrase(taggedArticles, fileName));
-               taskA.Start();
+              //run the tasks and wait. Get awaiter us used because the threads are using a static instance
                taskB.RunSynchronously();
-                taskA.Wait();
+                taskA.GetAwaiter();
               taskB.Wait();
         }
         //a variable to store the time it takes to take the sentences
@@ -135,9 +135,7 @@ namespace StockPredictor
             int posPhrasePercentage = cm.getPositivePercentage(positivePhraseCount, negativePhraseCount);
             int negPhrasePercentage = cm.getNegativePercentage(positivePhraseCount, negativePhraseCount);
             Console.WriteLine("Percentage Positive = " + posWordPercentage + "% " + "Negative percentage = " + negWordPercentage + "% ");
-
-            //get the date time to insert into the excel sheet
-            string dt = DateTime.Now.ToString();
+           
             //add the output data to an excel file
             ExcelMethods em = new ExcelMethods();
            // em.saveDataToExcel(fileName, "noun", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
@@ -145,11 +143,18 @@ namespace StockPredictor
            // positivePhraseCount, negativePhraseCount,
            // posPhrasePercentage, negPhrasePercentage);
             //add the data to special excel file for only this specific out put for this stock
-          
             em.saveDataToExcel(fileName, "Noun", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
           posWordPercentage, negWordPercentage,
            positivePhraseCount, negativePhraseCount,
            posPhrasePercentage, negPhrasePercentage);
+
+            //out put information to text box
+            Form1.Instance.AppendOutputText("\r\n");
+            Form1.Instance.AppendOutputText("Noun Phrases processing time : " + elapsedMs + "\r\n");
+            Form1.Instance.AppendOutputText("Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n");
+            Form1.Instance.AppendOutputText("P W = " + posWordCount + " N W = " + negWordCount + "\r\n");
+            Form1.Instance.AppendOutputText("P P = " + positivePhraseCount + " N P = " + negativePhraseCount + "\r\n");
+            Form1.Instance.AppendOutputText("Percentage Positive = " + cm.getPositivePercentage(posWordCount, negWordCount) + " % " + "Negative percentage = " + cm.getNegativePercentage(posWordCount, negWordCount) + " % " + "\r\n");
         }//end class
 
 
@@ -300,6 +305,7 @@ namespace StockPredictor
             int posPhrasePercentage = cm.getPositivePercentage(positivePhraseCount, negativePhraseCount);
             int negPhrasePercentage = cm.getNegativePercentage(positivePhraseCount, negativePhraseCount);
             Console.WriteLine("Percentage Positive = " + cm.getPositivePercentage(posWordCount, negWordCount) + "% " + "Negative percentage = " + cm.getNegativePercentage(posWordCount, negWordCount) + "% ");
+           
             //add the output data to an excel file
             ExcelMethods em = new ExcelMethods();
            // em.saveDataToExcel(fileName, "named", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
@@ -311,6 +317,13 @@ namespace StockPredictor
           posWordPercentage, negWordPercentage,
            positivePhraseCount, negativePhraseCount,
            posPhrasePercentage, negPhrasePercentage);
+            //out put information to text box
+            Form1.Instance.AppendOutputText("\r\n");
+            Form1.Instance.AppendOutputText("Named Entites processing time : " + elapsedMs + "\r\n");
+            Form1.Instance.AppendOutputText("Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n");
+            Form1.Instance.AppendOutputText("P W = " + posWordCount + " N W = " + negWordCount + "\r\n");
+            Form1.Instance.AppendOutputText("P P = " + positivePhraseCount + " N P = " + negativePhraseCount + "\r\n");
+            Form1.Instance.AppendOutputText("Percentage Positive = " + cm.getPositivePercentage(posWordCount, negWordCount) + " % " + "Negative percentage = " + cm.getNegativePercentage(posWordCount, negWordCount) + " % " + "\r\n");
         }//end method 
 
    private Hashtable processNamedEntities(string sentence)

@@ -16,7 +16,10 @@ namespace StockPredictor.Helpers
             List<string> terms = frw.getWordsFromList("Negative_stem_word_list.txt");
             foreach (string term in terms)
             {
-                if (word.ToLower() == term.ToLower() && term != "" && term != " ") { return 1; }
+                if (word.ToLower() == term.ToLower() && term != "" && term != " ") {
+                    //Console.WriteLine("Negative word : " + term);
+                    return 1;
+                }
             }
             return 0;
         }
@@ -43,7 +46,7 @@ namespace StockPredictor.Helpers
             {
                 if (word.ToLower() == term.ToLower() && term != "" && term != " ")
                 {
-                    Console.WriteLine("Positive word : " + term);
+                    //Console.WriteLine("Positive word : " + term);
                     return 1;                  
                 }
             }
