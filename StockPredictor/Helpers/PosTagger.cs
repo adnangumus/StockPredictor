@@ -22,9 +22,9 @@ namespace StockPredictor
             //tag the articles first
             string taggedArticles = tagArticles(articles);
             //process the named entites
-            Task taskA = Task.Run(() => nameEntites(taggedArticles, fileName));
+            Task taskA = Task.Run(() => nounPhrase(taggedArticles, fileName));
             //process the noun phrases
-            Task taskB = new Task(() => nounPhrase(taggedArticles, fileName));
+            Task taskB = new Task(() => nameEntites(taggedArticles, fileName));
               //run the tasks and wait. Get awaiter us used because the threads are using a static instance
                taskB.RunSynchronously();
                 taskA.GetAwaiter();
@@ -150,11 +150,12 @@ namespace StockPredictor
 
             //out put information to text box
             Form1.Instance.AppendOutputText("\r\n");
-            Form1.Instance.AppendOutputText("Noun Phrases processing time : " + elapsedMs + "\r\n");
-            Form1.Instance.AppendOutputText("Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n");
-            Form1.Instance.AppendOutputText("P W = " + posWordCount + " N W = " + negWordCount + "\r\n");
-            Form1.Instance.AppendOutputText("P P = " + positivePhraseCount + " N P = " + negativePhraseCount + "\r\n");
-            Form1.Instance.AppendOutputText("Percentage Positive = " + cm.getPositivePercentage(posWordCount, negWordCount) + " % " + "Negative percentage = " + cm.getNegativePercentage(posWordCount, negWordCount) + " % " + "\r\n");
+            Form1.Instance.AppendOutputText("Noun Phrases : processing time : " + elapsedMs + "\r\n");
+            Form1.Instance.AppendOutputText("Noun Phrases : Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n");
+            Form1.Instance.AppendOutputText("Noun Phrases : P W = " + posWordCount + " N W = " + negWordCount + "\r\n");
+            Form1.Instance.AppendOutputText("Noun Phrases : P P = " + positivePhraseCount + " N P = " + negativePhraseCount + "\r\n");
+            Form1.Instance.AppendOutputText("Noun Phrases : Percantage of Words Positive = " + posWordPercentage + " % " + "Negative word percentage = " + negWordPercentage + " % " + "\r\n");
+            Form1.Instance.AppendOutputText("Noun Phrases : Percantage of Phrase Positive = " + posPhrasePercentage + " % " + "Negative phrase percentage = " + negPhrasePercentage + " % " + "\r\n");
         }//end class
 
 
@@ -319,11 +320,12 @@ namespace StockPredictor
            posPhrasePercentage, negPhrasePercentage);
             //out put information to text box
             Form1.Instance.AppendOutputText("\r\n");
-            Form1.Instance.AppendOutputText("Named Entites processing time : " + elapsedMs + "\r\n");
-            Form1.Instance.AppendOutputText("Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n");
-            Form1.Instance.AppendOutputText("P W = " + posWordCount + " N W = " + negWordCount + "\r\n");
-            Form1.Instance.AppendOutputText("P P = " + positivePhraseCount + " N P = " + negativePhraseCount + "\r\n");
-            Form1.Instance.AppendOutputText("Percentage Positive = " + cm.getPositivePercentage(posWordCount, negWordCount) + " % " + "Negative percentage = " + cm.getNegativePercentage(posWordCount, negWordCount) + " % " + "\r\n");
+            Form1.Instance.AppendOutputText("Named : Entites processing time : " + elapsedMs + "\r\n");
+            Form1.Instance.AppendOutputText("Named : Entites Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n");
+            Form1.Instance.AppendOutputText("Named : Entites P W = " + posWordCount + " N W = " + negWordCount + "\r\n");
+            Form1.Instance.AppendOutputText("Named : Entites P P = " + positivePhraseCount + " N P = " + negativePhraseCount + "\r\n");
+            Form1.Instance.AppendOutputText("Name : Percantage of Words Positive = " + posWordPercentage + " % " + "Negative word percentage = " + negWordPercentage + " % " + "\r\n");
+            Form1.Instance.AppendOutputText("Name :Percantage of Phrase Positive = " + posPhrasePercentage + " % " + "Negative phrase percentage = " + negPhrasePercentage + " % " + "\r\n");
         }//end method 
 
    private Hashtable processNamedEntities(string sentence)

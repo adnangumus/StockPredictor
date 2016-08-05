@@ -115,7 +115,7 @@ namespace StockPredictor.Helpers
             int negWordPercentage = cm.getNegativePercentage(posWordCount, negWordCount);
             int posPhrasePercentage = cm.getPositivePercentage(positivePhraseCount, negativePhraseCount);
             int negPhrasePercentage = cm.getNegativePercentage(positivePhraseCount, negativePhraseCount);
-            Console.WriteLine("Percentage Positive = " + cm.getPositivePercentage(posWordCount, negWordCount) + "% " + "Negative percentage = " + cm.getNegativePercentage(posWordCount, negWordCount) + "% ");
+            Console.WriteLine("Percantage of Words Positive = " + posWordPercentage + "% " + "Negative word percentage = " + negWordPercentage + "% ");
 
             //out put information to text box
             Form1.Instance.AppendOutputText("\r\n");
@@ -123,10 +123,11 @@ namespace StockPredictor.Helpers
             Form1.Instance.AppendOutputText("Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n");
             Form1.Instance.AppendOutputText("P W = " + posWordCount + " N W = " + negWordCount + "\r\n");
             Form1.Instance.AppendOutputText("P P = " + positivePhraseCount + " N P = " + negativePhraseCount + "\r\n");
-            Form1.Instance.AppendOutputText("Percentage Positive = " + cm.getPositivePercentage(posWordCount, negWordCount) + " % " + "Negative percentage = " + cm.getNegativePercentage(posWordCount, negWordCount) + " % " + "\r\n");
+            Form1.Instance.AppendOutputText("Percantage of Words Positive = " + posWordPercentage + " % " + "Negative word percentage = " + negWordPercentage + " % " + "\r\n");
+            Form1.Instance.AppendOutputText("Percantage of Phrase Positive = " + posPhrasePercentage + " % " + "Negative phrase percentage = " + negPhrasePercentage + " % " + "\r\n");
             //Form1.Instance.AppendOutputText(+"\r\n");
-        //add the output data to an excel file
-        ExcelMethods em = new ExcelMethods();
+            //add the output data to an excel file
+            ExcelMethods em = new ExcelMethods();
             //add the data to special excel file for only this specific out put for this stock
             em.savePredictorDataToExcel(fileName, "Bag", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
           posWordPercentage, negWordPercentage,

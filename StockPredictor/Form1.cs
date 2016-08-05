@@ -78,7 +78,7 @@ namespace StockPredictor
             var elapsedMs2 = watch2.ElapsedMilliseconds;
             Console.WriteLine("Overall Time " + elapsedMs2);
             Console.WriteLine("Seconds " + elapsedMs2 / 1000);
-            Console.WriteLine("minutes " + elapsedMs2 / 60000);
+            AppendOutputText("minutes " + elapsedMs2 / 60000 + "\r\n" + "seconds" + (elapsedMs2 % 60000) / 1000);
 
             //out put information to the text box
             displayTime(elapsedMs2);
