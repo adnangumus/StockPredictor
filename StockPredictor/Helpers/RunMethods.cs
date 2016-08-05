@@ -16,7 +16,7 @@ namespace StockPredictor.Helpers
             YahooStockMethods yahoo = new YahooStockMethods();
            string companyName = yahoo.getStockName(input);
             List<string> links = new List<string>();
-            String url = "https://www.google.com/search?q=NASDAQ+" + input + companyName + "+News&tbm=nws&tbs=qdr:d";
+            String url = "https://www.google.com/search?q=NASDAQ+" + input + "+" + companyName + "+News&tbm=nws&tbs=qdr:d";
             links = gm.getGooglelinks(url);
             string articles = miner.getAllArticles(links);
             //intialize and process the named and noun entities

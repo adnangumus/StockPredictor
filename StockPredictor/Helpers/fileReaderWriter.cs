@@ -17,12 +17,13 @@ namespace StockPredictor.Helpers
             string path = "";
             try
             {
-                return Path.GetDirectoryName(Application.ExecutablePath).Replace(@"StockPredictor\bin\Debug", string.Empty);
+                return Path.GetDirectoryName(Application.ExecutablePath); //.Replace(@"StockPredictor\bin\Debug", string.Empty);
             }
             catch (Exception ex)
             { Console.WriteLine(ex.Message); }
             return path;
         }
+
 
         public string readTextFile(string fileName)
         {

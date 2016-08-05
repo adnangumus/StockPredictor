@@ -119,6 +119,7 @@ namespace StockPredictor.Helpers
 
             //out put information to text box
             Form1.Instance.AppendOutputText("\r\n");
+                Form1.Instance.AppendOutputText(fileName + "\r\n");
             Form1.Instance.AppendOutputText("Bag of words processing time : " + elapsedMs + "\r\n");
             Form1.Instance.AppendOutputText("Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n");
             Form1.Instance.AppendOutputText("P W = " + posWordCount + " N W = " + negWordCount + "\r\n");

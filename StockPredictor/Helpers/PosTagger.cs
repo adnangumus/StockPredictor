@@ -150,12 +150,13 @@ namespace StockPredictor
 
             //out put information to text box
             Form1.Instance.AppendOutputText("\r\n");
-            Form1.Instance.AppendOutputText("Noun Phrases : processing time : " + elapsedMs + "\r\n");
-            Form1.Instance.AppendOutputText("Noun Phrases : Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n");
-            Form1.Instance.AppendOutputText("Noun Phrases : P W = " + posWordCount + " N W = " + negWordCount + "\r\n");
-            Form1.Instance.AppendOutputText("Noun Phrases : P P = " + positivePhraseCount + " N P = " + negativePhraseCount + "\r\n");
-            Form1.Instance.AppendOutputText("Noun Phrases : Percantage of Words Positive = " + posWordPercentage + " % " + "Negative word percentage = " + negWordPercentage + " % " + "\r\n");
-            Form1.Instance.AppendOutputText("Noun Phrases : Percantage of Phrase Positive = " + posPhrasePercentage + " % " + "Negative phrase percentage = " + negPhrasePercentage + " % " + "\r\n");
+            Form1.Instance.AppendOutputText(fileName + "\r\n");
+            Form1.Instance.AppendOutputText(fileName + "-Noun : processing time : " + elapsedMs + "\r\n");
+            Form1.Instance.AppendOutputText(fileName + "-Noun : Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n");
+            Form1.Instance.AppendOutputText(fileName + "-Noun : P W = " + posWordCount + " N W = " + negWordCount + "\r\n");
+            Form1.Instance.AppendOutputText(fileName + "-Noun : P P = " + positivePhraseCount + " N P = " + negativePhraseCount + "\r\n");
+            Form1.Instance.AppendOutputText(fileName + "-Noun : Percantage of Words Positive = " + posWordPercentage + " % " + "Negative word percentage = " + negWordPercentage + " % " + "\r\n");
+            Form1.Instance.AppendOutputText(fileName + "-Noun : Percantage of Phrase Positive = " + posPhrasePercentage + " % " + "Negative phrase percentage = " + negPhrasePercentage + " % " + "\r\n");
         }//end class
 
 
@@ -320,12 +321,13 @@ namespace StockPredictor
            posPhrasePercentage, negPhrasePercentage);
             //out put information to text box
             Form1.Instance.AppendOutputText("\r\n");
-            Form1.Instance.AppendOutputText("Named : Entites processing time : " + elapsedMs + "\r\n");
-            Form1.Instance.AppendOutputText("Named : Entites Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n");
-            Form1.Instance.AppendOutputText("Named : Entites P W = " + posWordCount + " N W = " + negWordCount + "\r\n");
-            Form1.Instance.AppendOutputText("Named : Entites P P = " + positivePhraseCount + " N P = " + negativePhraseCount + "\r\n");
-            Form1.Instance.AppendOutputText("Name : Percantage of Words Positive = " + posWordPercentage + " % " + "Negative word percentage = " + negWordPercentage + " % " + "\r\n");
-            Form1.Instance.AppendOutputText("Name :Percantage of Phrase Positive = " + posPhrasePercentage + " % " + "Negative phrase percentage = " + negPhrasePercentage + " % " + "\r\n");
+            Form1.Instance.AppendOutputText(fileName + "\r\n");
+            Form1.Instance.AppendOutputText(fileName+" - Named : processing time : " + elapsedMs + "\r\n");
+            Form1.Instance.AppendOutputText(fileName+" - Named : Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n");
+            Form1.Instance.AppendOutputText(fileName+" - Named : P W = " + posWordCount + " N W = " + negWordCount + "\r\n");
+            Form1.Instance.AppendOutputText(fileName+" - Named : P P = " + positivePhraseCount + " N P = " + negativePhraseCount + "\r\n");
+            Form1.Instance.AppendOutputText(fileName+" - Named : Percantage of Words Positive = " + posWordPercentage + " % " + "Negative word percentage = " + negWordPercentage + " % " + "\r\n");
+            Form1.Instance.AppendOutputText(fileName+" - Named : Percantage of Phrase Positive = " + posPhrasePercentage + " % " + "Negative phrase percentage = " + negPhrasePercentage + " % " + "\r\n");
         }//end method 
 
    private Hashtable processNamedEntities(string sentence)

@@ -78,8 +78,7 @@ namespace StockPredictor
             var elapsedMs2 = watch2.ElapsedMilliseconds;
             Console.WriteLine("Overall Time " + elapsedMs2);
             Console.WriteLine("Seconds " + elapsedMs2 / 1000);
-            AppendOutputText("minutes " + elapsedMs2 / 60000 + "\r\n" + "seconds" + (elapsedMs2 % 60000) / 1000);
-
+          
             //out put information to the text box
             displayTime(elapsedMs2);
         }
@@ -104,10 +103,11 @@ namespace StockPredictor
         {
             //clear the text from the output box
             //  tbOutput.Text = string.Empty;
-            //  PosTaggerTest ptt = new PosTaggerTest();
-            //  ptt.posTaggerNamedTest();
-            //    BagOfWordsTest bwt = new BagOfWordsTest();
-
+              PosTaggerTest ptt = new PosTaggerTest();
+            ptt.testNounNamed();
+            
+                BagOfWordsTest bwt = new BagOfWordsTest();
+            bwt.processBagOfWordsTest();
             //  Task taskA = Task.Run(() => Console.WriteLine("started task A "));
             //  bwt.processBagOfWordsTest();
             //  Task taskA = new Task(() => bwt.processBagOfWordsTest());
@@ -127,8 +127,8 @@ namespace StockPredictor
             //  ExcelMethodsTest emt = new ExcelMethodsTest();
             // emt.testSaveDataToExcel();
 
-            YahooMethodsTest yt = new YahooMethodsTest();
-            yt.testGetStockPrices();
+            //  YahooMethodsTest yt = new YahooMethodsTest();
+            //  yt.testGetStockPrices();
         }
 
         private void label1_Click(object sender, EventArgs e)

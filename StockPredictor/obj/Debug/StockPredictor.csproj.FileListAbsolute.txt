@@ -78,3 +78,7 @@ D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\stanford-postagg
 D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\HtmlAgilityPack.pdb
 D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\HtmlAgilityPack.xml
 D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\NetSpell.SpellChecker.xml
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\StockPredictor.exe.manifest
+D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\StockPredictor.application
+D:\VisualStudioProjects\StockPredictor\StockPredictor\obj\Debug\StockPredictor.exe.manifest
+D:\VisualStudioProjects\StockPredictor\StockPredictor\obj\Debug\StockPredictor.application
