@@ -34,6 +34,10 @@
             this.tbOutput = new System.Windows.Forms.TextBox();
             this.tbInput = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btPrice = new System.Windows.Forms.Button();
+            this.tbPriceInput = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Run
@@ -42,7 +46,7 @@
             this.Run.Name = "Run";
             this.Run.Size = new System.Drawing.Size(100, 23);
             this.Run.TabIndex = 0;
-            this.Run.Text = "Run";
+            this.Run.Text = "Run!";
             this.Run.UseVisualStyleBackColor = false;
             this.Run.Click += new System.EventHandler(this.Run_Click);
             // 
@@ -87,18 +91,57 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(37, 42);
+            this.label1.Location = new System.Drawing.Point(34, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(99, 13);
             this.label1.TabIndex = 5;
             this.label1.Text = "Input Stock Symbol";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
+            // btPrice
+            // 
+            this.btPrice.Location = new System.Drawing.Point(155, 89);
+            this.btPrice.Name = "btPrice";
+            this.btPrice.Size = new System.Drawing.Size(100, 23);
+            this.btPrice.TabIndex = 6;
+            this.btPrice.Text = "Go!";
+            this.btPrice.UseVisualStyleBackColor = true;
+            this.btPrice.Click += new System.EventHandler(this.btPrice_Click);
+            // 
+            // tbPriceInput
+            // 
+            this.tbPriceInput.Location = new System.Drawing.Point(155, 61);
+            this.tbPriceInput.Name = "tbPriceInput";
+            this.tbPriceInput.Size = new System.Drawing.Size(100, 20);
+            this.tbPriceInput.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(155, 42);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(106, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Get Price Information";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(37, 41);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(104, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Get News Sentiment";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(436, 637);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.tbPriceInput);
+            this.Controls.Add(this.btPrice);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbInput);
             this.Controls.Add(this.tbOutput);
@@ -120,6 +163,10 @@
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox tbOutput;
         private System.Windows.Forms.TextBox tbInput;
+        private System.Windows.Forms.Button btPrice;
+        private System.Windows.Forms.TextBox tbPriceInput;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
 

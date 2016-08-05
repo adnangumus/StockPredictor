@@ -79,7 +79,7 @@ namespace StockPredictor.Helpers
                 if (sentence.Contains(term) && term != "" && term != " ")
                 {
                     count ++;
-                    Console.WriteLine("P term : " + term);
+                  //  Console.WriteLine("P term : " + term);
                 }
             }
             return count;

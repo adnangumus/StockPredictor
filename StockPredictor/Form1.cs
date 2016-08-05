@@ -57,15 +57,20 @@ namespace StockPredictor
         {
             //time the overall methods
             var watch2 = System.Diagnostics.Stopwatch.StartNew();
+            RunMethods rm = new RunMethods();
             tbOutput.Text = string.Empty;
             //intialize input to defualt input. 
-            string input = "gild";
-            if (!String.IsNullOrEmpty(tbInput.Text))
+            string input = tbInput.Text.ToLower();
+            if (String.IsNullOrEmpty(tbInput.Text) || tbInput.Text.ToLower()=="bio")
             {
-                //intialize calsses that will be used
-                input = tbInput.Text.ToLower();
+                rm.runStockPredictor("gild");
+                rm.runStockPredictor("hznp");
+                rm.runStockPredictor("biib");
+                rm.runStockPredictor("celg");
+                rm.runStockPredictor("ibb");
+                return;
             }
-            RunMethods rm = new RunMethods();
+           
             rm.runStockPredictor(input);
             //   taskC.Wait();
            //time the overall performance
@@ -130,6 +135,19 @@ namespace StockPredictor
         {
 
         }
-
+        //this button will retrieve price information for stocks
+        private void btPrice_Click(object sender, EventArgs e)
+        {
+            YahooStockMethods yahoo = new YahooStockMethods();
+            //if the the input box is empty or equal to bio run the biotech stock search
+            if(String.IsNullOrEmpty(tbPriceInput.Text) || tbPriceInput.Text.ToLower() == "bio")
+            {
+                yahoo.getBioStockPrices();
+            }
+            else
+            {
+                yahoo.getStockPriceInformation(tbPriceInput.Text.ToUpper());
+            }
+        }
     }
 }

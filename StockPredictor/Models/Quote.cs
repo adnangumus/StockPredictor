@@ -57,6 +57,7 @@ namespace StockPredictor.Models
         private DateTime lastUpdate;
 
 
+
         public DateTime LastUpdate
         {
             get { return lastUpdate; }

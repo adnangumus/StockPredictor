@@ -4,6 +4,7 @@ using System.Linq;
 using System.Xml.Linq;
 using StockPredictor.Models;
 using System.ComponentModel;
+using System.Xml;
 
 namespace StockPredictor.Helpers
 {
@@ -26,7 +27,7 @@ namespace StockPredictor.Helpers
             foreach (Quote quote in quotes)
             {
                 XElement q = results.Elements("quote").First(w => w.Attribute("symbol").Value == quote.Symbol);
-
+                
                 quote.Name = q.Element("Name").Value;
                 quote.Open = GetDecimal(q.Element("Open").Value);
                 quote.PreviousClose = GetDecimal(q.Element("PreviousClose").Value);
@@ -71,8 +72,14 @@ namespace StockPredictor.Helpers
                 quote.OneYearPriceTarget = GetDecimal(q.Element("OneyrTargetPrice").Value);
                 quote.Volume = GetDecimal(q.Element("Volume").Value);
                 quote.StockExchange = q.Element("StockExchange").Value;
+             
 
-                quote.LastUpdate = DateTime.Now;
+                //XmlTextWriter writer = new XmlTextWriter(Console.Out);
+                //writer.Formatting = Formatting.Indented;
+                //quote.LastUpdate = DateTime.Now;
+                //     q.WriteTo(writer);
+                //writer.Flush();
+                //Console.WriteLine();
             }
         }
 

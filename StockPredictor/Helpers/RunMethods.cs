@@ -10,10 +10,13 @@ namespace StockPredictor.Helpers
     {
         public void runStockPredictor(string input)
         {
+            //intiate classes used
             Mining miner = new Mining();
             GoogleMethods gm = new GoogleMethods();
+            YahooStockMethods yahoo = new YahooStockMethods();
+           string companyName = yahoo.getStockName(input);
             List<string> links = new List<string>();
-            String url = "https://www.google.com/search?q=nasdaq+" + input + "+News&tbm=nws&tbs=qdr:d";
+            String url = "https://www.google.com/search?q=NASDAQ+" + input + companyName + "+News&tbm=nws&tbs=qdr:d";
             links = gm.getGooglelinks(url);
             string articles = miner.getAllArticles(links);
             //intialize and process the named and noun entities

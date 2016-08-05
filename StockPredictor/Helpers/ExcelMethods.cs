@@ -53,8 +53,7 @@ namespace StockPredictor.Helpers
             //check if the excel file exists and if it doesn't create one and add the headings            
             if (!File.Exists(excelFilePath + ".xlsx"))
             {
-                createSheet(false);
-                return;
+                createSheet(false);               
             }
             //open the excel sheet
             openExcel();
@@ -84,8 +83,7 @@ namespace StockPredictor.Helpers
             //check if the excel file exists and if it doesn't create one and add the headings            
             if (!File.Exists(excelFilePath + ".xlsx"))
             {
-                createSheet(true);
-                return;
+                createSheet(true);               
             }
             //open the excel sheet
             openExcel();
@@ -200,6 +198,8 @@ namespace StockPredictor.Helpers
             //format the cells to dispaly the dates
             Excel.Range rg = (Excel.Range)myExcelWorkSheet.Cells[1, "A"];
             rg.EntireColumn.NumberFormat = "m/d/yyyy h:mm";
+            // Auto fit automatically adjust the width of columns of Excel  in givien range .  
+            myExcelWorkSheet.Range[myExcelWorkSheet.Cells[1, 1], myExcelWorkSheet.Cells[rowNumber, 6]].EntireColumn.AutoFit();
             rowNumber++;  // if you put this method inside a loop, you should increase rownumber by one 
 
         }
@@ -231,6 +231,8 @@ namespace StockPredictor.Helpers
             //format the cells to dispaly the dates
             Excel.Range rg = (Excel.Range)myExcelWorkSheet.Cells[1, "A"];
             rg.EntireColumn.NumberFormat = "m/d/yyyy h:mm";
+            // Auto fit automatically adjust the width of columns of Excel  in givien range .  
+            myExcelWorkSheet.Range[myExcelWorkSheet.Cells[1, 1], myExcelWorkSheet.Cells[rowNumber, 6]].EntireColumn.AutoFit();
             rowNumber++;  // if you put this method inside a loop, you should increase rownumber by one 
         }
 
