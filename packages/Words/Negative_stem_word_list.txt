@@ -8,6 +8,7 @@ anxious
 apathi
 appal
 atroci
+avoid
 aw
 bad
 banal
@@ -21,12 +22,10 @@ bore
 broken
 callous
 cannib
-can't
 chaotic
 clumsi
 coars
 cold
-cold-heart
 collaps
 confus
 contradictori
@@ -71,8 +70,6 @@ disput
 distress
 distress
 distress
-don't
-down
 dread
 dreari
 enrag
@@ -102,7 +99,6 @@ gruesom
 guilti
 haggard
 hard
-hard-heart
 harm
 hate
 heat
@@ -131,7 +127,6 @@ insan
 insidi
 insipid
 jealous
-junki
 lose
 loss
 lost
@@ -155,11 +150,9 @@ negat
 negat
 nervous
 never
-no
 nobodi
 nondescript
 nonsens
-not
 noxious
 objection
 odious

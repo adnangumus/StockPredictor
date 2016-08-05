@@ -51,15 +51,13 @@ Exceptional
 Exciting
 Exclusive
 Exhilaration
-Exquisite	
-Eye-catching	
+Exquisite		
 Fabled
 Fair
 Famous	
 Fantastic
 Fascinating
-Fab
-Favourite
+Favorite
 Fetching
 Finest
 Finesse
@@ -72,28 +70,53 @@ Generous
 Genius
 Glorious
 Glowing
-Go-ahead
 Golden
 Goodness
-Gorgeous	Graceful	Grand	Great
-Guaranteed	Happy	Healthy	Heartwarming
-Heavenly	Ideal	Immaculate	Impressive
-Incredible	Inspire	
-Invigorating	Invincible	Inviting	Irresistible
-Jewel	Joy	Juicy	Jump	Keenest
-Kind		Know-how
-Leads	Legend	Leisure	
-	Lovely
-Lucky	Luscious	Luxurious	Magic	
+Gorgeous
+Graceful
+Grand
+Great
+Guaranteed
+Happy
+Healthy
+Heartwarming
+Heavenly
+Ideal
+Immaculate
+Impressive
+Incredible
+Inspire	
+Invigorating
+Invincible
+Inviting
+Irresistible
+Jewel
+Joy
+Juicy
+Jump
+Keenest
+Kind
+Leads
+Legend
+Leisure	
+Lovely
+Lucky
+Luscious
+Luxurious
+Magic	
 Miracle	
-Mouthwatering	momentum	Multi	
+Mouthwatering
+momentum
+Multi	
 Nutritious
 Opulent	Outlasts	
 Outstanding
 Overweight
 Outperform			
 Paradise
-Pamper	Passionate	Peak	Pearl
+Pamper
+Passionate
+Peak	
 Perfect	phenomenal	Pleasure	
 Plenty	Plum	Plump	
 Positive	Power	Precious
@@ -108,7 +131,7 @@ Right	Save	Satisfaction	Seductive
 Select	Sensitive	Sensational	Serene
 Service	Sexy	Shapely	
 Sheer	Silver
-Sizzling	Skilful
+Sizzling	Skillful
 Slick	Smashing	Smiles
 Smooth	Soft	Sparkling
 Special	Spectacular	Spicy
@@ -123,7 +146,7 @@ Timeless	Top
 Transformation	Treat
 Treasure
 Unbeatable	Unblemished
-Unrivalled	Unsurpassed
+Unrivaled	Unsurpassed
 Varied	Versatile
 Victor	Vigorous	Vintage	V.I.P.
 Vivacious

@@ -143,7 +143,7 @@ namespace StockPredictor
            // positivePhraseCount, negativePhraseCount,
            // posPhrasePercentage, negPhrasePercentage);
             //add the data to special excel file for only this specific out put for this stock
-            em.saveDataToExcel(fileName, "Noun", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
+            em.savePredictorDataToExcel(fileName, "Noun", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
           posWordPercentage, negWordPercentage,
            positivePhraseCount, negativePhraseCount,
            posPhrasePercentage, negPhrasePercentage);
@@ -313,7 +313,7 @@ namespace StockPredictor
            // positivePhraseCount, negativePhraseCount,
            // posPhrasePercentage, negPhrasePercentage);
             //add the data to special excel file for only this specific out put for this stock          
-            em.saveDataToExcel(fileName, "Named", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
+            em.savePredictorDataToExcel(fileName, "Named", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
           posWordPercentage, negWordPercentage,
            positivePhraseCount, negativePhraseCount,
            posPhrasePercentage, negPhrasePercentage);

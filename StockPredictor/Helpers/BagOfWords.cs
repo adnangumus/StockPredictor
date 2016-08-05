@@ -37,7 +37,7 @@ namespace StockPredictor.Helpers
         //get the sentences as list from a string. Check that words are spelt 
         //correctly and then put the senteces back in to the lists. Words are stemmed. 
         //Count the amount of words and sentences processed
-        public void processBagOfWords(string s, string fileName)
+        public void processBagOfWords(string articles, string fileName)
         {
             Console.WriteLine("BagOfWords started");
             //hash table 1=pw 2=nw 3=spw 4=snw 5=pp 6=np 7=wc 8=sc
@@ -71,8 +71,8 @@ namespace StockPredictor.Helpers
             try
             {
                 //change the marks into full stops
-               s = tc.replaceMarks(s);
-                List<string> sentences = new List<string>(s.Split('.'));
+               articles = tc.replaceMarks(articles);
+                List<string> sentences = new List<string>(articles.Split('.'));
                 ParallelOptions po = new ParallelOptions();
                 //Manage the MaxDegreeOfParallelism instead of .NET Managing this. We dont need 500 threads spawning for this.
                 po.MaxDegreeOfParallelism = System.Environment.ProcessorCount * 2;
@@ -128,7 +128,7 @@ namespace StockPredictor.Helpers
         //add the output data to an excel file
         ExcelMethods em = new ExcelMethods();
             //add the data to special excel file for only this specific out put for this stock
-            em.saveDataToExcel(fileName, "Bag", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
+            em.savePredictorDataToExcel(fileName, "Bag", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
           posWordPercentage, negWordPercentage,
            positivePhraseCount, negativePhraseCount,
            posPhrasePercentage, negPhrasePercentage);

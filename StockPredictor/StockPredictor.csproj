@@ -194,11 +194,16 @@
     <Compile Include="Helpers\Mining.cs" />
     <Compile Include="Helpers\Porter2.cs" />
     <Compile Include="Helpers\PosTagger.cs" />
+    <Compile Include="Helpers\RandomGenerator.cs" />
+    <Compile Include="Helpers\RunMethods.cs" />
     <Compile Include="Helpers\SpellCheck.cs" />
     <Compile Include="Helpers\StemMethods.cs" />
     <Compile Include="Helpers\StopWords.cs" />
     <Compile Include="Helpers\TermFrequency.cs" />
     <Compile Include="Helpers\TextCleaner.cs" />
+    <Compile Include="Helpers\YahooStockEngine.cs" />
+    <Compile Include="Helpers\YahooStockMethods.cs" />
+    <Compile Include="Models\Quote.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\BagOfWordsTest.cs" />
@@ -207,6 +212,7 @@
     <Compile Include="Tests\PosTaggerTest.cs" />
     <Compile Include="Tests\SpellCheckTest.cs" />
     <Compile Include="Tests\TermFrequencyTest.cs" />
+    <Compile Include="Tests\YahooMethodsTest.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

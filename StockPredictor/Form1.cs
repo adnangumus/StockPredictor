@@ -55,6 +55,8 @@ namespace StockPredictor
 
         private void Run_Click(object sender, EventArgs e)
         {
+            //time the overall methods
+            var watch2 = System.Diagnostics.Stopwatch.StartNew();
             tbOutput.Text = string.Empty;
             //intialize input to defualt input. 
             string input = "gild";
@@ -63,25 +65,8 @@ namespace StockPredictor
                 //intialize calsses that will be used
                 input = tbInput.Text.ToLower();
             }
-            var watch2 = System.Diagnostics.Stopwatch.StartNew();
-            Mining miner = new Mining();
-            GoogleMethods gm = new GoogleMethods();
-            List<string> links = new List<string>();
-            String url = "https://www.google.com/search?q=nasdaq+" + input + "+News&tbm=nws&tbs=qdr:d";          
-            links = gm.getGooglelinks(url);
-            string articles = miner.getAllArticles(links);
-            //intialize and process the named and noun entities
-            PosTagger pt = new PosTagger();          
-            Task taskA = new Task(() => pt.processNamedNoun(articles, input));
-            //intialize and set up a thread for processing bag of words
-            BagOfWords bag = new BagOfWords();
-            Task taskB = new Task(() => bag.processBagOfWords(articles, input));
-            //stat the tasks
-            taskA.Start();        
-            taskB.RunSynchronously();
-            //  taskC.RunSynchronously();
-            taskA.GetAwaiter();
-            taskB.Wait();
+            RunMethods rm = new RunMethods();
+            rm.runStockPredictor(input);
             //   taskC.Wait();
            //time the overall performance
             watch2.Stop();
@@ -91,8 +76,7 @@ namespace StockPredictor
             Console.WriteLine("minutes " + elapsedMs2 / 60000);
 
             //out put information to the text box
-            Task taskC = Task.Run(() => displayTime(elapsedMs2));
-            taskC.GetAwaiter();
+            displayTime(elapsedMs2);
         }
         //display the total time
         private void displayTime(long elapsedMs2)
@@ -114,34 +98,38 @@ namespace StockPredictor
         private void Test_Click(object sender, EventArgs e)
         {
             //clear the text from the output box
-            tbOutput.Text = string.Empty;
-            PosTaggerTest ptt = new PosTaggerTest();
+            //  tbOutput.Text = string.Empty;
+            //  PosTaggerTest ptt = new PosTaggerTest();
             //  ptt.posTaggerNamedTest();
-            BagOfWordsTest bwt = new BagOfWordsTest();
+            //    BagOfWordsTest bwt = new BagOfWordsTest();
 
-          //  Task taskA = Task.Run(() => Console.WriteLine("started task A "));
+            //  Task taskA = Task.Run(() => Console.WriteLine("started task A "));
             //  bwt.processBagOfWordsTest();
-            Task taskA = new Task(() => bwt.processBagOfWordsTest());
+            //  Task taskA = new Task(() => bwt.processBagOfWordsTest());
             //intialize and process the named and noun entities
-            PosTagger pt = new PosTagger();
-             Task taskB = new Task(() => ptt.testNounNamed());
+            //  PosTagger pt = new PosTagger();
+            //   Task taskB = new Task(() => ptt.testNounNamed());
             //stat the tasks         
-          
-            taskB.Start();
-            taskA.RunSynchronously();
+
+            //  taskB.Start();
+            //  taskA.RunSynchronously();
             // taskC.RunSynchronously();
             //  taskC.RunSynchronously();
             //  taskA.Wait();
 
-            taskB.GetAwaiter();
-            taskA.Wait();
+            //  taskB.GetAwaiter();
+            //  taskA.Wait();
             //  ExcelMethodsTest emt = new ExcelMethodsTest();
             // emt.testSaveDataToExcel();
+
+            YahooMethodsTest yt = new YahooMethodsTest();
+            yt.testGetStockPrices();
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
 
         }
+
     }
 }

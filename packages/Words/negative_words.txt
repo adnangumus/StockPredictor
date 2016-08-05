@@ -8,6 +8,7 @@ anxious
 apathy
 appalling
 atrocious
+avoid
 awful
 bad
 bankrupt
@@ -21,13 +22,11 @@ boring
 broken
 callous
 cannibalize
-can't
 chaotic
 clumsy
 cut
 coarse
 cold
-cold-hearted
 collapse
 confused
 contradictory
@@ -102,7 +101,6 @@ gruesome
 guilty
 haggard
 hard
-hard-hearted
 harmful
 hate
 heat
@@ -181,7 +179,7 @@ quirky
 quit
 reject
 renege
-repellant
+repellent
 reptilian
 repulsive
 repugnant

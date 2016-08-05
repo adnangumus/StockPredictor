@@ -37,6 +37,8 @@ namespace StockPredictor.Helpers
         //This will stem the list of words and then write them on text file
         public void stemList(string fromFile, string saveFile)
         {
+            StopWords sw = new StopWords();
+            SpellCheck sc = new SpellCheck();
             fileReaderWriter frw = new fileReaderWriter();
             Porter2 stemmer = new Porter2();
             List<String> stemmedWords = new List<string>();
@@ -48,9 +50,16 @@ namespace StockPredictor.Helpers
             List<string> words = frw.getWordsFromList(fromFile);
             foreach (string word in words)
             {
-                string stemmedWord = stemmer.stem(word);
-                Console.WriteLine(stemmedWord);
-                stemmedWords.Add(stemmedWord);
+                //speel check and remove stop words from the list
+                if (sc.spellChecker(word) && !sw.isStopWord(word))
+                {
+                    string stemmedWord = stemmer.stem(word);
+                   // Console.WriteLine(stemmedWord);
+                    stemmedWords.Add(stemmedWord);
+                }
+                else {
+                Console.WriteLine("Rejected words : " + word);
+                }
             }
             //sort the stemmed words alaphetically
             stemmedWords.Sort();
@@ -61,6 +70,8 @@ namespace StockPredictor.Helpers
         //This will stem the list of words and then write them on text file
         public void stemPhraseList(string fromFile, string saveFile)
         {
+            StopWords sw = new StopWords();
+            SpellCheck sc = new SpellCheck();
             fileReaderWriter frw = new fileReaderWriter();
             Porter2 stemmer = new Porter2();
             List<String> stemmedPhrases = new List<string>();
@@ -73,10 +84,18 @@ namespace StockPredictor.Helpers
                 List<string> words = new List<string>(phrase.Split(' '));
                 foreach (string word in words)
                 {
-                    string stemmedWord = stemmer.stem(word);
-                    stemmedPhrase += stemmedWord + " ";
+                    //spell check and remove stop words from the list
+                    if (sc.spellChecker(word) && !sw.isStopWord(word))
+                    {
+                        string stemmedWord = stemmer.stem(word);
+                        stemmedPhrase += stemmedWord + " ";
+                    }
+                    else
+                    {
+                        Console.WriteLine("Rejected words : " + word);
+                    }
                 }
-                Console.WriteLine(stemmedPhrase);
+               // Console.WriteLine("Stemmed phrase" + stemmedPhrase);
                 stemmedPhrases.Add(stemmedPhrase);
             }
             //sort the stemmed words alaphetically

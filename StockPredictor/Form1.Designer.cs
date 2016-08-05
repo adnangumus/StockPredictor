@@ -106,7 +106,7 @@
             this.Controls.Add(this.Stem);
             this.Controls.Add(this.Run);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Jonh86-StockPredictor";
             this.ResumeLayout(false);
             this.PerformLayout();
 
