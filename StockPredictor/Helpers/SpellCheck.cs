@@ -83,12 +83,15 @@ namespace StockPredictor
                 }
 
             }
+            oSpell.Dispose();
+            oDict.Dispose();
             return speltchecked;
         }
         //check if an individual work is spelled correctly
         public bool spellChecker(string word)
         {
             fileReaderWriter frw = new fileReaderWriter();
+
             NetSpell.SpellChecker.Dictionary.WordDictionary oDict = new NetSpell.SpellChecker.Dictionary.WordDictionary();
 
             oDict.DictionaryFile = Path.Combine(frw.GetAppFolder(), @"packages\NetSpell.2.1.7\dic\en-US.dic");
@@ -98,8 +101,14 @@ namespace StockPredictor
             oSpell.Dictionary = oDict;
             if (oSpell.TestWord(word) || isNamedEntity(word))
             {
+                //dispose of the dictionary objects
+                oSpell.Dispose();
+                oDict.Dispose();
                 return true;
             }
+            //dispose of the dictionary objects
+            oSpell.Dispose();
+            oDict.Dispose();
             return false;
         }
 

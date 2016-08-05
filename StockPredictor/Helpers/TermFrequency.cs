@@ -46,7 +46,7 @@ namespace StockPredictor.Helpers
             {
                 if (word.ToLower() == term.ToLower() && term != "" && term != " ")
                 {
-                    //Console.WriteLine("Positive word : " + term);
+                    Console.WriteLine("Positive word : " + term);
                     return 1;                  
                 }
             }

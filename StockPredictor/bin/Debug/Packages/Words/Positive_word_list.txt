@@ -117,24 +117,56 @@ Paradise
 Pamper
 Passionate
 Peak	
-Perfect	phenomenal	Pleasure	
-Plenty	Plum	Plump	
-Positive	Power	Precious
-Prefer	Prestige	Priceless	Pride
-Prime	Prize	Protection	Proud
-Pure	Quality	Radiant	Ravishing
-Real	Reap	Recommendation	Refined
-Refreshing	Relax	Reliable	Renowned
-Reputation	Rewarding	
-respectable	revolutionize	Rich
-Right	Save	Satisfaction	Seductive
-Select	Sensitive	Sensational	Serene
-Service	Sexy	Shapely	
-Sheer	Silver
-Sizzling	Skillful
-Slick	Smashing	Smiles
-Smooth	Soft	Sparkling
-Special	Spectacular	Spicy
+Perfect
+phenomenal
+Pleasure	
+Plenty
+Plum
+Plump	
+Positive
+Power
+Precious
+Prefer
+Prestige
+Priceless
+Pride
+Prime
+Proud
+Pure
+Quality	
+Radiant
+Real
+Recommendation
+Refined
+Refreshing
+Relax
+Reliable
+Renowned
+Reputation
+Rewarding	
+respectable
+revolutionize
+Rich
+Satisfaction
+Seductive
+Select	
+Sensitive
+Sensational	
+Serene
+Service
+Sexy
+Shapely	
+Sheer
+Silver
+Sizzling
+Skillful
+Slick
+Smiles
+Smooth
+Sparkling
+Special
+Spectacular	
+Spicy
 Splendid	Spotless	Spruce
 Star	strength Stunning	Stylish
 Success	Succulent	
@@ -142,8 +174,8 @@ Superb	Superlative	Supersonic	Supreme
 Sure	Sweet	Swell	Symphony
 Tempting
 Terrific	Thoroughbred	Thrilling	Thriving
-Timeless	Top
-Transformation	Treat
+Timeless	
+Transformation
 Treasure
 Unbeatable	Unblemished
 Unrivaled	Unsurpassed

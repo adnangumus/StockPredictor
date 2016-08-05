@@ -127,6 +127,7 @@ insan
 insidi
 insipid
 jealous
+jitter
 lose
 loss
 lost

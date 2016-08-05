@@ -134,6 +134,7 @@ namespace StockPredictor.Helpers
           posWordPercentage, negWordPercentage,
            positivePhraseCount, negativePhraseCount,
            posPhrasePercentage, negPhrasePercentage);
+            articles = "";
         }//end method
 
         //process the sentences in the bag of words seperately to allow for multi threading
