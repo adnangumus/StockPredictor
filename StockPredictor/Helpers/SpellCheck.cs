@@ -10,20 +10,40 @@ namespace StockPredictor
 {
     class SpellCheck
     {
+        //use these objects to stop the spell check intializing the dictionary so many time when spell checking individual words
+        private NetSpell.SpellChecker.Dictionary.WordDictionary oDict;
+        private NetSpell.SpellChecker.Spelling oSpell;
+        //get the dictionary obeject
+        public NetSpell.SpellChecker.Dictionary.WordDictionary ODict
+        {
+            get
+            {
+                fileReaderWriter frw = new fileReaderWriter();
+                oDict = new NetSpell.SpellChecker.Dictionary.WordDictionary();
+                oDict.DictionaryFile = Path.Combine(frw.GetAppFolder(), @"packages\NetSpell.2.1.7\dic\en-US.dic");
+                //load and initialize the dictionary 
+                oDict.Initialize();
+                return oDict;
+            }
+        }
+        //get the spell checker object
+        public NetSpell.SpellChecker.Spelling OSpell
+        {
+            get
+            {
+                oSpell = new NetSpell.SpellChecker.Spelling();
+                oSpell.Dictionary = ODict;
+                return oSpell;
+            }
+        }
 
         //spell check articles
         public string spellCheckArticle(string article)
         {
             TextCleaner tc = new TextCleaner();
-            fileReaderWriter frw = new fileReaderWriter();
+
             string returnArticle = "";
-            //load dictionary
-            NetSpell.SpellChecker.Dictionary.WordDictionary oDict = new NetSpell.SpellChecker.Dictionary.WordDictionary();
-            oDict.DictionaryFile = Path.Combine(frw.GetAppFolder(), @"packages\NetSpell.2.1.7\dic\en-US.dic");
-            //load and initialize the dictionary 
-            oDict.Initialize();
-            NetSpell.SpellChecker.Spelling oSpell = new NetSpell.SpellChecker.Spelling();
-            oSpell.Dictionary = oDict;
+            if (oSpell == null) { oSpell = OSpell; }
             //spell check words for returning
             string spellChecked = "";
             try {
@@ -58,14 +78,7 @@ namespace StockPredictor
         public string spellCheckSentence(string sentence)
         {
             TextCleaner tc = new TextCleaner();
-            fileReaderWriter frw = new fileReaderWriter();
-            NetSpell.SpellChecker.Dictionary.WordDictionary oDict = new NetSpell.SpellChecker.Dictionary.WordDictionary();
-
-            oDict.DictionaryFile = Path.Combine(frw.GetAppFolder(), @"packages\NetSpell.2.1.7\dic\en-US.dic");
-            //load and initialize the dictionary 
-            oDict.Initialize();
-            NetSpell.SpellChecker.Spelling oSpell = new NetSpell.SpellChecker.Spelling();
-            oSpell.Dictionary = oDict;
+            if (oSpell == null) { oSpell = OSpell; }
             //spell check words for returning
             string speltchecked = "";
             //remove punctuation and replace with a space and a full stop
@@ -87,28 +100,17 @@ namespace StockPredictor
             oDict.Dispose();
             return speltchecked;
         }
+
+     
         //check if an individual work is spelled correctly
         public bool spellChecker(string word)
-        {
-            fileReaderWriter frw = new fileReaderWriter();
-
-            NetSpell.SpellChecker.Dictionary.WordDictionary oDict = new NetSpell.SpellChecker.Dictionary.WordDictionary();
-
-            oDict.DictionaryFile = Path.Combine(frw.GetAppFolder(), @"packages\NetSpell.2.1.7\dic\en-US.dic");
-            //load and initialize the dictionary 
-            oDict.Initialize();
-            NetSpell.SpellChecker.Spelling oSpell = new NetSpell.SpellChecker.Spelling();
-            oSpell.Dictionary = oDict;
+        {    
+              if(oSpell == null) { oSpell = OSpell; }     
             if (oSpell.TestWord(word) || isNamedEntity(word))
             {
-                //dispose of the dictionary objects
-                oSpell.Dispose();
-                oDict.Dispose();
+                
                 return true;
-            }
-            //dispose of the dictionary objects
-            oSpell.Dispose();
-            oDict.Dispose();
+            }           
             return false;
         }
 
