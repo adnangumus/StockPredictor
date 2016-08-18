@@ -36,7 +36,6 @@ dazzl
 delici
 delight
 delux
-depend
 diamond
 distinct
 divin
@@ -155,7 +154,6 @@ qualiti
 radiant
 real
 rebound
-recommend
 recoveri
 refin
 refresh
@@ -173,7 +171,6 @@ select
 sensat
 sensit
 seren
-servic
 sexi
 shape
 sheer

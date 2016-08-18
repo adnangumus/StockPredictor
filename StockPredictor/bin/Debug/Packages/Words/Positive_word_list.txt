@@ -30,8 +30,7 @@ Coy
 Dazzling
 Delicious	
 Delightful
-Deluxe
-Dependable	
+Deluxe	
 Diamond
 Distinctive
 Divine	
@@ -136,7 +135,6 @@ Pure
 Quality	
 Radiant
 Real
-Recommendation
 Refined
 Refreshing
 Relax
@@ -153,7 +151,6 @@ Select
 Sensitive
 Sensational	
 Serene
-Service
 Sexy
 Shapely	
 Sheer

@@ -25,7 +25,7 @@ namespace StockPredictor.Helpers
             stemPhraseList(fromFile, toFile);
             stemPhraseList(fromFileP, toFileP);
 
-            Form1.Instance.AppendOutputText("Phrase lists stemmed");
+            Form1.Instance.AppendOutputText("Phrase lists stemmed" + "\r\n");
 
             String fromFileWords = "negative_words.txt";
             String toFileWords = "Negative_stem_word_list.txt";
@@ -36,7 +36,7 @@ namespace StockPredictor.Helpers
             stemList(fromFileWords, toFileWords);
             stemList(fromFileWordsP, toFileWordsP);
 
-            Form1.Instance.AppendOutputText("Word lists stemmed");
+            Form1.Instance.AppendOutputText("Word lists stemmed" + "\r\n");
         }
         //This will stem the list of words and then write them on text file
         public void stemList(string fromFile, string saveFile)

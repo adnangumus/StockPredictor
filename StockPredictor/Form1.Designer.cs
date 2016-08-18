@@ -73,12 +73,12 @@
             // tbOutput
             // 
             this.tbOutput.AcceptsReturn = true;
-            this.tbOutput.Location = new System.Drawing.Point(37, 119);
+            this.tbOutput.Location = new System.Drawing.Point(2, 119);
             this.tbOutput.Multiline = true;
             this.tbOutput.Name = "tbOutput";
             this.tbOutput.ReadOnly = true;
             this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbOutput.Size = new System.Drawing.Size(327, 506);
+            this.tbOutput.Size = new System.Drawing.Size(514, 506);
             this.tbOutput.TabIndex = 3;
             // 
             // tbInput
@@ -137,7 +137,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(436, 637);
+            this.ClientSize = new System.Drawing.Size(528, 637);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tbPriceInput);

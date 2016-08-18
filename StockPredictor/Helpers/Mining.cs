@@ -2,41 +2,83 @@
 using java.util;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace StockPredictor.Helpers
 {
     class Mining
     {
-            //get the news article from the URLS 
-            public string getArticle(string url)
+      //this class will get html data and save guard against time outs
+        public static string GetURLData(string URL)
+        {           
+            
+            try
             {
-              
+                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(URL);
+                request.UserAgent = "jonh86";
+                request.Timeout = 12000;
+                WebResponse response = request.GetResponse();                
+                Stream stream = response.GetResponseStream();
+                stream.ReadTimeout = 15000;
+                StreamReader reader = new StreamReader(stream);
+                    Console.WriteLine("reader peak " + reader.Peek() );
+                    if (reader.Peek() >= 0)
+                    { return reader.ReadToEnd(); }      
+                
+                throw new System.Net.WebException();
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine("Receive DATA Error : " + URL + ex.ToString());
+                return "";
+            }
+
+        }
+
+
+        //get the news article from the URLS 
+        public string getArticle(string url)
+            {
+            Console.WriteLine("started retrieving " + url);
+             //load classes 
                 TextCleaner tc = new TextCleaner();
                 string Text = "";
                 HtmlWeb hw = new HtmlWeb();
-               
+            // count the number of retries
+            int retries = 0;              
                 try
                 {
-                HtmlAgilityPack.HtmlDocument doc = hw.Load(url);
+                //get the data and retry if it times out
+                Console.WriteLine("getting url data");
+                String Data = GetURLData(url);
+                //if there was an error then the system will retry up to three times
+                while (Data == "" && retries < 3)
+                {
+                    Console.WriteLine("retrying");
+                    retries++;
+                    Data = GetURLData(url);
+                }               
+                HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                Console.WriteLine("loading data to HTML agility pack");
+                doc.LoadHtml(Data);
+              //  HtmlAgilityPack.HtmlDocument doc = hw.Load(url);                
                 foreach (HtmlNode node in doc.DocumentNode.SelectNodes("//p"))
                     {
 
                         //remove the non letters from the text
                         string str = tc.removeNonLetters(node);
                         Text += str;
-                        //  //turn all text to lower case
-                        //  Text.ToLower();
-                        //  //remove non words and stop words
-                        //swText= sw.removeStopWords(Text);
-
                     }
 
                 }
-                catch (Exception ex) { Console.WriteLine("get article line 37 :" + ex.Message); }
-            
-                return Text;
+                catch (Exception ex) { Console.WriteLine("get article exception :" + ex.Message); }
+
+            Console.WriteLine("finished retrieving " + url);
+            return Text;
             }
 
             //get the articles using a list of links
