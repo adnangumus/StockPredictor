@@ -22,6 +22,7 @@ namespace StockPredictor.Helpers
                 request.Timeout = 12000;
                 WebResponse response = request.GetResponse();                
                 Stream stream = response.GetResponseStream();
+                //add a stream read time out to prevent hanging threads
                 stream.ReadTimeout = 15000;
                 StreamReader reader = new StreamReader(stream);
                     Console.WriteLine("reader peak " + reader.Peek() );

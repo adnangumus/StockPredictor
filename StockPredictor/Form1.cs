@@ -55,6 +55,13 @@ namespace StockPredictor
 
         private void Run_Click(object sender, EventArgs e)
         {
+            PleaseWait pleaseWait = new PleaseWait();
+
+            // Display form modelessly
+            pleaseWait.Show();
+            //  ALlow main UI thread to properly display please wait form.
+            Application.DoEvents();
+
             //time the overall methods
             var watch2 = System.Diagnostics.Stopwatch.StartNew();
             RunMethods rm = new RunMethods();
@@ -81,6 +88,8 @@ namespace StockPredictor
           
             //out put information to the text box
             displayTime(elapsedMs2);
+
+            pleaseWait.Close();
         }
         //display the total time
         private void displayTime(long elapsedMs2)
@@ -88,7 +97,7 @@ namespace StockPredictor
             AppendOutputText("\r\n");
             AppendOutputText("Overall Time " + elapsedMs2 + "\r\n");
             AppendOutputText("Seconds " + elapsedMs2 / 1000 + "\r\n");
-            AppendOutputText("minutes " + elapsedMs2 / 60000 + "\r\n" + "seconds" + (elapsedMs2 % 60000) / 1000);
+            AppendOutputText("minutes " + elapsedMs2 / 60000 + "    " + "seconds" + (elapsedMs2 % 60000) / 1000);
             AppendOutputText("\r\n");
         }
 
@@ -148,6 +157,11 @@ namespace StockPredictor
             {
                 yahoo.getStockPriceInformation(tbPriceInput.Text.ToUpper());
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
