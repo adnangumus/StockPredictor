@@ -135,7 +135,7 @@
             // tbOutput
             // 
             this.tbOutput.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.tbOutput.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbOutput.Font = new System.Drawing.Font("Modern No. 20", 8.249999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbOutput.Location = new System.Drawing.Point(33, 138);
             this.tbOutput.Multiline = true;
             this.tbOutput.Name = "tbOutput";

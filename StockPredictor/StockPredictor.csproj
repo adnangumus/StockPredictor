@@ -224,6 +224,7 @@
     <Compile Include="Helpers\ExcelMethods.cs" />
     <Compile Include="Helpers\fileReaderWriter.cs" />
     <Compile Include="Helpers\GoogleMethods.cs" />
+    <Compile Include="Helpers\HtmlHelper.cs" />
     <Compile Include="Helpers\LinkCleaner.cs" />
     <Compile Include="Helpers\Mining.cs" />
     <Compile Include="Helpers\Porter2.cs" />

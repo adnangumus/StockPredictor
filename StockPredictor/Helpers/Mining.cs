@@ -59,7 +59,7 @@ namespace StockPredictor.Helpers
                 //if there was an error then the system will retry up to three times
                 while (Data == "" && retries < 3)
                 {
-                    Console.WriteLine("retrying");
+                    Console.WriteLine("retrying" + retries + " " + url);
                     retries++;
                     Data = GetURLData(url);
                 }               
@@ -76,7 +76,7 @@ namespace StockPredictor.Helpers
                     }
 
                 }
-                catch (Exception ex) { Console.WriteLine("get article exception :" + ex.Message); }
+                catch (Exception ex) { Console.WriteLine("get article exception :" + ex.Message + " " + url); }
 
             Console.WriteLine("finished retrieving " + url);
             return Text;

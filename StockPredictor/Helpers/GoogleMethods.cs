@@ -1,7 +1,9 @@
 ﻿using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
-
+using System.IO;
+using System.Net;
+using StockPredictor.Helpers;
 
 namespace StockPredictor
 {
@@ -9,14 +11,16 @@ namespace StockPredictor
     {
        
 
+       
         //get the news summaries from google news 
         public string getGoogleSummaries(string url)
         {
+           
             TextCleaner tc = new TextCleaner();
             string googleText = "";
-
-            HtmlWeb hw = new HtmlWeb();
-            HtmlAgilityPack.HtmlDocument doc = hw.Load(url);
+            //use the htmlhelper class to load the urls
+            HtmlHelper hh = new HtmlHelper();
+            HtmlAgilityPack.HtmlDocument doc = hh.loadURL(url);
             try
             {
                 foreach (HtmlNode node in doc.DocumentNode.SelectNodes("//div[contains(@class,'st')]"))
@@ -36,17 +40,13 @@ namespace StockPredictor
         //get the links from the google url
         public List<string> getGooglelinks(string url)
         {
+            
             List<string> links = new List<string>();
-
-            HtmlWeb hw = new HtmlWeb();
-            HtmlAgilityPack.HtmlDocument doc = hw.Load(url);
+            //use the htmlhelper class to load the urls
+            HtmlHelper hh = new HtmlHelper();
+            HtmlAgilityPack.HtmlDocument doc = hh.loadURL(url);
             try {
-                //foreach (HtmlNode node in doc.DocumentNode.SelectNodes("//a[contains(@class,'_sQb') and @href]"))
-                //{
-                //    string hrefValue = node.GetAttributeValue("href", string.Empty);
-                //    links.Add(hrefValue);
-                //    Console.WriteLine(hrefValue);
-                //}
+             
                 string linkValue = "";
                
                     foreach (HtmlNode link in doc.DocumentNode.SelectNodes("//a[@href]"))
@@ -76,10 +76,9 @@ namespace StockPredictor
         public string redirectLink(string url)
         {
             string redirectLink = "";
-
-
-            HtmlWeb hw = new HtmlWeb();
-            HtmlAgilityPack.HtmlDocument doc = hw.Load(url);
+            //use the htmlhelper class to load the urls
+            HtmlHelper hh = new HtmlHelper();
+            HtmlAgilityPack.HtmlDocument doc = hh.loadURL(url);
             try
             {
                 
