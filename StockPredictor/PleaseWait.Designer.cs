@@ -36,7 +36,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::StockPredictor.Properties.Resources.newspaper_and_computer;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(255, 190);
             this.Name = "PleaseWait";
             this.Text = "PleaseWait";
             this.ResumeLayout(false);

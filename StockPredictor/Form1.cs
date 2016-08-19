@@ -52,11 +52,13 @@ namespace StockPredictor
 
             tbOutput.AppendText(str);
         }
-
+     
+        
         private void Run_Click(object sender, EventArgs e)
         {
-            PleaseWait pleaseWait = new PleaseWait();
-
+           
+            //the please wait form that indicates loading
+            PleaseWait pleaseWait = new PleaseWait();            
             // Display form modelessly
             pleaseWait.Show();
             //  ALlow main UI thread to properly display please wait form.
@@ -110,9 +112,20 @@ namespace StockPredictor
 
         private void Test_Click(object sender, EventArgs e)
         {
+
+            //the please wait form that indicates loading
+            PleaseWait pleaseWait = new PleaseWait();
+            // Display form modelessly
+            pleaseWait.Show();
+            //  ALlow main UI thread to properly display please wait form.
+            Application.DoEvents();
+
+            //redirect console to text box here
+            Console.SetOut(threadSafeWriter());
+           
             //clear the text from the output box
-            //  tbOutput.Text = string.Empty;
-              PosTaggerTest ptt = new PosTaggerTest();
+              tbOutput.Text = string.Empty;
+            PosTaggerTest ptt = new PosTaggerTest();
             ptt.testNounNamed();
             
                 BagOfWordsTest bwt = new BagOfWordsTest();
@@ -138,6 +151,7 @@ namespace StockPredictor
 
             //  YahooMethodsTest yt = new YahooMethodsTest();
             //  yt.testGetStockPrices();
+            pleaseWait.Close();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -159,9 +173,22 @@ namespace StockPredictor
             }
         }
 
+        //thread safe console output writer
+        private DelegateTextWriter threadSafeWriter() { 
+        var threadSafeLogWriter = new DelegateTextWriter(str => {
+            Action updateCmd = () => {
+                tbConsoleOutput.AppendText(str);
+                tbConsoleOutput.Show();
+            };
+            if (tbConsoleOutput.InvokeRequired) tbConsoleOutput.BeginInvoke(updateCmd);
+            else updateCmd();
+        });
+            return threadSafeLogWriter;
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
-
+           
         }
     }
 }

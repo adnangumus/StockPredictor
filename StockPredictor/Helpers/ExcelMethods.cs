@@ -215,6 +215,7 @@ namespace StockPredictor.Helpers
             myExcelWorkSheet.Cells[rowNumber, "E"] = "LastTradePrice";
             myExcelWorkSheet.Cells[rowNumber, "F"] = "ChangeInPercent";        
             myExcelWorkSheet.Cells[rowNumber, "G"] = "Previous close price";
+            myExcelWorkSheet.Cells[rowNumber, "H"] = "30 minute mark";
             // Auto fit automatically adjust the width of columns of Excel  in givien range .  
             myExcelWorkSheet.Range[myExcelWorkSheet.Cells[1, 1], myExcelWorkSheet.Cells[rowNumber, 6]].EntireColumn.AutoFit();
             rowNumber++;  // if you put this method inside a loop, you should increase rownumber by one or wat ever is your logic

@@ -12,9 +12,11 @@ namespace StockPredictor
 {
     public partial class PleaseWait : Form
     {
+
         public PleaseWait()
         {
             InitializeComponent();
         }
+
     }
 }

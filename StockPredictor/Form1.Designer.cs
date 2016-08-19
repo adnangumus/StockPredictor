@@ -38,6 +38,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.tbConsoleOutput = new System.Windows.Forms.TextBox();
             this.tbOutput = new StockPredictor.CustomTextBox();
             this.SuspendLayout();
             // 
@@ -132,11 +133,23 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "Input Stock Symbol";
             // 
+            // tbConsoleOutput
+            // 
+            this.tbConsoleOutput.BackColor = System.Drawing.SystemColors.MenuText;
+            this.tbConsoleOutput.ForeColor = System.Drawing.SystemColors.Window;
+            this.tbConsoleOutput.Location = new System.Drawing.Point(33, 551);
+            this.tbConsoleOutput.Multiline = true;
+            this.tbConsoleOutput.Name = "tbConsoleOutput";
+            this.tbConsoleOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbConsoleOutput.Size = new System.Drawing.Size(457, 98);
+            this.tbConsoleOutput.TabIndex = 13;
+            // 
             // tbOutput
             // 
             this.tbOutput.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.tbOutput.Font = new System.Drawing.Font("Arial Rounded MT Bold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbOutput.Location = new System.Drawing.Point(33, 138);
+            this.tbOutput.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.tbOutput.Location = new System.Drawing.Point(33, 119);
             this.tbOutput.Multiline = true;
             this.tbOutput.Name = "tbOutput";
             this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -150,7 +163,8 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImage = global::StockPredictor.Properties.Resources.Invest;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(528, 637);
+            this.ClientSize = new System.Drawing.Size(528, 651);
+            this.Controls.Add(this.tbConsoleOutput);
             this.Controls.Add(this.tbOutput);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -183,6 +197,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private CustomTextBox tbOutput;
+        private System.Windows.Forms.TextBox tbConsoleOutput;
     }
 }
 
