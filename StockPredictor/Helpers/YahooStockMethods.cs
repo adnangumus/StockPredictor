@@ -33,28 +33,33 @@ namespace StockPredictor.Helpers
                 decimal openPrice = Decimal.Parse(quote.Open.ToString());
                 decimal closePrice = Decimal.Parse(quote.PreviousClose.ToString());
                 decimal percentageChange = Decimal.Parse(quote.ChangeInPercent.ToString());
+                decimal lastTradePriceOnly = Decimal.Parse(quote.LastTradePrice.ToString());
                 //wrtie the infromation to the console
                 Console.WriteLine(quote.Name);
                 Console.WriteLine("Stock open price : " + openPrice);
                 Console.WriteLine("Stock close price : " + closePrice);
+                Console.WriteLine("Last trade price : " + lastTradePriceOnly);
                 Console.WriteLine("Percentage change : " + percentageChange);
                 Console.WriteLine("Percentage change : " + quote.Symbol);
                 //write the information to the text box
                 Form1.Instance.AppendOutputText("\r\n");
                 Form1.Instance.AppendOutputText(quote.Name + "\r\n");
                 Form1.Instance.AppendOutputText("Stock open price : " + openPrice + "\r\n");
-                Form1.Instance.AppendOutputText("Stock close price : " + closePrice + "\r\n");
+                Form1.Instance.AppendOutputText("Previous stock close price : " + closePrice + "\r\n");
+                Form1.Instance.AppendOutputText("Last trade price : " + lastTradePriceOnly + "\r\n");
                 Form1.Instance.AppendOutputText("Percentage change : " + percentageChange + "\r\n");
                 Form1.Instance.AppendOutputText("Percentage change : " + quote.Symbol + "\r\n");
                
                 //store the price information in an excel file
                 ExcelMethods ex = new ExcelMethods();
-                ex.savePriceData(quote.Name, quote.Symbol,openPrice,closePrice,percentageChange);
+                ex.savePriceData(quote.Name, quote.Symbol,openPrice,closePrice,percentageChange, lastTradePriceOnly);
 
             }
 
             Console.WriteLine("Stock prices retrieved");
         }
+      
+
         //get the infromation from the stock symbol in the text box
         public void getStockPriceInformation(string symbol)
         {
@@ -69,23 +74,27 @@ namespace StockPredictor.Helpers
                 decimal openPrice = Decimal.Parse(quote.Open.ToString());
                 decimal closePrice = Decimal.Parse(quote.PreviousClose.ToString());
                 decimal percentageChange = Decimal.Parse(quote.ChangeInPercent.ToString());
+                decimal lastTradePriceOnly = Decimal.Parse(quote.LastTradePrice.ToString());
                 Console.WriteLine(quote.Name);
                 Console.WriteLine("Stock open price : " + openPrice);
-                Console.WriteLine("Stock close price : " + closePrice);
                 Console.WriteLine("Percentage change : " + percentageChange);
-                Console.WriteLine("Percentage change : " + quote.Symbol);
-            
+                Console.WriteLine("Last trade price : " + lastTradePriceOnly);
+                Console.WriteLine("Previous stock close price : " + closePrice);
+                Console.WriteLine("Symbol : " + quote.Symbol);
+             
                 //write the information to the text box
                 Form1.Instance.AppendOutputText("\r\n");
                 Form1.Instance.AppendOutputText(quote.Name + "\r\n");
                 Form1.Instance.AppendOutputText("Stock open price : " + openPrice + "\r\n");
-                Form1.Instance.AppendOutputText("Stock close price : " + closePrice + "\r\n");
+                Form1.Instance.AppendOutputText("Last trade price : " + lastTradePriceOnly + "\r\n");
                 Form1.Instance.AppendOutputText("Percentage change : " + percentageChange + "\r\n");
-                Form1.Instance.AppendOutputText("Percentage change : " + quote.Symbol + "\r\n");
+                Form1.Instance.AppendOutputText("Previous stock close price : " + closePrice + "\r\n");
+                Form1.Instance.AppendOutputText("Symbol : " + quote.Symbol + "\r\n");
+
                
                 //store the price information in an excel file
                 ExcelMethods ex = new ExcelMethods();
-                ex.savePriceData(quote.Name, quote.Symbol, openPrice, closePrice, percentageChange);
+                ex.savePriceData(quote.Name, quote.Symbol, openPrice, closePrice, percentageChange, lastTradePriceOnly);
             }
 
         }

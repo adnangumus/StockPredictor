@@ -66,7 +66,7 @@ namespace StockPredictor.Helpers
         }
 
         //save the price data from yahoo to an excel sheet
-        public void savePriceData(string name, string ticker, decimal openPrice, decimal closePrice, decimal changeInPercent)
+        public void savePriceData(string name, string ticker, decimal openPrice, decimal closePrice, decimal changeInPercent, decimal lastTradePriceOnly)
         {
             //get the date time to insert into the excel sheet
             string date = DateTime.Now.ToString();
@@ -88,7 +88,7 @@ namespace StockPredictor.Helpers
             //open the excel sheet
             openExcel();
             //add the data to the excel sheet
-            addDataToPriceExcel(date,name,ticker,openPrice,closePrice,changeInPercent);
+            addDataToPriceExcel(date,name,ticker,openPrice,closePrice,changeInPercent, lastTradePriceOnly);
             closeExcel();
         }
         //open the excel sheet and pass if the sheet is opend for storing stock price information
@@ -212,22 +212,24 @@ namespace StockPredictor.Helpers
             myExcelWorkSheet.Cells[rowNumber, "B"] = "Name";
             myExcelWorkSheet.Cells[rowNumber, "C"] = "Ticker";
             myExcelWorkSheet.Cells[rowNumber, "D"] = "Open Price";
-            myExcelWorkSheet.Cells[rowNumber, "E"] = "Close Price";
-            myExcelWorkSheet.Cells[rowNumber, "F"] = "ChangeInPercent";
+            myExcelWorkSheet.Cells[rowNumber, "E"] = "LastTradePrice";
+            myExcelWorkSheet.Cells[rowNumber, "F"] = "ChangeInPercent";        
+            myExcelWorkSheet.Cells[rowNumber, "G"] = "Previous close price";
             // Auto fit automatically adjust the width of columns of Excel  in givien range .  
             myExcelWorkSheet.Range[myExcelWorkSheet.Cells[1, 1], myExcelWorkSheet.Cells[rowNumber, 6]].EntireColumn.AutoFit();
             rowNumber++;  // if you put this method inside a loop, you should increase rownumber by one or wat ever is your logic
         }
         //method that adds the heading to the newly created excel documents
-        public void addDataToPriceExcel(string date, string name, string ticker, decimal openPrice, decimal closePrice, decimal changeInPercent)
+        public void addDataToPriceExcel(string date, string name, string ticker, decimal openPrice, decimal closePrice, decimal changeInPercent, decimal lastTradePriceOnly)
         {
             //add the data to the cells in the rows
             myExcelWorkSheet.Cells[rowNumber, "A"] = date;
             myExcelWorkSheet.Cells[rowNumber, "B"] = name;
             myExcelWorkSheet.Cells[rowNumber, "C"] = ticker;
             myExcelWorkSheet.Cells[rowNumber, "D"] = openPrice;
-            myExcelWorkSheet.Cells[rowNumber, "E"] = closePrice;
-            myExcelWorkSheet.Cells[rowNumber, "F"] = changeInPercent;
+            myExcelWorkSheet.Cells[rowNumber, "E"] = lastTradePriceOnly;
+            myExcelWorkSheet.Cells[rowNumber, "F"] = changeInPercent;            
+            myExcelWorkSheet.Cells[rowNumber, "G"] = closePrice;
             //format the cells to dispaly the dates
             Excel.Range rg = (Excel.Range)myExcelWorkSheet.Cells[1, "A"];
             rg.EntireColumn.NumberFormat = "m/d/yyyy h:mm";

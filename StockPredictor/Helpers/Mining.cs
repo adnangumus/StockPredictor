@@ -11,35 +11,7 @@ namespace StockPredictor.Helpers
 {
     class Mining
     {
-      //this class will get html data and save guard against time outs
-        public static string GetURLData(string URL)
-        {           
-            
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(URL);
-                request.UserAgent = "jonh86";
-                request.Timeout = 12000;
-                WebResponse response = request.GetResponse();                
-                Stream stream = response.GetResponseStream();
-                //add a stream read time out to prevent hanging threads
-                stream.ReadTimeout = 15000;
-                StreamReader reader = new StreamReader(stream);
-                    Console.WriteLine("reader peak " + reader.Peek() );
-                    if (reader.Peek() >= 0)
-                    { return reader.ReadToEnd(); }      
-                
-                throw new System.Net.WebException();
-            }
-
-            catch (Exception ex)
-            {
-                Console.WriteLine("Receive DATA Error : " + URL + ex.ToString());
-                return "";
-            }
-
-        }
-
+     
 
         //get the news article from the URLS 
         public string getArticle(string url)
@@ -47,26 +19,13 @@ namespace StockPredictor.Helpers
             Console.WriteLine("started retrieving " + url);
              //load classes 
                 TextCleaner tc = new TextCleaner();
-                string Text = "";
-                HtmlWeb hw = new HtmlWeb();
-            // count the number of retries
-            int retries = 0;              
+                string Text = "";              
                 try
                 {
-                //get the data and retry if it times out
-                Console.WriteLine("getting url data");
-                String Data = GetURLData(url);
-                //if there was an error then the system will retry up to three times
-                while (Data == "" && retries < 3)
-                {
-                    Console.WriteLine("retrying" + retries + " " + url);
-                    retries++;
-                    Data = GetURLData(url);
-                }               
-                HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
-                Console.WriteLine("loading data to HTML agility pack");
-                doc.LoadHtml(Data);
-              //  HtmlAgilityPack.HtmlDocument doc = hw.Load(url);                
+                //use the htmlhelper class to load the urls
+                HtmlHelper hh = new HtmlHelper();
+                HtmlAgilityPack.HtmlDocument doc = hh.loadURL(url);
+                //  HtmlAgilityPack.HtmlDocument doc = hw.Load(url);                
                 foreach (HtmlNode node in doc.DocumentNode.SelectNodes("//p"))
                     {
 
