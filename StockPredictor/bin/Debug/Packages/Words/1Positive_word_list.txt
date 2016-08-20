@@ -1,22 +1,27 @@
 Abundance
 Ace
 Admirable	
-Adore	
-Agree
-A1	
+Adore
+affirming	
+Agree	
 Alive	
 Amazing
 Appealing	
 Approval	
 Attraction
-Award	
+acquired
+Award
 Bargain	
-Beaming	
+Beaming
+benefit
 Beats
 Beautiful	
 Best	
 Better	
-Boost	
+Boost
+bolster
+blockbuster
+breakthrough	
 Bounce	
 Breakthrough	
 bull
@@ -49,7 +54,10 @@ Exceptional
 Exciting
 Exclusive
 Exhilaration
-Exquisite		
+Exquisite
+exceed
+expand
+extensive		
 Fabled
 Fair
 Famous	
@@ -74,16 +82,19 @@ Gorgeous
 Graceful
 Grand
 Great
+grow
 Guaranteed
 Happy
 Healthy
 Heartwarming
 Heavenly
+higher
 Ideal
 Immaculate
 Impressive
 Incredible
-Inspire	
+Inspire
+innovate
 Invigorating
 Invincible
 Inviting
@@ -98,10 +109,12 @@ Leads
 Legend
 Leisure	
 Lovely
+long
 Lucky
 Luscious
 Luxurious
-Magic	
+Magic
+merger	
 Miracle	
 Mouthwatering
 momentum
@@ -110,6 +123,8 @@ Nutritious
 Opulent	Outlasts	
 Outstanding
 Overweight
+overstated
+oversold
 Outperform			
 Paradise
 Pamper
@@ -130,10 +145,13 @@ Priceless
 Pride
 Prime
 Proud
+profit
 Pure
 Quality	
 Radiant
 Real
+rebound
+recovery 
 Refined
 Refreshing
 Relax
@@ -163,42 +181,33 @@ Sparkling
 Special
 Spectacular	
 Spicy
-Splendid	Spotless	Spruce
-Star	strength Stunning	Stylish
-Success	Succulent	
-Superb	Superlative	Supersonic	Supreme
-Sure	Sweet	Swell	Symphony
-Tempting
-Terrific	Thoroughbred	Thrilling	Thriving
-Timeless	
-Transformation
+Splendid
+Spotless
+Spruce
+Star
+strength
+Stunning
+Stylish
+Success
+Succulent	
+Superb
+Supersonic
+Supreme
+Swell
+Terrific
+Thoroughbred
+Thriving
 Treasure
-Unbeatable	Unblemished
-Unrivaled	Unsurpassed
-Varied	Versatile
-Victor	Vigorous	Vintage	V.I.P.
+Varied
+Versatile
+Victor
+Vigorous	
+Vintage
 Vivacious
-Wee	Whiz
-Winner	Wise	Wonderful	Worthy
-Youthful	Yule
-Zap	Zeal	Zest	Zip
-acquired
-bolster
-benefit
-boost 
-blockbuster
-breakthrough
-exceed
-expand
-extensive
-grow
-higher
-innovate
-long
-merger
-momentum
-overstated
-oversold
-profit
-rebound
-recovery 
+Whiz
+Winner
+Wise
+Wonderful
+Worthy
+Zeal
+Zest

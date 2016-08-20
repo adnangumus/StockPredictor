@@ -90,6 +90,7 @@ flat
 frighten
 frightful
 gawky
+generic
 ghastly
 gouge
 grave
@@ -211,6 +212,7 @@ sobbing
 sorry
 spiteful
 stall
+stagnant
 sticky
 stinky
 stormy

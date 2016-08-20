@@ -156,8 +156,8 @@ namespace StockPredictor
                  "Percentage of Phrases Postive = " + posPhrasePercentage + "\r\n" +
                  "Percentage of Phrases Negative = " + negPhrasePercentage + "\r\n" +
                 "Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n" +
-                "Positive words detected = " + "\r\n" + posWordCount + "Negative words detected  = " + negWordCount + "\r\n" +
-                "Postive phrases detected = " + positivePhraseCount + " % " + "Negative phrases dectected = " + negativePhraseCount + " % " + "\r\n" +
+                "Positive words detected = " + posWordCount + "\r\n" + "Negative words detected  = " + negWordCount + "\r\n" +
+                "Postive phrases detected = " + positivePhraseCount + " % " + "\r\n" + "Negative phrases dectected = " + negativePhraseCount + " % " + "\r\n" +
                 fileName + "-Noun : processing time : " + elapsedMs + "\r\n"
                 );                  
         }//end class
@@ -330,8 +330,8 @@ namespace StockPredictor
                  "Percentage of Phrases Postive = " + posPhrasePercentage + "\r\n" +
                  "Percentage of Phrases Negative = " + negPhrasePercentage + "\r\n" +
                 "Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n" +
-                "Positive words detected = " + "\r\n" + posWordCount + "Negative words detected  = " + negWordCount + "\r\n" +
-                "Postive phrases detected = " + positivePhraseCount + " % " + "Negative phrases dectected = " + negativePhraseCount + " % " + "\r\n" +
+                "Positive words detected = "  + posWordCount + "\r\n" + "Negative words detected  = " + negWordCount + "\r\n" +
+                "Postive phrases detected = " + positivePhraseCount + " % " + "\r\n" + "Negative phrases dectected = " + negativePhraseCount + " % " + "\r\n" +
                 fileName + "-Named : processing time : " + elapsedMs + "\r\n"
                 );
         }//end method 
