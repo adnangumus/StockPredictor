@@ -120,12 +120,17 @@ namespace StockPredictor.Helpers
             //out put information to text box
             Form1.Instance.AppendOutputText("\r\n");
                 Form1.Instance.AppendOutputText(fileName + "\r\n");
-            Form1.Instance.AppendOutputText("Bag of words processing time : " + elapsedMs + "\r\n");
-            Form1.Instance.AppendOutputText("Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n");
-            Form1.Instance.AppendOutputText("P W = " + posWordCount + " N W = " + negWordCount + "\r\n");
-            Form1.Instance.AppendOutputText("P P = " + positivePhraseCount + " N P = " + negativePhraseCount + "\r\n");
-            Form1.Instance.AppendOutputText("Percantage of Words Positive = " + posWordPercentage + " % " + "Negative word percentage = " + negWordPercentage + " % " + "\r\n");
-            Form1.Instance.AppendOutputText("Percantage of Phrase Positive = " + posPhrasePercentage + " % " + "Negative phrase percentage = " + negPhrasePercentage + " % " + "\r\n");
+            Form1.Instance.AppendOutputText("Bag of words Method : " + "\r\n" +
+                "Percantage of Words Positive = " + posWordPercentage + " % " + "\r\n" +
+                 "Percentage of words Negative = " + negWordPercentage + " % " + "\r\n" +
+                 "Percentage of Phrases Postive = " + posPhrasePercentage + "\r\n" +
+                 "Percentage of Phrases Negative = " + negPhrasePercentage + "\r\n" +
+                "Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n" +
+                 "Positive words detected = " + posWordCount + "\r\n" + "Negative words detected  = " + negWordCount + "\r\n" +
+                "Postive phrases detected = " + positivePhraseCount + " % " + "\r\n" + "Negative phrases dectected = " + negativePhraseCount + " % " + "\r\n" +
+                "Bag of words processing time : " + elapsedMs + "\r\n"
+                );
+          
             //Form1.Instance.AppendOutputText(+"\r\n");
             //add the output data to an excel file
             ExcelMethods em = new ExcelMethods();

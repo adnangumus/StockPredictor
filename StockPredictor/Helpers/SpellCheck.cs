@@ -128,7 +128,7 @@ namespace StockPredictor
             }
             // Console.WriteLine("cleanword : " + cleanWord);
             //get named entites form a list
-            List<string> terms = frw.getWordsFromList("Named_Entities.txt");
+            List<string> terms = frw.getWordsFromList("1Named_Entities.txt");
             //check if the named entites match the word
             foreach (string term in terms)
             {
@@ -144,7 +144,7 @@ namespace StockPredictor
             fileReaderWriter frw = new fileReaderWriter();
             // Console.WriteLine("cleanword : " + cleanWord);
             //get named entites form a list
-            List<string> terms = frw.getWordsFromList("Named_Entities.txt");
+            List<string> terms = frw.getWordsFromList("1Named_Entities.txt");
             //check if the named entites match the word
             foreach (string term in terms)
             {

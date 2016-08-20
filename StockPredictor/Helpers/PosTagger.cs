@@ -150,12 +150,15 @@ namespace StockPredictor
 
             //out put information to text box
             Form1.Instance.AppendOutputText("\r\n" + fileName + "\r\n" +
+                "Noun phrase method :" + "\r\n" +
+               "Percantage of Words Positive = " + posWordPercentage + " % " + "\r\n" +
+                 "Percentage of words Negative = " + negWordPercentage + " % " + "\r\n" +
+                 "Percentage of Phrases Postive = " + posPhrasePercentage + "\r\n" +
+                 "Percentage of Phrases Negative = " + negPhrasePercentage + "\r\n" +
+                "Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n" +
+                "Positive words detected = " + "\r\n" + posWordCount + "Negative words detected  = " + negWordCount + "\r\n" +
+                "Postive phrases detected = " + positivePhraseCount + " % " + "Negative phrases dectected = " + negativePhraseCount + " % " + "\r\n" +
                 fileName + "-Noun : processing time : " + elapsedMs + "\r\n"
-                + fileName + "-Noun : Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n" +
-                fileName + "-Noun : P W = " + posWordCount + " N W = " + negWordCount + "\r\n" +
-                fileName + "-Noun : P P = " + positivePhraseCount + " N P = " + negativePhraseCount + "\r\n" +
-                fileName + "-Noun : Percantage of Words Positive = " + posWordPercentage + " % " + "Negative word percentage = " + negWordPercentage + " % " + "\r\n" +
-                fileName + "-Noun : Percantage of Phrase Positive = " + posPhrasePercentage + " % " + "Negative phrase percentage = " + negPhrasePercentage + " % " + "\r\n"
                 );                  
         }//end class
 
@@ -320,14 +323,16 @@ namespace StockPredictor
            positivePhraseCount, negativePhraseCount,
            posPhrasePercentage, negPhrasePercentage);
             //out put information to text box
-            Form1.Instance.AppendOutputText("\r\n" +
-                fileName + "\r\n" +
-                fileName + " - Named : processing time : " + elapsedMs + "\r\n" +
-                fileName + " - Named : Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n" +
-                fileName + " - Named : P W = " + posWordCount + " N W = " + negWordCount + "\r\n" +
-                fileName + " - Named : P P = " + positivePhraseCount + " N P = " + negativePhraseCount + "\r\n" +
-                fileName + " - Named : Percantage of Words Positive = " + posWordPercentage + " % " + "Negative word percentage = " + negWordPercentage + " % " + "\r\n" +
-                fileName + " - Named : Percantage of Phrase Positive = " + posPhrasePercentage + " % " + "Negative phrase percentage = " + negPhrasePercentage + " % " + "\r\n"
+            Form1.Instance.AppendOutputText("\r\n" + fileName + "\r\n" +
+                "Named entities method :" + "\r\n" +
+               "Percantage of Words Positive = " + posWordPercentage + " % " + "\r\n" +
+                 "Percentage of words Negative = " + negWordPercentage + " % " + "\r\n" +
+                 "Percentage of Phrases Postive = " + posPhrasePercentage + "\r\n" +
+                 "Percentage of Phrases Negative = " + negPhrasePercentage + "\r\n" +
+                "Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n" +
+                "Positive words detected = " + "\r\n" + posWordCount + "Negative words detected  = " + negWordCount + "\r\n" +
+                "Postive phrases detected = " + positivePhraseCount + " % " + "Negative phrases dectected = " + negativePhraseCount + " % " + "\r\n" +
+                fileName + "-Named : processing time : " + elapsedMs + "\r\n"
                 );
         }//end method 
 

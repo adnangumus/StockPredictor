@@ -17,7 +17,7 @@ namespace StockPredictor.Helpers
             foreach (string term in terms)
             {
                 if (word.ToLower() == term.ToLower() && term != "" && term != " ") {
-                    //Console.WriteLine("Negative word : " + term);
+                    Console.WriteLine("Negative word : " + term);
                     return 1;
                 }
             }
