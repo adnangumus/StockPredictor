@@ -54,6 +54,7 @@ deformed
 devastate
 Despite
 distress
+dip
 destroy
 deny
 despicable
@@ -186,6 +187,7 @@ repulsive
 repugnant
 retreat
 revenge
+reverse
 revolting
 rocky
 rotten

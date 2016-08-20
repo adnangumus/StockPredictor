@@ -63,7 +63,8 @@ namespace StockPredictor
             pleaseWait.Show();
             //  ALlow main UI thread to properly display please wait form.
             Application.DoEvents();
-
+            //redirect console to text box here
+            Console.SetOut(threadSafeWriter());
             //time the overall methods
             var watch2 = System.Diagnostics.Stopwatch.StartNew();
             RunMethods rm = new RunMethods();

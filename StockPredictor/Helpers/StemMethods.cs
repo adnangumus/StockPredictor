@@ -16,10 +16,10 @@ namespace StockPredictor.Helpers
         //it will create a new lists to store them
         public void stemAll()
         {
-            String fromFile = "Negative_phrases.txt";
+            String fromFile = "1Negative_phrases.txt";
             String toFile = "Negative_phrases_stemmed.txt";
 
-            String fromFileP = "Positive_phrases.txt";
+            String fromFileP = "1Positive_phrases.txt";
             String toFileP = "Positive_phrases_stemmed.txt";
 
             stemPhraseList(fromFile, toFile);
@@ -27,10 +27,10 @@ namespace StockPredictor.Helpers
 
             Form1.Instance.AppendOutputText("Phrase lists stemmed" + "\r\n");
 
-            String fromFileWords = "negative_words.txt";
+            String fromFileWords = "1Negative_words.txt";
             String toFileWords = "Negative_stem_word_list.txt";
 
-            String fromFileWordsP = "Positive_word_list.txt";
+            String fromFileWordsP = "1Positive_word_list.txt";
             String toFileWordsP = "Positive_stem_word_list.txt";
 
             stemList(fromFileWords, toFileWords);

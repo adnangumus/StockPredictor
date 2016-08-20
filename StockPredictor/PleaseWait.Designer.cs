@@ -1,4 +1,6 @@
-﻿namespace StockPredictor
+﻿using System.Drawing;
+
+namespace StockPredictor
 {
     partial class PleaseWait
     {
@@ -34,12 +36,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::StockPredictor.Properties.Resources.newspaper_and_computer;
+            this.BackgroundImage = global::StockPredictor.Properties.Resources.world;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(255, 190);
+            this.ClientSize = new System.Drawing.Size(357, 222);
             this.Name = "PleaseWait";
             this.Text = "PleaseWait";
             this.ResumeLayout(false);
+            this.Location = new Point(300, 300);
 
         }
 
