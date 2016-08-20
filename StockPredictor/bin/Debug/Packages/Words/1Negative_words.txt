@@ -75,6 +75,7 @@ don't
 down
 dreadful
 dreary
+dropped
 enraged
 eroding
 evil
@@ -258,6 +259,7 @@ vindictive
 worried
 wary
 war
+warning
 weary
 wicked
 woeful
