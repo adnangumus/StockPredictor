@@ -17,14 +17,14 @@ namespace StockPredictor
 
     {
         //process named and noun phrases together
-        public void processNamedNoun(string articles, string fileName)
+        public void processNamedNoun(string articles, string fileName, bool dontSave)
         {
             //tag the articles first
             string taggedArticles = tagArticles(articles);
             //process the named entites
-            Task taskA = Task.Run(() => nounPhrase(taggedArticles, fileName));
+            Task taskA = Task.Run(() => nounPhrase(taggedArticles, fileName, dontSave));
             //process the noun phrases
-            Task taskB = new Task(() => nameEntites(taggedArticles, fileName));
+            Task taskB = new Task(() => nameEntites(taggedArticles, fileName, dontSave));
               //run the tasks and wait. Get awaiter us used because the threads are using a static instance
                taskB.RunSynchronously();
                 taskA.GetAwaiter();
@@ -66,7 +66,7 @@ namespace StockPredictor
         }
 
         //extract the noun phrases form the article. Return an array list of noun phrase sentences
-        public void nounPhrase(string article, string fileName)
+        public void nounPhrase(string article, string fileName, bool dontSave)
         {
             //start a stop watch to time method
             var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -138,26 +138,30 @@ namespace StockPredictor
            
             //add the output data to an excel file
             ExcelMethods em = new ExcelMethods();
-           // em.saveDataToExcel(fileName, "noun", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
-           //posWordPercentage, negWordPercentage,
-           // positivePhraseCount, negativePhraseCount,
-           // posPhrasePercentage, negPhrasePercentage);
-            //add the data to special excel file for only this specific out put for this stock
-            em.savePredictorDataToExcel(fileName, "Noun", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
+            // em.saveDataToExcel(fileName, "noun", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
+            //posWordPercentage, negWordPercentage,
+            // positivePhraseCount, negativePhraseCount,
+            // posPhrasePercentage, negPhrasePercentage);
+            //check if dontsave is ticked
+            if (!dontSave)
+            {
+                //add the data to special excel file for only this specific out put for this stock
+                em.savePredictorDataToExcel(fileName, "Noun", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
           posWordPercentage, negWordPercentage,
            positivePhraseCount, negativePhraseCount,
            posPhrasePercentage, negPhrasePercentage);
+            }
 
             //out put information to text box
             Form1.Instance.AppendOutputText("\r\n" + fileName + "\r\n" +
                 "Noun phrase method :" + "\r\n" +
                "Percantage of Words Positive = " + posWordPercentage + " % " + "\r\n" +
                  "Percentage of words Negative = " + negWordPercentage + " % " + "\r\n" +
-                 "Percentage of Phrases Postive = " + posPhrasePercentage + "\r\n" +
-                 "Percentage of Phrases Negative = " + negPhrasePercentage + "\r\n" +
+                 "Percentage of Phrases Postive = " + posPhrasePercentage + " % " + "\r\n" +
+                 "Percentage of Phrases Negative = " + negPhrasePercentage + " % " + "\r\n" +
                 "Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n" +
-                "Positive words detected = " + posWordCount + "\r\n" + "Negative words detected  = " + negWordCount + "\r\n" +
-                "Postive phrases detected = " + positivePhraseCount + " % " + "\r\n" + "Negative phrases dectected = " + negativePhraseCount + " % " + "\r\n" +
+                 "Positive words detected = " + posWordCount + "\r\n" + "Negative words detected  = " + negWordCount + "\r\n" +
+                "Postive phrases detected = " + positivePhraseCount + "\r\n" + "Negative phrases dectected = " + negativePhraseCount + "\r\n" +
                 fileName + "-Noun : processing time : " + elapsedMs + "\r\n"
                 );                  
         }//end class
@@ -235,7 +239,7 @@ namespace StockPredictor
 
 //--------------------------------------------named entites---------------------------------------------------------------///
         //extract sentences with named entities form the article. Return an array list of noun phrase sentences
-        public void nameEntites(string article, string fileName)
+        public void nameEntites(string article, string fileName, bool dontSave)
         {
             //start a stop watch to time method
             var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -313,25 +317,29 @@ namespace StockPredictor
            
             //add the output data to an excel file
             ExcelMethods em = new ExcelMethods();
-           // em.saveDataToExcel(fileName, "named", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
-           //posWordPercentage, negWordPercentage,
-           // positivePhraseCount, negativePhraseCount,
-           // posPhrasePercentage, negPhrasePercentage);
-            //add the data to special excel file for only this specific out put for this stock          
-            em.savePredictorDataToExcel(fileName, "Named", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
+            // em.saveDataToExcel(fileName, "named", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
+            //posWordPercentage, negWordPercentage,
+            // positivePhraseCount, negativePhraseCount,
+            // posPhrasePercentage, negPhrasePercentage);
+            //check if dontsave is ticked
+            if (!dontSave)
+            {
+                //add the data to special excel file for only this specific out put for this stock          
+                em.savePredictorDataToExcel(fileName, "Named", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
           posWordPercentage, negWordPercentage,
            positivePhraseCount, negativePhraseCount,
            posPhrasePercentage, negPhrasePercentage);
+            }
             //out put information to text box
             Form1.Instance.AppendOutputText("\r\n" + fileName + "\r\n" +
                 "Named entities method :" + "\r\n" +
                "Percantage of Words Positive = " + posWordPercentage + " % " + "\r\n" +
                  "Percentage of words Negative = " + negWordPercentage + " % " + "\r\n" +
-                 "Percentage of Phrases Postive = " + posPhrasePercentage + "\r\n" +
-                 "Percentage of Phrases Negative = " + negPhrasePercentage + "\r\n" +
+                "Percentage of Phrases Postive = " + posPhrasePercentage + " % " + "\r\n" +
+                 "Percentage of Phrases Negative = " + negPhrasePercentage + " % " + "\r\n" +
                 "Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n" +
-                "Positive words detected = "  + posWordCount + "\r\n" + "Negative words detected  = " + negWordCount + "\r\n" +
-                "Postive phrases detected = " + positivePhraseCount + " % " + "\r\n" + "Negative phrases dectected = " + negativePhraseCount + " % " + "\r\n" +
+                 "Positive words detected = " + posWordCount + "\r\n" + "Negative words detected  = " + negWordCount + "\r\n" +
+                "Postive phrases detected = " + positivePhraseCount + "\r\n" + "Negative phrases dectected = " + negativePhraseCount + "\r\n" +
                 fileName + "-Named : processing time : " + elapsedMs + "\r\n"
                 );
         }//end method 

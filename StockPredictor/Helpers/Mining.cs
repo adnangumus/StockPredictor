@@ -47,8 +47,7 @@ namespace StockPredictor.Helpers
                 //SpellChecker class
                 SpellCheck sc = new SpellCheck();
                
-                //load the pos tagger class
-                TextCleaner tc = new TextCleaner();
+               
             fileReaderWriter frw = new fileReaderWriter();
 
                 string allArticles = "";

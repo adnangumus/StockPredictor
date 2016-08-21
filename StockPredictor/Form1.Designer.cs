@@ -40,6 +40,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tbConsoleOutput = new System.Windows.Forms.TextBox();
             this.tbOutput = new StockPredictor.CustomTextBox();
+            this.cbSave = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // Run
@@ -91,7 +92,7 @@
             // 
             // btPrice
             // 
-            this.btPrice.Location = new System.Drawing.Point(213, 90);
+            this.btPrice.Location = new System.Drawing.Point(226, 90);
             this.btPrice.Name = "btPrice";
             this.btPrice.Size = new System.Drawing.Size(100, 23);
             this.btPrice.TabIndex = 6;
@@ -101,7 +102,7 @@
             // 
             // tbPriceInput
             // 
-            this.tbPriceInput.Location = new System.Drawing.Point(213, 61);
+            this.tbPriceInput.Location = new System.Drawing.Point(226, 64);
             this.tbPriceInput.Name = "tbPriceInput";
             this.tbPriceInput.Size = new System.Drawing.Size(100, 20);
             this.tbPriceInput.TabIndex = 7;
@@ -109,7 +110,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(210, 26);
+            this.label2.Location = new System.Drawing.Point(223, 26);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(106, 13);
             this.label2.TabIndex = 8;
@@ -127,7 +128,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(210, 45);
+            this.label4.Location = new System.Drawing.Point(223, 45);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(99, 13);
             this.label4.TabIndex = 10;
@@ -156,6 +157,16 @@
             this.tbOutput.Size = new System.Drawing.Size(457, 426);
             this.tbOutput.TabIndex = 12;
             // 
+            // cbSave
+            // 
+            this.cbSave.AutoSize = true;
+            this.cbSave.Location = new System.Drawing.Point(139, 94);
+            this.cbSave.Name = "cbSave";
+            this.cbSave.Size = new System.Drawing.Size(79, 17);
+            this.cbSave.TabIndex = 14;
+            this.cbSave.Text = "Don\'t Save";
+            this.cbSave.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -164,6 +175,7 @@
             this.BackgroundImage = global::StockPredictor.Properties.Resources.Invest;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(528, 651);
+            this.Controls.Add(this.cbSave);
             this.Controls.Add(this.tbConsoleOutput);
             this.Controls.Add(this.tbOutput);
             this.Controls.Add(this.label4);
@@ -198,6 +210,7 @@
         private System.Windows.Forms.Label label4;
         private CustomTextBox tbOutput;
         private System.Windows.Forms.TextBox tbConsoleOutput;
+        private System.Windows.Forms.CheckBox cbSave;
     }
 }
 

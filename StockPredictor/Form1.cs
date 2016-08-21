@@ -56,7 +56,7 @@ namespace StockPredictor
         
         private void Run_Click(object sender, EventArgs e)
         {
-           
+            bool dontSave = cbSave.Checked;
             //the please wait form that indicates loading
             PleaseWait pleaseWait = new PleaseWait();            
             // Display form modelessly
@@ -73,15 +73,16 @@ namespace StockPredictor
             string input = tbInput.Text.ToLower();
             if (String.IsNullOrEmpty(tbInput.Text) || tbInput.Text.ToLower()=="bio")
             {
-                rm.runStockPredictor("gild");
-                rm.runStockPredictor("hznp");
-                rm.runStockPredictor("biib");
-                rm.runStockPredictor("celg");
-                rm.runStockPredictor("ibb");
+                rm.runStockPredictor("gild", dontSave);
+                rm.runStockPredictor("hznp", dontSave);
+                rm.runStockPredictor("biib", dontSave);
+                rm.runStockPredictor("celg", dontSave);
+                rm.runStockPredictor("ibb", dontSave);
+                pleaseWait.Close();
                 return;
             }
            
-            rm.runStockPredictor(input);
+            rm.runStockPredictor(input, dontSave);
             //   taskC.Wait();
            //time the overall performance
             watch2.Stop();

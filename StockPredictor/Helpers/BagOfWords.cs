@@ -37,7 +37,7 @@ namespace StockPredictor.Helpers
         //get the sentences as list from a string. Check that words are spelt 
         //correctly and then put the senteces back in to the lists. Words are stemmed. 
         //Count the amount of words and sentences processed
-        public void processBagOfWords(string articles, string fileName)
+        public void processBagOfWords(string articles, string fileName, bool dontSave)
         {
             Console.WriteLine("BagOfWords started");
             //hash table 1=pw 2=nw 3=spw 4=snw 5=pp 6=np 7=wc 8=sc
@@ -123,15 +123,17 @@ namespace StockPredictor.Helpers
             Form1.Instance.AppendOutputText("Bag of words Method : " + "\r\n" +
                 "Percantage of Words Positive = " + posWordPercentage + " % " + "\r\n" +
                  "Percentage of words Negative = " + negWordPercentage + " % " + "\r\n" +
-                 "Percentage of Phrases Postive = " + posPhrasePercentage + "\r\n" +
-                 "Percentage of Phrases Negative = " + negPhrasePercentage + "\r\n" +
+                 "Percentage of Phrases Postive = " + posPhrasePercentage + " % " + "\r\n" +
+                 "Percentage of Phrases Negative = " + negPhrasePercentage + " % " + "\r\n" +
                 "Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n" +
                  "Positive words detected = " + posWordCount + "\r\n" + "Negative words detected  = " + negWordCount + "\r\n" +
-                "Postive phrases detected = " + positivePhraseCount + " % " + "\r\n" + "Negative phrases dectected = " + negativePhraseCount + " % " + "\r\n" +
+                "Postive phrases detected = " + positivePhraseCount + "\r\n" + "Negative phrases dectected = " + negativePhraseCount  + "\r\n" +
                 "Bag of words processing time : " + elapsedMs + "\r\n"
                 );
-          
+
             //Form1.Instance.AppendOutputText(+"\r\n");
+            //check if dontsave is ticked
+            if (!dontSave) {
             //add the output data to an excel file
             ExcelMethods em = new ExcelMethods();
             //add the data to special excel file for only this specific out put for this stock
@@ -139,6 +141,7 @@ namespace StockPredictor.Helpers
           posWordPercentage, negWordPercentage,
            positivePhraseCount, negativePhraseCount,
            posPhrasePercentage, negPhrasePercentage);
+            }
             articles = "";
         }//end method
 

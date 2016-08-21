@@ -19,7 +19,7 @@ namespace StockPredictor.Tests
 "The plunge in oil price has definitely hurt Westport Innovations and the company’s misery isn’t expected to end soon.According to Energy Information Administration’s(EIA) latest forecasts, oil prices are expected to rise very slowly in the years to come.According to the IEA’s factsheet, the agency sees oil prices reaching $80 per barrel in 2020 in their New Policies Scenario, the World Energy Outlook 2015’s central scenario. "+
 "With oil prices expected to remain low for years to come, I can see Westport’s struggling further.The company has managed to reduce its losses by cutting-costs, but is still in troubled waters. The company only has $42 million in cash as opposed to a debt of $66 million.With the company losing money and reporting massive losses despite significant cost-cutting, I don’t think it can stay aflot in the long-haul. "+
 "Oil prices are expected to remain low for years to come and Westport may not have enough cash to endure the negative effects of cheaper oil. Given the high cost of natural-gas engines, Westport’s business will continue to struggle for many years. Hence, the chances of the company going bankrupt are really high and investors should stay away from the stock. "+
-"Conclusion With the oil prices expected to stay low for years to come, sales of Westport’s engines will continue to decline. Consumers will prefer the traditional diesel trucks that are a lot cheaper than natural gas trucks. Westport’s sales will continue to fall in the near future.Moreover, the company doesn’t have enough cash to live through the oil crash and will likely go bankrupt way before it. Given the risks, investors should still stay far away from the stock.";
+"Conclusion With the oil prices expected to stay low for years to come, sales of Westport’s engines will continue to decline. Consumers will prefer the traditional diesel trucks that are a lot cheaper than natural gas trucks. Westport’s sales will continue to fall in the near future.Moreover, the company doesn’t have enough cash to live through the oil crash and will likely go bankrupt way before it. Given the risks, investors should still stay far away from the stock. Positive position";
         // Text for tagging
     string text = "Is Gileard a piece of software that reads text or has it increased earnings after a major acquisition?"
                    + "In some language and assigns parts of speech to each word (and other token),"
@@ -50,7 +50,7 @@ namespace StockPredictor.Tests
           
             Mining miner = new Mining();
           
-            bg.processBagOfWords(text2, "exampleExcel1");
+            bg.processBagOfWords(text2, "exampleExcel1", true);
            // int sentences = counter.countSentenceCollection(collection);
            // int words = counter.countWordCollection(collection);
            // Console.WriteLine("There are " + sentences + " sentences in the bag test");
@@ -60,7 +60,7 @@ namespace StockPredictor.Tests
         public void processBagOfWordsTest()
         {
             BagOfWords bg = new BagOfWords();
-            bg.processBagOfWords(badText, "exampleExcel1");
+            bg.processBagOfWords(badText, "exampleExcel1", true);
         }
       
     }
