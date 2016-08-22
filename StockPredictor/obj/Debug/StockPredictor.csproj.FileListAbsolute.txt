@@ -83,3 +83,4 @@ D:\VisualStudioProjects\StockPredictor\StockPredictor\bin\Debug\StockPredictor.a
 D:\VisualStudioProjects\StockPredictor\StockPredictor\obj\Debug\StockPredictor.exe.manifest
 D:\VisualStudioProjects\StockPredictor\StockPredictor\obj\Debug\StockPredictor.application
 D:\VisualStudioProjects\StockPredictor\StockPredictor\obj\Debug\StockPredictor.PleaseWait.resources
+D:\VisualStudioProjects\StockPredictor\StockPredictor\obj\Debug\StockPredictor.TradingForm.resources

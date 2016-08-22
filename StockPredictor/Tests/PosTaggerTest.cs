@@ -66,7 +66,7 @@ namespace StockPredictor.Tests
         public void getNamedEntitiesTest()
         {
             PosTagger pt = new PosTagger();
-            pt.nameEntites(text, "exampleExcel",true);
+            pt.nameEntites(text, "exampleExcel", false);
         }
         //test the POS tagger which extracts named entites
         public void posTaggerNamedTest()
@@ -87,7 +87,7 @@ namespace StockPredictor.Tests
         public void testNounNamed()
         {
             PosTagger pt = new PosTagger();
-            pt.processNamedNoun(badText, "exampleExcel1", true);
+            pt.processNamedNoun(badText, "exampleExcel1", false);
         }
      
 

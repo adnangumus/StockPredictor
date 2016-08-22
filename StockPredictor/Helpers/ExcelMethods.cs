@@ -32,6 +32,76 @@ namespace StockPredictor.Helpers
             get { return rowNumber; }
             set { rowNumber = value; }
         }
+        //get the last row used in the excel sheet
+        private int lastRow()
+        {
+            try { 
+            //get the last row used
+            Excel.Range last = myExcelWorkSheet.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell, Type.Missing);
+            Excel.Range range = myExcelWorkSheet.get_Range("A1", last);
+            int lastUsedRow = last.Row;
+        //   int lastUsedColumn = last.Column;
+            return lastUsedRow;
+            }
+            catch(Exception ex) { Console.WriteLine(ex.Message); }
+            return 0;
+    }
+    
+        private string getTradePath(string fileName)
+        {
+            
+            //create a path that puts the stock information into unique folders with the name of the stock and method on seperate 
+            //excel sheets
+            fileReaderWriter frw = new fileReaderWriter();
+            string folderPath = Path.Combine(frw.GetAppFolder(), @"packages\Data\Trades").ToString();
+            fileFolderPath = folderPath;
+            string filePath = Path.Combine(fileFolderPath + @"\" + fileName).ToString();
+            ExcelFilePath = filePath;
+            //check if the excel file exists and print a message to the output box            
+            if (!File.Exists(excelFilePath + ".xlsx"))
+            {
+                TradingForm.Instance.AppendOutputText("\r\n" + "Creating trading sheet" + "\r\n");
+                createSheet(false, true);
+            }
+            return excelFilePath;
+        }
+        //read from an excel sheet - is20 is a trade that takes place within 20minutes of open
+        public decimal readPrinciple(string symbol, bool is20)
+        {
+            string fileName = symbol.ToUpper() + "Trade";
+            if (is20) { fileName += "20"; }
+            //get the folder and file name
+            getTradePath(fileName);
+            //open the excel sheet
+            openExcel();
+            //set the last row
+            Rownumber = lastRow();
+            Excel.Range range = myExcelWorkSheet.get_Range("A" + rowNumber);
+            //read the data from the cell that has the principle
+            double principle = range.Value;
+            //close the excel sheet
+            closeExcel();
+            string principleStr = principle.ToString();
+            //return the principle as a decimal
+            return decimal.Parse(principleStr);
+        }
+        //save trading data to an excel sheet
+        public void saveTradingData(string symbol, bool is20, string principle, string startPrinciple, string buy, string sell, bool isShort, string change)
+        {
+            //get the date time to insert into the excel sheet
+            string date = DateTime.Now.ToString();
+
+            string fileName = symbol.ToUpper() + "Trade";
+            if (is20) { fileName += "20"; }
+            //get the folder and file name
+            getTradePath(fileName);
+            //open the excel sheet
+            openExcel();
+           
+            //add the data to the excel sheet
+            addTradeData(principle, startPrinciple, buy, sell, isShort, change, date);           
+            closeExcel();
+        }
 
         //this method will take the out put data from the methods and save it to an excel file      
         public void savePredictorDataToExcel(string fileName, string method, string elapsedMs, int wordCount, int sentenceCount, int posWordCount, int negWordCount,
@@ -53,7 +123,7 @@ namespace StockPredictor.Helpers
             //check if the excel file exists and if it doesn't create one and add the headings            
             if (!File.Exists(excelFilePath + ".xlsx"))
             {
-                createSheet(false);               
+                createSheet(false,false);               
             }
             //open the excel sheet
             openExcel();
@@ -83,7 +153,7 @@ namespace StockPredictor.Helpers
             //check if the excel file exists and if it doesn't create one and add the headings            
             if (!File.Exists(excelFilePath + ".xlsx"))
             {
-                createSheet(true);               
+                createSheet(true, false);               
             }
             //open the excel sheet
             openExcel();
@@ -91,7 +161,7 @@ namespace StockPredictor.Helpers
             addDataToPriceExcel(date,name,ticker,openPrice,closePrice,changeInPercent, lastTradePriceOnly);
             closeExcel();
         }
-        //open the excel sheet and pass if the sheet is opend for storing stock price information
+        //open the excel sheet and pass if the sheet is opened for storing stock price information
         public void openExcel()
         {
             myExcelApplication = null;
@@ -107,14 +177,11 @@ namespace StockPredictor.Helpers
 
             int numberOfSheets = myExcelWorkbook.Worksheets.Count; // get number of worksheets (optional)
           
-            Excel.Range last = myExcelWorkSheet.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell, Type.Missing);
-            Excel.Range range = myExcelWorkSheet.get_Range("A1", last);
-            int lastUsedRow = last.Row;
-            int lastUsedColumn = last.Column;
-            Rownumber = lastUsedRow + 1;
+           //set the last row
+            Rownumber = lastRow() + 1;
         }
         //create a new excel work sheet. Open it and add the headings
-        public void createSheet(bool isPrice)
+        public void createSheet(bool isPrice, bool isTrade)
         {
             myExcelApplication = null;
             myExcelApplication = new Excel.Application(); // create Excell App
@@ -133,27 +200,62 @@ namespace StockPredictor.Helpers
             myExcelWorkSheet.Name = "WorkSheet 1"; // define a name for the worksheet (optinal)
 
             int numberOfSheets = myExcelWorkbook.Worksheets.Count; // get number of worksheets (optional)
-
-            Excel.Range last = myExcelWorkSheet.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell, Type.Missing);
-            Excel.Range range = myExcelWorkSheet.get_Range("A1", last);
-            int lastUsedRow = last.Row;
-            int lastUsedColumn = last.Column;
-            Rownumber = lastUsedRow;
+           //set the last row
+            Rownumber = lastRow();
             //add the headings to the excel sheet
 
             //add the headings for the predictor pages
-            if (!isPrice) { 
-            addHeadingToExcel();
+            if (isPrice) {
+                addHeadingToPriceExcel();
+            }
+            if(isTrade)
+            {
+                addHeadingTradingSheet();
             }
             else
             {
-                addHeadingToPriceExcel();
+              
+                addHeadingToExcel();
             }
             closeExcel();
         }
+        //add heading to simulated trading work sheet
+        private void addHeadingTradingSheet()
+        {
+            //add the data to the cells in the rows
+            myExcelWorkSheet.Cells[rowNumber, "A"] = "Principle";
+            myExcelWorkSheet.Cells[rowNumber + 1, "A"] = "10000";
+            myExcelWorkSheet.Cells[rowNumber, "B"] = "Start Principle";
+            myExcelWorkSheet.Cells[rowNumber, "C"] = "BuyPrice";
+            myExcelWorkSheet.Cells[rowNumber, "D"] = "SellPrice";
+            myExcelWorkSheet.Cells[rowNumber, "E"] = "IsShortSell";
+            myExcelWorkSheet.Cells[rowNumber, "F"] = "Price Change %";
+            myExcelWorkSheet.Cells[rowNumber, "G"] = "Date";
+            // Auto fit automatically adjust the width of columns of Excel  in givien range .  
+            myExcelWorkSheet.Range[myExcelWorkSheet.Cells[1, 1], myExcelWorkSheet.Cells[rowNumber, 13]].EntireColumn.AutoFit();
+            rowNumber++;  // if you put this method inside a loop, you should increase rownumber by one or wat ever is your logic
+        }
+        //add data to trade excel sheets
+        private void addTradeData(string principle, string startPrinc, string buy, string sell, bool isShort, string change, string date)
+        {
+            //add the data to the cells
+            myExcelWorkSheet.Cells[rowNumber, "A"] = principle;
+            myExcelWorkSheet.Cells[rowNumber, "B"] = startPrinc;
+            myExcelWorkSheet.Cells[rowNumber, "C"] = buy;
+            myExcelWorkSheet.Cells[rowNumber, "D"] = sell;
+            myExcelWorkSheet.Cells[rowNumber, "E"] = isShort;
+            myExcelWorkSheet.Cells[rowNumber, "F"] = change;
+            myExcelWorkSheet.Cells[rowNumber, "g"] = date;
 
+            //format the cells to dispaly the dates
+            Excel.Range rg = (Excel.Range)myExcelWorkSheet.Cells[1, "G"];
+            rg.EntireColumn.NumberFormat = "m/d/yyyy h:mm";
+            // Auto fit automatically adjust the width of columns of Excel  in givien range .  
+            myExcelWorkSheet.Range[myExcelWorkSheet.Cells[1, 1], myExcelWorkSheet.Cells[rowNumber, 6]].EntireColumn.AutoFit();
+            rowNumber++;  // if you put this method inside a loop, you should increase rownumber by one 
+        }
         //method that adds the heading to the newly created excel documents
-        public void addHeadingToExcel()
+        private void addHeadingToExcel()
         {           
             //add the data to the cells in the rows
             myExcelWorkSheet.Cells[rowNumber, "A"] = "Date";
@@ -176,11 +278,12 @@ namespace StockPredictor.Helpers
         }
 
         //add data to the excel work sheet
-        public void addDataToExcel(string date, string method, string elapsedMs, int wordCount, int sentenceCount, int posWordCount, int negWordCount,
+        private void addDataToExcel(string date, string method, string elapsedMs, int wordCount, int sentenceCount, int posWordCount, int negWordCount,
            int posWordPercentage, int negWordPercentage,
             int positivePhraseCount, int negativePhraseCount,
             int posPhrasePercentage, int negPhrasePercentage)
-        {          
+        {
+          
             //add the data to the cells
             myExcelWorkSheet.Cells[rowNumber, "A"] = date;
             myExcelWorkSheet.Cells[rowNumber, "B"] = method;
@@ -205,7 +308,7 @@ namespace StockPredictor.Helpers
         }
 
         //method that adds the heading to the newly created excel documents
-        public void addHeadingToPriceExcel()
+        private void addHeadingToPriceExcel()
         {
             //add the data to the cells in the rows
             myExcelWorkSheet.Cells[rowNumber, "A"] = "Date";
@@ -221,7 +324,7 @@ namespace StockPredictor.Helpers
             rowNumber++;  // if you put this method inside a loop, you should increase rownumber by one or wat ever is your logic
         }
         //method that adds the heading to the newly created excel documents
-        public void addDataToPriceExcel(string date, string name, string ticker, decimal openPrice, decimal closePrice, decimal changeInPercent, decimal lastTradePriceOnly)
+        private void addDataToPriceExcel(string date, string name, string ticker, decimal openPrice, decimal closePrice, decimal changeInPercent, decimal lastTradePriceOnly)
         {
             //add the data to the cells in the rows
             myExcelWorkSheet.Cells[rowNumber, "A"] = date;

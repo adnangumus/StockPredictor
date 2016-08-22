@@ -238,6 +238,7 @@
     <Compile Include="Helpers\StopWords.cs" />
     <Compile Include="Helpers\TermFrequency.cs" />
     <Compile Include="Helpers\TextCleaner.cs" />
+    <Compile Include="Helpers\Trading.cs" />
     <Compile Include="Helpers\YahooStockEngine.cs" />
     <Compile Include="Helpers\YahooStockMethods.cs" />
     <Compile Include="Models\Quote.cs" />
@@ -255,7 +256,14 @@
     <Compile Include="Tests\PosTaggerTest.cs" />
     <Compile Include="Tests\SpellCheckTest.cs" />
     <Compile Include="Tests\TermFrequencyTest.cs" />
+    <Compile Include="Tests\TradingTest.cs" />
     <Compile Include="Tests\YahooMethodsTest.cs" />
+    <Compile Include="TradingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TradingForm.Designer.cs">
+      <DependentUpon>TradingForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -272,6 +280,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TradingForm.resx">
+      <DependentUpon>TradingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

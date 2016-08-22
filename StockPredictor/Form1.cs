@@ -192,5 +192,15 @@ namespace StockPredictor
         {
            
         }
+
+        private void btTrade_Click(object sender, EventArgs e)
+        {
+            var frm = new TradingForm();
+            frm.Location = this.Location;
+            frm.StartPosition = FormStartPosition.Manual;
+            frm.FormClosing += delegate { this.Show(); };
+            frm.Show();
+           
+        }
     }
 }
