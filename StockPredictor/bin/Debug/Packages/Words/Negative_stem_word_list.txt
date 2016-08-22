@@ -2,6 +2,7 @@ abysm
 accus
 advers
 alarm
+alleg
 angri
 annoy
 anxious
@@ -27,6 +28,7 @@ clumsi
 coars
 cold
 collaps
+complaint
 confus
 contradictori
 contrari
@@ -47,6 +49,7 @@ dastard
 dead
 decay
 deceler
+decept
 deform
 deni
 deplor
@@ -83,9 +86,12 @@ faulti
 fear
 feebl
 fight
+file
 filthi
 flat
 foul
+fraud
+fraudul
 fright
 frighten
 gawki
@@ -101,6 +107,7 @@ grotesqu
 gruesom
 guilti
 haggard
+hammer
 hard
 harm
 hate
@@ -131,6 +138,7 @@ insidi
 insipid
 jealous
 jitter
+litig
 lose
 loss
 lost
@@ -157,6 +165,8 @@ never
 nobodi
 nondescript
 nonsens
+nor
+not
 noxious
 objection
 odious
@@ -172,7 +182,9 @@ petti
 poison
 poor
 prejudic
+pressur
 problem
+putat
 question
 quirki
 quit
@@ -195,6 +207,7 @@ sad
 savag
 scare
 scari
+scheme
 scream
 sever
 shock
@@ -217,6 +230,7 @@ struggl
 stuck
 stupid
 substandard
+sue
 suspect
 suspici
 tens
@@ -246,7 +260,6 @@ unwieldi
 unwis
 upset
 upset
-vice
 vicious
 vile
 villain

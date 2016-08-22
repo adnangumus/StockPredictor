@@ -29,6 +29,7 @@ brilliant
 brim
 bull
 buy
+celebr
 charm
 cheap
 dazzl
@@ -136,7 +137,6 @@ pleasur
 plenti
 plum
 plump
-power
 precious
 prefer
 prestig
@@ -176,6 +176,7 @@ skill
 slick
 smile
 smooth
+soar
 sparkl
 special
 spectacular
@@ -183,6 +184,7 @@ spici
 splendid
 spotless
 spruce
+stabil
 star
 strength
 stun

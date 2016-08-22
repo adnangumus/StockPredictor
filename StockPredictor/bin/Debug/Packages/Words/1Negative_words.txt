@@ -2,6 +2,7 @@ abysmal
 accused
 adverse
 alarming
+allegations
 angry
 annoy
 anxious
@@ -31,6 +32,7 @@ collapse
 confused
 contradictory
 contrary
+complaint
 corrosive
 corrupt
 crazy
@@ -43,6 +45,7 @@ cry
 cutting
 dead
 decaying
+deceptive 
 damage
 damaging
 dastardly
@@ -86,8 +89,11 @@ fear
 feeble
 fight
 filthy
+filed
 foul
 flat
+fraud
+fraudulent 
 frighten
 frightful
 gawky
@@ -103,6 +109,7 @@ grotesque
 gruesome
 guilty
 haggard
+hammered
 hard
 harmful
 hate
@@ -134,6 +141,7 @@ insipid
 jealous
 jitter
 junky
+litigation
 loss
 lost
 lose
@@ -157,11 +165,10 @@ negate
 negative
 never
 nervous
-no
+nor
 nobody
 nondescript
 nonsense
-not
 noxious
 objectionable
 odious
@@ -175,12 +182,14 @@ perturb
 pessimistic
 petty
 problem
+pressure
 poisonous
 poor
 prejudice
 questionable
 quirky
 quit
+putative
 reject
 renege
 repellent
@@ -200,6 +209,7 @@ sad
 savage
 scare
 scary
+scheme
 scream
 severe
 shoddy
@@ -222,6 +232,7 @@ struggle
 stuck
 stupid
 substandard
+sue
 suspect
 suspicious
 tense
@@ -251,7 +262,6 @@ unwholesome
 unwieldy
 unwise
 upset
-vice
 vicious
 vile
 villainous

@@ -8,7 +8,7 @@ Alive
 Amazing
 Appealing	
 Approval	
-Attraction
+Attract
 acquired
 Award
 Bargain	
@@ -28,7 +28,8 @@ bull
 Bright	
 Brilliant	
 Brimming
-Buy	
+Buy
+celebrate	
 Charming
 cheap
 Dazzling
@@ -102,9 +103,6 @@ Jewel
 Joy
 Juicy
 Jump
-Keenest
-Kind
-Leads
 Legend
 Leisure	
 Lovely
@@ -134,8 +132,7 @@ phenomenal
 Pleasure	
 Plenty
 Plum
-Plump	
-Power
+Plump
 Precious
 Prefer
 Prestige
@@ -167,7 +164,6 @@ Sensitive
 Sensational	
 Serene
 Sexy
-Shapely	
 Sheer
 Silver
 Sizzling
@@ -175,6 +171,7 @@ Skillful
 Slick
 Smiles
 Smooth
+soar
 Sparkling
 Special
 Spectacular	
@@ -183,6 +180,7 @@ Splendid
 Spotless
 Spruce
 Star
+stabilize
 strength
 Stunning
 Stylish
