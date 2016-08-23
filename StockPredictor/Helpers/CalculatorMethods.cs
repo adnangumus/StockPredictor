@@ -40,8 +40,8 @@ namespace StockPredictor.Helpers
         //a method to determine what percentage of the total the values are
         public int getTotalScore(int pw, int pp, int nw, int np)
         {
-            pp = pp * 10;
-            np = np * 10;
+            pp = pp * 6;
+            np = np * 6;
             int p = pp + pw;
             int n = np + nw;
             if (p > 0)

@@ -102,7 +102,8 @@ namespace StockPredictor.Helpers
         public string[] getStockPriceChange(string symbol)
         {
             string[] prices = new string[2];
-
+            string open = "";
+            string lastTrade = "";
             Quotes = new BindingList<Quote>();
             //Some example tickers
             Quotes.Add(new Quote(symbol.ToUpper()));
@@ -111,8 +112,10 @@ namespace StockPredictor.Helpers
 
             foreach (Quote quote in Quotes)
             {
-                prices[0] = quote.Open.ToString();
-                prices[1] = quote.LastTradePrice.ToString();
+                open = quote.Open.ToString();
+                lastTrade = quote.LastTradePrice.ToString();
+                prices[0] = open;
+                prices[1] = lastTrade;
             }
             return prices;
         }

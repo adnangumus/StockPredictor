@@ -47,7 +47,7 @@ namespace StockPredictor.Helpers
             return 0;
     }
         //get the path of sentiment document
-        private void getSentimentPath(string fileName, string method)
+        private bool getSentimentPath(string fileName, string method)
         {
             //file reader class for reading files
             fileReaderWriter frw = new fileReaderWriter();
@@ -61,8 +61,9 @@ namespace StockPredictor.Helpers
             if (!File.Exists(excelFilePath + ".xlsx"))
             {
                 createSheet(false, false);
+                return false;
             }
-           
+            return true;
         }
     //get the path of the rade documents
         private void getTradePath(string fileName, string symbol)
@@ -86,12 +87,17 @@ namespace StockPredictor.Helpers
         //read the score from the sentiment anlysis
         public int readLatestSentimentScore(string fileName, string method)
         {
-            getSentimentPath(fileName, method);
-            //set the last row
-            Rownumber = lastRow();
+            if(!getSentimentPath(fileName, method)) { TradingForm.Instance.AppendOutputText("Data on " + fileName + " doesn't exist. Run the sentenment analysis." + "\r\n"); }
+           
+            int score = 0;
+            openExcel();
             //read the latest sentiment score
-            Excel.Range range = myExcelWorkSheet.get_Range("B" + rowNumber);
-            int score = range.Value;
+            Excel.Range range = myExcelWorkSheet.get_Range("B" + lastRow());
+            try { 
+            score = Convert.ToInt32(range.Value);
+            }
+            catch (Exception ex) { TradingForm.Instance.AppendOutputText("Data on " + fileName + " doesn't exist. Run the sentenment analysis." + "\r\n"); closeExcel(); return 0; }
+            closeExcel();
             return score;
         }
         //read from an excel sheet - is20 is a trade that takes place within 20minutes of open
