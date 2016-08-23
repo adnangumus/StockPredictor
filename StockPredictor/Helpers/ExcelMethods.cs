@@ -47,13 +47,13 @@ namespace StockPredictor.Helpers
             return 0;
     }
     
-        private string getTradePath(string fileName)
+        private string getTradePath(string fileName, string symbol)
         {
             
             //create a path that puts the stock information into unique folders with the name of the stock and method on seperate 
             //excel sheets
             fileReaderWriter frw = new fileReaderWriter();
-            string folderPath = Path.Combine(frw.GetAppFolder(), @"packages\Data\Trades").ToString();
+            string folderPath = Path.Combine(frw.GetAppFolder(), @"packages\Data\Trades\" + symbol).ToString();
             fileFolderPath = folderPath;
             string filePath = Path.Combine(fileFolderPath + @"\" + fileName).ToString();
             ExcelFilePath = filePath;
@@ -66,12 +66,11 @@ namespace StockPredictor.Helpers
             return excelFilePath;
         }
         //read from an excel sheet - is20 is a trade that takes place within 20minutes of open
-        public decimal readPrinciple(string symbol, bool is20)
-        {
-            string fileName = symbol.ToUpper() + "Trade";
-            if (is20) { fileName += "20"; }
-            //get the folder and file name
-            getTradePath(fileName);
+        public decimal readPrinciple(string fileName, string symbol, bool is20)
+        {           
+            if (is20) { fileName += "20"; }          
+                //get the folder and file name
+                getTradePath(fileName, symbol);
             //open the excel sheet
             openExcel();
             //set the last row
@@ -86,15 +85,14 @@ namespace StockPredictor.Helpers
             return decimal.Parse(principleStr);
         }
         //save trading data to an excel sheet
-        public void saveTradingData(string symbol, bool is20, string principle, string startPrinciple, string buy, string sell, bool isShort, string change)
+        public void saveTradingData(string symbol, string fileName, bool is20, string principle, string startPrinciple, string buy, string sell, bool isShort, string change)
         {
             //get the date time to insert into the excel sheet
             string date = DateTime.Now.ToString();
 
-            string fileName = symbol.ToUpper() + "Trade";
             if (is20) { fileName += "20"; }
             //get the folder and file name
-            getTradePath(fileName);
+            getTradePath(fileName, symbol);
             //open the excel sheet
             openExcel();
            

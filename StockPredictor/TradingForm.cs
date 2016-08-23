@@ -61,34 +61,30 @@ namespace StockPredictor
         {
             Trading tr = new Trading();
             bool isShort = cbSell.Checked;
-            bool is20 = false;
-            string symbol = tbTrade.Text;
+            bool is20 = cb20.Checked;
+            bool isBag = cbBag.Checked;
+            bool isNoun = cbNoun.Checked;
+            bool isNamed = cbNamed.Checked;
+            string symbol = tbTrade.Text.ToUpper();
+            
             if(String.IsNullOrEmpty(symbol))
             {
                 //run the simulated trades for companies used in this project
-                tr.simulateTrade("GILD", isShort, is20, 0);
-                tr.simulateTrade("HZNP", isShort, is20, 0);
-                tr.simulateTrade("BIIB", isShort, is20, 0);
-                tr.simulateTrade("CELG", isShort, is20, 0);
-                tr.simulateTrade("IBB", isShort, is20, 0);
+                tbTradeOutput.AppendText("Please enter a stock symbol" + "\r\n");
+                return;
+            }
+            if (String.IsNullOrEmpty(tb20.Text))
+            {  //run the simulated trade
+                tr.simulateTradeMaster(symbol, isShort, is20, 0, isBag, isNoun, isNamed);
             }
             else
             {
+                decimal sellPrice = Decimal.Parse(tb20.Text);
                 //run the simulated trade
-                tr.simulateTrade(symbol,isShort, is20, 0);
+                tr.simulateTradeMaster(symbol,isShort, is20, sellPrice, isBag, isNoun, isNamed);
             }
         }
-        //simulate trade using 20 minute mark
-        private void bt20Trade_Click(object sender, EventArgs e)
-        {
-            Trading tr = new Trading();
-            bool isShort = cbSell.Checked;
-            bool is20 = true;
-            string symbol = tbTrade.Text;
-            decimal sellPrice= Decimal.Parse(tb20.Text);
-            //run the simulated trade
-            tr.simulateTrade(symbol, isShort, is20, sellPrice);
-        }
+       
 
         private void btTest_Click(object sender, EventArgs e)
         {

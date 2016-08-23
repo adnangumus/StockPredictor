@@ -15,9 +15,13 @@ namespace StockPredictor.Helpers
         {
             string symbolList = String.Join("%2C", quotes.Select(w => "%22" + w.Symbol + "%22").ToArray());
             string url = string.Format(BASE_URL, symbolList);
-
+            try {
             XDocument doc = XDocument.Load(url);
             Parse(quotes, doc);
+            }
+            catch (Exception) { Console.WriteLine("Failed to load Yahoo quotes. Check internet connection");
+                TradingForm.Instance.AppendOutputText("Failed to load Yahoo quotes. Check internet connection");
+            }
         }
 
         private static void Parse(BindingList<Quote> quotes, XDocument doc)

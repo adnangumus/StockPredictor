@@ -9,12 +9,23 @@ namespace StockPredictor.Helpers
 {
     class Trading
     {
+        //simulate trade based on method used
+        public void simulateTradeMaster(string symbol, bool isShort, bool is20, decimal sellPrice, bool isBag, bool isNoun, bool isNamed)
+        {
+            //save the data based on the method used
+            if (isBag) { simulateTrade(symbol, isShort, is20, sellPrice, "Bag"); }
+            if (isNoun) { simulateTrade(symbol, isShort, is20, sellPrice, "Noun"); };
+            if(isNamed){ simulateTrade(symbol, isShort, is20, sellPrice, "Named"); } 
+            else{ TradingForm.Instance.AppendOutputText("\r\n" + "Please choose a method - Noun, Bag, Named" + "\r\n"); return; }
+        }
         //simulate day trading
-        public void simulateTrade(string symbol, bool isShort, bool is20, decimal sellPrice)
+        private void simulateTrade(string symbol, bool isShort, bool is20, decimal sellPrice, string method)
         {
             ExcelMethods ex = new ExcelMethods();
+            //set the fileName to be passed for retreiving data
+            string fileName = symbol.ToUpper() + method;
             //get the starting priciple
-            decimal principle = ex.readPrinciple(symbol, is20);
+            decimal principle = ex.readPrinciple(fileName, symbol, is20);
             string startPrinciple = principle.ToString();
             //yahoo methods to find change in stock prices
             YahooStockMethods yahoo = new YahooStockMethods();
@@ -41,8 +52,9 @@ namespace StockPredictor.Helpers
             }
             //roud the principle
             principle = Math.Round(principle, 2);
-            //save the trading data to an excel sheet
-            ex.saveTradingData(symbol, is20, principle.ToString(), startPrinciple, prices[0], prices[1], isShort, change.ToString());
+           
+                //save the trading data to an excel sheet
+                ex.saveTradingData(symbol, fileName, is20, principle.ToString(), startPrinciple, prices[0], prices[1], isShort, change.ToString());
             //write information to the text box
             TradingForm.Instance.AppendOutputText("\r\n" + symbol + "\r\n" + "Start Principle : " + startPrinciple + "\r\n" +
                 "Principle Now : " + principle + "\r\n" + "Percentage change : " + change + "\r\n" +

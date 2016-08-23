@@ -12,9 +12,9 @@ namespace StockPredictor.Tests
         public void testTrade()
         {
             Trading tr = new Trading();
-            tr.simulateTrade("ibb", false,false,0);
-            tr.simulateTrade("ibb",true, false, 0);          
-            tr.simulateTrade("ibb", true, true, 80.45m);
+            tr.simulateTradeMaster("ibb", false,false,0,true,false,false);
+            tr.simulateTradeMaster("ibb",true, false, 0,false,true,false);
+            tr.simulateTradeMaster("ibb", true, true, 80.45m,false,false,true);
         }
 
     }

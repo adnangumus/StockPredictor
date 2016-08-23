@@ -101,7 +101,7 @@ namespace StockPredictor.Helpers
 //get the price change for simulated trading
         public string[] getStockPriceChange(string symbol)
         {
-            string[] prices = new string[3];
+            string[] prices = new string[2];
 
             Quotes = new BindingList<Quote>();
             //Some example tickers
