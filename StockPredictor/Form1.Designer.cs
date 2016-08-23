@@ -42,6 +42,7 @@
             this.tbOutput = new StockPredictor.CustomTextBox();
             this.cbSave = new System.Windows.Forms.CheckBox();
             this.btTrade = new System.Windows.Forms.Button();
+            this.cbRetry = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // Run
@@ -170,15 +171,25 @@
             // 
             // btTrade
             // 
-            this.btTrade.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btTrade.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btTrade.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btTrade.Image = global::StockPredictor.Properties.Resources.tradeSmallxx;
             this.btTrade.Location = new System.Drawing.Point(415, 26);
             this.btTrade.Name = "btTrade";
             this.btTrade.Size = new System.Drawing.Size(75, 23);
             this.btTrade.TabIndex = 15;
-            this.btTrade.Text = "Trade";
             this.btTrade.UseVisualStyleBackColor = false;
             this.btTrade.Click += new System.EventHandler(this.btTrade_Click);
+            // 
+            // cbRetry
+            // 
+            this.cbRetry.AutoSize = true;
+            this.cbRetry.Location = new System.Drawing.Point(139, 64);
+            this.cbRetry.Name = "cbRetry";
+            this.cbRetry.Size = new System.Drawing.Size(51, 17);
+            this.cbRetry.TabIndex = 16;
+            this.cbRetry.Text = "Retry";
+            this.cbRetry.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -188,6 +199,7 @@
             this.BackgroundImage = global::StockPredictor.Properties.Resources.Invest;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(528, 651);
+            this.Controls.Add(this.cbRetry);
             this.Controls.Add(this.btTrade);
             this.Controls.Add(this.cbSave);
             this.Controls.Add(this.tbConsoleOutput);
@@ -226,6 +238,7 @@
         private System.Windows.Forms.TextBox tbConsoleOutput;
         private System.Windows.Forms.CheckBox cbSave;
         private System.Windows.Forms.Button btTrade;
+        private System.Windows.Forms.CheckBox cbRetry;
     }
 }
 

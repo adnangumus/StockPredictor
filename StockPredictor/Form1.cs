@@ -52,11 +52,16 @@ namespace StockPredictor
 
             tbOutput.AppendText(str);
         }
-     
+
+        public bool isRetry()
+        {
+            return cbRetry.Checked;
+        }   
         
         private void Run_Click(object sender, EventArgs e)
         {
             bool dontSave = cbSave.Checked;
+           bool isRetry = cbRetry.Checked;
             //the please wait form that indicates loading
             PleaseWait pleaseWait = new PleaseWait();            
             // Display form modelessly

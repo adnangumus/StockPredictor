@@ -19,6 +19,7 @@ namespace StockPredictor.Helpers
             if (isRandom) { simulateTrade(symbol, isShort, is20, sellPrice, "Random"); }
             else { TradingForm.Instance.AppendOutputText("\r\n" + "Please choose a method - Noun, Bag, Named" + "\r\n"); return; }
         }
+
         //simulate day trading
         private void simulateTrade(string symbol, bool isShort, bool is20, decimal sellPrice, string method)
         {
@@ -105,6 +106,7 @@ namespace StockPredictor.Helpers
                 //if no data is stored then stop the auto trade
                 if (score == 0) { TradingForm.Instance.AppendOutputText("\r\n" +"Trade canceled. No sentiment information!" + "\r\n"); return; }
                 if (score < 0 ) { isShort = true; }
+                if (score > 0) { isShort = false; };
                 simulateTrade(symbol,isShort,is20, sellPrice, methods[i]);
             }
 

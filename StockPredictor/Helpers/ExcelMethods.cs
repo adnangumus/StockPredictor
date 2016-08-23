@@ -149,6 +149,7 @@ namespace StockPredictor.Helpers
             getSentimentPath(fileName, method);
             //open the excel sheet
             openExcel();
+            if (Form1.Instance.isRetry()) { Rownumber--; }
             //add the data to the excel sheet
             addDataToExcel(date, method, elapsedMs.ToString(), totalScore, wordCount, sentenceCount, posWordCount, negWordCount,
            posWordPercentage, negWordPercentage,
