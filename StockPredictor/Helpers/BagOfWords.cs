@@ -115,8 +115,9 @@ namespace StockPredictor.Helpers
             int negWordPercentage = cm.getNegativePercentage(posWordCount, negWordCount);
             int posPhrasePercentage = cm.getPositivePercentage(positivePhraseCount, negativePhraseCount);
             int negPhrasePercentage = cm.getNegativePercentage(positivePhraseCount, negativePhraseCount);
+            int totalScore = cm.getTotalScore(posWordCount, positivePhraseCount, negWordCount, negativePhraseCount);
             Console.WriteLine("Percantage of Words Positive = " + posWordPercentage + "% " + "Negative word percentage = " + negWordPercentage + "% ");
-
+            Console.WriteLine("Total Score : " + totalScore);
             //out put information to text box
             Form1.Instance.AppendOutputText("\r\n");
                 Form1.Instance.AppendOutputText(fileName + "\r\n");
@@ -128,6 +129,7 @@ namespace StockPredictor.Helpers
                 "Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n" +
                  "Positive words detected = " + posWordCount + "\r\n" + "Negative words detected  = " + negWordCount + "\r\n" +
                 "Postive phrases detected = " + positivePhraseCount + "\r\n" + "Negative phrases dectected = " + negativePhraseCount  + "\r\n" +
+                "Total Score : " + totalScore + "\r\n" +
                 "Bag of words processing time : " + elapsedMs + "\r\n"
                 );
 
@@ -137,7 +139,7 @@ namespace StockPredictor.Helpers
             //add the output data to an excel file
             ExcelMethods em = new ExcelMethods();
             //add the data to special excel file for only this specific out put for this stock
-            em.savePredictorDataToExcel(fileName, "Bag", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
+            em.savePredictorDataToExcel(fileName, "Bag", elapsedMs.ToString(),totalScore, wordCount, sentenceCount, posWordCount, negWordCount,
           posWordPercentage, negWordPercentage,
            positivePhraseCount, negativePhraseCount,
            posPhrasePercentage, negPhrasePercentage);

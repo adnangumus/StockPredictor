@@ -42,13 +42,14 @@ namespace StockPredictor
             this.cbNamed = new System.Windows.Forms.CheckBox();
             this.cbNoun = new System.Windows.Forms.CheckBox();
             this.cb20 = new System.Windows.Forms.CheckBox();
+            this.cbRandom = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btTrade
             // 
             this.btTrade.Image = global::StockPredictor.Properties.Resources.tradeSmall;
             this.btTrade.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btTrade.Location = new System.Drawing.Point(327, 31);
+            this.btTrade.Location = new System.Drawing.Point(352, 31);
             this.btTrade.Name = "btTrade";
             this.btTrade.Size = new System.Drawing.Size(128, 66);
             this.btTrade.TabIndex = 0;
@@ -58,17 +59,18 @@ namespace StockPredictor
             // 
             // tbTrade
             // 
-            this.tbTrade.Location = new System.Drawing.Point(113, 29);
+            this.tbTrade.Location = new System.Drawing.Point(12, 28);
             this.tbTrade.Name = "tbTrade";
             this.tbTrade.Size = new System.Drawing.Size(75, 20);
             this.tbTrade.TabIndex = 2;
             // 
             // tb20
             // 
-            this.tb20.Location = new System.Drawing.Point(115, 75);
+            this.tb20.Location = new System.Drawing.Point(12, 75);
             this.tb20.Name = "tb20";
             this.tb20.Size = new System.Drawing.Size(75, 20);
             this.tb20.TabIndex = 3;
+            this.tb20.TextChanged += new System.EventHandler(this.tb20_TextChanged);
             // 
             // tbTradeOutput
             // 
@@ -77,13 +79,13 @@ namespace StockPredictor
             this.tbTradeOutput.Multiline = true;
             this.tbTradeOutput.Name = "tbTradeOutput";
             this.tbTradeOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbTradeOutput.Size = new System.Drawing.Size(443, 338);
+            this.tbTradeOutput.Size = new System.Drawing.Size(468, 338);
             this.tbTradeOutput.TabIndex = 4;
             // 
             // cbSell
             // 
             this.cbSell.AutoSize = true;
-            this.cbSell.Location = new System.Drawing.Point(15, 55);
+            this.cbSell.Location = new System.Drawing.Point(120, 58);
             this.cbSell.Name = "cbSell";
             this.cbSell.Size = new System.Drawing.Size(69, 17);
             this.cbSell.TabIndex = 5;
@@ -103,7 +105,7 @@ namespace StockPredictor
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 31);
+            this.label1.Location = new System.Drawing.Point(12, 7);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 13);
             this.label1.TabIndex = 8;
@@ -112,7 +114,7 @@ namespace StockPredictor
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 79);
+            this.label2.Location = new System.Drawing.Point(12, 59);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(81, 13);
             this.label2.TabIndex = 9;
@@ -151,12 +153,22 @@ namespace StockPredictor
             // cb20
             // 
             this.cb20.AutoSize = true;
-            this.cb20.Location = new System.Drawing.Point(113, 55);
+            this.cb20.Location = new System.Drawing.Point(120, 31);
             this.cb20.Name = "cb20";
             this.cb20.Size = new System.Drawing.Size(77, 17);
             this.cb20.TabIndex = 13;
             this.cb20.Text = "20m Trade";
             this.cb20.UseVisualStyleBackColor = true;
+            // 
+            // cbRandom
+            // 
+            this.cbRandom.AutoSize = true;
+            this.cbRandom.Location = new System.Drawing.Point(120, 82);
+            this.cbRandom.Name = "cbRandom";
+            this.cbRandom.Size = new System.Drawing.Size(66, 17);
+            this.cbRandom.TabIndex = 14;
+            this.cbRandom.Text = "Random";
+            this.cbRandom.UseVisualStyleBackColor = true;
             // 
             // TradingForm
             // 
@@ -164,7 +176,8 @@ namespace StockPredictor
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::StockPredictor.Properties.Resources.internet;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(483, 453);
+            this.ClientSize = new System.Drawing.Size(528, 453);
+            this.Controls.Add(this.cbRandom);
             this.Controls.Add(this.cb20);
             this.Controls.Add(this.cbNoun);
             this.Controls.Add(this.cbNamed);
@@ -199,5 +212,6 @@ namespace StockPredictor
         private System.Windows.Forms.CheckBox cbNamed;
         private System.Windows.Forms.CheckBox cbNoun;
         private System.Windows.Forms.CheckBox cb20;
+        private System.Windows.Forms.CheckBox cbRandom;
     }
 }

@@ -36,5 +36,31 @@ namespace StockPredictor.Helpers
             }
             return 0;
         }
+
+        //a method to determine what percentage of the total the values are
+        public int getTotalScore(int pw, int pp, int nw, int np)
+        {
+            pp = pp * 10;
+            np = np * 10;
+            int p = pp + pw;
+            int n = np + nw;
+            if (p > 0)
+            {
+                int total = p + n;
+                int tp = 10000 / total;
+                int ppp = tp * p;
+                int positivepercentage = ppp / 100;
+                return (positivepercentage - 50) *2;
+            }
+            if (n > 0)
+            {
+                int total = p + n;
+                int tp = 10000 / total;
+                int nn = tp * n;
+                int negativePercentage = nn / 100;
+                return (negativePercentage + 50)%100 ;
+            }
+            return 0;
+        }
     }
 }

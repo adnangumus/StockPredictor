@@ -65,6 +65,7 @@ namespace StockPredictor
             bool isBag = cbBag.Checked;
             bool isNoun = cbNoun.Checked;
             bool isNamed = cbNamed.Checked;
+            bool isRandom = cbRandom.Checked;
             string symbol = tbTrade.Text.ToUpper();
             
             if(String.IsNullOrEmpty(symbol))
@@ -75,13 +76,13 @@ namespace StockPredictor
             }
             if (String.IsNullOrEmpty(tb20.Text))
             {  //run the simulated trade
-                tr.simulateTradeMaster(symbol, isShort, is20, 0, isBag, isNoun, isNamed);
+                tr.simulateTradeMaster(symbol, isShort, is20, 0, isBag, isNoun, isNamed, isRandom);
             }
             else
             {
                 decimal sellPrice = Decimal.Parse(tb20.Text);
                 //run the simulated trade
-                tr.simulateTradeMaster(symbol,isShort, is20, sellPrice, isBag, isNoun, isNamed);
+                tr.simulateTradeMaster(symbol,isShort, is20, sellPrice, isBag, isNoun, isNamed, isRandom);
             }
         }
        
@@ -90,6 +91,11 @@ namespace StockPredictor
         {
             TradingTest tt = new TradingTest();
             tt.testTrade();
+        }
+
+        private void tb20_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -134,8 +134,10 @@ namespace StockPredictor
             int negWordPercentage = cm.getNegativePercentage(posWordCount, negWordCount);
             int posPhrasePercentage = cm.getPositivePercentage(positivePhraseCount, negativePhraseCount);
             int negPhrasePercentage = cm.getNegativePercentage(positivePhraseCount, negativePhraseCount);
-            Console.WriteLine("Percentage Positive = " + posWordPercentage + "% " + "Negative percentage = " + negWordPercentage + "% ");
-           
+            int totalScore = cm.getTotalScore(posWordCount, positivePhraseCount, negWordCount, negativePhraseCount);
+            Console.WriteLine("Percantage of Words Positive = " + posWordPercentage + "% " + "Negative word percentage = " + negWordPercentage + "% ");
+            Console.WriteLine("Total Score : " + totalScore);
+
             //add the output data to an excel file
             ExcelMethods em = new ExcelMethods();
             // em.saveDataToExcel(fileName, "noun", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
@@ -146,7 +148,7 @@ namespace StockPredictor
             if (!dontSave)
             {
                 //add the data to special excel file for only this specific out put for this stock
-                em.savePredictorDataToExcel(fileName, "Noun", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
+                em.savePredictorDataToExcel(fileName, "Noun", elapsedMs.ToString(),totalScore, wordCount, sentenceCount, posWordCount, negWordCount,
           posWordPercentage, negWordPercentage,
            positivePhraseCount, negativePhraseCount,
            posPhrasePercentage, negPhrasePercentage);
@@ -162,6 +164,7 @@ namespace StockPredictor
                 "Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n" +
                  "Positive words detected = " + posWordCount + "\r\n" + "Negative words detected  = " + negWordCount + "\r\n" +
                 "Postive phrases detected = " + positivePhraseCount + "\r\n" + "Negative phrases dectected = " + negativePhraseCount + "\r\n" +
+                 "Total Score : " + totalScore + "\r\n" +
                 fileName + "-Noun : processing time : " + elapsedMs + "\r\n"
                 );                  
         }//end class
@@ -313,8 +316,10 @@ namespace StockPredictor
             int negWordPercentage = cm.getNegativePercentage(posWordCount, negWordCount);
             int posPhrasePercentage = cm.getPositivePercentage(positivePhraseCount, negativePhraseCount);
             int negPhrasePercentage = cm.getNegativePercentage(positivePhraseCount, negativePhraseCount);
-            Console.WriteLine("Percentage Positive = " + cm.getPositivePercentage(posWordCount, negWordCount) + "% " + "Negative percentage = " + cm.getNegativePercentage(posWordCount, negWordCount) + "% ");
-           
+            int totalScore = cm.getTotalScore(posWordCount, positivePhraseCount, negWordCount, negativePhraseCount);
+            Console.WriteLine("Percantage of Words Positive = " + posWordPercentage + "% " + "Negative word percentage = " + negWordPercentage + "% ");
+            Console.WriteLine("Total Score : " + totalScore);
+
             //add the output data to an excel file
             ExcelMethods em = new ExcelMethods();
             // em.saveDataToExcel(fileName, "named", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
@@ -325,7 +330,7 @@ namespace StockPredictor
             if (!dontSave)
             {
                 //add the data to special excel file for only this specific out put for this stock          
-                em.savePredictorDataToExcel(fileName, "Named", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
+                em.savePredictorDataToExcel(fileName, "Named", elapsedMs.ToString(),totalScore, wordCount, sentenceCount, posWordCount, negWordCount,
           posWordPercentage, negWordPercentage,
            positivePhraseCount, negativePhraseCount,
            posPhrasePercentage, negPhrasePercentage);
@@ -340,6 +345,7 @@ namespace StockPredictor
                 "Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n" +
                  "Positive words detected = " + posWordCount + "\r\n" + "Negative words detected  = " + negWordCount + "\r\n" +
                 "Postive phrases detected = " + positivePhraseCount + "\r\n" + "Negative phrases dectected = " + negativePhraseCount + "\r\n" +
+                 "Total Score : " + totalScore + "\r\n" +
                 fileName + "-Named : processing time : " + elapsedMs + "\r\n"
                 );
         }//end method 
