@@ -70,10 +70,7 @@ namespace StockPredictor
             PleaseWait pleaseWait = new PleaseWait();            
             // Display form modelesslyD:\VisualStudioProjects\StockPredictor\StockPredictor\Helpers\Mining.cs
             pleaseWait.Show();
-            //  ALlow main UI thread to properly display please wait form.
-            Application.DoEvents();
-            //redirect console to text box here
-            Console.SetOut(threadSafeWriter());
+           
             //time the overall methods
             var watch2 = System.Diagnostics.Stopwatch.StartNew();
             RunMethods rm = new RunMethods();
@@ -199,7 +196,10 @@ namespace StockPredictor
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           
+            //  ALlow main UI thread to properly display please wait form.
+            Application.DoEvents();
+            //redirect console to text box here
+            Console.SetOut(threadSafeWriter());
         }
 
         private void btTrade_Click(object sender, EventArgs e)

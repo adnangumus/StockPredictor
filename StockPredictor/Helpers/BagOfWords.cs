@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Office.Interop.Excel;
+
 
 namespace StockPredictor.Helpers
 {
@@ -37,7 +39,7 @@ namespace StockPredictor.Helpers
         //get the sentences as list from a string. Check that words are spelt 
         //correctly and then put the senteces back in to the lists. Words are stemmed. 
         //Count the amount of words and sentences processed
-        public void processBagOfWords(string articles, string fileName, bool dontSave)
+        public void processBagOfWords(string articles, string fileName, bool dontSave, Application myPassedExcelApplication)
         {
             Console.WriteLine("BagOfWords started");
             //hash table 1=pw 2=nw 3=spw 4=snw 5=pp 6=np 7=wc 8=sc
@@ -135,14 +137,17 @@ namespace StockPredictor.Helpers
 
             //Form1.Instance.AppendOutputText(+"\r\n");
             //check if dontsave is ticked
-            if (!dontSave) {
-            //add the output data to an excel file
-            ExcelMethods em = new ExcelMethods();
-            //add the data to special excel file for only this specific out put for this stock
-            em.savePredictorDataToExcel(fileName, "Bag", elapsedMs.ToString(),totalScore, wordCount, sentenceCount, posWordCount, negWordCount,
-          posWordPercentage, negWordPercentage,
-           positivePhraseCount, negativePhraseCount,
-           posPhrasePercentage, negPhrasePercentage);
+            if (!dontSave)
+            {
+                //add the output data to an excel file
+                ExcelMethods em = new ExcelMethods();
+                                 
+                    //add the data to special excel file for only this specific out put for this stock
+                    em.savePredictorDataToExcel(myPassedExcelApplication, fileName, "Bag", elapsedMs.ToString(), totalScore, wordCount, sentenceCount, posWordCount, negWordCount,
+                  posWordPercentage, negWordPercentage,
+                   positivePhraseCount, negativePhraseCount,
+                   posPhrasePercentage, negPhrasePercentage);
+                
             }
             articles = "";
         }//end method

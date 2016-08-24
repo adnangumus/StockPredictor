@@ -48,7 +48,7 @@ namespace StockPredictor.Helpers
             return 0;
     }
         //get the path of sentiment document
-        private bool getSentimentPath(string fileName, string method)
+        private bool getSentimentPath(string fileName, string method, Excel.Application myPassedExcelApplication)
         {
             //file reader class for reading files
             fileReaderWriter frw = new fileReaderWriter();
@@ -61,7 +61,7 @@ namespace StockPredictor.Helpers
             //check if the excel file exists and if it doesn't create one and add the headings            
             if (!File.Exists(excelFilePath + ".xlsx"))
             {
-                createSheet(false, false,null);
+                createSheet(false, false, myPassedExcelApplication);
                 return false;
             }
             return true;
@@ -89,7 +89,7 @@ namespace StockPredictor.Helpers
         public int readLatestSentimentScore(Excel.Application myPassedExcelApplication, string fileName, string method)
         {
             //check if there is sentiment data availble for the stock
-            if(!getSentimentPath(fileName, method)) { TradingForm.Instance.AppendOutputText("Data on " + fileName + " doesn't exist. Run the sentenment analysis." + "\r\n"); }
+            if(!getSentimentPath(fileName, method, myPassedExcelApplication)) { TradingForm.Instance.AppendOutputText("Data on " + fileName + " doesn't exist. Run the sentenment analysis." + "\r\n"); }
             int score = 0;
             //open the excel sheet
             openExcel(myPassedExcelApplication);
@@ -108,9 +108,6 @@ namespace StockPredictor.Helpers
             if (is20) { fileName += "20"; }          
                 //get the folder and file name
                 getTradePath(fileName, symbol, myPassedExcelApplication);
-
-
-          
             //open the excel sheet
             openExcel(myPassedExcelApplication);
             //set the last row
@@ -146,18 +143,18 @@ namespace StockPredictor.Helpers
         }
 
         //this method will take the out put data from the methods and save it to an excel file      
-        public void savePredictorDataToExcel(string fileName, string method, string elapsedMs,int totalScore, int wordCount, int sentenceCount, int posWordCount, int negWordCount,
+        public void savePredictorDataToExcel(Excel.Application myPassedExcelApplication, string fileName, string method, string elapsedMs,int totalScore, int wordCount, int sentenceCount, int posWordCount, int negWordCount,
            int posWordPercentage, int negWordPercentage,
             int positivePhraseCount, int negativePhraseCount,
             int posPhrasePercentage, int negPhrasePercentage)
         {
+            lock(this)
+            { 
             fileName = fileName.ToUpper();
             //get the date time to insert into the excel sheet
             string date = DateTime.Now.ToString();
             //set the path for the file
-            getSentimentPath(fileName, method);
-
-            Excel.Application myPassedExcelApplication = null;
+            getSentimentPath(fileName, method, myPassedExcelApplication);          
             //open the excel sheet
             openExcel(myPassedExcelApplication);
             if (Form1.Instance.isRetry()) { Rownumber--; }
@@ -167,6 +164,7 @@ namespace StockPredictor.Helpers
             positivePhraseCount, negativePhraseCount,
             posPhrasePercentage, negPhrasePercentage);
             closeExcel();
+            }
         }
 
         //save the price data from yahoo to an excel sheet
@@ -179,7 +177,7 @@ namespace StockPredictor.Helpers
             //put the ticker symbol in lower case
             string fileName = ticker;
             //set the path for the file
-            getSentimentPath(fileName, "PriceInformation");
+            getSentimentPath(fileName, "PriceInformation", null);
             Excel.Application myPassedExcelApplication = null;
             //open the excel sheet
             openExcel(myPassedExcelApplication);
@@ -422,16 +420,27 @@ namespace StockPredictor.Helpers
             return myExcelApplication;
         }
         //close the excell application after use
-        public void quitExcel()
+        public void quitExcel(Excel.Application myPassedExcelApplication)
         {
                 if (myExcelApplication != null)
-                {
-                Marshal.FinalReleaseComObject(myExcelApplication);
+                {              
                 myExcelApplication.Quit(); // close the excel application
-                    Console.WriteLine("Excel application closed");
-               
+                    Console.WriteLine("Excel application closed");               
                 }
-}
+            if (myPassedExcelApplication != null)
+            {                
+                myPassedExcelApplication.Quit(); // close the excel application
+                Console.WriteLine("Excel application closed");
+            }
+            if(myExcelWorkSheet != null)
+            {
+                Marshal.FinalReleaseComObject(myExcelWorkSheet);
+            }
+            if(myExcelWorkbook != null)
+            {
+                Marshal.FinalReleaseComObject(myExcelWorkbook);
+            }
+        }
      
     }//end class
 }//end name space

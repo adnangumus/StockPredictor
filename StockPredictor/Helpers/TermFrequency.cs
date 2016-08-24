@@ -99,7 +99,7 @@ namespace StockPredictor.Helpers
                 if (sentence.Contains(term) && term != "" && term != " ")
                 {
                     count++;
-                    Console.WriteLine("Positive phrase : " + term);
+                    Console.WriteLine("Negative phrase : " + term);
                 }
             }
             return count;

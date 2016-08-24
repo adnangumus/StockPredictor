@@ -66,7 +66,7 @@ namespace StockPredictor
         {
             decimal openPrice;
             try { openPrice = Decimal.Parse(tbOpen.Text); }
-            catch (Exception ex) { tbTradeOutput.AppendText("\r\n" + "please enter a number into the open price box" + "\r\n"); return 0; }
+            catch (Exception ex) { AppendOutputText("\r\n" + "please enter a number into the open price box" + "\r\n"); return 0; }
             return openPrice;
         }
             //get open price
@@ -74,7 +74,7 @@ namespace StockPredictor
         {
             decimal closePrice;
             try { closePrice = Decimal.Parse(tbClose.Text); }
-            catch (Exception ex) { tbTradeOutput.AppendText("\r\n" + "please enter a number into the close price box" + "\r\n"); return 0; }
+            catch (Exception ex) { AppendOutputText("\r\n" + "please enter a number into the close price box" + "\r\n"); return 0; }
             return closePrice;
         }
         //simulate trade 

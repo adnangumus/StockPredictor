@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Office.Interop.Excel;
 
 namespace StockPredictor.Helpers
 {
@@ -29,10 +30,17 @@ namespace StockPredictor.Helpers
             string articles = miner.getAllArticles(links);
             //intialize and process the named and noun entities
             PosTagger pt = new PosTagger();
-            Task taskA = new Task(() => pt.processNamedNoun(articles, input, dontSave));
+            //check if the user wants to save the data
+            Application myPassExcelApp = null;
+            ExcelMethods exl = new ExcelMethods();
+            if (!dontSave) {
+              
+                myPassExcelApp = exl.startExcelApp();
+            }
+            Task taskA = new Task(() => pt.processNamedNoun(articles, input, dontSave, myPassExcelApp));
             //intialize and set up a thread for processing bag of words
             BagOfWords bag = new BagOfWords();
-            Task taskB = new Task(() => bag.processBagOfWords(articles, input, dontSave));
+            Task taskB = new Task(() => bag.processBagOfWords(articles, input, dontSave, myPassExcelApp));
             //stat the tasks
             taskA.Start();
             taskB.RunSynchronously();
@@ -43,7 +51,8 @@ namespace StockPredictor.Helpers
             if (!dontSave) { 
             //randomly generate results
             RandomGenerator rg = new RandomGenerator();
-            rg.generateRandomResults(input);
+            rg.generateRandomResults(input, myPassExcelApp);
+                exl.quitExcel(myPassExcelApp);
             }
 
         }

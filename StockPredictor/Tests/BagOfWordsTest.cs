@@ -50,7 +50,7 @@ namespace StockPredictor.Tests
           
             Mining miner = new Mining();
           
-            bg.processBagOfWords(text2, "exampleExcel1", false);
+            bg.processBagOfWords(text2, "exampleExcel1", false, null);
            // int sentences = counter.countSentenceCollection(collection);
            // int words = counter.countWordCollection(collection);
            // Console.WriteLine("There are " + sentences + " sentences in the bag test");
@@ -60,7 +60,7 @@ namespace StockPredictor.Tests
         public void processBagOfWordsTest()
         {
             BagOfWords bg = new BagOfWords();
-            bg.processBagOfWords(badText, "exampleExcel1", false);
+            bg.processBagOfWords(badText, "exampleExcel1", false, null);
         }
       
     }

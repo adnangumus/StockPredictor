@@ -103,9 +103,6 @@ jewel
 joy
 juici
 jump
-keenest
-kind
-lead
 legend
 leisur
 long
@@ -168,7 +165,6 @@ sensat
 sensit
 seren
 sexi
-shape
 sheer
 silver
 sizzl

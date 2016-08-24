@@ -74,6 +74,8 @@ disput
 distress
 distress
 distress
+don't
+down
 dread
 dreari
 drop
@@ -145,7 +147,6 @@ lost
 lousi
 lumpi
 malici
-mean
 menac
 messi
 miss

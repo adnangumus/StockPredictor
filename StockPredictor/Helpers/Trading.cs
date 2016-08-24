@@ -41,7 +41,7 @@ namespace StockPredictor.Helpers
             if (isRandom) { simulateTrade(symbol, isShort, is20, sellPrice, "Random", prices, myPassedExcelApplication); }
             else { TradingForm.Instance.AppendOutputText("\r\n" + "Please choose a method - Noun, Bag, Named" + "\r\n"); return; }
             //destroy the excel application
-            exl.quitExcel();
+            exl.quitExcel(myPassedExcelApplication);
         }
 
         //simulate day trading
@@ -93,9 +93,10 @@ namespace StockPredictor.Helpers
             //save the trading data to an excel sheet
             ex.saveTradingData(myPassedExcelApplication, symbol, fileName, is20, principle.ToString(), startPrinciple, prices[0], prices[1], isShort, change.ToString(), profitable);
             //write information to the text box
-            TradingForm.Instance.AppendOutputText("\r\n" + symbol + "\r\n" + "Start Principle : " + startPrinciple + "\r\n" +
+            TradingForm.Instance.AppendOutputText("\r\n" + symbol + "\r\n" + "Start Price : " + prices[0] + "\r\n" +
+                "End Price :" + prices[1] + "\r\n" + "Start Principle : " + startPrinciple + "\r\n" +
                 "Principle Now : " + principle + "\r\n" + "Percentage change : " + change + "\r\n" +
-                "Short Traded : " + isShort
+                "Short Traded : " + isShort + "\r\n"
                 );
         }
 
@@ -129,6 +130,9 @@ namespace StockPredictor.Helpers
                     return;
                 }
                 prices[0] = TradingForm.Instance.getOpenPrice().ToString();
+                Console.WriteLine(symbol); ;
+                Console.WriteLine("Open : " + prices[0]);
+                Console.WriteLine("Close : " + prices[1]);            
                 prices[1] = TradingForm.Instance.getClosePrice().ToString();
             }
             //start the excel application object
@@ -140,7 +144,8 @@ namespace StockPredictor.Helpers
             tradeNow(symbol, "Named", sellPrice, prices, is20, myPassedExcelApplication);
             tradeNow(symbol, "Random", sellPrice, prices, is20, myPassedExcelApplication);
 
-
+            //destroy the excel application
+            exl.quitExcel(myPassedExcelApplication);
         }
         //method used to allow multithreading in the auto trade section
         private void tradeNow(string symbol, string method, decimal sellPrice, string[] prices, bool is20, Application myPassedExcelApplication)
@@ -149,7 +154,7 @@ namespace StockPredictor.Helpers
             ExcelMethods ex = new ExcelMethods();
             int score = ex.readLatestSentimentScore(myPassedExcelApplication, symbol, method);
             //if no data is stored then stop the auto trade
-            if (score == 0) { TradingForm.Instance.AppendOutputText("\r\n" + "Trade canceled. No sentiment information!" + "\r\n"); return; }
+            if (score == 0) { TradingForm.Instance.AppendOutputText("\r\n" + "Trade canceled. Sentiment information is zero!" + "\r\n" + method + "\r\n"); return; }          
             if (score < 0) { isShort = true; }
             if (score > 0) { isShort = false; };
             simulateTrade(symbol, isShort, is20, sellPrice, method, prices, myPassedExcelApplication);

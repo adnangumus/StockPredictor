@@ -83,6 +83,7 @@ namespace StockPredictor.Helpers
             List<string> phrases = frw.getPharesFromList(fromFile);
             foreach (string phrase in phrases)
             {
+                Console.WriteLine("Phrase : " + phrase);
                 string stemmedPhrase = "";
                 //split the phrases into word                 
                 List<string> words = new List<string>(phrase.Split(' '));
@@ -93,6 +94,7 @@ namespace StockPredictor.Helpers
                     {
                         string stemmedWord = stemmer.stem(word);
                         stemmedPhrase += stemmedWord + " ";
+                        
                     }
                     else
                     {

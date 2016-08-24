@@ -10,6 +10,7 @@ using StockPredictor.Helpers;
 using System;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Microsoft.Office.Interop.Excel;
 
 namespace StockPredictor
 {
@@ -17,14 +18,15 @@ namespace StockPredictor
 
     {
         //process named and noun phrases together
-        public void processNamedNoun(string articles, string fileName, bool dontSave)
+        public void processNamedNoun(string articles, string fileName, bool dontSave, Microsoft.Office.Interop.Excel.Application myPassedExcelApplication)
         {
+            ExcelMethods em = new ExcelMethods();
             //tag the articles first
             string taggedArticles = tagArticles(articles);
             //process the named entites
-            Task taskA = Task.Run(() => nounPhrase(taggedArticles, fileName, dontSave));
+            Task taskA = Task.Run(() => nounPhrase(taggedArticles, fileName, dontSave, myPassedExcelApplication, em));
             //process the noun phrases
-            Task taskB = new Task(() => nameEntites(taggedArticles, fileName, dontSave));
+            Task taskB = new Task(() => namedEntites(taggedArticles, fileName, dontSave, myPassedExcelApplication, em));
               //run the tasks and wait. Get awaiter us used because the threads are using a static instance
                taskB.RunSynchronously();
                 taskA.GetAwaiter();
@@ -66,7 +68,7 @@ namespace StockPredictor
         }
 
         //extract the noun phrases form the article. Return an array list of noun phrase sentences
-        public void nounPhrase(string article, string fileName, bool dontSave)
+        public void nounPhrase(string article, string fileName, bool dontSave, Microsoft.Office.Interop.Excel.Application myPassedExcelApplication, ExcelMethods em)
         {
             //start a stop watch to time method
             var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -139,7 +141,7 @@ namespace StockPredictor
             Console.WriteLine("Total Score : " + totalScore);
 
             //add the output data to an excel file
-            ExcelMethods em = new ExcelMethods();
+           // ExcelMethods em = new ExcelMethods();
             // em.saveDataToExcel(fileName, "noun", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
             //posWordPercentage, negWordPercentage,
             // positivePhraseCount, negativePhraseCount,
@@ -147,12 +149,14 @@ namespace StockPredictor
             //check if dontsave is ticked
             if (!dontSave)
             {
-                //add the data to special excel file for only this specific out put for this stock
-                em.savePredictorDataToExcel(fileName, "Noun", elapsedMs.ToString(),totalScore, wordCount, sentenceCount, posWordCount, negWordCount,
+                
+                    //add the data to special excel file for only this specific out put for this stock
+                    em.savePredictorDataToExcel(myPassedExcelApplication, fileName, "Noun", elapsedMs.ToString(), totalScore, wordCount, sentenceCount, posWordCount, negWordCount,
           posWordPercentage, negWordPercentage,
            positivePhraseCount, negativePhraseCount,
            posPhrasePercentage, negPhrasePercentage);
-            }
+                }
+                
 
             //out put information to text box
             Form1.Instance.AppendOutputText("\r\n" + fileName + "\r\n" +
@@ -242,7 +246,7 @@ namespace StockPredictor
 
 //--------------------------------------------named entites---------------------------------------------------------------///
         //extract sentences with named entities form the article. Return an array list of noun phrase sentences
-        public void nameEntites(string article, string fileName, bool dontSave)
+        public void namedEntites(string article, string fileName, bool dontSave, Microsoft.Office.Interop.Excel.Application myPassedExcelApplication, ExcelMethods em)
         {
             //start a stop watch to time method
             var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -321,7 +325,7 @@ namespace StockPredictor
             Console.WriteLine("Total Score : " + totalScore);
 
             //add the output data to an excel file
-            ExcelMethods em = new ExcelMethods();
+           // ExcelMethods em = new ExcelMethods();
             // em.saveDataToExcel(fileName, "named", elapsedMs.ToString(), wordCount, sentenceCount, posWordCount, negWordCount,
             //posWordPercentage, negWordPercentage,
             // positivePhraseCount, negativePhraseCount,
@@ -329,11 +333,13 @@ namespace StockPredictor
             //check if dontsave is ticked
             if (!dontSave)
             {
-                //add the data to special excel file for only this specific out put for this stock          
-                em.savePredictorDataToExcel(fileName, "Named", elapsedMs.ToString(),totalScore, wordCount, sentenceCount, posWordCount, negWordCount,
+               
+                    //add the data to special excel file for only this specific out put for this stock          
+                    em.savePredictorDataToExcel(myPassedExcelApplication, fileName, "Named", elapsedMs.ToString(), totalScore, wordCount, sentenceCount, posWordCount, negWordCount,
           posWordPercentage, negWordPercentage,
            positivePhraseCount, negativePhraseCount,
            posPhrasePercentage, negPhrasePercentage);
+                
             }
             //out put information to text box
             Form1.Instance.AppendOutputText("\r\n" + fileName + "\r\n" +
