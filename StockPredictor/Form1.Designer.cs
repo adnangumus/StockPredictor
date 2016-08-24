@@ -43,15 +43,16 @@
             this.cbSave = new System.Windows.Forms.CheckBox();
             this.btTrade = new System.Windows.Forms.Button();
             this.cbRetry = new System.Windows.Forms.CheckBox();
+            this.cbBing = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // Run
             // 
-            this.Run.Location = new System.Drawing.Point(33, 90);
+            this.Run.Location = new System.Drawing.Point(224, 90);
             this.Run.Name = "Run";
             this.Run.Size = new System.Drawing.Size(100, 23);
             this.Run.TabIndex = 0;
-            this.Run.Text = "Run!";
+            this.Run.Text = "Scan";
             this.Run.UseVisualStyleBackColor = false;
             this.Run.Click += new System.EventHandler(this.Run_Click);
             // 
@@ -77,7 +78,7 @@
             // 
             // tbInput
             // 
-            this.tbInput.Location = new System.Drawing.Point(33, 64);
+            this.tbInput.Location = new System.Drawing.Point(226, 62);
             this.tbInput.Name = "tbInput";
             this.tbInput.Size = new System.Drawing.Size(100, 20);
             this.tbInput.TabIndex = 4;
@@ -85,7 +86,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 45);
+            this.label1.Location = new System.Drawing.Point(227, 46);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(99, 13);
             this.label1.TabIndex = 5;
@@ -94,17 +95,17 @@
             // 
             // btPrice
             // 
-            this.btPrice.Location = new System.Drawing.Point(226, 90);
+            this.btPrice.Location = new System.Drawing.Point(33, 88);
             this.btPrice.Name = "btPrice";
             this.btPrice.Size = new System.Drawing.Size(100, 23);
             this.btPrice.TabIndex = 6;
-            this.btPrice.Text = "Go!";
+            this.btPrice.Text = "Price";
             this.btPrice.UseVisualStyleBackColor = true;
             this.btPrice.Click += new System.EventHandler(this.btPrice_Click);
             // 
             // tbPriceInput
             // 
-            this.tbPriceInput.Location = new System.Drawing.Point(226, 64);
+            this.tbPriceInput.Location = new System.Drawing.Point(34, 64);
             this.tbPriceInput.Name = "tbPriceInput";
             this.tbPriceInput.Size = new System.Drawing.Size(100, 20);
             this.tbPriceInput.TabIndex = 7;
@@ -112,7 +113,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(223, 26);
+            this.label2.Location = new System.Drawing.Point(31, 26);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(106, 13);
             this.label2.TabIndex = 8;
@@ -121,7 +122,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(34, 26);
+            this.label3.Location = new System.Drawing.Point(227, 26);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(104, 13);
             this.label3.TabIndex = 9;
@@ -130,7 +131,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(223, 45);
+            this.label4.Location = new System.Drawing.Point(31, 48);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(99, 13);
             this.label4.TabIndex = 10;
@@ -191,6 +192,17 @@
             this.cbRetry.Text = "Retry";
             this.cbRetry.UseVisualStyleBackColor = true;
             // 
+            // cbBing
+            // 
+            this.cbBing.AutoSize = true;
+            this.cbBing.Location = new System.Drawing.Point(332, 94);
+            this.cbBing.Name = "cbBing";
+            this.cbBing.Size = new System.Drawing.Size(47, 17);
+            this.cbBing.TabIndex = 17;
+            this.cbBing.Text = "Bing";
+            this.cbBing.UseVisualStyleBackColor = true;
+            this.cbBing.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -199,6 +211,7 @@
             this.BackgroundImage = global::StockPredictor.Properties.Resources.Invest;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(528, 651);
+            this.Controls.Add(this.cbBing);
             this.Controls.Add(this.cbRetry);
             this.Controls.Add(this.btTrade);
             this.Controls.Add(this.cbSave);
@@ -239,6 +252,7 @@
         private System.Windows.Forms.CheckBox cbSave;
         private System.Windows.Forms.Button btTrade;
         private System.Windows.Forms.CheckBox cbRetry;
+        private System.Windows.Forms.CheckBox cbBing;
     }
 }
 

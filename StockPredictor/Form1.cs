@@ -61,6 +61,11 @@ namespace StockPredictor
         {
             return cbSave.Checked;
         }  
+        //check if the user wants to use bing
+        public bool useBing()
+        {
+            return cbBing.Checked;
+        }
         
         private void Run_Click(object sender, EventArgs e)
         {
@@ -118,49 +123,7 @@ namespace StockPredictor
             stem.stemAll();
         }
 
-        private void Test_Click(object sender, EventArgs e)
-        {
-
-            //the please wait form that indicates loading
-            PleaseWait pleaseWait = new PleaseWait();
-            // Display form modelessly
-            pleaseWait.Show();
-            //  ALlow main UI thread to properly display please wait form.
-            Application.DoEvents();
-
-            //redirect console to text box here
-            Console.SetOut(threadSafeWriter());
-           
-            //clear the text from the output box
-              tbOutput.Text = string.Empty;
-            PosTaggerTest ptt = new PosTaggerTest();
-            ptt.testNounNamed();
-            
-                BagOfWordsTest bwt = new BagOfWordsTest();
-            bwt.processBagOfWordsTest();
-            //  Task taskA = Task.Run(() => Console.WriteLine("started task A "));
-            //  bwt.processBagOfWordsTest();
-            //  Task taskA = new Task(() => bwt.processBagOfWordsTest());
-            //intialize and process the named and noun entities
-            //  PosTagger pt = new PosTagger();
-            //   Task taskB = new Task(() => ptt.testNounNamed());
-            //stat the tasks         
-
-            //  taskB.Start();
-            //  taskA.RunSynchronously();
-            // taskC.RunSynchronously();
-            //  taskC.RunSynchronously();
-            //  taskA.Wait();
-
-            //  taskB.GetAwaiter();
-            //  taskA.Wait();
-            //  ExcelMethodsTest emt = new ExcelMethodsTest();
-            // emt.testSaveDataToExcel();
-
-            //  YahooMethodsTest yt = new YahooMethodsTest();
-            //  yt.testGetStockPrices();
-            pleaseWait.Close();
-        }
+       
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -210,6 +173,39 @@ namespace StockPredictor
             frm.FormClosing += delegate { this.Show(); };
             frm.Show();
            
+        }
+
+        private void Test_Click(object sender, EventArgs e)
+        {
+
+            //the please wait form that indicates loading
+          //  PleaseWait pleaseWait = new PleaseWait();
+            // Display form modelessly
+         //   pleaseWait.Show();
+            //  ALlow main UI thread to properly display please wait form.
+         //   Application.DoEvents();
+
+         //   //redirect console to text box here
+            Console.SetOut(threadSafeWriter());
+
+            //clear the text from the output box
+            //  tbOutput.Text = string.Empty;
+            //   PosTaggerTest ptt = new PosTaggerTest();
+            //   ptt.testNounNamed();
+
+            //    BagOfWordsTest bwt = new BagOfWordsTest();
+            //    bwt.processBagOfWordsTest();
+            // pleaseWait.Close();
+
+
+            BingMethods bing = new BingMethods();
+            bing.getBinglinks("http://cn.bing.com/news/search?q=gild+Gilead&qft=interval%3d%227%22&form=PTFTNR&intlF=1&FORM=TIPEN1");
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

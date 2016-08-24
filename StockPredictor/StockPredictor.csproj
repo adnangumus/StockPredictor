@@ -221,6 +221,7 @@
     </Compile>
     <Compile Include="Helpers\AbstractTextWriter.cs" />
     <Compile Include="Helpers\BagOfWords.cs" />
+    <Compile Include="Helpers\BingMethods.cs" />
     <Compile Include="Helpers\CalculatorMethods.cs" />
     <Compile Include="Helpers\DelegateTextWriter.cs" />
     <Compile Include="Helpers\ExcelMethods.cs" />
