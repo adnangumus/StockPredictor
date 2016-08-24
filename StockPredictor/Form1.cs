@@ -69,20 +69,33 @@ namespace StockPredictor
         
         private void Run_Click(object sender, EventArgs e)
         {
-            bool dontSave = cbSave.Checked;
-           bool isRetry = cbRetry.Checked;
+            tbOutput.Text = string.Empty;
+            // Set up background worker object & hook up handlers
+            BackgroundWorker bgWorker;
+            bgWorker = new BackgroundWorker();
+            bgWorker.DoWork += new DoWorkEventHandler(runScans);
+           // bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgWorker_RunWorkerCompleted);
+            // Launch background thread to do the work of reading the file.  This will
+            // trigger BackgroundWorker.DoWork().  Note that we pass the filename to
+            // process as a parameter.
+            bgWorker.RunWorkerAsync();
+           
+        }
+// handle the scanning in a back ground worker
+        private void runScans(object sender, DoWorkEventArgs e)
+        {
             //the please wait form that indicates loading
-            PleaseWait pleaseWait = new PleaseWait();            
+            PleaseWait pleaseWait = new PleaseWait();
             // Display form modelesslyD:\VisualStudioProjects\StockPredictor\StockPredictor\Helpers\Mining.cs
             pleaseWait.Show();
-           
             //time the overall methods
             var watch2 = System.Diagnostics.Stopwatch.StartNew();
-            RunMethods rm = new RunMethods();
-            tbOutput.Text = string.Empty;
+            bool dontSave = cbSave.Checked;
             //intialize input to defualt input. 
             string input = tbInput.Text.ToLower();
-            if (String.IsNullOrEmpty(tbInput.Text) || tbInput.Text.ToLower()=="bio")
+            RunMethods rm = new RunMethods();
+            
+            if (String.IsNullOrEmpty(tbInput.Text) || tbInput.Text.ToLower() == "bio")
             {
                 rm.runStockPredictor("gild", dontSave);
                 rm.runStockPredictor("hznp", dontSave);
@@ -92,18 +105,18 @@ namespace StockPredictor
                 pleaseWait.Close();
                 return;
             }
-           
+
             rm.runStockPredictor(input, dontSave);
             //   taskC.Wait();
-           //time the overall performance
+            //time the overall performance
             watch2.Stop();
             var elapsedMs2 = watch2.ElapsedMilliseconds;
             Console.WriteLine("Overall Time " + elapsedMs2);
             Console.WriteLine("Seconds " + elapsedMs2 / 1000);
-          
+
             //out put information to the text box
             displayTime(elapsedMs2);
-
+            //close the please wait dialogue
             pleaseWait.Close();
         }
         //display the total time

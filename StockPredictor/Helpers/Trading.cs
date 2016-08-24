@@ -27,10 +27,15 @@ namespace StockPredictor.Helpers
 
                     return;
                 }
+                //get the price data from the text boxes 
+                prices[0] = TradingForm.Instance.getOpenPrice().ToString();
+                Console.WriteLine(symbol); ;
+                Console.WriteLine("Open : " + prices[0]);
+                Console.WriteLine("Close : " + prices[1]);
+                prices[1] = TradingForm.Instance.getClosePrice().ToString();
             }
-            //get the price data from the text boxes 
-            prices[0] = TradingForm.Instance.getOpenPrice().ToString();
-            prices[1] = TradingForm.Instance.getClosePrice().ToString();
+      
+
 //start the excel application object
             ExcelMethods exl = new ExcelMethods();
             Application myPassedExcelApplication = exl.startExcelApp();
@@ -39,7 +44,9 @@ namespace StockPredictor.Helpers
             if (isNoun) { simulateTrade(symbol, isShort, is20, sellPrice, "Noun", prices, myPassedExcelApplication); }
             if (isNamed) { simulateTrade(symbol, isShort, is20, sellPrice, "Named", prices, myPassedExcelApplication); }
             if (isRandom) { simulateTrade(symbol, isShort, is20, sellPrice, "Random", prices, myPassedExcelApplication); }
-            else { TradingForm.Instance.AppendOutputText("\r\n" + "Please choose a method - Noun, Bag, Named" + "\r\n"); return; }
+            if(!isBag && !isNoun && !isNamed && !isRandom) { TradingForm.Instance.AppendOutputText("\r\n" + "Please choose a method - Noun, Bag, Named" + "\r\n");
+                //destroy the excel application
+                exl.quitExcel(myPassedExcelApplication); return; }
             //destroy the excel application
             exl.quitExcel(myPassedExcelApplication);
         }
@@ -69,7 +76,9 @@ namespace StockPredictor.Helpers
              closePrice = Decimal.Parse(prices[1]);
              change = calculateChangePercent(startPrice, closePrice);
             }
-            catch (Exception ex2) { TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load Yahoo fincial data" + "\r\n"); return; }
+            catch (Exception ex2) {
+                Console.WriteLine(ex2.Message);
+                TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load Yahoo fincial data" + "\r\n"); return; }
             bool profitable = false;
             //check if it is a 20 minute trade
             if (is20)
@@ -113,8 +122,6 @@ namespace StockPredictor.Helpers
         // auto trade
         public void autoTrade(string symbol, bool is20, decimal sellPrice)
         {
-           
-          
             //yahoo methods to find change in stock prices
             YahooStockMethods yahoo = new YahooStockMethods();
             string[] prices = yahoo.getStockPriceChange(symbol);

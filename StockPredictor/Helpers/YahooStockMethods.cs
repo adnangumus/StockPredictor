@@ -93,7 +93,7 @@ namespace StockPredictor.Helpers
                 DateTime? lastTradeDate = quote.LastTradeDate;
                 DateTime dateYesterday = DateTime.Today.AddDays(-1);
                 DateTime yahooDate = lastTradeDate ?? DateTime.Today.AddDays(-1);
-                if (dateYesterday.Date == yahooDate.Date) { 
+                if (dateYesterday.Date == yahooDate.Date || yahooDate.Date == DateTime.Today.Date) { 
 
                 decimal openPrice = Decimal.Parse(quote.Open.ToString());
                 decimal closePrice = Decimal.Parse(quote.PreviousClose.ToString());
@@ -151,7 +151,8 @@ namespace StockPredictor.Helpers
                 DateTime? lastTradeDate = quote.LastTradeDate;
                 DateTime dateYesterday = DateTime.Today.AddDays(-1);
                 DateTime yahooDate = lastTradeDate ?? DateTime.Today.AddDays(-1);
-                if (dateYesterday.Date == yahooDate.Date)
+
+                if (dateYesterday.Date == yahooDate.Date || yahooDate.Date == DateTime.Today.Date)
                 {
                     //check the date of the last trade
                     string tradeDate = quote.LastTradeDate.ToString();

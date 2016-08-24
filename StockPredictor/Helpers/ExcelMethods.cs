@@ -115,7 +115,10 @@ namespace StockPredictor.Helpers
             if (TradingForm.Instance.isRetry()) { Rownumber--; }
             Excel.Range range = myExcelWorkSheet.get_Range("A" + rowNumber);
             //read the data from the cell that has the principle
-            double principle = range.Value;
+            double principle = 10000;
+            if (range.Value.GetType() == typeof(double)) {
+                principle  = range.Value;
+            }
             //close the excel sheet
             closeExcel();
             string principleStr = principle.ToString();

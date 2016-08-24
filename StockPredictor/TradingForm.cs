@@ -80,17 +80,33 @@ namespace StockPredictor
         //simulate trade 
         private void btTrade_Click(object sender, EventArgs e)
         {
-        //process if it is a manual tade 
+            
+            // Set up background worker object & hook up handlers
+            BackgroundWorker bgWorker;
+            bgWorker = new BackgroundWorker();
+            bgWorker.DoWork += new DoWorkEventHandler(tradeHere);
+            // bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgWorker_RunWorkerCompleted);
+            // Launch background thread to do the work of reading the file.  This will
+            // trigger BackgroundWorker.DoWork().  Note that we pass the filename to
+            // process as a parameter.
+            bgWorker.RunWorkerAsync();
+        }
+       
+        //do trading here
+        private void tradeHere(object sender, DoWorkEventArgs e)
+        {
+            //process if it is a manual tade 
             bool isManual = cbManual.Checked;
             if (isManual) { manualTrade(); return; }
             //intialize the trading class
             Trading tr = new Trading();
             //get input from user
-            string symbol = tbTrade.Text.ToUpper();                     
+            string symbol = tbTrade.Text.ToUpper();
             bool is20 = cb20.Checked;
             decimal sellPrice = 0;
-                //check that there is input before assigning local variable
-            if (!String.IsNullOrEmpty(tb20.Text)) { 
+            //check that there is input before assigning local variable
+            if (!String.IsNullOrEmpty(tb20.Text))
+            {
                 sellPrice = Decimal.Parse(tb20.Text);
             }
 
@@ -123,12 +139,24 @@ namespace StockPredictor
                 return;
             }
             //run the simulated trade
-             tr.autoTrade(symbol, is20, sellPrice);
-
+            tr.autoTrade(symbol, is20, sellPrice);
         }
-       
         //this method process manual trade
         private void manualTrade()
+        {
+            // Set up background worker object & hook up handlers
+            BackgroundWorker bgWorker;
+            bgWorker = new BackgroundWorker();
+            bgWorker.DoWork += new DoWorkEventHandler(manualTradeHere);
+            // bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgWorker_RunWorkerCompleted);
+            // Launch background thread to do the work of reading the file.  This will
+            // trigger BackgroundWorker.DoWork().  Note that we pass the filename to
+            // process as a parameter.
+            bgWorker.RunWorkerAsync();
+        }
+
+        //manual trade logic
+        private void manualTradeHere(object sender, DoWorkEventArgs e)
         {
             Trading tr = new Trading();
             bool isShort = cbSell.Checked;
@@ -156,7 +184,6 @@ namespace StockPredictor
                 tr.simulateTradeMaster(symbol, isShort, is20, sellPrice, isBag, isNoun, isNamed, isRandom);
             }
         }
-
         private void btTest_Click(object sender, EventArgs e)
         {
             TradingTest tt = new TradingTest();
