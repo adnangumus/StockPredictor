@@ -24,6 +24,8 @@ namespace StockPredictor.Helpers
             }
         }
 
+       
+
         private static void Parse(BindingList<Quote> quotes, XDocument doc)
         {
             XElement results = doc.Root.Element("results");

@@ -56,7 +56,11 @@ namespace StockPredictor
         public bool isRetry()
         {
             return cbRetry.Checked;
-        }   
+        } 
+        public bool dontSave()
+        {
+            return cbSave.Checked;
+        }  
         
         private void Run_Click(object sender, EventArgs e)
         {
@@ -64,7 +68,7 @@ namespace StockPredictor
            bool isRetry = cbRetry.Checked;
             //the please wait form that indicates loading
             PleaseWait pleaseWait = new PleaseWait();            
-            // Display form modelessly
+            // Display form modelesslyD:\VisualStudioProjects\StockPredictor\StockPredictor\Helpers\Mining.cs
             pleaseWait.Show();
             //  ALlow main UI thread to properly display please wait form.
             Application.DoEvents();

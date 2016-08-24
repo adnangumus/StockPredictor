@@ -55,7 +55,28 @@ namespace StockPredictor
 
             tbTradeOutput.AppendText(str);
         }
+        //check if it a retried trade
+        public bool isRetry()
+        {
+            return cbRetry.Checked;
+        }
 
+        //get open price
+        public decimal getOpenPrice()
+        {
+            decimal openPrice;
+            try { openPrice = Decimal.Parse(tbOpen.Text); }
+            catch (Exception ex) { tbTradeOutput.AppendText("\r\n" + "please enter a number into the open price box" + "\r\n"); return 0; }
+            return openPrice;
+        }
+            //get open price
+        public decimal getClosePrice()
+        {
+            decimal closePrice;
+            try { closePrice = Decimal.Parse(tbClose.Text); }
+            catch (Exception ex) { tbTradeOutput.AppendText("\r\n" + "please enter a number into the close price box" + "\r\n"); return 0; }
+            return closePrice;
+        }
         //simulate trade 
         private void btTrade_Click(object sender, EventArgs e)
         {
@@ -77,11 +98,28 @@ namespace StockPredictor
             {
                 //run the simulated trades for companies used in this project
                 tbTradeOutput.AppendText("Running automatic trades " + "\r\n");
-                tr.autoTrade("GILD", is20, sellPrice);
-                     tr.autoTrade("BIIB", is20, sellPrice);
-                tr.autoTrade("CELG", is20, sellPrice);
-                tr.autoTrade("HZNP", is20, sellPrice);
-                tr.autoTrade("IBB", is20, sellPrice);
+                Task taskA = new Task(() => tr.autoTrade("GILD", is20, sellPrice));
+                Task taskB = new Task(() => tr.autoTrade("BIIB", is20, sellPrice));
+                Task taskC = new Task(() => tr.autoTrade("CELG", is20, sellPrice));
+                Task taskD = new Task(() => tr.autoTrade("HZNP", is20, sellPrice));
+                Task taskE = new Task(() => tr.autoTrade("IBB", is20, sellPrice));
+                //stat the tasks
+                taskA.Start();
+                taskB.RunSynchronously();
+                taskC.RunSynchronously();
+                taskD.RunSynchronously();
+                taskE.RunSynchronously();
+                //  taskC.RunSynchronously();
+                taskA.GetAwaiter();
+                taskB.Wait();
+                taskC.Wait();
+                taskD.Wait();
+                taskE.Wait();
+                //tr.autoTrade("GILD", is20, sellPrice);
+                //tr.autoTrade("BIIB", is20, sellPrice);
+                //tr.autoTrade("CELG", is20, sellPrice);
+                //tr.autoTrade("HZNP", is20, sellPrice);
+                //tr.autoTrade("IBB", is20, sellPrice);
                 return;
             }
             //run the simulated trade

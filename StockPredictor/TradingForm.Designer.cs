@@ -42,6 +42,11 @@ namespace StockPredictor
             this.cb20 = new System.Windows.Forms.CheckBox();
             this.cbRandom = new System.Windows.Forms.CheckBox();
             this.cbManual = new System.Windows.Forms.CheckBox();
+            this.cbRetry = new System.Windows.Forms.CheckBox();
+            this.tbOpen = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tbClose = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btTrade
@@ -74,11 +79,11 @@ namespace StockPredictor
             // tbTradeOutput
             // 
             this.tbTradeOutput.BackColor = System.Drawing.SystemColors.Control;
-            this.tbTradeOutput.Location = new System.Drawing.Point(12, 150);
+            this.tbTradeOutput.Location = new System.Drawing.Point(12, 203);
             this.tbTradeOutput.Multiline = true;
             this.tbTradeOutput.Name = "tbTradeOutput";
             this.tbTradeOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbTradeOutput.Size = new System.Drawing.Size(494, 338);
+            this.tbTradeOutput.Size = new System.Drawing.Size(494, 285);
             this.tbTradeOutput.TabIndex = 4;
             // 
             // cbSell
@@ -161,6 +166,50 @@ namespace StockPredictor
             this.cbManual.Text = "Manual Trade";
             this.cbManual.UseVisualStyleBackColor = true;
             // 
+            // cbRetry
+            // 
+            this.cbRetry.AutoSize = true;
+            this.cbRetry.Location = new System.Drawing.Point(218, 31);
+            this.cbRetry.Name = "cbRetry";
+            this.cbRetry.Size = new System.Drawing.Size(51, 17);
+            this.cbRetry.TabIndex = 16;
+            this.cbRetry.Text = "Retry";
+            this.cbRetry.UseVisualStyleBackColor = true;
+            // 
+            // tbOpen
+            // 
+            this.tbOpen.Location = new System.Drawing.Point(238, 148);
+            this.tbOpen.Name = "tbOpen";
+            this.tbOpen.Size = new System.Drawing.Size(100, 20);
+            this.tbOpen.TabIndex = 17;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(150, 150);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(82, 18);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Open Price";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(147, 182);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(85, 18);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Close Price";
+            // 
+            // tbClose
+            // 
+            this.tbClose.Location = new System.Drawing.Point(239, 179);
+            this.tbClose.Name = "tbClose";
+            this.tbClose.Size = new System.Drawing.Size(100, 20);
+            this.tbClose.TabIndex = 20;
+            // 
             // TradingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -168,6 +217,11 @@ namespace StockPredictor
             this.BackgroundImage = global::StockPredictor.Properties.Resources.internet;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(528, 519);
+            this.Controls.Add(this.tbClose);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.tbOpen);
+            this.Controls.Add(this.cbRetry);
             this.Controls.Add(this.cbManual);
             this.Controls.Add(this.cbRandom);
             this.Controls.Add(this.cb20);
@@ -202,5 +256,10 @@ namespace StockPredictor
         private System.Windows.Forms.CheckBox cb20;
         private System.Windows.Forms.CheckBox cbRandom;
         private System.Windows.Forms.CheckBox cbManual;
+        private System.Windows.Forms.CheckBox cbRetry;
+        private System.Windows.Forms.TextBox tbOpen;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox tbClose;
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace StockPredictor.Helpers
 {
@@ -60,13 +61,13 @@ namespace StockPredictor.Helpers
             //check if the excel file exists and if it doesn't create one and add the headings            
             if (!File.Exists(excelFilePath + ".xlsx"))
             {
-                createSheet(false, false);
+                createSheet(false, false,null);
                 return false;
             }
             return true;
         }
     //get the path of the rade documents
-        private void getTradePath(string fileName, string symbol)
+        private void getTradePath(string fileName, string symbol, Excel.Application myPassedExcelApplication)
         {
             
             //create a path that puts the stock information into unique folders with the name of the stock and method on seperate 
@@ -80,17 +81,18 @@ namespace StockPredictor.Helpers
             if (!File.Exists(excelFilePath + ".xlsx"))
             {
                 TradingForm.Instance.AppendOutputText("\r\n" + "Creating trading sheet" + "\r\n");
-                createSheet(false, true);
+                createSheet(false, true, myPassedExcelApplication);
             }
            
         }
         //read the score from the sentiment anlysis
-        public int readLatestSentimentScore(string fileName, string method)
+        public int readLatestSentimentScore(Excel.Application myPassedExcelApplication, string fileName, string method)
         {
+            //check if there is sentiment data availble for the stock
             if(!getSentimentPath(fileName, method)) { TradingForm.Instance.AppendOutputText("Data on " + fileName + " doesn't exist. Run the sentenment analysis." + "\r\n"); }
-           
             int score = 0;
-            openExcel();
+            //open the excel sheet
+            openExcel(myPassedExcelApplication);
             //read the latest sentiment score
             Excel.Range range = myExcelWorkSheet.get_Range("B" + lastRow());
             try { 
@@ -101,15 +103,19 @@ namespace StockPredictor.Helpers
             return score;
         }
         //read from an excel sheet - is20 is a trade that takes place within 20minutes of open
-        public decimal readPrinciple(string fileName, string symbol, bool is20)
+        public decimal readPrinciple(Excel.Application myPassedExcelApplication, string fileName, string symbol, bool is20)
         {           
             if (is20) { fileName += "20"; }          
                 //get the folder and file name
-                getTradePath(fileName, symbol);
+                getTradePath(fileName, symbol, myPassedExcelApplication);
+
+
+          
             //open the excel sheet
-            openExcel();
+            openExcel(myPassedExcelApplication);
             //set the last row
             Rownumber = lastRow();
+            if (TradingForm.Instance.isRetry()) { Rownumber--; }
             Excel.Range range = myExcelWorkSheet.get_Range("A" + rowNumber);
             //read the data from the cell that has the principle
             double principle = range.Value;
@@ -120,17 +126,20 @@ namespace StockPredictor.Helpers
             return decimal.Parse(principleStr);
         }
         //save trading data to an excel sheet
-        public void saveTradingData(string symbol, string fileName, bool is20, string principle, string startPrinciple, string buy, string sell, bool isShort, string change, bool profitable)
+        public void saveTradingData(Excel.Application myPassedExcelApplication, string symbol, string fileName, bool is20, string principle, string startPrinciple, string buy, string sell, bool isShort, string change, bool profitable)
         {
             //get the date time to insert into the excel sheet
             string date = DateTime.Now.ToString();
 
             if (is20) { fileName += "20"; }
             //get the folder and file name
-            getTradePath(fileName, symbol);
+            getTradePath(fileName, symbol, myPassedExcelApplication);
+
+          
             //open the excel sheet
-            openExcel();
-           
+            openExcel(myPassedExcelApplication);
+            //check if the retry box is thicked and over right previos data
+            if (TradingForm.Instance.isRetry()) { Rownumber--; }
             //add the data to the excel sheet
             addTradeData(principle, startPrinciple, buy, sell, isShort, change, date, profitable);           
             closeExcel();
@@ -147,8 +156,10 @@ namespace StockPredictor.Helpers
             string date = DateTime.Now.ToString();
             //set the path for the file
             getSentimentPath(fileName, method);
+
+            Excel.Application myPassedExcelApplication = null;
             //open the excel sheet
-            openExcel();
+            openExcel(myPassedExcelApplication);
             if (Form1.Instance.isRetry()) { Rownumber--; }
             //add the data to the excel sheet
             addDataToExcel(date, method, elapsedMs.ToString(), totalScore, wordCount, sentenceCount, posWordCount, negWordCount,
@@ -169,36 +180,44 @@ namespace StockPredictor.Helpers
             string fileName = ticker;
             //set the path for the file
             getSentimentPath(fileName, "PriceInformation");
+            Excel.Application myPassedExcelApplication = null;
             //open the excel sheet
-            openExcel();
+            openExcel(myPassedExcelApplication);
             //add the data to the excel sheet
             addDataToPriceExcel(date,name,ticker,openPrice,closePrice,changeInPercent, lastTradePriceOnly);
             closeExcel();
         }
         //open the excel sheet and pass if the sheet is opened for storing stock price information
-        public void openExcel()
+        public void openExcel(Excel.Application myPassedExcelApplication)
         {
-            myExcelApplication = null;
+           if(myPassedExcelApplication == null)
+            { 
             myExcelApplication = new Excel.Application(); // create Excell App
+            }
+            else { myExcelApplication = myPassedExcelApplication; }
             myExcelApplication.DisplayAlerts = false; // turn off alerts
             //open the excel work sheet
             myExcelWorkbook = (Excel.Workbook)(myExcelApplication.Workbooks._Open(excelFilePath, ReadOnly: false)); // open the existing excel file
 
-            int numberOfWorkbooks = myExcelApplication.Workbooks.Count; // get number of workbooks (optional)
+           // int numberOfWorkbooks = myExcelApplication.Workbooks.Count; // get number of workbooks (optional)
 
             myExcelWorkSheet = (Excel.Worksheet)myExcelWorkbook.Worksheets[1]; // define in which worksheet, do you want to add data
             myExcelWorkSheet.Name = "WorkSheet 1"; // define a name for the worksheet (optinal)
 
-            int numberOfSheets = myExcelWorkbook.Worksheets.Count; // get number of worksheets (optional)
+           // var workSheets = myExcelWorkbook.Worksheets;
+            //int numberOfSheets = workSheets.Count; // get number of worksheets (optional)
           
            //set the last row
             Rownumber = lastRow() + 1;
         }
         //create a new excel work sheet. Open it and add the headings
-        public void createSheet(bool isPrice, bool isTrade)
+        public void createSheet(bool isPrice, bool isTrade, Excel.Application myPassedExcelApplication)
         {
-            myExcelApplication = null;
-            myExcelApplication = new Excel.Application(); // create Excell App
+            if (myPassedExcelApplication == null)
+            {
+                myExcelApplication = new Excel.Application(); // create Excell App
+            }
+            else { myExcelApplication = myPassedExcelApplication; }
             myExcelApplication.DisplayAlerts = false; // turn off alerts
 
             var workBook = myExcelApplication.Workbooks.Add(Type.Missing);
@@ -208,12 +227,12 @@ namespace StockPredictor.Helpers
             //open the excel work sheet
             myExcelWorkbook = (Excel.Workbook)(myExcelApplication.Workbooks._Open(excelFilePath, ReadOnly: false)); // open the existing excel file
 
-            int numberOfWorkbooks = myExcelApplication.Workbooks.Count; // get number of workbooks (optional)
+          //  int numberOfWorkbooks = myExcelApplication.Workbooks.Count; // get number of workbooks (optional)
 
             myExcelWorkSheet = (Excel.Worksheet)myExcelWorkbook.Worksheets[1]; // define in which worksheet, do you want to add data
             myExcelWorkSheet.Name = "WorkSheet 1"; // define a name for the worksheet (optinal)
 
-            int numberOfSheets = myExcelWorkbook.Worksheets.Count; // get number of worksheets (optional)
+           // int numberOfSheets = myExcelWorkbook.Worksheets.Count; // get number of worksheets (optional)
            //set the last row
             Rownumber = lastRow();
             //add the headings to the excel sheet
@@ -366,6 +385,11 @@ namespace StockPredictor.Helpers
         {
             try
             {
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+               
+                Marshal.FinalReleaseComObject(myExcelWorkSheet);
+
                 myExcelWorkbook.SaveAs(excelFilePath, System.Reflection.Missing.Value, System.Reflection.Missing.Value, System.Reflection.Missing.Value,
                                                System.Reflection.Missing.Value, System.Reflection.Missing.Value, Excel.XlSaveAsAccessMode.xlNoChange,
                                                System.Reflection.Missing.Value, System.Reflection.Missing.Value, System.Reflection.Missing.Value,
@@ -373,7 +397,7 @@ namespace StockPredictor.Helpers
 
 
                 myExcelWorkbook.Close(true, excelFilePath, System.Reflection.Missing.Value); // close the worksheet
-
+                Marshal.FinalReleaseComObject(myExcelWorkbook);
 
             }
             catch(Exception ex)
@@ -384,13 +408,30 @@ namespace StockPredictor.Helpers
             {
                 if (myExcelApplication != null)
                 {
-                    myExcelApplication.Quit(); // close the excel application
+                    myExcelApplication.Quit(); // close the excel application 
+                 
                     Console.WriteLine("Excel application closed");
                 }
-            }
-
+            }           
         }
-
+        //start the excel application
+        public Excel.Application startExcelApp()
+        {
+            myExcelApplication = null;
+            myExcelApplication = new Excel.Application(); // create Excell App
+            return myExcelApplication;
+        }
+        //close the excell application after use
+        public void quitExcel()
+        {
+                if (myExcelApplication != null)
+                {
+                Marshal.FinalReleaseComObject(myExcelApplication);
+                myExcelApplication.Quit(); // close the excel application
+                    Console.WriteLine("Excel application closed");
+               
+                }
+}
      
     }//end class
 }//end name space
