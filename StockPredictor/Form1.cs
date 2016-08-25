@@ -219,8 +219,11 @@ namespace StockPredictor
             // pleaseWait.Close();
 
 
-            BingMethods bing = new BingMethods();
+             BingMethods bing = new BingMethods();
             bing.getBinglinks("http://cn.bing.com/news/search?q=gild+Gilead&qft=interval%3d%227%22&form=PTFTNR&intlF=1&FORM=TIPEN1");
+
+           // YahooMinerTest yt = new YahooMinerTest();
+           // yt.testLinkProcessor();
 
         }
 

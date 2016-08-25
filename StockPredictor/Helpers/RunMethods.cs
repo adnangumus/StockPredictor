@@ -103,12 +103,14 @@ namespace StockPredictor.Helpers
                 BingMethods bing = new BingMethods();
                 links.AddRange(bing.getBinglinks(bingUrl));
             }
+
             else if(!useBing && useGoogle && !useYahoo)
             {
                 Form1.Instance.AppendOutputText("\r\n" + "Used : Google" + "\r\n");
                 GoogleMethods goog = new GoogleMethods();
                 links = goog.getGooglelinks(googleUrl);
             }
+
             else if (!useBing && useGoogle && useYahoo)
             {
                 Form1.Instance.AppendOutputText("\r\n" + "Used : Yahoo, Google" + "\r\n");
@@ -118,6 +120,7 @@ namespace StockPredictor.Helpers
                 YahooMiner ym = new YahooMiner();
                 links.AddRange(ym.getYahoolinks(yahooUrl));
             }
+
             else if (!useBing && !useGoogle && useYahoo)
             {
                 Form1.Instance.AppendOutputText("\r\n" + "Used : Yahoo" + "\r\n");

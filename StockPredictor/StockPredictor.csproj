@@ -260,6 +260,7 @@
     <Compile Include="Tests\TermFrequencyTest.cs" />
     <Compile Include="Tests\TradingTest.cs" />
     <Compile Include="Tests\YahooMethodsTest.cs" />
+    <Compile Include="Tests\YahooMinerTest.cs" />
     <Compile Include="TradingForm.cs">
       <SubType>Form</SubType>
     </Compile>

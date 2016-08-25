@@ -32,10 +32,10 @@ namespace StockPredictor.Helpers
                     string hrefValue = link.GetAttributeValue("href", string.Empty);
                    // Console.WriteLine(hrefValue);
                     if (hrefValue.Contains("http") && !hrefValue.Contains("microsoft") && !hrefValue.Contains("sina") && !hrefValue.Contains("qq")
-                        && !hrefValue.Contains("bioon") && !hrefValue.Contains("wiki"))
+                        && !hrefValue.Contains("bioon") && !hrefValue.Contains("wiki") && !hrefValue.Contains("bing.com"))
                     {
                         linkValue = hrefValue;
-                        Console.WriteLine(linkValue);
+                        Console.WriteLine(linkValue);                    
                       links.Add(linkValue);
                     }
 
@@ -49,6 +49,8 @@ namespace StockPredictor.Helpers
             return links;
 
         }
+
+      
     }
 }
 

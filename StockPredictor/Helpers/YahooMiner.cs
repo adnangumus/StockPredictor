@@ -9,8 +9,8 @@ namespace StockPredictor.Helpers
 {
     class YahooMiner
     {
-        //https://news.search.yahoo.com/search;_ylt=AwrXgiOkV75Xm1gAkqnQtDMD;_ylu=X3oDMTB0ZWYwNXBqBGNvbG8DZ3ExBHBvcwMxBHZ0aWQDBHNlYwNzb3J0?p=gild&type=pivot_us_srp_yahoonews&ei=UTF-8&flt=ranking%3Adate%3B&fr=yfp-t
-        //"https://news.search.yahoo.com/search;_ylt=AwrXgiOkV75Xm1gAkqnQtDMD;_ylu=X3oDMTB0ZWYwNXBqBGNvbG8DZ3ExBHBvcwMxBHZ0aWQDBHNlYwNzb3J0?p=" +  + "+" + + "&type=pivot_us_srp_yahoonews&ei=UTF-8&flt=ranking%3Adate%3B&fr=yfp-t
+       
+
         public List<string> getYahoolinks(string url)
         {
             List<string> links = new List<string>();
@@ -21,7 +21,6 @@ namespace StockPredictor.Helpers
             HtmlAgilityPack.HtmlDocument doc = hw.Load(url);
             try
             {
-
                 string linkValue = "";
 
                 foreach (HtmlNode link in doc.DocumentNode.SelectNodes("//a[@href]"))
@@ -31,9 +30,14 @@ namespace StockPredictor.Helpers
                     // Console.WriteLine(hrefValue);
                     if (hrefValue.Contains("http") && !hrefValue.Contains("r.msn"))
                     {
-                        linkValue = hrefValue;
-                        Console.WriteLine(linkValue);
-                        links.Add(linkValue);
+                        string yahooLink = processLink(hrefValue);
+                        if(!String.IsNullOrEmpty(yahooLink))
+                        { 
+                        links.Add(yahooLink);
+                        Console.WriteLine("");
+                        Console.WriteLine("");
+                        Console.WriteLine("Yahoo link : " + yahooLink);
+                        }
                     }
 
                 }
@@ -45,6 +49,53 @@ namespace StockPredictor.Helpers
 
             return links;
 
+        }
+
+        public string processLink(string link)
+        {
+            string decodeUrl;
+            //split the links from yahoo search link
+            link = link.Replace("http", "|");
+            string[] urls = link.Split('|');
+
+            foreach (string url in urls)
+            {
+               // Console.WriteLine(url);
+                string decodedUrl = Uri.UnescapeDataString(url);
+              //  Console.WriteLine(decodedUrl);
+                //get the link and remove the end
+                if (!decodedUrl.Contains("search.yahoo") && !decodedUrl.Contains("help.yahoo") 
+                    && !decodedUrl.Contains("login.yahoo")&& !decodedUrl.Contains("mail.yahoo")
+                    && !decodedUrl.Contains("mozilla") && !decodedUrl.Contains("advertising.yahoo") && !decodedUrl.Contains("info.yahoo")
+                     
+                    )   
+                {
+                  //  Console.WriteLine(decodedUrl);
+                  //  Console.WriteLine("");
+                    //reattach the http to the url
+                   
+                    if(decodedUrl.Contains("s://")) { link = decodedUrl.Replace("s://", "https://");  }
+                    else { link = decodedUrl.Replace("://", "http://"); }
+                    
+                    // ... This will separate all the words.
+                    if (link.Contains("?source=")) { decodedUrl = link.Replace("?source", "|"); }
+                    if (link.Contains("?puc")) { decodedUrl = link.Replace("?puc", "|"); }
+                    if(link.Contains("RK=")) { decodedUrl = link.Replace("RK=", "|"); }
+                    string[] realUrls = decodedUrl.Split('|');
+                    foreach (string realUrl in realUrls)
+                    {
+                        if (realUrl.Contains("http") && !realUrl.Contains("yahoo.com"))
+                        {
+                            // Console.WriteLine("");
+                            // Console.WriteLine(realUrl);
+                            return realUrl;
+                        }
+                    }
+                }
+
+            }
+            //return the link
+            return null;
         }
     }
 }
