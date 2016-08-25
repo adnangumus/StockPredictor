@@ -45,6 +45,7 @@
             this.cbRetry = new System.Windows.Forms.CheckBox();
             this.cbBing = new System.Windows.Forms.CheckBox();
             this.cbGoogle = new System.Windows.Forms.CheckBox();
+            this.cbYahoo = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // Run
@@ -214,6 +215,16 @@
             this.cbGoogle.Text = "Google";
             this.cbGoogle.UseVisualStyleBackColor = true;
             // 
+            // cbYahoo
+            // 
+            this.cbYahoo.AutoSize = true;
+            this.cbYahoo.Location = new System.Drawing.Point(333, 41);
+            this.cbYahoo.Name = "cbYahoo";
+            this.cbYahoo.Size = new System.Drawing.Size(57, 17);
+            this.cbYahoo.TabIndex = 19;
+            this.cbYahoo.Text = "Yahoo";
+            this.cbYahoo.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -222,6 +233,7 @@
             this.BackgroundImage = global::StockPredictor.Properties.Resources.Invest;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(528, 651);
+            this.Controls.Add(this.cbYahoo);
             this.Controls.Add(this.cbGoogle);
             this.Controls.Add(this.cbBing);
             this.Controls.Add(this.cbRetry);
@@ -266,6 +278,7 @@
         private System.Windows.Forms.CheckBox cbRetry;
         private System.Windows.Forms.CheckBox cbBing;
         private System.Windows.Forms.CheckBox cbGoogle;
+        private System.Windows.Forms.CheckBox cbYahoo;
     }
 }
 

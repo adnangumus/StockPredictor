@@ -240,6 +240,7 @@
     <Compile Include="Helpers\TermFrequency.cs" />
     <Compile Include="Helpers\TextCleaner.cs" />
     <Compile Include="Helpers\Trading.cs" />
+    <Compile Include="Helpers\YahooMiner.cs" />
     <Compile Include="Helpers\YahooStockEngine.cs" />
     <Compile Include="Helpers\YahooStockMethods.cs" />
     <Compile Include="Models\Quote.cs" />

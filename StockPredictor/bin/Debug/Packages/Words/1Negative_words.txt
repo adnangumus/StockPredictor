@@ -25,6 +25,7 @@ callous
 cannibalize
 chaotic
 clumsy
+clinton
 cut
 coarse
 cold
@@ -112,6 +113,7 @@ haggard
 hammered
 hard
 harmful
+harsh
 hate
 heat
 hideous

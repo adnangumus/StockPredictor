@@ -71,7 +71,12 @@ namespace StockPredictor
         {
             return cbGoogle.Checked;
         }
-        
+        //check if the yahoo method is checked
+        public bool useYahoo()
+        {
+            return cbYahoo.Checked;
+        }
+
         private void Run_Click(object sender, EventArgs e)
         {
             tbOutput.Text = string.Empty;
