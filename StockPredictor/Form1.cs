@@ -66,6 +66,11 @@ namespace StockPredictor
         {
             return cbBing.Checked;
         }
+        //check if the google method is checked
+        public bool useGoogle()
+        {
+            return cbGoogle.Checked;
+        }
         
         private void Run_Click(object sender, EventArgs e)
         {
@@ -75,9 +80,7 @@ namespace StockPredictor
             bgWorker = new BackgroundWorker();
             bgWorker.DoWork += new DoWorkEventHandler(runScans);
            // bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgWorker_RunWorkerCompleted);
-            // Launch background thread to do the work of reading the file.  This will
-            // trigger BackgroundWorker.DoWork().  Note that we pass the filename to
-            // process as a parameter.
+            // Launch background thread to do the work of reading the file.  
             bgWorker.RunWorkerAsync();
            
         }

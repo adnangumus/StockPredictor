@@ -55,10 +55,14 @@ namespace StockPredictor.Helpers
                 string article = "";
                 try
                 {
+               
                     //remove duplicate links
                     List<string> distinctLinks = links.Distinct().ToList();
-                    //start a stop watch to time method
-                    var watch = System.Diagnostics.Stopwatch.StartNew();
+                //display amount of links in the text box
+                Form1.Instance.AppendOutputText("\r\n" + "Total links : " + links.Count + "\r\n");
+                Form1.Instance.AppendOutputText("\r\n" + "Distinct links : " + distinctLinks.Count + "\r\n");
+                //start a stop watch to time method
+                var watch = System.Diagnostics.Stopwatch.StartNew();
                     //get the text from the articles using the links
                     Parallel.ForEach(distinctLinks,
                     new ParallelOptions { MaxDegreeOfParallelism = 30 }, link =>

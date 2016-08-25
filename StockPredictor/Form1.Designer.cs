@@ -44,6 +44,7 @@
             this.btTrade = new System.Windows.Forms.Button();
             this.cbRetry = new System.Windows.Forms.CheckBox();
             this.cbBing = new System.Windows.Forms.CheckBox();
+            this.cbGoogle = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // Run
@@ -203,6 +204,16 @@
             this.cbBing.UseVisualStyleBackColor = true;
             this.cbBing.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
+            // cbGoogle
+            // 
+            this.cbGoogle.AutoSize = true;
+            this.cbGoogle.Location = new System.Drawing.Point(332, 64);
+            this.cbGoogle.Name = "cbGoogle";
+            this.cbGoogle.Size = new System.Drawing.Size(60, 17);
+            this.cbGoogle.TabIndex = 18;
+            this.cbGoogle.Text = "Google";
+            this.cbGoogle.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -211,6 +222,7 @@
             this.BackgroundImage = global::StockPredictor.Properties.Resources.Invest;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(528, 651);
+            this.Controls.Add(this.cbGoogle);
             this.Controls.Add(this.cbBing);
             this.Controls.Add(this.cbRetry);
             this.Controls.Add(this.btTrade);
@@ -253,6 +265,7 @@
         private System.Windows.Forms.Button btTrade;
         private System.Windows.Forms.CheckBox cbRetry;
         private System.Windows.Forms.CheckBox cbBing;
+        private System.Windows.Forms.CheckBox cbGoogle;
     }
 }
 

@@ -68,7 +68,7 @@ namespace StockPredictor.Helpers
             //check that data loaded correctly
             if(string.IsNullOrEmpty(prices[0]) || string.IsNullOrEmpty(prices[1]))
             {
-                TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load Yahoo fincial data" + "\r\n");
+                TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load Yahoo financial data" + "\r\n");
                 return;
             }
             try { 
@@ -78,7 +78,7 @@ namespace StockPredictor.Helpers
             }
             catch (Exception ex2) {
                 Console.WriteLine(ex2.Message);
-                TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load Yahoo fincial data" + "\r\n"); return; }
+                TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load Yahoo financial data" + "\r\n"); return; }
             bool profitable = false;
             //check if it is a 20 minute trade
             if (is20)
