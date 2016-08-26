@@ -99,8 +99,12 @@ namespace StockPredictor.Helpers
                 Form1.Instance.AppendOutputText("\r\n" + "Used : Bing, Google" + "\r\n");
                 GoogleMethods goog = new GoogleMethods();
                 links = goog.getGooglelinks(googleUrl);
+                if (links.Count == 0)
+                {
+                    Form1.Instance.AppendOutputText("\r\n" + "Google failed to connect" + "\r\n");
+                }
 
-                BingMethods bing = new BingMethods();
+                    BingMethods bing = new BingMethods();
                 links.AddRange(bing.getBinglinks(bingUrl));
             }
 
@@ -109,6 +113,10 @@ namespace StockPredictor.Helpers
                 Form1.Instance.AppendOutputText("\r\n" + "Used : Google" + "\r\n");
                 GoogleMethods goog = new GoogleMethods();
                 links = goog.getGooglelinks(googleUrl);
+                if (links.Count == 0)
+                {
+                    Form1.Instance.AppendOutputText("\r\n" + "Google failed to connect" + "\r\n");
+                }
             }
 
             else if (!useBing && useGoogle && useYahoo)
@@ -116,6 +124,10 @@ namespace StockPredictor.Helpers
                 Form1.Instance.AppendOutputText("\r\n" + "Used : Yahoo, Google" + "\r\n");
                 GoogleMethods goog = new GoogleMethods();
                 links = goog.getGooglelinks(googleUrl);
+                if (links.Count == 0)
+                {
+                    Form1.Instance.AppendOutputText("\r\n" + "Google failed to connect" + "\r\n");
+                }
 
                 YahooMiner ym = new YahooMiner();
                 links.AddRange(ym.getYahoolinks(yahooUrl));
@@ -132,6 +144,10 @@ namespace StockPredictor.Helpers
                 Form1.Instance.AppendOutputText("\r\n" + "Used : All" + "\r\n");
                 GoogleMethods goog = new GoogleMethods();
                 links = goog.getGooglelinks(googleUrl);
+                if (links.Count == 0)
+                {
+                    Form1.Instance.AppendOutputText("\r\n" + "Google failed to connect" + "\r\n");
+                }
 
                 YahooMiner ym = new YahooMiner();
                 links.AddRange(ym.getYahoolinks(yahooUrl));
