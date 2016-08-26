@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using StockPredictor.Helpers;
 using StockPredictor.Tests;
+using System.Threading;
 
 namespace StockPredictor
 {
@@ -79,7 +80,7 @@ namespace StockPredictor
 
         private void Run_Click(object sender, EventArgs e)
         {
-            tbOutput.Text = string.Empty;
+          //  tbOutput.Text = string.Empty;
             // Set up background worker object & hook up handlers
             BackgroundWorker bgWorker;
             bgWorker = new BackgroundWorker();
@@ -92,6 +93,8 @@ namespace StockPredictor
 // handle the scanning in a back ground worker
         private void runScans(object sender, DoWorkEventArgs e)
         {
+            //the program will sleep for an hour
+            if (cbDelay.Checked) { Thread.Sleep(3600000); }
             //the please wait form that indicates loading
             PleaseWait pleaseWait = new PleaseWait();
             // Display form modelesslyD:\VisualStudioProjects\StockPredictor\StockPredictor\Helpers\Mining.cs

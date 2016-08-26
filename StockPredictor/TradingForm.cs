@@ -113,7 +113,7 @@ namespace StockPredictor
             if (String.IsNullOrEmpty(symbol))
             {
                 //run the simulated trades for companies used in this project
-                tbTradeOutput.AppendText("Running automatic trades " + "\r\n");
+                AppendOutputText("Running automatic trades " + "\r\n");
                 Task taskA = new Task(() => tr.autoTrade("GILD", is20, sellPrice));
                 Task taskB = new Task(() => tr.autoTrade("BIIB", is20, sellPrice));
                 Task taskC = new Task(() => tr.autoTrade("CELG", is20, sellPrice));

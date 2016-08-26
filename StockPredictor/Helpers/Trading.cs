@@ -20,8 +20,10 @@ namespace StockPredictor.Helpers
             if (string.IsNullOrEmpty(prices[0]))
             {
                 TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load price data " + symbol);
+                //the 20 minute trade doesn't need to contain a closing price
+                if(is20 && TradingForm.Instance.getOpenPrice() == 0) { TradingForm.Instance.AppendOutputText("\r\n" + "Consider entering an open price manually" + "\r\n"); return; }
                 //check if the user added the trading prices manually
-                if (TradingForm.Instance.getOpenPrice() == 0 || TradingForm.Instance.getClosePrice() == 0)
+                else if (TradingForm.Instance.getOpenPrice() == 0 || TradingForm.Instance.getClosePrice() == 0)
                 {
                     TradingForm.Instance.AppendOutputText("\r\n" + "Consider entering open and close prices manually" + "\r\n");
 
@@ -102,7 +104,7 @@ namespace StockPredictor.Helpers
             //save the trading data to an excel sheet
             ex.saveTradingData(myPassedExcelApplication, symbol, fileName, is20, principle.ToString(), startPrinciple, prices[0], prices[1], isShort, change.ToString(), profitable);
             //write information to the text box
-            TradingForm.Instance.AppendOutputText("\r\n" + symbol + "\r\n" + "Start Price : " + prices[0] + "\r\n" +
+            TradingForm.Instance.AppendOutputText("\r\n" + symbol + "  " + method + "\r\n" + "Start Price : " + prices[0] + "\r\n" +
                 "End Price :" + prices[1] + "\r\n" + "Start Principle : " + startPrinciple + "\r\n" +
                 "Principle Now : " + principle + "\r\n" + "Percentage change : " + change + "\r\n" +
                 "Short Traded : " + isShort + "\r\n"
@@ -129,8 +131,10 @@ namespace StockPredictor.Helpers
             if (string.IsNullOrEmpty(prices[0]))
             {
                 TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load price data " + symbol);
+                //the 20 minute trade doesn't need to contain a closing price
+                if (is20 && TradingForm.Instance.getOpenPrice() == 0) { TradingForm.Instance.AppendOutputText("\r\n" + "Consider entering an open price manually" + "\r\n"); return; }
                 //check if the user added the trading prices manually
-                if (TradingForm.Instance.getOpenPrice() == 0 || TradingForm.Instance.getClosePrice() == 0)
+                else if (TradingForm.Instance.getOpenPrice() == 0 || TradingForm.Instance.getClosePrice() == 0)
                 {
                     TradingForm.Instance.AppendOutputText("\r\n" + "Consider entering open and close prices manually" + "\r\n");
                    
