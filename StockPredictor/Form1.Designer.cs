@@ -47,6 +47,8 @@
             this.cbGoogle = new System.Windows.Forms.CheckBox();
             this.cbYahoo = new System.Windows.Forms.CheckBox();
             this.cbDelay = new System.Windows.Forms.CheckBox();
+            this.tbDelay = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Run
@@ -61,7 +63,7 @@
             // 
             // Stem
             // 
-            this.Stem.Location = new System.Drawing.Point(415, 61);
+            this.Stem.Location = new System.Drawing.Point(538, 58);
             this.Stem.Name = "Stem";
             this.Stem.Size = new System.Drawing.Size(75, 23);
             this.Stem.TabIndex = 1;
@@ -71,7 +73,7 @@
             // 
             // Test
             // 
-            this.Test.Location = new System.Drawing.Point(415, 94);
+            this.Test.Location = new System.Drawing.Point(538, 90);
             this.Test.Name = "Test";
             this.Test.Size = new System.Drawing.Size(75, 23);
             this.Test.TabIndex = 2;
@@ -148,7 +150,7 @@
             this.tbConsoleOutput.Multiline = true;
             this.tbConsoleOutput.Name = "tbConsoleOutput";
             this.tbConsoleOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbConsoleOutput.Size = new System.Drawing.Size(457, 98);
+            this.tbConsoleOutput.Size = new System.Drawing.Size(606, 98);
             this.tbConsoleOutput.TabIndex = 13;
             // 
             // tbOutput
@@ -160,7 +162,7 @@
             this.tbOutput.Multiline = true;
             this.tbOutput.Name = "tbOutput";
             this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbOutput.Size = new System.Drawing.Size(457, 426);
+            this.tbOutput.Size = new System.Drawing.Size(606, 426);
             this.tbOutput.TabIndex = 12;
             // 
             // cbSave
@@ -178,7 +180,7 @@
             this.btTrade.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btTrade.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btTrade.Image = global::StockPredictor.Properties.Resources.tradeSmallxx;
-            this.btTrade.Location = new System.Drawing.Point(415, 26);
+            this.btTrade.Location = new System.Drawing.Point(538, 21);
             this.btTrade.Name = "btTrade";
             this.btTrade.Size = new System.Drawing.Size(75, 23);
             this.btTrade.TabIndex = 15;
@@ -198,7 +200,7 @@
             // cbBing
             // 
             this.cbBing.AutoSize = true;
-            this.cbBing.Location = new System.Drawing.Point(332, 94);
+            this.cbBing.Location = new System.Drawing.Point(472, 94);
             this.cbBing.Name = "cbBing";
             this.cbBing.Size = new System.Drawing.Size(47, 17);
             this.cbBing.TabIndex = 17;
@@ -209,7 +211,7 @@
             // cbGoogle
             // 
             this.cbGoogle.AutoSize = true;
-            this.cbGoogle.Location = new System.Drawing.Point(332, 64);
+            this.cbGoogle.Location = new System.Drawing.Point(472, 71);
             this.cbGoogle.Name = "cbGoogle";
             this.cbGoogle.Size = new System.Drawing.Size(60, 17);
             this.cbGoogle.TabIndex = 18;
@@ -219,7 +221,7 @@
             // cbYahoo
             // 
             this.cbYahoo.AutoSize = true;
-            this.cbYahoo.Location = new System.Drawing.Point(333, 41);
+            this.cbYahoo.Location = new System.Drawing.Point(472, 46);
             this.cbYahoo.Name = "cbYahoo";
             this.cbYahoo.Size = new System.Drawing.Size(57, 17);
             this.cbYahoo.TabIndex = 19;
@@ -229,12 +231,28 @@
             // cbDelay
             // 
             this.cbDelay.AutoSize = true;
-            this.cbDelay.Location = new System.Drawing.Point(136, 41);
+            this.cbDelay.Location = new System.Drawing.Point(341, 94);
             this.cbDelay.Name = "cbDelay";
             this.cbDelay.Size = new System.Drawing.Size(84, 17);
             this.cbDelay.TabIndex = 20;
             this.cbDelay.Text = "1 hour delay";
             this.cbDelay.UseVisualStyleBackColor = true;
+            // 
+            // tbDelay
+            // 
+            this.tbDelay.Location = new System.Drawing.Point(341, 64);
+            this.tbDelay.Name = "tbDelay";
+            this.tbDelay.Size = new System.Drawing.Size(100, 20);
+            this.tbDelay.TabIndex = 21;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(338, 46);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(77, 13);
+            this.label5.TabIndex = 22;
+            this.label5.Text = "Delay: Minutes";
             // 
             // Form1
             // 
@@ -243,7 +261,9 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImage = global::StockPredictor.Properties.Resources.Invest;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(528, 651);
+            this.ClientSize = new System.Drawing.Size(662, 651);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.tbDelay);
             this.Controls.Add(this.cbDelay);
             this.Controls.Add(this.cbYahoo);
             this.Controls.Add(this.cbGoogle);
@@ -292,6 +312,8 @@
         private System.Windows.Forms.CheckBox cbGoogle;
         private System.Windows.Forms.CheckBox cbYahoo;
         private System.Windows.Forms.CheckBox cbDelay;
+        private System.Windows.Forms.TextBox tbDelay;
+        private System.Windows.Forms.Label label5;
     }
 }
 

@@ -93,8 +93,23 @@ namespace StockPredictor
 // handle the scanning in a back ground worker
         private void runScans(object sender, DoWorkEventArgs e)
         {
+            
             //the program will sleep for an hour
-            if (cbDelay.Checked) { Thread.Sleep(3600000); }
+            if (cbDelay.Checked) {
+                AppendOutputText("\r\n" + "Delaying process for one hour" + "\r\n");
+                Thread.Sleep(3600000); }
+            //check the value for delaying in textbox  60000 = 1 minute
+            int delay = 0;
+            try { delay = Int32.Parse(tbDelay.Text); } catch (Exception) { AppendOutputText("\r\n" + "Enter a number into the delay box" + "\r\n"); }
+            if(delay > 0)
+            {
+                
+                AppendOutputText("\r\n" + "Delaying process for " + delay + "minutes" + "\r\n");
+                delay *= 6000;
+
+                Thread.Sleep(delay); 
+
+            }
             //the please wait form that indicates loading
             PleaseWait pleaseWait = new PleaseWait();
             // Display form modelesslyD:\VisualStudioProjects\StockPredictor\StockPredictor\Helpers\Mining.cs
