@@ -77,6 +77,11 @@ namespace StockPredictor
         {
             return cbYahoo.Checked;
         }
+        //get tbOutput's text
+        public string getTBOutputText()
+        {
+            return tbOutput.Text;
+        }
 
         private void Run_Click(object sender, EventArgs e)
         {

@@ -22,6 +22,13 @@ namespace StockPredictor.Helpers
                 TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load price data " + symbol);
                 //the 20 minute trade doesn't need to contain a closing price
                 if(is20 && TradingForm.Instance.getOpenPrice() == 0) { TradingForm.Instance.AppendOutputText("\r\n" + "Consider entering an open price manually" + "\r\n"); return; }
+                //allow the trade to go ahead if there is an open price and 20 minute sell price
+                else if (is20 && TradingForm.Instance.getOpenPrice() > 0)
+                {
+                    if (sellPrice > 0) { prices[1] = sellPrice.ToString(); }
+                    else { TradingForm.Instance.AppendOutputText("\r\n" + "Enter a number into 20 minute sale box" + "\r\n"); return; }
+
+                }
                 //check if the user added the trading prices manually
                 else if (TradingForm.Instance.getOpenPrice() == 0 || TradingForm.Instance.getClosePrice() == 0)
                 {
@@ -133,6 +140,13 @@ namespace StockPredictor.Helpers
                 TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load price data " + symbol);
                 //the 20 minute trade doesn't need to contain a closing price
                 if (is20 && TradingForm.Instance.getOpenPrice() == 0) { TradingForm.Instance.AppendOutputText("\r\n" + "Consider entering an open price manually" + "\r\n"); return; }
+                //allow the trade to go ahead if there is an open price and 20 minute sell price
+                else if (is20 && TradingForm.Instance.getOpenPrice() > 0)
+                {
+                    if(sellPrice > 0) { prices[1] = sellPrice.ToString(); }
+                    else { TradingForm.Instance.AppendOutputText("\r\n" + "Enter a number into 20 minute sale box" + "\r\n"); return; }
+                
+                }
                 //check if the user added the trading prices manually
                 else if (TradingForm.Instance.getOpenPrice() == 0 || TradingForm.Instance.getClosePrice() == 0)
                 {

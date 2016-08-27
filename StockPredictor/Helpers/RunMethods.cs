@@ -9,6 +9,11 @@ namespace StockPredictor.Helpers
 {
     class RunMethods
     {
+        private int retries
+        {
+            get;
+            set;
+        }
         public void runStockPredictor(string input, bool dontSave)
         {
             //intiate classes used
@@ -38,8 +43,7 @@ namespace StockPredictor.Helpers
             taskA.Start();
             taskB.RunSynchronously();
             //  taskC.RunSynchronously();
-            taskA.GetAwaiter();
-            taskB.Wait();
+            Task.WaitAll(taskA, taskB);
             //if the user wants to save the results run the random generator
             if (!dontSave) { 
             //randomly generate results
@@ -47,7 +51,24 @@ namespace StockPredictor.Helpers
             rg.generateRandomResults(input, myPassExcelApp);
                 exl.quitExcel(myPassExcelApp);
             }
+            //confirm that the input is correct
+            confirmAllCompleted(input,dontSave);
+        }
 
+        private void confirmAllCompleted(string input, bool dontSave)
+        {
+            if (retries==0) { retries = 0; };
+            string output = Form1.Instance.getTBOutputText();
+            //check that the run method executed correctly
+            if (!output.Contains(input + "\r\n"+ "Bag of words Method") || !output.Contains(input + "\r\n" + "Noun phrase method") || !output.Contains(input + "\r\n" + "Named entities method"))
+            {
+                retries++;
+                if (retries <3) { 
+                Form1.Instance.AppendOutputText("\r\n"+"failed confirmation"+"\r\n" + input+"\r\n");
+                //run it again
+                runStockPredictor(input,dontSave);
+                }
+            }
         }
 
         //methdo for switching between search engines

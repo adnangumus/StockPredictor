@@ -29,8 +29,7 @@ namespace StockPredictor
             Task taskB = new Task(() => namedEntites(taggedArticles, fileName, dontSave, myPassedExcelApplication, em));
               //run the tasks and wait. Get awaiter us used because the threads are using a static instance
                taskB.RunSynchronously();
-                taskA.GetAwaiter();
-              taskB.Wait();
+            Task.WaitAll(taskA, taskB);
         }
         //a variable to store the time it takes to take the sentences
         private long tagTime = new long();
