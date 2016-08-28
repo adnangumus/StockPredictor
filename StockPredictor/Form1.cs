@@ -1,20 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
+
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows.Forms;
 using StockPredictor.Helpers;
-using StockPredictor.Tests;
+
 using System.Threading;
+using System.Timers;
 
 namespace StockPredictor
 {
     public partial class Form1 : Form
     {
+        //variables used for the timer class
+        static System.Windows.Forms.Timer myTimer = new System.Windows.Forms.Timer();
+        static bool exitFlag = false;
+
         public Form1()
         {
             InitializeComponent();
@@ -85,39 +86,43 @@ namespace StockPredictor
 
         private void Run_Click(object sender, EventArgs e)
         {
+          
           //  tbOutput.Text = string.Empty;
             // Set up background worker object & hook up handlers
             BackgroundWorker bgWorker;
             bgWorker = new BackgroundWorker();
-            bgWorker.DoWork += new DoWorkEventHandler(runScans);
+            bgWorker.DoWork += new DoWorkEventHandler(checkTimer);
            // bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgWorker_RunWorkerCompleted);
             // Launch background thread to do the work of reading the file.  
             bgWorker.RunWorkerAsync();
            
         }
-     // handle the scanning in a back ground worker
-        private void runScans(object sender, DoWorkEventArgs e)
+     
+        private void checkTimer(object sender, DoWorkEventArgs e)
         {
-            
-            //the program will sleep for an hour
-            if (cbDelay.Checked) {
-                AppendOutputText("\r\n" + "Delaying process for one hour" + "\r\n");
-                  Thread.Sleep(3600000); 
-            }
             //check the value for delaying in textbox  60000 = 1 minute
             int delay = 0;
             try { delay = Int32.Parse(tbDelay.Text); } catch (Exception) { AppendOutputText("\r\n" + "Enter a number into the delay box" + "\r\n"); }
-            if(delay > 0)
-            {
-                
-                Form1.instance.AppendOutputText("\r\n" + "Delaying process for " + delay + "minutes" + "\r\n");
                 delay *= 60000;
-                Console.WriteLine("Delayed : " + delay);
-               Thread.Sleep(delay); 
+            //the program will sleep for an hour = 3600000
+            if (cbDelay.Checked) { delay += 3600000; };
+            Form1.instance.AppendOutputText("\r\n" + "Delaying process for " + delay/ 60000 + "minutes" + "\r\n");
+            Console.WriteLine("Delayed : " + delay);
+            System.Threading.Timer timer = null;
+            timer = new System.Threading.Timer((obj) =>
+            {
+                runScans();
+                timer.Dispose();
+            },
+                        null, delay +1, System.Threading.Timeout.Infinite);
+        }
 
-            }
-            //the please wait form that indicates loading
-            PleaseWait pleaseWait = new PleaseWait();
+        // handle the scanning in a back ground worker
+        private void runScans()
+        {        
+
+                //the please wait form that indicates loading
+                PleaseWait pleaseWait = new PleaseWait();
             // Display form modelesslyD:\VisualStudioProjects\StockPredictor\StockPredictor\Helpers\Mining.cs
             pleaseWait.Show();
             //time the overall methods
