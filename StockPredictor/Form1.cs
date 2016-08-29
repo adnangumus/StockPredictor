@@ -101,13 +101,18 @@ namespace StockPredictor
         private void checkTimer(object sender, DoWorkEventArgs e)
         {
             //check the value for delaying in textbox  60000 = 1 minute
-            int delay = 0;
+            int delay =0;
             try { delay = Int32.Parse(tbDelay.Text); } catch (Exception) { AppendOutputText("\r\n" + "Enter a number into the delay box" + "\r\n"); }
                 delay *= 60000;
             //the program will sleep for an hour = 3600000
             if (cbDelay.Checked) { delay += 3600000; };
-            Form1.instance.AppendOutputText("\r\n" + "Delaying process for " + delay/ 60000 + "minutes" + "\r\n");
-            Console.WriteLine("Delayed : " + delay);
+            // Form1.instance.AppendOutputText("\r\n" + "Delaying process for " + delay/ 60000 + " minutes" + "\r\n");
+            Console.WriteLine("Delaying process for " + delay / 60000 + " minutes");
+            //calculate the time of execution
+            DateTime currentTime = DateTime.Now;
+            double minuts = Convert.ToDouble(delay / 60000 + 1) ;
+            currentTime = currentTime.AddMinutes(minuts);
+            Console.WriteLine("Execution time : " + currentTime);
             System.Threading.Timer timer = null;
             timer = new System.Threading.Timer((obj) =>
             {
