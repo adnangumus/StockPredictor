@@ -86,8 +86,8 @@ namespace StockPredictor
 
         private void Run_Click(object sender, EventArgs e)
         {
-          
-          //  tbOutput.Text = string.Empty;
+           
+            //  tbOutput.Text = string.Empty;
             // Set up background worker object & hook up handlers
             BackgroundWorker bgWorker;
             bgWorker = new BackgroundWorker();
@@ -95,14 +95,15 @@ namespace StockPredictor
            // bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgWorker_RunWorkerCompleted);
             // Launch background thread to do the work of reading the file.  
             bgWorker.RunWorkerAsync();
-           
+            //close the please wait dialogue
+         
         }
      
         private void checkTimer(object sender, DoWorkEventArgs e)
         {
             //check the value for delaying in textbox  60000 = 1 minute
             int delay =0;
-            try { delay = Int32.Parse(tbDelay.Text); } catch (Exception) { AppendOutputText("\r\n" + "Enter a number into the delay box" + "\r\n"); }
+            try { delay = Int32.Parse(tbDelay.Text); } catch (Exception) { }
                 delay *= 60000;
             //the program will sleep for an hour = 3600000
             if (cbDelay.Checked) { delay += 3600000; };
@@ -126,10 +127,8 @@ namespace StockPredictor
         private void runScans()
         {        
 
-                //the please wait form that indicates loading
-                PleaseWait pleaseWait = new PleaseWait();
-            // Display form modelesslyD:\VisualStudioProjects\StockPredictor\StockPredictor\Helpers\Mining.cs
-            pleaseWait.Show();
+               
+          
             //time the overall methods
             var watch2 = System.Diagnostics.Stopwatch.StartNew();
             bool dontSave = cbSave.Checked;
@@ -144,7 +143,7 @@ namespace StockPredictor
                 rm.runStockPredictor("biib", dontSave);
                 rm.runStockPredictor("celg", dontSave);
                 rm.runStockPredictor("ibb", dontSave);
-                pleaseWait.Close();
+               
                 return;
             }
 
@@ -158,8 +157,7 @@ namespace StockPredictor
 
             //out put information to the text box
             displayTime(elapsedMs2);
-            //close the please wait dialogue
-            pleaseWait.Close();
+          
         }
         //display the total time
         private void displayTime(long elapsedMs2)

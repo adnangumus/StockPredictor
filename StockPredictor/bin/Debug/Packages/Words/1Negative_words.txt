@@ -80,6 +80,7 @@ down
 dreadful
 dreary
 dropped
+drowning
 enraged
 eroding
 evil
@@ -191,6 +192,7 @@ questionable
 quirky
 quit
 putative
+reduce
 reject
 renege
 repellent
@@ -201,6 +203,7 @@ retreat
 revenge
 reverse
 revolting
+rival
 rocky
 rotten
 rude
@@ -241,6 +244,7 @@ toll
 terrible
 terrifying
 threaten
+tumbling
 trim
 ugly
 undermine

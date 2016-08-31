@@ -1,17 +1,17 @@
-﻿
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Excel;
-
+using System.Threading;
 
 namespace StockPredictor.Helpers
 {
     class BagOfWords
     {
+
         ////get the sentences as list from a string. Check that words are spelt 
         ////correctly and then put the senteces back in to the lists
         //public List<string> getSentences(string s)
@@ -39,7 +39,7 @@ namespace StockPredictor.Helpers
         //get the sentences as list from a string. Check that words are spelt 
         //correctly and then put the senteces back in to the lists. Words are stemmed. 
         //Count the amount of words and sentences processed
-        public void processBagOfWords(string articles, string fileName, bool dontSave, Application myPassedExcelApplication)
+        public Hashtable processBagOfWords(string articles, string fileName, bool dontSave)
         {
             Console.WriteLine("BagOfWords started");
             //hash table 1=pw 2=nw 3=spw 4=snw 5=pp 6=np 7=wc 8=sc
@@ -51,9 +51,9 @@ namespace StockPredictor.Helpers
             //integer to hold word count
             int wordCount = 0;
             //get a list of all negative words
-          //  List<String> negativeWords = new List<string>();
+            //  List<String> negativeWords = new List<string>();
             //get a list of all positive words
-          //  List<String> positiveWords = new List<string>();
+            //  List<String> positiveWords = new List<string>();
             //store the sentences in a string
             string cleanSentenceString;
             //count positive and negative phrases and strong words
@@ -68,12 +68,12 @@ namespace StockPredictor.Helpers
             //load class to remove stop words
             StopWords sw = new StopWords();
             TextCleaner tc = new TextCleaner();
-          
-     
+
+
             try
             {
                 //change the marks into full stops
-               articles = tc.replaceMarks(articles);
+                articles = tc.replaceMarks(articles);
                 List<string> sentences = new List<string>(articles.Split('.'));
                 ParallelOptions po = new ParallelOptions();
                 //Manage the MaxDegreeOfParallelism instead of .NET Managing this. We dont need 500 threads spawning for this.
@@ -96,8 +96,8 @@ namespace StockPredictor.Helpers
                         }//end try
                         catch (Exception ex) { Console.WriteLine(ex.Message); }
                     });//end parallel foreach  
-            }//end try
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
+                }//end try
+                catch (Exception ex) { Console.WriteLine(ex.Message); }
             }//end try
             catch (Exception ex) { Console.WriteLine(ex.Message); }
             //count the negative and positive words
@@ -106,10 +106,10 @@ namespace StockPredictor.Helpers
             //stop the stop watch
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
-           
+
             Console.WriteLine("Bag of words processing time : " + elapsedMs);
             Console.WriteLine("Words = " + wordCount + " Sentences = " + sentenceCount);
-            Console.WriteLine("P W = " + posWordCount + " N W = " + negWordCount);         
+            Console.WriteLine("P W = " + posWordCount + " N W = " + negWordCount);
             Console.WriteLine("P P = " + positivePhraseCount + " N P = " + negativePhraseCount);
             //calculate the precentages
             CalculatorMethods cm = new CalculatorMethods();
@@ -122,7 +122,7 @@ namespace StockPredictor.Helpers
             Console.WriteLine("Total Score : " + totalScore);
             //out put information to text box
             Form1.Instance.AppendOutputText("\r\n");
-                Form1.Instance.AppendOutputText(fileName + "\r\n");
+            Form1.Instance.AppendOutputText(fileName + "\r\n");
             Form1.Instance.AppendOutputText("Bag of words Method : " + "\r\n" +
                 "Percantage of Words Positive = " + posWordPercentage + " % " + "\r\n" +
                  "Percentage of words Negative = " + negWordPercentage + " % " + "\r\n" +
@@ -130,26 +130,44 @@ namespace StockPredictor.Helpers
                  "Percentage of Phrases Negative = " + negPhrasePercentage + " % " + "\r\n" +
                 "Words = " + wordCount + " Sentences = " + sentenceCount + "\r\n" +
                  "Positive words detected = " + posWordCount + "\r\n" + "Negative words detected  = " + negWordCount + "\r\n" +
-                "Postive phrases detected = " + positivePhraseCount + "\r\n" + "Negative phrases dectected = " + negativePhraseCount  + "\r\n" +
+                "Postive phrases detected = " + positivePhraseCount + "\r\n" + "Negative phrases dectected = " + negativePhraseCount + "\r\n" +
                 "Total Score : " + totalScore + "\r\n" +
                 "Bag of words processing time : " + elapsedMs + "\r\n"
                 );
 
+            //return the data as a a hash table
+            Hashtable returnTable = new Hashtable();
+            //hash table 1=pw 2=nw 3=spw 4=snw 5=pp 6=np 7=wc 8=sc 9=pwp 10=nwp 11=npp 12=ppp 13=total 14=tt 15=method
+            returnTable.Add("pw", posWordCount);
+            returnTable.Add("nw", negWordCount);
+            returnTable.Add("pp", positivePhraseCount);
+            returnTable.Add("np", negativePhraseCount);
+            returnTable.Add("wc", wordCount);
+            returnTable.Add("sc", sentenceCount);
+            returnTable.Add("pwp", posWordPercentage);
+            returnTable.Add("nwp", negWordPercentage);
+            returnTable.Add("npp", negPhrasePercentage);
+            returnTable.Add("ppp", posWordPercentage);
+            returnTable.Add("total", totalScore);
+            returnTable.Add("tt", elapsedMs.ToString());
+            returnTable.Add("method", "Bag");
+
+            return returnTable;
             //Form1.Instance.AppendOutputText(+"\r\n");
             //check if dontsave is ticked
-            if (!dontSave)
-            {
-                //add the output data to an excel file
-                ExcelMethods em = new ExcelMethods();
-                                 
-                    //add the data to special excel file for only this specific out put for this stock
-                    em.savePredictorDataToExcel(myPassedExcelApplication, fileName, "Bag", elapsedMs.ToString(), totalScore, wordCount, sentenceCount, posWordCount, negWordCount,
-                  posWordPercentage, negWordPercentage,
-                   positivePhraseCount, negativePhraseCount,
-                   posPhrasePercentage, negPhrasePercentage);
-                
-            }
-            articles = "";
+            //if (!dontSave)
+            //{   
+            //    //add the output data to an excel file
+            //    ExcelMethods em = new ExcelMethods();
+
+            //        //add the data to special excel file for only this specific out put for this stock
+            //        em.savePredictorDataToExcel(myPassedExcelApplication, fileName, "Bag", elapsedMs.ToString(), totalScore, wordCount, sentenceCount, posWordCount, negWordCount,
+            //      posWordPercentage, negWordPercentage,
+            //       positivePhraseCount, negativePhraseCount,
+            //       posPhrasePercentage, negPhrasePercentage);
+
+            //}
+
         }//end method
 
         //process the sentences in the bag of words seperately to allow for multi threading
@@ -171,8 +189,9 @@ namespace StockPredictor.Helpers
             //load class to remove stop words
             StopWords sw = new StopWords();
 
-            try {
-               string cleanSentenceString = "";
+            try
+            {
+                string cleanSentenceString = "";
                 //count the sentences while processing text
                 sentenceCount++;
                 //create an array list to store the words

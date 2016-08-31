@@ -79,6 +79,7 @@ down
 dread
 dreari
 drop
+drown
 enrag
 erod
 evil
@@ -189,6 +190,7 @@ putat
 question
 quirki
 quit
+reduc
 reject
 reneg
 repel
@@ -199,6 +201,7 @@ retreat
 reveng
 revers
 revolt
+rival
 rocki
 rotten
 rude
@@ -240,6 +243,7 @@ terrifi
 threaten
 toll
 trim
+tumbl
 ugli
 uncertain
 undermin
