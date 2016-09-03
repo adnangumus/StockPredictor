@@ -53,11 +53,11 @@
             // 
             // Run
             // 
-            this.Run.Location = new System.Drawing.Point(224, 90);
+            this.Run.Image = global::StockPredictor.Properties.Resources.scan_logo_2;
+            this.Run.Location = new System.Drawing.Point(224, 84);
             this.Run.Name = "Run";
-            this.Run.Size = new System.Drawing.Size(100, 23);
+            this.Run.Size = new System.Drawing.Size(109, 34);
             this.Run.TabIndex = 0;
-            this.Run.Text = "Scan";
             this.Run.UseVisualStyleBackColor = false;
             this.Run.Click += new System.EventHandler(this.Run_Click);
             // 
@@ -85,7 +85,7 @@
             // 
             this.tbInput.Location = new System.Drawing.Point(226, 62);
             this.tbInput.Name = "tbInput";
-            this.tbInput.Size = new System.Drawing.Size(100, 20);
+            this.tbInput.Size = new System.Drawing.Size(107, 20);
             this.tbInput.TabIndex = 4;
             // 
             // label1

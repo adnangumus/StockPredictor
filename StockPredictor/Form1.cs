@@ -91,6 +91,7 @@ namespace StockPredictor
             // Set up background worker object & hook up handlers
             BackgroundWorker bgWorker;
             bgWorker = new BackgroundWorker();
+            bgWorker.WorkerReportsProgress = true;
             bgWorker.DoWork += new DoWorkEventHandler(checkTimer);
            // bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgWorker_RunWorkerCompleted);
             // Launch background thread to do the work of reading the file.  
@@ -121,6 +122,7 @@ namespace StockPredictor
                 timer.Dispose();
             },
                         null, delay +1, System.Threading.Timeout.Infinite);
+           
         }
 
         // handle the scanning in a back ground worker

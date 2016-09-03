@@ -98,6 +98,7 @@ fraud
 fraudulent 
 frighten
 frightful
+frustrated
 gawky
 generic
 ghastly
@@ -130,6 +131,7 @@ ignore
 ignorant
 ill
 immature
+impatient
 imperfect
 impossible
 inane
@@ -144,6 +146,8 @@ insipid
 jealous
 jitter
 junky
+lack
+lag
 litigation
 loss
 lost
@@ -221,6 +225,7 @@ shocking
 sick
 sickening
 sinister
+sink
 slimy
 smelly
 sobbing
@@ -245,6 +250,7 @@ terrible
 terrifying
 threaten
 tumbling
+trap
 trim
 ugly
 undermine

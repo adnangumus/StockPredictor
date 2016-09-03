@@ -45,11 +45,13 @@ namespace StockPredictor.Helpers
             //intialize and set up a thread for processing bag of words
             BagOfWords bag = new BagOfWords();
             Task taskB = new Task(() => bagHT = (bag.processBagOfWords(articles, input, dontSave)));
-            //stat the tasks
+            //stat the tasks            
             taskA.Start();
             taskB.RunSynchronously();
+        
             //  taskC.RunSynchronously();
             Task.WaitAll(taskA, taskB);
+            
             //if the user wants to save the results run the random generator
             if (!dontSave)
             {
