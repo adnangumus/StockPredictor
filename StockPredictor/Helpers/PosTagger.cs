@@ -16,6 +16,16 @@ namespace StockPredictor
     class PosTagger
 
     {
+        //load the term frequency class with the methods for measuring the frequency of positive and negatiive terms
+        private static TermFrequency termFrequency = new TermFrequency();
+        //load the porter stemmer
+        private static Porter2 stemmer = new Porter2();
+        private static fileReaderWriter frw = new fileReaderWriter();
+        //load spell checker
+        private static SpellCheck sc = new SpellCheck();
+        //this class contains methods to remove the stop words 
+        private static StopWords sw = new StopWords();
+
         //process named and noun phrases together
         public List<Hashtable> processNamedNoun(string articles, string fileName, bool dontSave)
         {
@@ -51,7 +61,7 @@ namespace StockPredictor
             //put a space between the full stops so as the tagger will recognise them
             str = str.Replace(".", " . ");
 
-            fileReaderWriter frw = new fileReaderWriter();
+           
             try
             {
                 var jarRoot = Path.Combine(frw.GetAppFolder(), @"packages\stanford-postagger-2015-12-09");
@@ -93,11 +103,8 @@ namespace StockPredictor
             int strongNegativeWordCount = 0;
             int negWordCount = 0;
             int posWordCount = 0;
-            //load the term frequency class with the methods for measuring the frequency of positive and negatiive terms
-            TermFrequency tf = new TermFrequency();
-            //load the porter stemmer
-            Porter2 stemmer = new Porter2();
-            fileReaderWriter frw = new fileReaderWriter();
+          
+           
 
 
             // Put a space before full stops. This is so the tagger can read the full stops
@@ -197,12 +204,7 @@ namespace StockPredictor
             int strongNegativeWordCount = 0;
             int positivePhraseCount = 0;
             int negativePhraseCount = 0;
-            //load the term frequency class with the methods for measuring the frequency of positive and negatiive terms
-            TermFrequency tf = new TermFrequency();
-            //load spell checker
-            SpellCheck sc = new SpellCheck();
-            //load stemmer class
-            Porter2 stemmer = new Porter2();
+
             //clear the snetence string at the begining of each loop
             string nounSentenceString = "";
             try
@@ -221,8 +223,8 @@ namespace StockPredictor
                             //stem the word
                             cleanWord = stemmer.stem(cleanWord.ToLower());
                             //check if the word appears on the positive or negatice keyword lists                            
-                            posWordCount += tf.isPositiveWord(cleanWord);
-                            negWordCount += tf.isNegativeWord(cleanWord);
+                            posWordCount += termFrequency.isPositiveWord(cleanWord);
+                            negWordCount += termFrequency.isNegativeWord(cleanWord);
                             nounSentenceString += cleanWord + " ";
                             //count the words
                             wordCount++;
@@ -232,8 +234,8 @@ namespace StockPredictor
                 //count the senetences
                 sentenceCount++;
                 //check if the sentence contians a phrase
-                negativePhraseCount += tf.containsNegativePhrase(nounSentenceString);
-                positivePhraseCount += tf.containsPositivePhrase(nounSentenceString);
+                negativePhraseCount += termFrequency.containsNegativePhrase(nounSentenceString);
+                positivePhraseCount += termFrequency.containsPositivePhrase(nounSentenceString);
 
             }//end try
             catch (Exception ex) { Console.WriteLine(ex.Message); }
@@ -266,12 +268,7 @@ namespace StockPredictor
             int strongNegativeWordCount = 0;
             int negWordCount = 0;
             int posWordCount = 0;
-            //load the term frequency class with the methods for measuring the frequency of positive and negatiive terms
-            TermFrequency tf = new TermFrequency();
-            fileReaderWriter frw = new fileReaderWriter();
-
-            //load the porter stemmer
-            Porter2 stemmer = new Porter2();
+          
             List<ArrayList> nounPhrases = new List<ArrayList>();
             ArrayList namedSentence = new ArrayList();
 
@@ -362,6 +359,8 @@ namespace StockPredictor
 
         }//end method 
 
+       
+
         private Hashtable processNamedEntities(string sentence)
         {
             //hash table 1=pw 2=nw 3=spw 4=snw 5=pp 6=np 7=wc 8=sc
@@ -378,7 +377,7 @@ namespace StockPredictor
             int positivePhraseCount = 0;
             int negativePhraseCount = 0;
             //load the term frequency class with the methods for measuring the frequency of positive and negatiive terms
-            TermFrequency tf = new TermFrequency();
+            //TermFrequency tf = new TermFrequency();
             //load spell checker
             SpellCheck sc = new SpellCheck();
             //load stemmer class
@@ -404,23 +403,27 @@ namespace StockPredictor
                         // Console.WriteLine(cleanWord);
                         if (cleanWord != "label")
                         {
-                            //stem the word
-                            cleanWord = stemmer.stem(cleanWord.ToLower());
+                            //check that it isn't a stop word
+                            if (!sw.isStopWord(word))
+                            { 
+                                //stem the word
+                                cleanWord = stemmer.stem(cleanWord.ToLower());
                             //check if the word appears on the positive or negatice keyword lists                            
-                            posWordCount += tf.isPositiveWord(cleanWord);
-                            negWordCount += tf.isNegativeWord(cleanWord);
+                            posWordCount += termFrequency.isPositiveWord(cleanWord);
+                            negWordCount += termFrequency.isNegativeWord(cleanWord);
                             //ad word to string for processing as a sentence
                             namedSentenceString += cleanWord + " ";
                             //count the word added
                             wordCount++;
+                            }
                         }//end if
 
                     }//end foreach
                     //count the senetences processed
                     sentenceCount++;
                     //check if the sentence contians a phrase
-                    negativePhraseCount += tf.containsNegativePhrase(namedSentenceString);
-                    positivePhraseCount += tf.containsPositivePhrase(namedSentenceString);
+                    negativePhraseCount += termFrequency.containsNegativePhrase(namedSentenceString);
+                    positivePhraseCount += termFrequency.containsPositivePhrase(namedSentenceString);
 
                 }//end if is a named entity
             }//end try

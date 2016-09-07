@@ -50,7 +50,7 @@ namespace StockPredictor.Helpers
                 int tp = 10000 / total;
                 int ppp = tp * p;
                 int positivepercentage = ppp / 100;
-                return (positivepercentage - 50) *2;
+                return (positivepercentage - 55) *2;
             }
             if (n > 0)
             {
@@ -58,7 +58,10 @@ namespace StockPredictor.Helpers
                 int tp = 10000 / total;
                 int nn = tp * n;
                 int negativePercentage = nn / 100;
-                return (negativePercentage + 50)%100 ;
+                negativePercentage  = (negativePercentage + 55)%100 ;
+                negativePercentage = negativePercentage * 2;
+                negativePercentage = negativePercentage * -1;
+                return negativePercentage;
             }
             return 0;
         }

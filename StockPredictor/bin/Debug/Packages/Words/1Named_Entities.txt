@@ -2,6 +2,12 @@ GlaxoSmithKline
 FDA
 IBB
 GILD
+Sovaldi
+Harvoni
+hepatitis
+HIV
+GlaxoSmithKline
+NASH
 HZNP
 Horizon
 Actimmune
