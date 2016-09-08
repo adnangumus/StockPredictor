@@ -53,7 +53,7 @@
             // 
             // Run
             // 
-            this.Run.Image = global::StockPredictor.Properties.Resources.scan_logo_2;
+            this.Run.Image = global::StockPredictor.Properties.Resources.startble;
             this.Run.Location = new System.Drawing.Point(224, 84);
             this.Run.Name = "Run";
             this.Run.Size = new System.Drawing.Size(109, 34);
