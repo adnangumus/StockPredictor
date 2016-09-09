@@ -197,12 +197,12 @@ namespace StockPredictor.Helpers
             }
             return "";
         }
-        
+      
         //gett the historical data from yahoo
-        public static List<HistoricalStock> DownloadData(string ticker, int yearToStartFrom)
+        public static List<HistoricalStock> DownloadData(string ticker)
         {
             List<HistoricalStock> retval = new List<HistoricalStock>();
-
+           
             using (WebClient web = new WebClient())
             {
                 DateTime startDate = DateTime.Today.AddDays(-7);
@@ -210,9 +210,10 @@ namespace StockPredictor.Helpers
 
                 //"http://ichart.finance.yahoo.com/table.csv?s=" + ticker + "&d=" + (endDate.Month - 1) + "&e=" + endDate.Day + "&f=" + endDate.Year + "&g=d&a=" + (startDate.Month - 1) + "&b=" + startDate.Day + "&c=" + startDate.Year + "&ignore=.csv"
                 //http://ichart.finance.yahoo.com/table.csv?s=" + ticker + "&a=" + (startDate.Month - 1) + "&b=" + startDate.Day + "&c=" + startDate.Year + "&d=" + (endDate.Month - 1) + "&e=" + endDate.Day + "&f=" + endDate.Year + "&g=w&ignore=.csv
-                string data = web.DownloadString(string.Format("http://ichart.finance.yahoo.com/table.csv?s=" + ticker + "&d=" + (endDate.Month - 1) + "&e=" + endDate.Day + "&f=" + endDate.Year + "&g=d&a=" + (startDate.Month - 1) + "&b=" + startDate.Day + "&c=" + startDate.Year + "&ignore=.csv"));
-               // string data = web.DownloadString(string.Format("http://ichart.finance.yahoo.com/table.csv?s={0}&c={1}", ticker, yearToStartFrom));
 
+                // string data = web.DownloadString(string.Format("http://ichart.finance.yahoo.com/table.csv?s={0}&c={1}", ticker, yearToStartFrom));
+                try { 
+                string data = web.DownloadString(string.Format("http://ichart.finance.yahoo.com/table.csv?s=" + ticker + "&d=" + (endDate.Month - 1) + "&e=" + endDate.Day + "&f=" + endDate.Year + "&g=d&a=" + (startDate.Month - 1) + "&b=" + startDate.Day + "&c=" + startDate.Year + "&ignore=.csv"));
                 data = data.Replace("r", "");
 
                 string[] rows = Regex.Split(data, @"\n");
@@ -228,7 +229,7 @@ namespace StockPredictor.Helpers
                     HistoricalStock hs = new HistoricalStock();
                     string date1 = cols[0].ToString();
                     string open1 = cols[1].ToString();
-                   hs.Date = DateTime.Parse(cols[0]);
+                    hs.Date = DateTime.Parse(cols[0]);
                     hs.Open = Convert.ToDouble(cols[1]);
                     hs.High = Convert.ToDouble(cols[2]);
                     hs.Low = Convert.ToDouble(cols[3]);
@@ -238,9 +239,50 @@ namespace StockPredictor.Helpers
 
                     retval.Add(hs);
                 }
+                }
+                catch (Exception)
+                { return null; }
 
                 return retval;
             }
         }
+
+            public double getStockPriceTrendWeek(string ticker)
+        {
+            List<HistoricalStock> data = YahooStockMethods.DownloadData(ticker);
+            if (data == null)
+            {
+                Console.WriteLine("data from yahoo return null. No interent?");
+                return 0; };
+            int last = data.Count;
+            int i = 1;
+            double open = 0;
+            double lastClose = 0;
+            double change = 0;
+            double trend = 0;
+            try
+            {
+                foreach (HistoricalStock stock in data)
+                {
+                    if (i == 1)
+                    {
+                        lastClose = stock.Close;
+                       
+                    }
+                    if (i == last) { open = stock.Open; }
+                    i++;
+                       Console.WriteLine(string.Format("Date={0} High={1} Low={2} Open={3} Close{4}", stock.Date, stock.High, stock.Low, stock.Open, stock.Close));
+                }
+              
+                change = lastClose - open;
+                trend = (100 / open) * change;
+                Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nChange = " + change + 
+                    "\r\nLast close and open" + lastClose + " & " + open +"\r\nTrend " + trend);
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            Console.WriteLine(trend.ToString());
+            return trend;
+        }
+        }
     }
-}
+

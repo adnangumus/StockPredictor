@@ -40,6 +40,17 @@ namespace StockPredictor.Helpers
         //a method to determine what percentage of the total the values are
         public int getTotalScore(int pw, int pp, int nw, int np)
         {
+            double trend = 0;
+            int trendInt = 0;
+            try { 
+                //get the trend and multiply it by 10 and add its impact to the total score
+           trend = Form1.Instance.trend;               
+           trendInt = System.Convert.ToInt32(System.Math.Floor(trend));
+                trendInt = trendInt * 10;
+                Form1.Instance.AppendOutputText("\n\rThe trend as an int : "+trendInt);
+            }
+            catch (Exception) { }
+       
             pp = pp * 6;
             np = np * 6;
             int p = pp + pw;
@@ -50,9 +61,10 @@ namespace StockPredictor.Helpers
                 int tp = 10000 / total;
                 int ppp = tp * p;
                 int positivepercentage = ppp / 100;
-                return (positivepercentage - 55) *2;
+                //remove 5% of positive hits as because of noise, then add trend 
+                return ((positivepercentage - 55) *2)+ trendInt;
             }
-            if (n > 0)
+            else if (n > 0)
             {
                 int total = p + n;
                 int tp = 10000 / total;
@@ -61,8 +73,9 @@ namespace StockPredictor.Helpers
                 negativePercentage  = (negativePercentage + 55)%100 ;
                 negativePercentage = negativePercentage * 2;
                 negativePercentage = negativePercentage * -1;
-                return negativePercentage;
+                return negativePercentage + trendInt;
             }
+           
             return 0;
         }
     }

@@ -126,7 +126,7 @@ namespace StockPredictor
                         null, delay +1, System.Threading.Timeout.Infinite);
            
         }
-
+        public double trend { get; set; }
         // handle the scanning in a back ground worker
         private void runScans()
         {        
@@ -141,7 +141,7 @@ namespace StockPredictor
             RunMethods rm = new RunMethods();
             
             if (String.IsNullOrEmpty(tbInput.Text) || tbInput.Text.ToLower() == "bio")
-            {
+            {               
                 rm.runStockPredictor("gild", dontSave);
                 rm.runStockPredictor("hznp", dontSave);
                 rm.runStockPredictor("biib", dontSave);
@@ -234,14 +234,10 @@ namespace StockPredictor
 
         private void Test_Click(object sender, EventArgs e)
         {
-            List<HistoricalStock> data = YahooStockMethods.DownloadData("AAPL", 1962);
+            YahooStockMethods yahoo = new YahooStockMethods();
+            yahoo.getStockPriceTrendWeek("GILD");
 
-            foreach (HistoricalStock stock in data)
-            {
-                Console.WriteLine(string.Format("Date={0} High={1} Low={2} Open={3} Close{4}", stock.Date, stock.High, stock.Low, stock.Open, stock.Close));
-            }
 
-            Console.Read();
 
             //the please wait form that indicates loading
             //  PleaseWait pleaseWait = new PleaseWait();

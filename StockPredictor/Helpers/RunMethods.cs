@@ -19,6 +19,12 @@ namespace StockPredictor.Helpers
         {
             //intiate classes used
             Mining miner = new Mining();
+            //get the stock trend for the last week
+            YahooStockMethods yahoo = new YahooStockMethods();
+            double trend = yahoo.getStockPriceTrendWeek(input);
+            //check that there is data returned from yahoo
+            if (trend == 0) { return; }
+            Form1.Instance.trend = trend;
             //hash table for the bag of words method
             Hashtable bagHT = new Hashtable();
             List<Hashtable> hts = new List<Hashtable>();

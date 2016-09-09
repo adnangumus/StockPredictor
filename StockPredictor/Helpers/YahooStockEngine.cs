@@ -20,7 +20,7 @@ namespace StockPredictor.Helpers
             Parse(quotes, doc);
             }
             catch (Exception) { Console.WriteLine("Failed to load Yahoo quotes. Check internet connection");
-                TradingForm.Instance.AppendOutputText("Failed to load Yahoo quotes. Check internet connection");
+                TradingForm.Instance.AppendOutputText("Failed to load Yahoo quotes. Check internet connection");                
             }
         }
 

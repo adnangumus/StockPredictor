@@ -19,11 +19,11 @@ namespace StockPredictor.Helpers
             {
                 HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(URL);
                 request.UserAgent = "jonh86";
-                request.Timeout = 6000;
+                request.Timeout = 3000;
                 WebResponse response = request.GetResponse();
                 Stream stream = response.GetResponseStream();
                 //add a stream read time out to prevent hanging threads
-                stream.ReadTimeout = 10000;
+                stream.ReadTimeout = 4000;
                 StreamReader reader = new StreamReader(stream);
                 Console.WriteLine("reader peak " + reader.Peek());
                 if (reader.Peek() >= 0)
