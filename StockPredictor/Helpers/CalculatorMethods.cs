@@ -45,7 +45,7 @@ namespace StockPredictor.Helpers
             try { 
                 //get the trend and multiply it by 10 and add its impact to the total score
            trend = Form1.Instance.trend;               
-           trendInt = System.Convert.ToInt32(System.Math.Floor(trend));
+           trendInt = System.Convert.ToInt32(System.Math.Round(trend));
                 trendInt = trendInt * 10;
                 Form1.Instance.AppendOutputText("\n\rThe trend as an int : "+trendInt);
             }

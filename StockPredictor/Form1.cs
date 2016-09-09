@@ -95,13 +95,17 @@ namespace StockPredictor
             bgWorker = new BackgroundWorker();
             bgWorker.WorkerReportsProgress = true;
             bgWorker.DoWork += new DoWorkEventHandler(checkTimer);
-           // bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgWorker_RunWorkerCompleted);
+            bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgWorker_RunWorkerCompleted);
             // Launch background thread to do the work of reading the file.  
             bgWorker.RunWorkerAsync();
             //close the please wait dialogue
          
         }
-     
+        private void bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            AppendOutputText("\r\nAll processes are completed");
+        }
+
         private void checkTimer(object sender, DoWorkEventArgs e)
         {
             //check the value for delaying in textbox  60000 = 1 minute
