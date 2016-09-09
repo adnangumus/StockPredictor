@@ -284,6 +284,7 @@
             this.Controls.Add(this.Stem);
             this.Controls.Add(this.Run);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Jonh86-StockPredictor";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);

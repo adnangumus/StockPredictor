@@ -236,6 +236,7 @@ namespace StockPredictor
             this.Controls.Add(this.btTrade);
             this.Location = new System.Drawing.Point(400, 400);
             this.Name = "TradingForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TradingForm";
             this.ResumeLayout(false);
             this.PerformLayout();

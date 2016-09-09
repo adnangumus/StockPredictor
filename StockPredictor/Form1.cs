@@ -19,6 +19,7 @@ namespace StockPredictor
         public Form1()
         {
             InitializeComponent();
+            
         }
         //allow for an instance of this form to be called and used by other classes
         static Form1 instance;
