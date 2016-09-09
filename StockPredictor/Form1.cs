@@ -4,9 +4,10 @@ using System.ComponentModel;
 
 using System.Windows.Forms;
 using StockPredictor.Helpers;
-
+using StockPredictor.Models;
 using System.Threading;
 using System.Timers;
+using System.Collections.Generic;
 
 namespace StockPredictor
 {
@@ -233,15 +234,23 @@ namespace StockPredictor
 
         private void Test_Click(object sender, EventArgs e)
         {
+            List<HistoricalStock> data = YahooStockMethods.DownloadData("AAPL", 1962);
+
+            foreach (HistoricalStock stock in data)
+            {
+                Console.WriteLine(string.Format("Date={0} High={1} Low={2} Open={3} Close{4}", stock.Date, stock.High, stock.Low, stock.Open, stock.Close));
+            }
+
+            Console.Read();
 
             //the please wait form that indicates loading
-          //  PleaseWait pleaseWait = new PleaseWait();
+            //  PleaseWait pleaseWait = new PleaseWait();
             // Display form modelessly
-         //   pleaseWait.Show();
+            //   pleaseWait.Show();
             //  ALlow main UI thread to properly display please wait form.
-         //   Application.DoEvents();
+            //   Application.DoEvents();
 
-         //   //redirect console to text box here
+            //   //redirect console to text box here
             Console.SetOut(threadSafeWriter());
 
             //clear the text from the output box
@@ -254,8 +263,8 @@ namespace StockPredictor
             // pleaseWait.Close();
 
 
-             BingMethods bing = new BingMethods();
-            bing.getBinglinks("http://cn.bing.com/news/search?q=gild+Gilead&qft=interval%3d%227%22&form=PTFTNR&intlF=1&FORM=TIPEN1");
+            // BingMethods bing = new BingMethods();
+          //  bing.getBinglinks("http://cn.bing.com/news/search?q=gild+Gilead&qft=interval%3d%227%22&form=PTFTNR&intlF=1&FORM=TIPEN1");
 
            // YahooMinerTest yt = new YahooMinerTest();
            // yt.testLinkProcessor();

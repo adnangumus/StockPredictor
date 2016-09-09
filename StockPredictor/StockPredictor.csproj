@@ -247,6 +247,7 @@
     <Compile Include="Helpers\YahooMiner.cs" />
     <Compile Include="Helpers\YahooStockEngine.cs" />
     <Compile Include="Helpers\YahooStockMethods.cs" />
+    <Compile Include="Models\HistoricalStock.cs" />
     <Compile Include="Models\Quote.cs" />
     <Compile Include="PleaseWait.cs">
       <SubType>Form</SubType>

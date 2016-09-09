@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using StockPredictor.Models;
 using System.ComponentModel;
+using System.Net;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace StockPredictor.Helpers
 {
@@ -193,6 +196,51 @@ namespace StockPredictor.Helpers
                 return quote.Name;               
             }
             return "";
+        }
+        
+        //gett the historical data from yahoo
+        public static List<HistoricalStock> DownloadData(string ticker, int yearToStartFrom)
+        {
+            List<HistoricalStock> retval = new List<HistoricalStock>();
+
+            using (WebClient web = new WebClient())
+            {
+                DateTime startDate = DateTime.Today.AddDays(-7);
+                DateTime endDate = DateTime.Today;
+
+                //"http://ichart.finance.yahoo.com/table.csv?s=" + ticker + "&d=" + (endDate.Month - 1) + "&e=" + endDate.Day + "&f=" + endDate.Year + "&g=d&a=" + (startDate.Month - 1) + "&b=" + startDate.Day + "&c=" + startDate.Year + "&ignore=.csv"
+                //http://ichart.finance.yahoo.com/table.csv?s=" + ticker + "&a=" + (startDate.Month - 1) + "&b=" + startDate.Day + "&c=" + startDate.Year + "&d=" + (endDate.Month - 1) + "&e=" + endDate.Day + "&f=" + endDate.Year + "&g=w&ignore=.csv
+                string data = web.DownloadString(string.Format("http://ichart.finance.yahoo.com/table.csv?s=" + ticker + "&d=" + (endDate.Month - 1) + "&e=" + endDate.Day + "&f=" + endDate.Year + "&g=d&a=" + (startDate.Month - 1) + "&b=" + startDate.Day + "&c=" + startDate.Year + "&ignore=.csv"));
+               // string data = web.DownloadString(string.Format("http://ichart.finance.yahoo.com/table.csv?s={0}&c={1}", ticker, yearToStartFrom));
+
+                data = data.Replace("r", "");
+
+                string[] rows = Regex.Split(data, @"\n");
+                //string[] rows = data.Split('n'); string[] rows = Regex.Split(data, @"\n");
+
+                //First row is headers so Ignore it
+                for (int i = 1; i < rows.Length; i++)
+                {
+                    if (rows[i].Replace("n", "").Trim() == "") continue;
+
+                    string[] cols = rows[i].Split(',');
+
+                    HistoricalStock hs = new HistoricalStock();
+                    string date1 = cols[0].ToString();
+                    string open1 = cols[1].ToString();
+                   hs.Date = DateTime.Parse(cols[0]);
+                    hs.Open = Convert.ToDouble(cols[1]);
+                    hs.High = Convert.ToDouble(cols[2]);
+                    hs.Low = Convert.ToDouble(cols[3]);
+                    hs.Close = Convert.ToDouble(cols[4]);
+                    hs.Volume = Convert.ToDouble(cols[5]);
+                    hs.AdjClose = Convert.ToDouble(cols[6]);
+
+                    retval.Add(hs);
+                }
+
+                return retval;
+            }
         }
     }
 }
