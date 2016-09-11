@@ -176,6 +176,7 @@ namespace StockPredictor.Helpers
                         getStockPriceChange(symbol);
                     } //write the information to the text box
                     TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load correct date : " + symbol);
+                    prices[0] = "";
                     return prices;
                 }
             }

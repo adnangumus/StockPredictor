@@ -179,7 +179,7 @@ namespace StockPredictor
             returnTable.Add("pwp", posWordPercentage);
             returnTable.Add("nwp", negWordPercentage);
             returnTable.Add("npp", negPhrasePercentage);
-            returnTable.Add("ppp", posWordPercentage);
+            returnTable.Add("ppp", posPhrasePercentage);
             returnTable.Add("total", totalScore);
             returnTable.Add("tt", elapsedMs.ToString());
             returnTable.Add("method", "Noun");
@@ -349,7 +349,7 @@ namespace StockPredictor
             returnTable.Add("pwp", posWordPercentage);
             returnTable.Add("nwp", negWordPercentage);
             returnTable.Add("npp", negPhrasePercentage);
-            returnTable.Add("ppp", posWordPercentage);
+            returnTable.Add("ppp", posPhrasePercentage);
             returnTable.Add("total", totalScore);
             returnTable.Add("tt", elapsedMs.ToString());
             returnTable.Add("method", "Named");

@@ -105,7 +105,7 @@ namespace StockPredictor
             bool is20 = cb20.Checked;
             decimal sellPrice = 0;
             //check that there is input before assigning local variable
-            if (!String.IsNullOrEmpty(tb20.Text))
+            if (!String.IsNullOrEmpty(tb20.Text) && is20)
             {
                 sellPrice = Decimal.Parse(tb20.Text);
             }
