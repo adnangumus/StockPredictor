@@ -103,7 +103,7 @@ namespace StockPredictor
         }
         private void bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            AppendOutputText("\r\nAll processes are completed");
+           // AppendOutputText("\r\nAll processes are completed");
         }
 
         private void checkTimer(object sender, DoWorkEventArgs e)
@@ -164,13 +164,13 @@ namespace StockPredictor
             Console.WriteLine("Seconds " + elapsedMs2 / 1000);
 
             //out put information to the text box
-            displayTime(elapsedMs2);
+             displayTime(elapsedMs2);
           
         }
         //display the total time
         private void displayTime(long elapsedMs2)
         {
-            AppendOutputText("\r\n");
+            AppendOutputText("\r\n All processes completed"+"\r\n");
             AppendOutputText("Overall Time " + elapsedMs2 + "\r\n");
             AppendOutputText("Seconds " + elapsedMs2 / 1000 + "\r\n");
             AppendOutputText("minutes " + elapsedMs2 / 60000 + "    " + "seconds" + (elapsedMs2 % 60000) / 1000);

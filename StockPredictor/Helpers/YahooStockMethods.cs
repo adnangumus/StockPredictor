@@ -277,8 +277,9 @@ namespace StockPredictor.Helpers
               
                 change = lastClose - open;
                 trend = (100 / open) * change;
-                Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nChange = " + change + 
-                    "\r\nLast close and open" + lastClose + " & " + open +"\r\nTrend " + trend);
+                Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nChange = " + change +
+                    "\r\n Open 5 days ago" + open + 
+                    "\r\nLast close and open" + lastClose + "\r\nTrend " + trend);
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
             Console.WriteLine(trend.ToString());
