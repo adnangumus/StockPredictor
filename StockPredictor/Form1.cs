@@ -8,6 +8,7 @@ using StockPredictor.Models;
 using System.Threading;
 using System.Timers;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace StockPredictor
 {
@@ -15,7 +16,11 @@ namespace StockPredictor
     {
         //variables used for the timer class
         static System.Windows.Forms.Timer myTimer = new System.Windows.Forms.Timer();
-        static bool exitFlag = false;
+        //store technical and fundamental informtaion
+        public double trend { get; set; }
+        public string rsi { get; set; }
+        public Hashtable fundamentals {get; set;}
+
 
         public Form1()
         {
@@ -130,7 +135,7 @@ namespace StockPredictor
                         null, delay +1, System.Threading.Timeout.Infinite);
            
         }
-        public double trend { get; set; }
+       
         // handle the scanning in a back ground worker
         private void runScans()
         {        
@@ -240,9 +245,10 @@ namespace StockPredictor
         {
             YahooStockMethods yahoo = new YahooStockMethods();
             // yahoo.getStockPriceTrendWeek("GILD");
-            yahoo.getFundamentals("gild");
-
-
+            //yahoo.getFundamentals("gild");
+            yahoo.getStockPriceTrendWeek("gild");
+            CalculatorMethods cal = new CalculatorMethods();
+           cal.getRSI("gild");
             //the please wait form that indicates loading
             //  PleaseWait pleaseWait = new PleaseWait();
             // Display form modelessly

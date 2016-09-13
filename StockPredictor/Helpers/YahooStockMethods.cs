@@ -294,7 +294,7 @@ namespace StockPredictor.Helpers
 
             using (WebClient web = new WebClient())
             {
-                DateTime startDate = DateTime.Today.AddDays(-7);
+                DateTime startDate = DateTime.Today.AddDays(-25);
                 DateTime endDate = DateTime.Today;
 
                 //"http://ichart.finance.yahoo.com/table.csv?s=" + ticker + "&d=" + (endDate.Month - 1) + "&e=" + endDate.Day + "&f=" + endDate.Year + "&g=d&a=" + (startDate.Month - 1) + "&b=" + startDate.Day + "&c=" + startDate.Year + "&ignore=.csv"
@@ -336,41 +336,6 @@ namespace StockPredictor.Helpers
                 return retval;
             }
         }
-        //get the rsi
-        public double getRSI(string ticker)
-        {
-            List<HistoricalStock> data = YahooStockMethods.DownloadHistoricalData(ticker);
-            if (data == null)
-            {
-                Console.WriteLine("data from yahoo return null. No interent?");
-                return 0;
-            };
-            int last = data.Count;
-            int i = 1;
-            double open = 0;
-            double lastClose = 0;
-            double change = 0;
-            double trend = 0;
-            try
-            {
-                foreach (HistoricalStock stock in data)
-                {
-                   while(i < 8)
-                    {
-                    Console.WriteLine(string.Format("Date={0} High={1} Low={2} Open={3} Close{4}", stock.Date, stock.High, stock.Low, stock.Open, stock.Close));
-                    }
-                }
-
-                change = lastClose - open;
-                trend = (100 / open) * change;
-                Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nChange = " + change +
-                    "\r\n Open 5 days ago" + open +
-                    "\r\nLast close and open" + lastClose + "\r\nTrend " + trend);
-            }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
-            Console.WriteLine(trend.ToString());
-            return trend;
-        }
 
         //get the yahoo stock fundamentals 
 
@@ -379,14 +344,18 @@ namespace StockPredictor.Helpers
         r7 Price/ EPS Estimate Next Year
        r6  Price / EPS Estimate Current Year
          p6  Price / Book     
-     m6 Percent Change From 200 - day Moving Average
-      m8 Percent Change From 50 - day Moving Average
-
+      m3	50-day Moving Average	
+      m4	200-day Moving Average
+m5	Change From 200-day Moving Average	
+m6	Percent Change From 200-day Moving Average	
+m7	Change From 50-day Moving Average
+m8	Percent Change From 50-day Moving Average
     t8  1 yr Target Price
     t7  Ticker Trend
     d1 Last Trade Date
     d2 Trade Date
     w1  Day's Value Change
+    r5: PEG Ratio
     */
         public Hashtable getFundamentals(string ticker)
         {
@@ -396,11 +365,11 @@ namespace StockPredictor.Helpers
                            
                 try
                 {
-                    string data = web.DownloadString(string.Format("http://finance.yahoo.com/d/quotes.csv?s="+ticker+"&f=srr7r6p6m6m8t8t7"));
+                    string data = web.DownloadString(string.Format("http://finance.yahoo.com/d/quotes.csv?s="+ticker+ "&f=srr7r6p6m6m8t8r5t7"));
                     data = data.Replace("r", "");
 
-                        string[] cols = data.Split(',');
-                        hs.Add("ticker", cols[0].ToString());
+                    string[] cols = data.Split(',');
+                    hs.Add("ticker", cols[0].ToString());
                     hs.Add("PE", cols[1].ToString());
                     hs.Add("PENext", cols[2].ToString());
                     hs.Add("PECurrent", cols[3].ToString());
@@ -408,7 +377,9 @@ namespace StockPredictor.Helpers
                     hs.Add("200Change", cols[5].ToString());
                     hs.Add("50Change", cols[6].ToString());
                     hs.Add("Target", cols[7].ToString());
-                    hs.Add("Trend", cols[8].ToString());
+                    hs.Add("PEG", cols[8].ToString());
+                    hs.Add("Trend", cols[9].ToString());
+                   
                 }
                 catch (Exception)
                 { return null; }

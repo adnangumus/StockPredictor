@@ -151,7 +151,7 @@ namespace StockPredictor
             int negWordPercentage = cm.getNegativePercentage(posWordCount, negWordCount);
             int posPhrasePercentage = cm.getPositivePercentage(positivePhraseCount, negativePhraseCount);
             int negPhrasePercentage = cm.getNegativePercentage(positivePhraseCount, negativePhraseCount);
-            int totalScore = cm.getTotalScore(posWordCount, positivePhraseCount, negWordCount, negativePhraseCount);
+            int totalScore = cm.getTotalSentimentScore(posWordCount, positivePhraseCount, negWordCount, negativePhraseCount);
             Console.WriteLine("Percantage of Words Positive = " + posWordPercentage + "% " + "Negative word percentage = " + negWordPercentage + "% ");
             Console.WriteLine("Total Score : " + totalScore);
 
@@ -321,7 +321,7 @@ namespace StockPredictor
             int negWordPercentage = cm.getNegativePercentage(posWordCount, negWordCount);
             int posPhrasePercentage = cm.getPositivePercentage(positivePhraseCount, negativePhraseCount);
             int negPhrasePercentage = cm.getNegativePercentage(positivePhraseCount, negativePhraseCount);
-            int totalScore = cm.getTotalScore(posWordCount, positivePhraseCount, negWordCount, negativePhraseCount);
+            int totalScore = cm.getTotalSentimentScore(posWordCount, positivePhraseCount, negWordCount, negativePhraseCount);
             Console.WriteLine("Percantage of Words Positive = " + posWordPercentage + "% " + "Negative word percentage = " + negWordPercentage + "% ");
             Console.WriteLine("Total Score : " + totalScore);
 
