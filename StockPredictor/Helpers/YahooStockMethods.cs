@@ -287,6 +287,91 @@ namespace StockPredictor.Helpers
             return trend;
         }
 
+        //gett the historical data from yahoo
+        public static List<HistoricalStock> getTwoWeekData(string ticker)
+        {
+            List<HistoricalStock> retval = new List<HistoricalStock>();
+
+            using (WebClient web = new WebClient())
+            {
+                DateTime startDate = DateTime.Today.AddDays(-7);
+                DateTime endDate = DateTime.Today;
+
+                //"http://ichart.finance.yahoo.com/table.csv?s=" + ticker + "&d=" + (endDate.Month - 1) + "&e=" + endDate.Day + "&f=" + endDate.Year + "&g=d&a=" + (startDate.Month - 1) + "&b=" + startDate.Day + "&c=" + startDate.Year + "&ignore=.csv"
+                //http://ichart.finance.yahoo.com/table.csv?s=" + ticker + "&a=" + (startDate.Month - 1) + "&b=" + startDate.Day + "&c=" + startDate.Year + "&d=" + (endDate.Month - 1) + "&e=" + endDate.Day + "&f=" + endDate.Year + "&g=w&ignore=.csv
+
+                // string data = web.DownloadString(string.Format("http://ichart.finance.yahoo.com/table.csv?s={0}&c={1}", ticker, yearToStartFrom));
+                try
+                {
+                    string data = web.DownloadString(string.Format("http://ichart.finance.yahoo.com/table.csv?s=" + ticker + "&d=" + (endDate.Month - 1) + "&e=" + endDate.Day + "&f=" + endDate.Year + "&g=d&a=" + (startDate.Month - 1) + "&b=" + startDate.Day + "&c=" + startDate.Year + "&ignore=.csv"));
+                    data = data.Replace("r", "");
+
+                    string[] rows = Regex.Split(data, @"\n");
+                    //string[] rows = data.Split('n'); string[] rows = Regex.Split(data, @"\n");
+
+                    //First row is headers so Ignore it
+                    for (int i = 1; i < rows.Length; i++)
+                    {
+                        if (rows[i].Replace("n", "").Trim() == "") continue;
+
+                        string[] cols = rows[i].Split(',');
+
+                        HistoricalStock hs = new HistoricalStock();
+                        string date1 = cols[0].ToString();
+                        string open1 = cols[1].ToString();
+                        hs.Date = DateTime.Parse(cols[0]);
+                        hs.Open = Convert.ToDouble(cols[1]);
+                        hs.High = Convert.ToDouble(cols[2]);
+                        hs.Low = Convert.ToDouble(cols[3]);
+                        hs.Close = Convert.ToDouble(cols[4]);
+                        hs.Volume = Convert.ToDouble(cols[5]);
+                        hs.AdjClose = Convert.ToDouble(cols[6]);
+
+                        retval.Add(hs);
+                    }
+                }
+                catch (Exception)
+                { return null; }
+
+                return retval;
+            }
+        }
+        //get the rsi
+        public double getRSI(string ticker)
+        {
+            List<HistoricalStock> data = YahooStockMethods.DownloadHistoricalData(ticker);
+            if (data == null)
+            {
+                Console.WriteLine("data from yahoo return null. No interent?");
+                return 0;
+            };
+            int last = data.Count;
+            int i = 1;
+            double open = 0;
+            double lastClose = 0;
+            double change = 0;
+            double trend = 0;
+            try
+            {
+                foreach (HistoricalStock stock in data)
+                {
+                   while(i < 8)
+                    {
+                    Console.WriteLine(string.Format("Date={0} High={1} Low={2} Open={3} Close{4}", stock.Date, stock.High, stock.Low, stock.Open, stock.Close));
+                    }
+                }
+
+                change = lastClose - open;
+                trend = (100 / open) * change;
+                Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nChange = " + change +
+                    "\r\n Open 5 days ago" + open +
+                    "\r\nLast close and open" + lastClose + "\r\nTrend " + trend);
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            Console.WriteLine(trend.ToString());
+            return trend;
+        }
+
         //get the yahoo stock fundamentals 
 
         /*Symbol = s
@@ -315,8 +400,6 @@ namespace StockPredictor.Helpers
                     data = data.Replace("r", "");
 
                         string[] cols = data.Split(',');
-
-                      
                         hs.Add("ticker", cols[0].ToString());
                     hs.Add("PE", cols[1].ToString());
                     hs.Add("PENext", cols[2].ToString());
