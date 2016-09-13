@@ -246,7 +246,7 @@ namespace StockPredictor
             YahooStockMethods yahoo = new YahooStockMethods();
             // yahoo.getStockPriceTrendWeek("GILD");
             //yahoo.getFundamentals("gild");
-            yahoo.getStockPriceTrendWeek("gild");
+            yahoo.getFundamentals("gild");
             CalculatorMethods cal = new CalculatorMethods();
            cal.getRSI("gild");
             //the please wait form that indicates loading

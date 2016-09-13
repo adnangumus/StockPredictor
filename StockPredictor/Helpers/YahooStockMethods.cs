@@ -383,7 +383,7 @@ m8	Percent Change From 50-day Moving Average
                 }
                 catch (Exception)
                 { return null; }
-
+                Form1.Instance.fundamentals = hs;
                 return hs;
             }
 
