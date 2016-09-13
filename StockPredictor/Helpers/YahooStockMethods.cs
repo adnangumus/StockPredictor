@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Net;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Collections;
 
 namespace StockPredictor.Helpers
 {
@@ -200,7 +201,7 @@ namespace StockPredictor.Helpers
         }
       
         //gett the historical data from yahoo
-        public static List<HistoricalStock> DownloadData(string ticker)
+        public static List<HistoricalStock> DownloadHistoricalData(string ticker)
         {
             List<HistoricalStock> retval = new List<HistoricalStock>();
            
@@ -250,7 +251,7 @@ namespace StockPredictor.Helpers
 
             public double getStockPriceTrendWeek(string ticker)
         {
-            List<HistoricalStock> data = YahooStockMethods.DownloadData(ticker);
+            List<HistoricalStock> data = YahooStockMethods.DownloadHistoricalData(ticker);
             if (data == null)
             {
                 Console.WriteLine("data from yahoo return null. No interent?");
@@ -285,6 +286,55 @@ namespace StockPredictor.Helpers
             Console.WriteLine(trend.ToString());
             return trend;
         }
+
+        //get the yahoo stock fundamentals 
+
+        /*Symbol = s
+        r = P / E
+        r7 Price/ EPS Estimate Next Year
+       r6  Price / EPS Estimate Current Year
+         p6  Price / Book     
+     m6 Percent Change From 200 - day Moving Average
+      m8 Percent Change From 50 - day Moving Average
+
+    t8  1 yr Target Price
+    t7  Ticker Trend
+    d1 Last Trade Date
+    d2 Trade Date
+    w1  Day's Value Change
+    */
+        public Hashtable getFundamentals(string ticker)
+        {
+            Hashtable hs = new Hashtable();
+            using (WebClient web = new WebClient())
+            {
+                           
+                try
+                {
+                    string data = web.DownloadString(string.Format("http://finance.yahoo.com/d/quotes.csv?s="+ticker+"&f=srr7r6p6m6m8t8t7"));
+                    data = data.Replace("r", "");
+
+                        string[] cols = data.Split(',');
+
+                      
+                        hs.Add("ticker", cols[0].ToString());
+                    hs.Add("PE", cols[1].ToString());
+                    hs.Add("PENext", cols[2].ToString());
+                    hs.Add("PECurrent", cols[3].ToString());
+                    hs.Add("PB", cols[4].ToString());
+                    hs.Add("200Change", cols[5].ToString());
+                    hs.Add("50Change", cols[6].ToString());
+                    hs.Add("Target", cols[7].ToString());
+                    hs.Add("Trend", cols[8].ToString());
+                }
+                catch (Exception)
+                { return null; }
+
+                return hs;
+            }
+
+
         }
+    }
     }
 

@@ -239,8 +239,8 @@ namespace StockPredictor
         private void Test_Click(object sender, EventArgs e)
         {
             YahooStockMethods yahoo = new YahooStockMethods();
-            yahoo.getStockPriceTrendWeek("GILD");
-
+            // yahoo.getStockPriceTrendWeek("GILD");
+            yahoo.getFundamentals("gild");
 
 
             //the please wait form that indicates loading
