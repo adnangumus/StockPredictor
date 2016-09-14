@@ -20,6 +20,7 @@ namespace StockPredictor
         public double trend { get; set; }
         //ranging from -2 to 2 Strong sell sell neutral buy strong buy
         public int rsi { get; set; }
+        //the scores from the moving average ranging from -2 to 2 Strong sell sell neutral buy strong buy
         public int moving200 {get;set;}
         public int moving50 { get; set;}
         public Hashtable fundamentals {get; set;}
