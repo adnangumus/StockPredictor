@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using StockPredictor.Helpers;
 using StockPredictor.Models;
+using System.Collections;
 
 namespace StockPredictor.Helpers
 {
@@ -136,32 +137,194 @@ namespace StockPredictor.Helpers
                 Double rsLast = positiveChangeAverageLast / negativeChangeAverageLast;
                 rsiLast = 100 - (100 / (1 + rsLast));
                 Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nToday's RSI = " + rsiLast);
+                Form1.Instance.rsi = 0;
 
                 if (rsi < 50 && rsiLast > 50)
                 {
                     Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nRSI buy signal = " + rsi + " " + rsiLast);
-                    Form1.Instance.rsi = "buy";
+                    Form1.Instance.rsi = 1;
                 }
                 if (rsi > 50 && rsiLast < 50)
                 {
                     Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nRSI sell signal = " + rsi + " " + rsiLast);
-                    Form1.Instance.rsi = "sell";
+                    Form1.Instance.rsi = -1;
                 }
                 if(rsiLast >= 70)
                 {
                     Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nRSI sell signal = " + rsi + " " + rsiLast);
-                    Form1.Instance.rsi = "sell";
+                    Form1.Instance.rsi = -2;
                 }
                 if (rsiLast <= 30)
                 {
                     Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nRSI buy signal = " + rsi + " " + rsiLast);
-                    Form1.Instance.rsi = "buy";
+                    Form1.Instance.rsi = 2;
                 }
 
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
 
             return rsi;
+        }
+        /* string[] cols = data.Split(',');
+                    hs.Add("ticker", cols[0].ToString());                
+                    hs.Add("50Average", cols[1].ToString());
+                    hs.Add("200Average", cols[2].ToString());
+                    hs.Add("200ChangePercent", cols[3].ToString());
+                    hs.Add("50ChangePercent", cols[4].ToString());
+                    hs.Add("200Change", cols[5].ToString());
+                    hs.Add("50Change", cols[6].ToString());
+                    hs.Add("PB", cols[7].ToString());
+                    hs.Add("PEG", cols[8].ToString());
+                    hs.Add("Trend", cols[9].ToString());
+                    */
+                    //calculate the moving average and store them in variables on the main form
+        private void movingAverages(string ticker)
+        {
+            Hashtable htFunda = new Hashtable();
+            YahooStockMethods yahoo = new YahooStockMethods();
+            htFunda = yahoo.getFundamentals(ticker);
+            double ChangePercent200 = (double)htFunda["200ChangePercent"];
+            double ChangePercent50 = (double)htFunda["50ChangePercent"];
+
+            if(ChangePercent50 <= 0)
+            {
+                if (ChangePercent50 > -0.5)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50
+                        + " : Verdict : Strong sell" );
+                    Form1.Instance.moving50 = -2;
+                }
+                if (ChangePercent50 <= -0.5 && ChangePercent50 > -1 )
+                {
+                    Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50
+                         + " : Verdict : sell");
+                    Form1.Instance.moving50 = -1;
+                }
+                if (ChangePercent50 <= -1 && ChangePercent50 > -3)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50
+                         + " : Verdict : neutral");
+                    Form1.Instance.moving50 = 0;
+                }
+                if (ChangePercent50 <= -3 && ChangePercent50 > -4)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50
+                          + " : Verdict : buy");
+                    Form1.Instance.moving50 = 1;
+                }
+                if (ChangePercent50 <= -4)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50
+                        + " : Verdict : strong buy");
+                    Form1.Instance.moving50 = 2;
+                }
+            }
+            if(ChangePercent50 > 0)
+            {
+                if (ChangePercent50 < 0.5)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50
+                         + " : Verdict : strong buy");
+                    Form1.Instance.moving50 = 2;
+                }
+                if (ChangePercent50 >= 0.5 && ChangePercent50 < 1)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50
+                        + " : Verdict : buy");
+                    Form1.Instance.moving50 = 1;
+                }
+                if (ChangePercent50 >= 1 && ChangePercent50 < 3)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50
+                         + " : Verdict : neutral");
+                    Form1.Instance.moving50 = 0;
+                }
+                if (ChangePercent50 >= 3 && ChangePercent50 < 4)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50
+                        + " : Verdict : sell");
+                    Form1.Instance.moving50 = -1;
+                }
+                if (ChangePercent50 >= 4)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50
+                         + " : Verdict : strong sell");
+                    Form1.Instance.moving50 = -2;
+                }
+            }
+
+            if (ChangePercent200 <= 0)
+            {
+                if (ChangePercent200 > -0.5)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent50
+                        + " : Verdict : Strong sell");
+                    Form1.Instance.moving200 = -2;
+                }
+                if (ChangePercent200 <= -0.5 && ChangePercent200 > -1)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200
+                         + " : Verdict : sell");
+                    Form1.Instance.moving200 = -1;
+                }
+                if (ChangePercent200 <= -1 && ChangePercent200 > -3)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200
+                         + " : Verdict : neutral");
+                    Form1.Instance.moving200 = 0;
+                }
+                if (ChangePercent200 <= -3 && ChangePercent200 > -4)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200
+                          + " : Verdict : buy");
+                    Form1.Instance.moving200 = 1;
+                }
+                if (ChangePercent200 <= -4)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200
+                        + " : Verdict : strong buy");
+                    Form1.Instance.moving200 = 2;
+                }
+            }
+            if (ChangePercent200 > 0)
+            {
+                if (ChangePercent200 < 0.5)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200
+                         + " : Verdict : strong buy");
+                    Form1.Instance.moving200 = 2;
+                }
+                if (ChangePercent200 >= 0.5 && ChangePercent200 < 1)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200
+                        + " : Verdict : buy");
+                    Form1.Instance.moving200 = 1;
+                }
+                if (ChangePercent200 >= 1 && ChangePercent200 < 3)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200
+                         + " : Verdict : neutral");
+                    Form1.Instance.moving200 = 0;
+                }
+                if (ChangePercent200 >= 3 && ChangePercent200 < 4)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200
+                        + " : Verdict : sell");
+                    Form1.Instance.moving200 = -1;
+                }
+                if (ChangePercent200 >= 4)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200
+                         + " : Verdict : strong sell");
+                    Form1.Instance.moving200 = -2;
+                }
+            }
+
+        }
+
+        public void processFundamentals
+        {
+
         }
 
     }

@@ -18,8 +18,12 @@ namespace StockPredictor
         static System.Windows.Forms.Timer myTimer = new System.Windows.Forms.Timer();
         //store technical and fundamental informtaion
         public double trend { get; set; }
-        public string rsi { get; set; }
+        //ranging from -2 to 2 Strong sell sell neutral buy strong buy
+        public int rsi { get; set; }
+        public int moving200 {get;set;}
+        public int moving50 { get; set;}
         public Hashtable fundamentals {get; set;}
+
 
 
         public Form1()

@@ -365,20 +365,22 @@ m8	Percent Change From 50-day Moving Average
                            
                 try
                 {
-                    string data = web.DownloadString(string.Format("http://finance.yahoo.com/d/quotes.csv?s="+ticker+ "&f=srr7r6p6m6m8t8r5t7"));
+                    string data = web.DownloadString(string.Format("http://finance.yahoo.com/d/quotes.csv?s="+ticker+ 
+                        "&f=sm3m4m6m8m5m7p6r5dt7"));
                     data = data.Replace("r", "");
 
                     string[] cols = data.Split(',');
-                    hs.Add("ticker", cols[0].ToString());
-                    hs.Add("PE", cols[1].ToString());
-                    hs.Add("PENext", cols[2].ToString());
-                    hs.Add("PECurrent", cols[3].ToString());
-                    hs.Add("PB", cols[4].ToString());
+                    hs.Add("ticker", cols[0].ToString());                
+                    hs.Add("50Average", cols[1].ToString());
+                    hs.Add("200Average", cols[2].ToString());
+                    hs.Add("200ChangePercent", cols[3].ToString());
+                    hs.Add("50ChangePercent", cols[4].ToString());
                     hs.Add("200Change", cols[5].ToString());
                     hs.Add("50Change", cols[6].ToString());
-                    hs.Add("Target", cols[7].ToString());
+                    hs.Add("PB", cols[7].ToString());
                     hs.Add("PEG", cols[8].ToString());
-                    hs.Add("Trend", cols[9].ToString());
+                    hs.Add("Dividend", cols[9].ToString());
+                    hs.Add("Trend", cols[10].ToString());
                    
                 }
                 catch (Exception)
