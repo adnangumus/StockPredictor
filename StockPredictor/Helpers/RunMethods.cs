@@ -117,7 +117,7 @@ namespace StockPredictor.Helpers
             totalScore = (int)ht["total"];
 
             CalculatorMethods cal = new CalculatorMethods();
-           double finalScore = cal.ProcessAllMetrics(funda, totalScore, rsi);
+           double finalScore = cal.ProcessAllMetrics(funda, totalScore, rsi, method);
 
             exl.savePredictorDataToExcel(myPassExcelApp, input, method, elapsedMs, totalScore, wordCount, sentenceCount, posWordCount, negWordCount,
                   posWordPercentage, negWordPercentage,

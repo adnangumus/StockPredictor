@@ -121,10 +121,14 @@ namespace StockPredictor.Helpers
             Excel.Range range = myExcelWorkSheet.get_Range("A" + rowNumber);
             //read the data from the cell that has the principle
             double principle = 10000;
+
+            try { 
             if (range.Value.GetType() == typeof(double))
             {
                 principle = range.Value;
             }
+            }
+            catch (Exception e) { Console.WriteLine(e.Message); }
             //close the excel sheet
             closeExcel();
             string principleStr = principle.ToString();
