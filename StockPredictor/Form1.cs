@@ -23,6 +23,9 @@ namespace StockPredictor
         //the scores from the moving average ranging from -2 to 2 Strong sell sell neutral buy strong buy
         public int moving200 {get;set;}
         public int moving50 { get; set;}
+        public int priceBook { get; set; }
+        public int peg { get; set; }
+        public int dividend { get; set; }
         public Hashtable fundamentals {get; set;}
 
 
@@ -251,9 +254,11 @@ namespace StockPredictor
             YahooStockMethods yahoo = new YahooStockMethods();
             // yahoo.getStockPriceTrendWeek("GILD");
             //yahoo.getFundamentals("gild");
-            yahoo.getFundamentals("gild");
+          Hashtable funda =  yahoo.getFundamentals("gild");
             CalculatorMethods cal = new CalculatorMethods();
-           cal.getRSI("gild");
+            // cal.getRSI("gild");
+            cal.MovingAverages(funda);
+            cal.ProcessFundamentals(funda);
             //the please wait form that indicates loading
             //  PleaseWait pleaseWait = new PleaseWait();
             // Display form modelessly

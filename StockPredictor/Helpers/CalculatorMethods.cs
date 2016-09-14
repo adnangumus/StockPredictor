@@ -175,16 +175,20 @@ namespace StockPredictor.Helpers
                     hs.Add("50Change", cols[6].ToString());
                     hs.Add("PB", cols[7].ToString());
                     hs.Add("PEG", cols[8].ToString());
-                    hs.Add("Trend", cols[9].ToString());
+                    hs.Add("Dividend", cols[9].ToString());
+                    hs.Add("Trend", cols[10].ToString());
                     */
-                    //calculate the moving average and store them in variables on the main form
-        private void movingAverages(string ticker)
+        //calculate the moving average and store them in variables on the main form
+        public void MovingAverages(Hashtable htFunda)
         {
-            Hashtable htFunda = new Hashtable();
-            YahooStockMethods yahoo = new YahooStockMethods();
-            htFunda = yahoo.getFundamentals(ticker);
-            double ChangePercent200 = (double)htFunda["200ChangePercent"];
-            double ChangePercent50 = (double)htFunda["50ChangePercent"];
+           
+            string cp200 = htFunda["200ChangePercent"].ToString();
+            string cp50 = htFunda["50ChangePercent"].ToString();
+           cp50 = cp50.Replace("%", "");
+           cp200 =  cp200.Replace("%", "");
+
+            double ChangePercent200 = Convert.ToDouble(cp200);
+            double ChangePercent50 = Convert.ToDouble(cp50);
 
             if(ChangePercent50 <= 0)
             {
@@ -321,9 +325,106 @@ namespace StockPredictor.Helpers
             }
 
         }
-
-        public void processFundamentals
+        /* string[] cols = data.Split(',');
+                  hs.Add("ticker", cols[0].ToString());                
+                  hs.Add("50Average", cols[1].ToString());
+                  hs.Add("200Average", cols[2].ToString());
+                  hs.Add("200ChangePercent", cols[3].ToString());
+                  hs.Add("50ChangePercent", cols[4].ToString());
+                  hs.Add("200Change", cols[5].ToString());
+                  hs.Add("50Change", cols[6].ToString());
+                  hs.Add("PB", cols[7].ToString());
+                  hs.Add("PEG", cols[8].ToString());
+                  hs.Add("Dividend", cols[9].ToString());
+                  hs.Add("Trend", cols[10].ToString());
+                  */
+                  //process the fundamentals of the stock
+        public void ProcessFundamentals(Hashtable funda)
         {
+           double priceBook = Convert.ToDouble(funda["PB"]);
+            double peg = Convert.ToDouble(funda["PEG"]);
+            double dividend = Convert.ToDouble(funda["Dividend"]);
+
+            //process the price to book
+            if (priceBook <= 1)
+            {
+                Form1.Instance.AppendOutputText("\r\nPrice to book: strong buy");
+                Form1.Instance.priceBook = 2;
+            }
+            if (priceBook >1 && priceBook <=3)
+            {
+                Form1.Instance.AppendOutputText("\r\nPrice to book: buy");
+                Form1.Instance.priceBook = 1;
+            }
+            if (priceBook >3 && priceBook <=6)
+            {
+                Form1.Instance.AppendOutputText("\r\nPrice to book: neutral");
+                Form1.Instance.priceBook = 0;
+            }
+            if (priceBook >6 && priceBook <=8)
+            {
+                Form1.Instance.AppendOutputText("\r\nPrice to book: sell");
+                Form1.Instance.priceBook = -1;
+            }
+            if (priceBook >8)
+            {
+                Form1.Instance.AppendOutputText("\r\nPrice to book: strong sell");
+                Form1.Instance.priceBook = -2;
+            }         
+
+
+//process peg
+            if (peg <= 1) {
+                Form1.Instance.AppendOutputText("\r\nPEG : strong buy");
+                Form1.Instance.peg = 2;
+                    }
+            if (peg > 1 && peg <=2)
+            {
+                Form1.Instance.AppendOutputText("\r\nPEG : buy");
+                Form1.Instance.peg = 1;
+                    }
+            if (peg >2 && peg <=3)
+            {
+                Form1.Instance.AppendOutputText("\r\nPEG : neutral");
+                Form1.Instance.peg = 0;
+                    }
+            if (peg >3 && peg <=4)
+            {
+                Form1.Instance.AppendOutputText("\r\nPEG : sell");
+                Form1.Instance.peg = -1;
+                    }
+            if (peg > 4)
+            {
+                Form1.Instance.AppendOutputText("\r\nPEG : strong sell");
+                Form1.Instance.peg = -2;
+                    }
+
+            //process dividends
+            if (dividend ==0)
+            {
+                Form1.Instance.AppendOutputText("\r\nDividends : strong sell");
+                Form1.Instance.dividend = -2;
+                    }
+            if (dividend >0 && dividend <=1)
+            {
+                Form1.Instance.AppendOutputText("\r\nDividends : sell");
+                Form1.Instance.dividend = -1;
+                    }
+            if (dividend >1 && dividend <=2)
+            {
+                Form1.Instance.AppendOutputText("\r\nDividends : neutral");
+                Form1.Instance.dividend = 0;
+                    }
+            if (dividend >2 && dividend <=4)
+            {
+                Form1.Instance.AppendOutputText("\r\nDividends : buy");
+                Form1.Instance.dividend = 1;
+                    }
+            if (dividend > 4)
+            {
+                Form1.Instance.AppendOutputText("\r\nDividends : strong buy");
+                Form1.Instance.dividend = 2;
+                    }
 
         }
 
