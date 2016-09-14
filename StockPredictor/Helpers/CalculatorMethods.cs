@@ -43,19 +43,6 @@ namespace StockPredictor.Helpers
         //a method to determine what percentage of the total the values are
         public int getTotalSentimentScore(int pw, int pp, int nw, int np)
         {
-            /*code that added the trend
-           // double trend = 0;
-           // int trendInt = 0;
-           // try { 
-           //     //get the trend and multiply it by 10 and add its impact to the total score
-           //trend = Form1.Instance.trend;
-           //     trend = trend * 10;
-           //     trendInt = System.Convert.ToInt32(System.Math.Round(trend));
-           //     Form1.Instance.AppendOutputText("\n\rThe trend as an int : "+trendInt);
-           // }
-            catch (Exception) { }
-           */
-
             pp = pp * 6;
             np = np * 6;
             int p = pp + pw;
@@ -66,6 +53,7 @@ namespace StockPredictor.Helpers
                 int tp = 10000 / total;
                 int ppp = tp * p;
                 int positivepercentage = ppp / 100;
+                Form1.Instance.sentiment = ((positivepercentage - 55) * 2);
                 //remove 5% of positive hits as because of noise, then add trend 
                 return ((positivepercentage - 55) *2);
             }
@@ -75,11 +63,15 @@ namespace StockPredictor.Helpers
                 int tp = 10000 / total;
                 int nn = tp * n;
                 int negativePercentage = nn / 100;
-                negativePercentage  = (negativePercentage + 55)%100 ;
+                negativePercentage = (negativePercentage + 55) % 100;
                 negativePercentage = negativePercentage * 2;
                 negativePercentage = negativePercentage * -1;
+                Form1.Instance.sentiment = negativePercentage;
                 return negativePercentage;
+
             }
+
+
            
             return 0;
         }
@@ -426,6 +418,74 @@ namespace StockPredictor.Helpers
                 Form1.Instance.dividend = 2;
                     }
 
+        }
+        //convert sentiment score sperately
+        private int ProcessSentimentScores(int sentiment)
+        {
+            
+
+            if (sentiment <= -25)
+            {
+                return -2;
+            }
+            if (sentiment <= -5 && sentiment > -25)
+            {
+                return -1;
+            }
+            if (sentiment > -5 && sentiment <= 5)
+            {
+                return 0;
+            }
+            if (sentiment >= 5 && sentiment < 25)
+            {
+                return 1;
+            }
+            if (sentiment >= -25)
+            {
+                return 2;
+            }
+            return 0;
+        }
+        //use the methoeds to calcualte the total prospects for the stock
+        public double ProcessAllMetrics(string ticker, int sentimentScore)
+        {
+            Hashtable funda = new Hashtable();
+            YahooStockMethods yahoo = new YahooStockMethods();
+            funda = yahoo.getFundamentals(ticker);
+            //process the sentiment score
+            int sentiment = ProcessSentimentScores(sentimentScore) *4;
+            int rsi = Form1.Instance.rsi * 2;
+            int moving50 = Form1.Instance.moving50;
+            int moving200 = Form1.Instance.moving200;
+            int dividends = Form1.Instance.dividend;
+            int peg = Form1.Instance.peg;
+            int priceBook = Form1.Instance.priceBook;
+
+            double total = (sentiment + rsi + moving50 + moving200 + dividends + peg + priceBook) / 11;
+
+            if (total >= 2)
+            {
+                Form1.Instance.AppendOutputText("\r\nTotal score : strong buy : " + total);
+            }
+            if (total >= 1 && total <2)
+            {
+                Form1.Instance.AppendOutputText("\r\nTotal score : buy : " + total);
+            }
+            if (total == 0)
+            {
+                Form1.Instance.AppendOutputText("\r\nTotal score : neutral : " + total);
+            }
+            if (total <= -1 && total > -2)
+            {
+                Form1.Instance.AppendOutputText("\r\nTotal score : sell : " + total);
+            }
+            if (total <= -2)
+            {
+                Form1.Instance.AppendOutputText("\r\nTotal score : strong sell :" + total);
+            }
+
+            //retrun the total value
+            return total;
         }
 
     }
