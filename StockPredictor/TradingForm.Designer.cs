@@ -32,7 +32,6 @@ namespace StockPredictor
         {
             this.btTrade = new System.Windows.Forms.Button();
             this.tbTrade = new System.Windows.Forms.TextBox();
-            this.tb20 = new System.Windows.Forms.TextBox();
             this.tbTradeOutput = new System.Windows.Forms.TextBox();
             this.cbSell = new System.Windows.Forms.CheckBox();
             this.btTest = new System.Windows.Forms.Button();
@@ -47,6 +46,8 @@ namespace StockPredictor
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tbClose = new System.Windows.Forms.TextBox();
+            this.cbStrong = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btTrade
@@ -67,14 +68,6 @@ namespace StockPredictor
             this.tbTrade.Name = "tbTrade";
             this.tbTrade.Size = new System.Drawing.Size(75, 20);
             this.tbTrade.TabIndex = 2;
-            // 
-            // tb20
-            // 
-            this.tb20.Location = new System.Drawing.Point(12, 105);
-            this.tb20.Name = "tb20";
-            this.tb20.Size = new System.Drawing.Size(75, 20);
-            this.tb20.TabIndex = 3;
-            this.tb20.TextChanged += new System.EventHandler(this.tb20_TextChanged);
             // 
             // tbTradeOutput
             // 
@@ -210,6 +203,26 @@ namespace StockPredictor
             this.tbClose.Size = new System.Drawing.Size(100, 20);
             this.tbClose.TabIndex = 20;
             // 
+            // cbStrong
+            // 
+            this.cbStrong.AutoSize = true;
+            this.cbStrong.Location = new System.Drawing.Point(10, 108);
+            this.cbStrong.Name = "cbStrong";
+            this.cbStrong.Size = new System.Drawing.Size(68, 17);
+            this.cbStrong.TabIndex = 21;
+            this.cbStrong.Text = "Is Strong";
+            this.cbStrong.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(288, 52);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(46, 16);
+            this.label4.TabIndex = 23;
+            this.label4.Text = "Ticker";
+            // 
             // TradingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -217,6 +230,8 @@ namespace StockPredictor
             this.BackgroundImage = global::StockPredictor.Properties.Resources.internet;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(528, 519);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.cbStrong);
             this.Controls.Add(this.tbClose);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -231,7 +246,6 @@ namespace StockPredictor
             this.Controls.Add(this.btTest);
             this.Controls.Add(this.cbSell);
             this.Controls.Add(this.tbTradeOutput);
-            this.Controls.Add(this.tb20);
             this.Controls.Add(this.tbTrade);
             this.Controls.Add(this.btTrade);
             this.Location = new System.Drawing.Point(400, 400);
@@ -247,7 +261,6 @@ namespace StockPredictor
 
         private System.Windows.Forms.Button btTrade;
         private System.Windows.Forms.TextBox tbTrade;
-        private System.Windows.Forms.TextBox tb20;
         private System.Windows.Forms.TextBox tbTradeOutput;
         private System.Windows.Forms.CheckBox cbSell;
         private System.Windows.Forms.Button btTest;
@@ -262,5 +275,7 @@ namespace StockPredictor
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbClose;
+        private System.Windows.Forms.CheckBox cbStrong;
+        private System.Windows.Forms.Label label4;
     }
 }

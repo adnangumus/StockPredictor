@@ -19,6 +19,8 @@ namespace StockPredictor
       
         //ranging from -2 to 2 Strong sell sell neutral buy strong buy
         public int rsi { get; set; }
+        //the real rsi
+       public double realRSI { get; set; }
         //the scores from the moving average ranging from -2 to 2 Strong sell sell neutral buy strong buy
         public int moving200 {get;set;}
         public int moving50 { get; set;}
@@ -163,7 +165,7 @@ namespace StockPredictor
                 rm.runStockPredictor("hznp", dontSave);
                 rm.runStockPredictor("biib", dontSave);
                 rm.runStockPredictor("celg", dontSave);
-                rm.runStockPredictor("ibb", dontSave);
+               // rm.runStockPredictor("ibb", dontSave);
                
                 return;
             }
@@ -251,14 +253,16 @@ namespace StockPredictor
 
         private void Test_Click(object sender, EventArgs e)
         {
-            YahooStockMethods yahoo = new YahooStockMethods();
-            // yahoo.getStockPriceTrendWeek("GILD");
-            //yahoo.getFundamentals("gild");
-          Hashtable funda =  yahoo.getFundamentals("gild");
-            CalculatorMethods cal = new CalculatorMethods();
-            // cal.getRSI("gild");
-            cal.MovingAverages(funda);
-            cal.ProcessFundamentals(funda);
+            //  YahooStockMethods yahoo = new YahooStockMethods();
+
+            //Hashtable funda =  yahoo.getFundamentals("gild");
+            //  CalculatorMethods cal = new CalculatorMethods();
+
+            //  int rsi = cal.RSI("aapl");
+            //  funda = yahoo.getFundamentals("aapl");
+            //  cal.ProcessAllMetrics(funda, 20, rsi);
+        
+
             //the please wait form that indicates loading
             //  PleaseWait pleaseWait = new PleaseWait();
             // Display form modelessly

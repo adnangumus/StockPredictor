@@ -11,7 +11,7 @@ namespace StockPredictor.Helpers
     class Trading
     {
         //simulate trade based on method used
-        public void simulateTradeMaster(string symbol, bool isShort, bool is20, decimal sellPrice, bool isBag, bool isNoun, bool isNamed, bool isRandom)
+        public void simulateTradeMaster(string symbol, bool isShort, bool is20, decimal sellPrice, bool isBag, bool isNoun, bool isNamed, bool isRandom, bool isStrong)
         {
             //yahoo methods to find change in stock prices
             YahooStockMethods yahoo = new YahooStockMethods();
@@ -49,10 +49,10 @@ namespace StockPredictor.Helpers
             ExcelMethods exl = new ExcelMethods();
             Application myPassedExcelApplication = exl.startExcelApp();
             //save the data based on the method used
-            if (isBag) { simulateTrade(symbol, isShort, is20, sellPrice, "Bag", prices, myPassedExcelApplication); }
-            if (isNoun) { simulateTrade(symbol, isShort, is20, sellPrice, "Noun", prices, myPassedExcelApplication); }
-            if (isNamed) { simulateTrade(symbol, isShort, is20, sellPrice, "Named", prices, myPassedExcelApplication); }
-            if (isRandom) { simulateTrade(symbol, isShort, is20, sellPrice, "Random", prices, myPassedExcelApplication); }
+            if (isBag) { simulateTrade(symbol, isShort, is20, sellPrice, "Bag", prices, myPassedExcelApplication, isStrong); }
+            if (isNoun) { simulateTrade(symbol, isShort, is20, sellPrice, "Noun", prices, myPassedExcelApplication, isStrong); }
+            if (isNamed) { simulateTrade(symbol, isShort, is20, sellPrice, "Named", prices, myPassedExcelApplication, isStrong); }
+            if (isRandom) { simulateTrade(symbol, isShort, is20, sellPrice, "Random", prices, myPassedExcelApplication, isStrong); }
             if(!isBag && !isNoun && !isNamed && !isRandom) { TradingForm.Instance.AppendOutputText("\r\n" + "Please choose a method - Noun, Bag, Named" + "\r\n");
                 //destroy the excel application
                 exl.quitExcel(myPassedExcelApplication); return; }
@@ -61,7 +61,7 @@ namespace StockPredictor.Helpers
         }
 
         //simulate day trading
-        private void simulateTrade(string symbol, bool isShort, bool is20, decimal sellPrice, string method, string[] prices, Application myPassedExcelApplication)
+        private void simulateTrade(string symbol, bool isShort, bool is20, decimal sellPrice, string method, string[] prices, Application myPassedExcelApplication, bool isStrong)
         {
             ExcelMethods ex = new ExcelMethods();
             //set the fileName to be passed for retreiving data
@@ -72,10 +72,11 @@ namespace StockPredictor.Helpers
             decimal startPrice = 0;
             decimal closePrice = 0;
             decimal change = 0;
-           
-           
+            //only use half of the principle on risky trades
+            decimal principleHalf = principle / 2;
+
             //check that data loaded correctly
-            if(string.IsNullOrEmpty(prices[0]) || string.IsNullOrEmpty(prices[1]))
+            if (string.IsNullOrEmpty(prices[0]) || string.IsNullOrEmpty(prices[1]))
             {
                 TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load Yahoo financial data" + "\r\n");
                 return;
@@ -98,23 +99,26 @@ namespace StockPredictor.Helpers
             }
             if (isShort)
             {
-
+                if (!isStrong) { principle = principleHalf; }
                 principle -= principle * (change / 100);
+                if (!isStrong) { principle += principleHalf; }
             }
             else
             {
+                if (!isStrong) { principle = principleHalf; }
                 principle += principle * (change / 100);
+                if (!isStrong) { principle += principleHalf; }
             }
             //roud the principle
             principle = Math.Round(principle, 2);
             if (principle > Decimal.Parse(startPrinciple)) { profitable = true; }
             //save the trading data to an excel sheet
-            ex.saveTradingData(myPassedExcelApplication, symbol, fileName, is20, principle.ToString(), startPrinciple, prices[0], prices[1], isShort, change.ToString(), profitable);
+            ex.saveTradingData(myPassedExcelApplication, symbol, fileName, is20, principle.ToString(), startPrinciple, prices[0], prices[1], isShort, change.ToString(), profitable, isStrong);
             //write information to the text box
             TradingForm.Instance.AppendOutputText("\r\n" + symbol + "  " + method + "\r\n" + "Start Price : " + prices[0] + "\r\n" +
                 "End Price :" + prices[1] + "\r\n" + "Start Principle : " + startPrinciple + "\r\n" +
                 "Principle Now : " + principle + "\r\n" + "Percentage change : " + change + "\r\n" +
-                "Short Traded : " + isShort + "\r\n"
+                "Short Traded : " + isShort + "\r\nStrong trade :" + isStrong
                 );
         }
 
@@ -128,7 +132,7 @@ namespace StockPredictor.Helpers
             return Math.Round(change, 2);
         }
 
-        // auto trade
+        // auto trade used for most of the classes
         public void autoTrade(string symbol, bool is20, decimal sellPrice)
         {
             //yahoo methods to find change in stock prices
@@ -178,11 +182,33 @@ namespace StockPredictor.Helpers
             bool isShort = false;
             ExcelMethods ex = new ExcelMethods();
             int score = ex.readLatestSentimentScore(myPassedExcelApplication, symbol, method);
-            //if no data is stored then stop the auto trade
-            if (score == 0) { TradingForm.Instance.AppendOutputText("\r\n" + "Trade canceled. Sentiment information is zero!" + "\r\n" + method + "\r\n"); return; }          
-            if (score < 0) { isShort = true; }
-            if (score > 0) { isShort = false; };
-            simulateTrade(symbol, isShort, is20, sellPrice, method, prices, myPassedExcelApplication);
+            bool isStrong = false;
+            //if neutral data is stored then stop the auto trade
+            if (score <= 5 && score >= -5) { TradingForm.Instance.AppendOutputText("\r\n" + "Neutral : No trading!" + "\r\n" + method + "\r\n"); return; }  
+            //negative scores sell and strong sell        
+            if (score < -5 && score >= -15 )
+            {
+                isShort = true; isStrong = false;
+                TradingForm.Instance.AppendOutputText("\r\n" + "Sell " + "\r\n" + method + "\r\n");
+            }
+            if (score < -15)
+            {
+                isShort = true; isStrong = true;
+                TradingForm.Instance.AppendOutputText("\r\n" + "Strong sell :" + "\r\n" + method + "\r\n");
+            }
+            //positive scores buy and strong buy
+            if (score > 5 && score <=15)
+            {
+                isShort = false; isStrong = false;
+                TradingForm.Instance.AppendOutputText("\r\n" + "Buy : " + "\r\n" + method + "\r\n");
+            };
+            if(score > 15)
+            {
+                isShort = false; isStrong = true;
+                TradingForm.Instance.AppendOutputText("\r\n" + "Strong buy :" + "\r\n" + method + "\r\n");
+            }
+
+            simulateTrade(symbol, isShort, is20, sellPrice, method, prices, myPassedExcelApplication, isStrong);
            
         }
     }

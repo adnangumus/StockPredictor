@@ -17,25 +17,27 @@ namespace StockPredictor.Helpers
         }
         public void runStockPredictor(string input, bool dontSave)
         {
-            //intiate classes used
-            Mining miner = new Mining();
-            //get the stock trend for the last week
+           
+
+            //get the stock RSI over the last two weeks      
+            CalculatorMethods cal = new CalculatorMethods();
+           int rsi = cal.RSI(input);
+            //get the fundamentals of the stock and makes sure it loaded
             YahooStockMethods yahoo = new YahooStockMethods();
-            double trend = yahoo.getStockPriceTrendWeek(input);
-            //check that there is data returned from yahoo
-            if (trend == 0) { return; }
-            Form1.Instance.trend = trend;
+            Hashtable funda = yahoo.getFundamentals(input);
+            if (String.IsNullOrEmpty(funda["PEG"].ToString())) { Form1.Instance.AppendOutputText("\r\n" + "Failed to load fundamentals : " + "\r\n"); return; }
+           
             //hash table for the bag of words method
             Hashtable bagHT = new Hashtable();
             List<Hashtable> hts = new List<Hashtable>();
             Hashtable nounHT = new Hashtable();
             Hashtable namedHT = new Hashtable();
-
             List<string> links = new List<string>();
-
             links = switchLinks(input);
             //check if the there are any links available 
             if (links.Count == 0) { Form1.Instance.AppendOutputText("\r\n" + "Failed to load links : " + "\r\n"); return; }
+            //intiate classes used
+            Mining miner = new Mining();
             string articles = miner.getAllArticles(links);
             //intialize and process the named and noun entities
             PosTagger pt = new PosTagger();
@@ -64,7 +66,7 @@ namespace StockPredictor.Helpers
                 hts.Add(bagHT);
                 foreach (Hashtable ht in hts)
                 {
-                    processSaves(ht, input, exl, myPassExcelApp);
+                    processSaves(ht, input, exl, myPassExcelApp, funda, rsi);
                 }
 
                 //randomly generate results
@@ -76,7 +78,7 @@ namespace StockPredictor.Helpers
             confirmAllCompleted(input, dontSave);
         }
 
-        private void processSaves(Hashtable ht, string input, ExcelMethods exl, Application myPassExcelApp)
+        private void processSaves(Hashtable ht, string input, ExcelMethods exl, Application myPassExcelApp, Hashtable funda,int rsi)
         {
             //count positive and negative phrases and strong words
             int positivePhraseCount = 0;
@@ -114,10 +116,13 @@ namespace StockPredictor.Helpers
             method = ht["method"].ToString();
             totalScore = (int)ht["total"];
 
+            CalculatorMethods cal = new CalculatorMethods();
+           double finalScore = cal.ProcessAllMetrics(funda, totalScore, rsi);
+
             exl.savePredictorDataToExcel(myPassExcelApp, input, method, elapsedMs, totalScore, wordCount, sentenceCount, posWordCount, negWordCount,
                   posWordPercentage, negWordPercentage,
                    positivePhraseCount, negativePhraseCount,
-                  posPhrasePercentage, negPhrasePercentage);
+                  posPhrasePercentage, negPhrasePercentage, finalScore, rsi);
 
 
         }

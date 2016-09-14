@@ -105,9 +105,9 @@ namespace StockPredictor
             bool is20 = cb20.Checked;
             decimal sellPrice = 0;
             //check that there is input before assigning local variable
-            if (!String.IsNullOrEmpty(tb20.Text) && is20)
+            if (!String.IsNullOrEmpty(tbTrade.Text) && is20)
             {
-                sellPrice = Decimal.Parse(tb20.Text);
+                sellPrice = Decimal.Parse(tbTrade.Text);
             }
 
             if (String.IsNullOrEmpty(symbol))
@@ -166,6 +166,7 @@ namespace StockPredictor
             bool isNamed = cbNamed.Checked;
             bool isRandom = cbRandom.Checked;
             string symbol = tbTrade.Text.ToUpper();
+            bool isStrong = cbStrong.Checked;
 
             if (String.IsNullOrEmpty(symbol))
             {
@@ -173,15 +174,15 @@ namespace StockPredictor
                 tbTradeOutput.AppendText("Please enter a stock symbol" + "\r\n");
                 return;
             }
-            if (String.IsNullOrEmpty(tb20.Text))
+            if (String.IsNullOrEmpty(tbTrade.Text))
             {  //run the simulated trade
-                tr.simulateTradeMaster(symbol, isShort, is20, 0, isBag, isNoun, isNamed, isRandom);
+                tr.simulateTradeMaster(symbol, isShort, is20, 0, isBag, isNoun, isNamed, isRandom, isStrong);
             }
             else
             {
-                decimal sellPrice = Decimal.Parse(tb20.Text);
+                decimal sellPrice = Decimal.Parse(tbTrade.Text);
                 //run the simulated trade
-                tr.simulateTradeMaster(symbol, isShort, is20, sellPrice, isBag, isNoun, isNamed, isRandom);
+                tr.simulateTradeMaster(symbol, isShort, is20, sellPrice, isBag, isNoun, isNamed, isRandom,isStrong);
             }
         }
         private void btTest_Click(object sender, EventArgs e)
@@ -190,9 +191,6 @@ namespace StockPredictor
             tt.testTrade();
         }
 
-        private void tb20_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+       
     }
 }

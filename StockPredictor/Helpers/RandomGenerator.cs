@@ -18,12 +18,12 @@ namespace StockPredictor.Helpers
             //int negWordPercentage = 100 - posWordPercentage;
             //int posPhrasePercentage = rnd.Next(1,100);
             //int negPhrasePercentage = 100 - posPhrasePercentage;
-            int totalScore = rnd.Next(1, 100);
+            int finalScore = rnd.Next(-22, 22);
             string elapsedMs = "0";
             //add the output data to an excel file
             ExcelMethods em = new ExcelMethods();
             //add the data to special excel file for only this specific out put for this stock
-            em.savePredictorDataToExcel(myPassedExcelApplication, fileName, "Random", elapsedMs, totalScore, 0,0,0,0,0,0,0,0,0,0);
+            em.savePredictorDataToExcel(myPassedExcelApplication, fileName, "Random", elapsedMs, 0, 0,0,0,0,0,0,0,0,0,0,finalScore,0);
         }
     }
 }
