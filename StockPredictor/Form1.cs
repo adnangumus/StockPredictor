@@ -16,8 +16,7 @@ namespace StockPredictor
     {
         //variables used for the timer class
         static System.Windows.Forms.Timer myTimer = new System.Windows.Forms.Timer();
-        //store technical and fundamental informtaion
-        public double trend { get; set; }
+      
         //ranging from -2 to 2 Strong sell sell neutral buy strong buy
         public int rsi { get; set; }
         //the scores from the moving average ranging from -2 to 2 Strong sell sell neutral buy strong buy
@@ -27,7 +26,8 @@ namespace StockPredictor
         public int peg { get; set; }
         public int dividend { get; set; }
         public Hashtable fundamentals {get; set;}
-
+       
+      
 
 
         public Form1()
