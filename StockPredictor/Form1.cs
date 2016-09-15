@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using StockPredictor.Helpers;
 using System.Collections;
+using StockPredictor.Models;
 
 namespace StockPredictor
 {
@@ -14,7 +15,7 @@ namespace StockPredictor
         //ranging from -2 to 2 Strong sell sell neutral buy strong buy
         public int rsi { get; set; }
         //the real rsi
-       public double realRSI { get; set; }
+        public double realRSI { get; set; }
         //the scores from the moving average ranging from -2 to 2 Strong sell sell neutral buy strong buy
         public string moving200 {get;set;}
         public string moving50 { get; set;}
@@ -23,7 +24,9 @@ namespace StockPredictor
         public string dividend { get; set; }
         public Hashtable fundamentals {get; set;}
         public string verdict { get; set; }
-       
+        public HistoricalStock history { get; set; }
+        public double TwoDayOldClosePrice { get; set; }
+        public double lastClosePrice { get; set; }
       
 
 
@@ -235,11 +238,11 @@ namespace StockPredictor
 
         private void Test_Click(object sender, EventArgs e)
         {
-            //  YahooStockMethods yahoo = new YahooStockMethods();
+          //    YahooStockMethods yahoo = new YahooStockMethods();
 
-            //Hashtable funda =  yahoo.getFundamentals("gild");
-            //  CalculatorMethods cal = new CalculatorMethods();
-
+          //  Hashtable funda =  yahoo.getFundamentals("gild");
+             CalculatorMethods cal = new CalculatorMethods();
+            cal.calculateBollingerBonds("gild");
             //  int rsi = cal.RSI("aapl");
             //  funda = yahoo.getFundamentals("aapl");
             //  cal.ProcessAllMetrics(funda, 20, rsi);

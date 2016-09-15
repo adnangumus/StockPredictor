@@ -277,13 +277,13 @@ namespace StockPredictor.Helpers
         }
 
         //gett the historical data from yahoo
-        public static List<HistoricalStock> getTwoWeekData(string ticker)
+        public static List<HistoricalStock> getHistoricalPriceData(string ticker)
         {
             List<HistoricalStock> retval = new List<HistoricalStock>();
 
             using (WebClient web = new WebClient())
             {
-                DateTime startDate = DateTime.Today.AddDays(-25);
+                DateTime startDate = DateTime.Today.AddDays(-100);
                 DateTime endDate = DateTime.Today;
 
                 //"http://ichart.finance.yahoo.com/table.csv?s=" + ticker + "&d=" + (endDate.Month - 1) + "&e=" + endDate.Day + "&f=" + endDate.Year + "&g=d&a=" + (startDate.Month - 1) + "&b=" + startDate.Day + "&c=" + startDate.Year + "&ignore=.csv"

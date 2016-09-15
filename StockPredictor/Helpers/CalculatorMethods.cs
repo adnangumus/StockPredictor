@@ -80,7 +80,7 @@ namespace StockPredictor.Helpers
         //get the rsi get the sum of positive and negaitve change and divide it by 14. Then use the RSI formula
         public int RSI(string ticker)
         {
-            List<HistoricalStock> data = YahooStockMethods.getTwoWeekData(ticker);
+            List<HistoricalStock> data = YahooStockMethods.getHistoricalPriceData(ticker);
             if (data == null)
             {
                 Console.WriteLine("data from yahoo return null. No interent?");
@@ -105,13 +105,15 @@ namespace StockPredictor.Helpers
                         if (change > 0) { positiveChange += change; }
                         else { negativeChange += change *-1; }
                         Console.WriteLine(string.Format("Date={0} High={1} Low={2} Open={3} Close{4}", stock.Date, stock.High, stock.Low, stock.Open, stock.Close));
-                       
+                        //save the price from two days ago for use later
+                        if (i == 2) { Form1.Instance.TwoDayOldClosePrice = stock.Close; } 
                     }
                     if (i < 2)
                     {
                         change = stock.Open - stock.Close;
                         if (change > 0) { positiveChangeLast += change; }
                         else { negativeChangeLast += change * -1; }
+                        Form1.Instance.lastClosePrice = stock.Close;
                         Console.WriteLine(string.Format("Date={0} High={1} Low={2} Open={3} Close{4}", stock.Date, stock.High, stock.Low, stock.Open, stock.Close));
                     }
                     i++;
@@ -157,6 +159,54 @@ namespace StockPredictor.Helpers
 
             return 0;
         }
+
+        //calculate the Bollinger Bonds over a 20 day period
+        public void calculateBollingerBonds(string ticker)
+        {
+            List<HistoricalStock> data = YahooStockMethods.getHistoricalPriceData(ticker);
+           
+            double mean = 0;
+            double[] closes = new double[63];
+            double deviation = 0;
+            double squared = 0;
+            double standardDeviation = 0;
+            double upperBand = 0;
+            double lowerBand = 0;
+            int i = 0;
+            try
+            {
+                foreach (HistoricalStock stock in data)
+                {
+                    if (i < 63)
+                    {
+                        mean += stock.Close;
+                        closes[i] = stock.Close;
+                        Console.WriteLine(string.Format("Date={0} High={1} Low={2} Open={3} Close{4}", stock.Date, stock.High, stock.Low, stock.Open, stock.Close));
+
+                    }
+                   
+                    i++;
+                    if(i == 63) { break; }
+                }
+                //find the actual mean of the 20 days of close prices
+                mean = mean / closes.Length;
+                for(int j=0; j < closes.Length; j++ )
+                {
+                    squared = Math.Pow(closes[j] - mean, 2);
+                    deviation += squared;
+                }
+                standardDeviation = Math.Sqrt(deviation);
+                upperBand = mean + (2 * standardDeviation);
+                lowerBand = mean - (2 * standardDeviation);
+                Form1.Instance.AppendOutputText("\r\nBollinger band information"+"\r\nMean value : " + mean + 
+                    "\r\nUpper band : " + upperBand
+                    + "\r\nLower band : " + lowerBand);
+              
+            }
+            catch (Exception) { }
+            }
+
+
         /* string[] cols = data.Split(',');
                     hs.Add("ticker", cols[0].ToString());                
                     hs.Add("50Average", cols[1].ToString());
@@ -176,24 +226,63 @@ namespace StockPredictor.Helpers
            
             string cp200 = htFunda["200ChangePercent"].ToString();
             string cp50 = htFunda["50ChangePercent"].ToString();
+          
            cp50 = cp50.Replace("%", "");
            cp200 =  cp200.Replace("%", "");
 
-            double ChangePercent200Here = Convert.ToDouble(cp200);
-            double ChangePercent50Here = Convert.ToDouble(cp50);
-          
-
+            double ChangePercent200Here = 0;
+            double ChangePercent50Here = 0;
+            double average50 = 0;
+            double average200 = 0;
+            double twoDayOldPrice = 0;
+            double lastClose = 0;
+            try
+            {
+                ChangePercent200Here = Convert.ToDouble(cp200);
+                ChangePercent50Here = Convert.ToDouble(cp50);
+                average50 = Convert.ToDouble(htFunda["50Average"]);
+                average200 = Convert.ToDouble(htFunda["200Average"]);
+                twoDayOldPrice = Form1.Instance.TwoDayOldClosePrice;
+                lastClose = Form1.Instance.lastClosePrice;
+            }
+            catch (Exception) { }
             Form1.Instance.AppendOutputText("\r\n ");
 
-            if (ChangePercent50Here <= 0)
+              //check for a cross over first 
+             if (twoDayOldPrice > average50 && lastClose < average50)
             {
-                if (ChangePercent50Here > -0.5)
+                Form1.Instance.AppendOutputText("\r\nCrossed over 50 day moving avergae in a bearish manner");
+                moving50 = -2;
+            }
+
+            else if (twoDayOldPrice < average50 && lastClose > average50)
+            {
+                Form1.Instance.AppendOutputText("\r\nCrossed over the 50 day moving average in a bullish manner");
+                moving50 = 2;
+            }
+
+            else if (twoDayOldPrice > average200 && lastClose < average200)
+            {
+                Form1.Instance.AppendOutputText("\r\nCroessed over the 200 day moving avergae in a bearish manner");
+                moving200 = -2;
+            }
+
+            else if (twoDayOldPrice < average200 && lastClose > average200)
+            {
+                Form1.Instance.AppendOutputText("\r\nCroseed over the 200 day moving average in a bullish manner");
+                moving200 = 2;
+            }
+
+             //check for movement near the moving average
+            else if (ChangePercent50Here <= 0)
+            {
+                if (ChangePercent50Here > -1)
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50Here
                         + " : Verdict : Strong sell" );
                     moving50 = -2;
                 }
-                if (ChangePercent50Here <= -0.5 && ChangePercent50Here > -1 )
+                if (ChangePercent50Here <= -1 && ChangePercent50Here > -2 )
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50Here
                          + " : Verdict : sell");
@@ -204,52 +293,32 @@ namespace StockPredictor.Helpers
                     Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50Here
                          + " : Verdict : neutral");
                     moving50 = 0;
-                }
-                if (ChangePercent50Here <= -3 && ChangePercent50Here > -4)
-                {
-                    Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50Here
-                          + " : Verdict : buy");
-                    moving50 = 1;
-                }
-                if (ChangePercent50Here <= -4)
-                {
-                    Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50Here
-                        + " : Verdict : strong buy");
-                    moving50 = 2;
-                }
+                } 
+                        
             }
-            if(ChangePercent50Here > 0)
+           else if(ChangePercent50Here > 0)
             {
-                if (ChangePercent50Here < 0.5)
+                if (ChangePercent50Here < 1)
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50Here
                          + " : Verdict : strong buy");
                     moving50 = 2;
                 }
-                if (ChangePercent50Here >= 0.5 && ChangePercent50Here < 1)
+                if (ChangePercent50Here >= 1 && ChangePercent50Here < 2)
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50Here
                         + " : Verdict : buy");
                     moving50 = 1;
                 }
-                if (ChangePercent50Here >= 1 && ChangePercent50Here < 3)
+                if (ChangePercent50Here >= 2)
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50Here
                          + " : Verdict : neutral");
                     moving50 = 0;
                 }
-                if (ChangePercent50Here >= 3 && ChangePercent50Here < 4)
-                {
-                    Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50Here
-                        + " : Verdict : sell");
-                    moving50 = -1;
-                }
-                if (ChangePercent50Here >= 4)
-                {
-                    Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50Here
-                         + " : Verdict : strong sell");
-                    moving50 = -2;
-                }
+
+              
+
             }
 
             if (ChangePercent200Here <= 0)
@@ -454,6 +523,8 @@ namespace StockPredictor.Helpers
             }
             return 0;
         }
+
+       
 
         private int moving50 { get; set; }
         private int moving200 { get; set; }

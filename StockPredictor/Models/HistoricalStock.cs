@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StockPredictor.Models
 {
-    class HistoricalStock
+    public class HistoricalStock
     {
         public DateTime Date { get; set; }
         public double Open { get; set; }
