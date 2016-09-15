@@ -189,8 +189,8 @@ namespace StockPredictor.Helpers
             return "";
         }
       
-        //gett the historical data from yahoo
-        public static List<HistoricalStock> DownloadHistoricalData(string ticker)
+        //get the historical data from yahoo
+        public static List<HistoricalStock> DownloadHistoricalData1Week(string ticker)
         {
             List<HistoricalStock> retval = new List<HistoricalStock>();
            
@@ -240,7 +240,7 @@ namespace StockPredictor.Helpers
 
             public double getStockPriceTrendWeek(string ticker)
         {
-            List<HistoricalStock> data = YahooStockMethods.DownloadHistoricalData(ticker);
+            List<HistoricalStock> data = YahooStockMethods.DownloadHistoricalData1Week(ticker);
             if (data == null)
             {
                 Console.WriteLine("data from yahoo return null. No interent?");
@@ -277,7 +277,7 @@ namespace StockPredictor.Helpers
         }
 
         //gett the historical data from yahoo
-        public static List<HistoricalStock> getHistoricalPriceData(string ticker)
+        public static List<HistoricalStock> GetHistoricalPriceData(string ticker)
         {
             List<HistoricalStock> retval = new List<HistoricalStock>();
 

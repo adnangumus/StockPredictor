@@ -5,6 +5,8 @@ using StockPredictor.Helpers;
 using System.Collections;
 using StockPredictor.Models;
 using System.Collections.Generic;
+using StockPredictor.Tests;
+using System.Drawing;
 
 namespace StockPredictor
 {
@@ -31,7 +33,7 @@ namespace StockPredictor
         public string upperBand { get; set; }
         public string lowerBand { get; set; }
         public string mean { get; set; }
-      
+        public int bollingerVerdict { get; set; }
 
 
         public Form1()
@@ -224,6 +226,7 @@ namespace StockPredictor
 
         private void Form1_Load(object sender, EventArgs e)
         {
+          
             //  ALlow main UI thread to properly display please wait form.
             Application.DoEvents();
             //redirect console to text box here
@@ -242,15 +245,15 @@ namespace StockPredictor
 
         private void Test_Click(object sender, EventArgs e)
         {
-          //    YahooStockMethods yahoo = new YahooStockMethods();
-
-          //  Hashtable funda =  yahoo.getFundamentals("gild");
-             CalculatorMethods cal = new CalculatorMethods();
-            cal.calculateBollingerBonds("gild");
+            //    YahooStockMethods yahoo = new YahooStockMethods();
+            this.Size = new Size(1000, 690);
+            //  Hashtable funda =  yahoo.getFundamentals("gild");
+            //  CalculatorMethods cal = new CalculatorMethods();
+            //  cal.calculateBollingerBands();
             //  int rsi = cal.RSI("aapl");
             //  funda = yahoo.getFundamentals("aapl");
             //  cal.ProcessAllMetrics(funda, 20, rsi);
-        
+
 
             //the please wait form that indicates loading
             //  PleaseWait pleaseWait = new PleaseWait();
@@ -260,7 +263,7 @@ namespace StockPredictor
             //   Application.DoEvents();
 
             //   //redirect console to text box here
-            Console.SetOut(threadSafeWriter());
+
 
             //clear the text from the output box
             //  tbOutput.Text = string.Empty;
@@ -270,7 +273,8 @@ namespace StockPredictor
             //    BagOfWordsTest bwt = new BagOfWordsTest();
             //    bwt.processBagOfWordsTest();
             // pleaseWait.Close();
-
+            SpellCheckTest sct = new SpellCheckTest();
+            sct.testSpellCheckSpeed();
 
             // BingMethods bing = new BingMethods();
           //  bing.getBinglinks("http://cn.bing.com/news/search?q=gild+Gilead&qft=interval%3d%227%22&form=PTFTNR&intlF=1&FORM=TIPEN1");
@@ -280,24 +284,26 @@ namespace StockPredictor
 
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+      
+        //display the results
+        public void AppendTextBoxes(string resultsAsString)
         {
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action<string>(AppendTextBoxes), new object[] { resultsAsString });
+                return;
+            }
+            string[] results = resultsAsString.Split(',');
 
-        }
-
-        private void tbPriceInput_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
+            tbSentiment.Text = results[0];
+            tbRSI.Text = results[1]; 
+            tbPEG.Text = results[2];
+            tbBollinger.Text = results[3];
+            tbPB.Text = results[4];
+            tbDividends.Text = results[5];
+            tb50MA.Text = results[6];
+            tb200MA.Text = results[7];
+            tbVerdict.Text = verdict;
         }
     }
 }

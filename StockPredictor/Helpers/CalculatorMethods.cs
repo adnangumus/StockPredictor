@@ -78,7 +78,7 @@ namespace StockPredictor.Helpers
 
         //calculate the RSI 
         //get the rsi get the sum of positive and negaitve change and divide it by 14. Then use the RSI formula
-        public int RSI(string ticker)
+        public int CalculateRSI(string ticker)
         {
             //  List<HistoricalStock> data = YahooStockMethods.getHistoricalPriceData(ticker);
             List<HistoricalStock> data = Form1.Instance.historicalPriceData;
@@ -211,7 +211,7 @@ namespace StockPredictor.Helpers
                     "\r\nUpper band : " + upperBand
                     + "\r\nLower band : " + lowerBand +
                     "\r\nSingle Deviation upper band : " + singleDeviationUpperBand +
-                    "\r\nSingle deviation lower band" + singleDeviationLowerBand);
+                    "\r\nSingle deviation lower band : " + singleDeviationLowerBand);
 
                 int verdict = 0;
                 //provide a number to represent if it is a strong buy or sell etc.
@@ -289,25 +289,25 @@ namespace StockPredictor.Helpers
              if (twoDayOldPrice > average50 && lastClose < average50)
             {
                 Form1.Instance.AppendOutputText("\r\nCrossed over 50 day moving avergae in a bearish manner");
-                moving50 = -2;
+                Moving50 = -2;
             }
 
             else if (twoDayOldPrice < average50 && lastClose > average50)
             {
                 Form1.Instance.AppendOutputText("\r\nCrossed over the 50 day moving average in a bullish manner");
-                moving50 = 2;
+                Moving50 = 2;
             }
 
             else if (twoDayOldPrice > average200 && lastClose < average200)
             {
                 Form1.Instance.AppendOutputText("\r\nCroessed over the 200 day moving avergae in a bearish manner");
-                moving200 = -2;
+                Moving200 = -2;
             }
 
             else if (twoDayOldPrice < average200 && lastClose > average200)
             {
                 Form1.Instance.AppendOutputText("\r\nCroseed over the 200 day moving average in a bullish manner");
-                moving200 = 2;
+                Moving200 = 2;
             }
 
              //check for movement near the moving average
@@ -317,19 +317,19 @@ namespace StockPredictor.Helpers
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50Here
                         + " : Verdict : Strong sell" );
-                    moving50 = -2;
+                    Moving50 = -2;
                 }
                 if (ChangePercent50Here <= -1 && ChangePercent50Here > -2 )
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50Here
                          + " : Verdict : sell");
-                    moving50 = -1;
+                    Moving50 = -1;
                 }
                 if (ChangePercent50Here <= -1 && ChangePercent50Here > -3)
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50Here
                          + " : Verdict : neutral");
-                    moving50 = 0;
+                    Moving50 = 0;
                 } 
                         
             }
@@ -339,19 +339,19 @@ namespace StockPredictor.Helpers
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50Here
                          + " : Verdict : strong buy");
-                    moving50 = 2;
+                    Moving50 = 2;
                 }
                 if (ChangePercent50Here >= 1 && ChangePercent50Here < 2)
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50Here
                         + " : Verdict : buy");
-                    moving50 = 1;
+                    Moving50 = 1;
                 }
                 if (ChangePercent50Here >= 2)
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 50 day moving average" + ChangePercent50Here
                          + " : Verdict : neutral");
-                    moving50 = 0;
+                    Moving50 = 0;
                 }
 
               
@@ -364,31 +364,31 @@ namespace StockPredictor.Helpers
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent50Here
                         + " : Verdict : Strong sell");
-                    moving200 = -2;
+                    Moving200 = -2;
                 }
                 if (ChangePercent200Here <= -0.5 && ChangePercent200Here > -1)
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200Here
                          + " : Verdict : sell");
-                    moving200 = -1;
+                    Moving200 = -1;
                 }
                 if (ChangePercent200Here <= -1 && ChangePercent200Here > -3)
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200Here
                          + " : Verdict : neutral");
-                    moving200 = 0;
+                    Moving200 = 0;
                 }
                 if (ChangePercent200Here <= -3 && ChangePercent200Here > -4)
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200Here
                           + " : Verdict : buy");
-                    moving200 = 1;
+                    Moving200 = 1;
                 }
                 if (ChangePercent200Here <= -4)
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200Here
                         + " : Verdict : strong buy");
-                    moving200 = 2;
+                    Moving200 = 2;
                 }
             }
             if (ChangePercent200Here > 0)
@@ -397,31 +397,31 @@ namespace StockPredictor.Helpers
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200Here
                          + " : Verdict : strong buy");
-                    moving200 = 2;
+                    Moving200 = 2;
                 }
                 if (ChangePercent200Here >= 0.5 && ChangePercent200Here < 1)
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200Here
                         + " : Verdict : buy");
-                    moving200 = 1;
+                    Moving200 = 1;
                 }
                 if (ChangePercent200Here >= 1 && ChangePercent200Here < 3)
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200Here
                          + " : Verdict : neutral");
-                    moving200 = 0;
+                    Moving200 = 0;
                 }
                 if (ChangePercent200Here >= 3 && ChangePercent200Here < 4)
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200Here
                         + " : Verdict : sell");
-                    moving200 = -1;
+                    Moving200 = -1;
                 }
                 if (ChangePercent200Here >= 4)
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200Here
                          + " : Verdict : strong sell");
-                    moving200 = -2;
+                    Moving200 = -2;
                 }
             }
 
@@ -443,9 +443,13 @@ namespace StockPredictor.Helpers
        private void ProcessFundamentals(Hashtable funda)
         {
             double dividendHere = 0;
-           double priceBookHere = Convert.ToDouble(funda["PB"]);
-            double pegHere = Convert.ToDouble(funda["PEG"]);
-            try { 
+            double priceBookHere= 0;
+                double pegHere = 0;
+            try
+            {
+               priceBookHere = Convert.ToDouble(funda["PB"]);
+            pegHere = Convert.ToDouble(funda["PEG"]);
+           
             dividendHere = Convert.ToDouble(funda["Dividend"]);
             }
             catch (Exception) { dividendHere = 0; }
@@ -454,27 +458,27 @@ namespace StockPredictor.Helpers
             if (priceBookHere <= 1)
             {
                 Form1.Instance.AppendOutputText("\r\nPrice to book: strong buy");
-                priceBook = 2;
+                PriceBook = 2;
             }
             if (priceBookHere >1 && priceBookHere <=3)
             {
                 Form1.Instance.AppendOutputText("\r\nPrice to book: buy");
-                priceBook = 1;
+                PriceBook = 1;
             }
             if (priceBookHere >3 && priceBookHere <=6)
             {
                 Form1.Instance.AppendOutputText("\r\nPrice to book: neutral");
-                priceBook = 0;
+                PriceBook = 0;
             }
             if (priceBookHere >6 && priceBookHere <=8)
             {
                 Form1.Instance.AppendOutputText("\r\nPrice to book: sell");
-                priceBook = -1;
+                PriceBook = -1;
             }
             if (priceBookHere >8)
             {
                 Form1.Instance.AppendOutputText("\r\nPrice to book: strong sell");
-                priceBook = -2;
+                PriceBook = -2;
             }
 
 
@@ -482,54 +486,54 @@ namespace StockPredictor.Helpers
             
             if (pegHere <= 1 && pegHere > 0) {
                 Form1.Instance.AppendOutputText("\r\nPEG : strong buy");
-                peg = 2;
+                Peg = 2;
                     }
             if (pegHere > 1 && pegHere <=2)
             {
                 Form1.Instance.AppendOutputText("\r\nPEG : buy");
-                peg = 1;
+                Peg = 1;
                     }
             if (pegHere >2 && pegHere <=3)
             {
                 Form1.Instance.AppendOutputText("\r\nPEG : neutral");
-                peg = 0;
+                Peg = 0;
                     }
             if (pegHere >3 && pegHere <=4)
             {
                 Form1.Instance.AppendOutputText("\r\nPEG : sell");
-                peg = -1;
+                Peg = -1;
                     }
             if (pegHere > 4 && pegHere < 0 )
             {
                 Form1.Instance.AppendOutputText("\r\nPEG : strong sell");
-                peg = -2;
+                Peg = -2;
                     }
           
             //process dividends
             if (dividendHere ==0)
             {
                 Form1.Instance.AppendOutputText("\r\nDividends : strong sell");
-                dividend = -2;
+                Dividend = -2;
                     }
             if (dividendHere >0 && dividendHere <=1)
             {
                 Form1.Instance.AppendOutputText("\r\nDividends : sell");
-                dividend = -1;
+                Dividend = -1;
                     }
             if (dividendHere >1 && dividendHere <=2)
             {
                 Form1.Instance.AppendOutputText("\r\nDividends : neutral");
-                dividend = 0;
+                Dividend = 0;
                     }
             if (dividendHere >2 && dividendHere <=4)
             {
                 Form1.Instance.AppendOutputText("\r\nDividends : buy");
-                dividend = 1;
+                Dividend = 1;
                     }
             if (dividendHere > 4)
             {
                 Form1.Instance.AppendOutputText("\r\nDividends : strong buy");
-                dividend = 2;
+                Dividend = 2;
                     }
 
         }
@@ -554,7 +558,7 @@ namespace StockPredictor.Helpers
             {
                 return 1;
             }
-            if (sentiment >= -25)
+            if (sentiment >= 25)
             {
                 return 2;
             }
@@ -562,29 +566,36 @@ namespace StockPredictor.Helpers
         }
 
        
-
-        private int moving50 { get; set; }
-        private int moving200 { get; set; }
-        private int dividend { get; set; }
-        private int peg { get; set; }
-       private int priceBook { get; set; }
-      
+//variables that are used by several methods
+        private int Moving50 { get; set; }
+        private int Moving200 { get; set; }
+        private int Dividend { get; set; }
+        private int Peg { get; set; }
+        private int PriceBook { get; set; }
+        private int Bollinger { get; set; }
+        private int SentimentScore { get; set; }
+        private int RSI { get; set; }
 
         //use the methoeds to calcualte the total prospects for the stock
         public double ProcessAllMetrics(Hashtable funda, int sentimentScore, int rsi, string method, int bands)
         {
+            //set the global variables
+            RSI = rsi;
+            Bollinger = bands;
             //process the moving averages
             MovingAverages(funda);
             //process the fundamentals
             ProcessFundamentals(funda);
             //process the sentiment score : weight the more significant scores. Total 13 - min -32 max +32
-            int sentiment = ProcessSentimentScores(sentimentScore) *5;
+            int sentiment = ProcessSentimentScores(sentimentScore);
+            SentimentScore = sentiment;
+            sentiment = sentiment * 5;
             rsi = rsi * 3;
-            peg = peg * 2;
+            Peg = Peg * 2;
             bands = bands * 2;
 
 
-            double total = (sentiment + rsi + bands + peg + moving50 + moving200 + dividend + priceBook ) ;
+            double total = (sentiment + rsi + bands + Peg + Moving50 + Moving200 + Dividend + PriceBook ) ;
             Form1.Instance.AppendOutputText("\r\n\r\nMethod : " + method);
             if (total >= 18)
             {
@@ -616,5 +627,34 @@ namespace StockPredictor.Helpers
             return total;
         }
 
+        //display the results on the form
+        public void displayResults()
+        {
+            string results = "";
+
+            results += ConvertScoreToString(SentimentScore) + ",";
+            results += ConvertScoreToString(RSI) + ","; 
+            results += ConvertScoreToString(Peg) + ","; 
+            results += ConvertScoreToString(Bollinger) + ","; 
+            results += ConvertScoreToString(PriceBook) + ","; 
+            results += ConvertScoreToString(Dividend) + ","; 
+            results += ConvertScoreToString(Moving50) + ",";
+            results += ConvertScoreToString(Moving200) + ","; 
+
+            Form1.Instance.AppendTextBoxes(results);
+
+        }
+        //convert the scores to read able strings
+        private string ConvertScoreToString(int score)
+        {
+            string str = "neutral";
+            if (score ==2) { str = "Strong Buy";  }
+            if (score == 1) { str = "Buy"; }
+            if (score == 0) { str = "Neutral"; }
+            if (score == -1) { str = "Sell"; }
+            if (score == -2) { str = "Strong Sell"; }
+            return str;
+
+        }
     }
 }

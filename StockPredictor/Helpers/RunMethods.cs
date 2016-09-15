@@ -17,15 +17,8 @@ namespace StockPredictor.Helpers
         }
         public void runStockPredictor(string ticker, bool dontSave)
         {
-            //get the historical price data and set it in the form1
-            Form1.Instance.historicalPriceData = YahooStockMethods.DownloadHistoricalData(ticker);
             //get the fundamentals of the stock and makes sure it loaded
             Hashtable funda = YahooStockMethods.getFundamentals(ticker);
-            //get the stock RSI over the last two weeks      
-            CalculatorMethods cal = new CalculatorMethods();
-           int rsi = cal.RSI(ticker);
-            //get the bollinger band verdict
-            int bands = cal.calculateBollingerBands();
             if (String.IsNullOrEmpty(funda["PEG"].ToString())) { Form1.Instance.AppendOutputText("\r\n" + "Failed to load fundamentals : " + "\r\n"); return; }
            
             //hash table for the bag of words method
@@ -60,26 +53,32 @@ namespace StockPredictor.Helpers
         
             //  taskC.RunSynchronously();
             Task.WaitAll(taskA, taskB);
-            
+            //get the historical price data and set it in the form1
+            Form1.Instance.historicalPriceData = YahooStockMethods.GetHistoricalPriceData(ticker);
+           
+            //get the stock RSI over the last two weeks      
+            CalculatorMethods cal = new CalculatorMethods();
+            int rsi = cal.CalculateRSI(ticker);
+            //get the bollinger band verdict
+            int bands = cal.calculateBollingerBands();
             //if the user wants to save the results run the random generator
-            if (!dontSave)
-            {
+           
                 hts.Add(bagHT);
                 foreach (Hashtable ht in hts)
                 {
-                    processSaves(ht, ticker, exl, myPassExcelApp, funda, rsi, bands);
+                    processSaves(ht, ticker, exl, myPassExcelApp, funda, rsi, bands, dontSave);
                 }
 
                 //randomly generate results
                 RandomGenerator rg = new RandomGenerator();
                 rg.generateRandomResults(ticker, myPassExcelApp);
                 exl.quitExcel(myPassExcelApp);
-            }
+           
             //confirm that the input is correct
             confirmAllCompleted(ticker, dontSave);
         }
 
-        private void processSaves(Hashtable ht, string input, ExcelMethods exl, Application myPassExcelApp, Hashtable funda,int rsi, int bands)
+        private void processSaves(Hashtable ht, string input, ExcelMethods exl, Application myPassExcelApp, Hashtable funda,int rsi, int bands, bool dontSave)
         {
             //count positive and negative phrases and strong words
             int positivePhraseCount = 0;
@@ -119,12 +118,14 @@ namespace StockPredictor.Helpers
 
             CalculatorMethods cal = new CalculatorMethods();
            double finalScore = cal.ProcessAllMetrics(funda, totalScore, rsi, method, bands);
-
+            cal.displayResults();
+         if (!dontSave)
+         {
             exl.savePredictorDataToExcel(myPassExcelApp, input, method, elapsedMs, totalScore, wordCount, sentenceCount, posWordCount, negWordCount,
                   posWordPercentage, negWordPercentage,
                    positivePhraseCount, negativePhraseCount,
                   posPhrasePercentage, negPhrasePercentage, finalScore);
-
+            }
 
         }
 

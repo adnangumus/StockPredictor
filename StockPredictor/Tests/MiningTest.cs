@@ -19,5 +19,6 @@ namespace StockPredictor.Tests
                      + "Here is a new sentence to be scanned for sintax with IBB."
                      + "Here is a new sentence to be scanned for sintax with NASDAQ.";
 
+        
     }
 }

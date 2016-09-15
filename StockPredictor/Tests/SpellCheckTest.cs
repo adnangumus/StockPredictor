@@ -35,7 +35,7 @@ namespace StockPredictor.Tests
             //stop the watch to time method
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
-            Console.WriteLine("SpellCheck sentence " + elapsedMs);
+            Console.WriteLine("SpellCheck Article " + elapsedMs);
         }
 
         public void testSpellCheckSpeed2()

@@ -317,7 +317,8 @@ namespace StockPredictor.Helpers
             myExcelWorkSheet.Cells[rowNumber, "T"] = "50Moving%";
             myExcelWorkSheet.Cells[rowNumber, "U"] = "PriceBook";
             myExcelWorkSheet.Cells[rowNumber, "V"] = "Dividend";
-           
+            myExcelWorkSheet.Cells[rowNumber, "W"] = "Bollinger";
+
 
             // Auto fit automatically adjust the width of columns of Excel  in givien range .  
             myExcelWorkSheet.Range[myExcelWorkSheet.Cells[1, 1], myExcelWorkSheet.Cells[rowNumber, 13]].EntireColumn.AutoFit();
@@ -356,6 +357,7 @@ namespace StockPredictor.Helpers
             myExcelWorkSheet.Cells[rowNumber, "T"] = Form1.Instance.moving50;
             myExcelWorkSheet.Cells[rowNumber, "U"] = Form1.Instance.priceBook;
             myExcelWorkSheet.Cells[rowNumber, "V"] = Form1.Instance.dividend;
+            myExcelWorkSheet.Cells[rowNumber, "W"] = Form1.Instance.bollingerVerdict;
 
             try
             {
