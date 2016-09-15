@@ -118,7 +118,8 @@ namespace StockPredictor.Helpers
 
             CalculatorMethods cal = new CalculatorMethods();
            double finalScore = cal.ProcessAllMetrics(funda, totalScore, rsi, method, bands);
-            cal.displayResults();
+            if (method == "Named") { cal.displayResults(); }
+          
          if (!dontSave)
          {
             exl.savePredictorDataToExcel(myPassExcelApp, input, method, elapsedMs, totalScore, wordCount, sentenceCount, posWordCount, negWordCount,

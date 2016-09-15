@@ -245,16 +245,17 @@ namespace StockPredictor
 
         private void Test_Click(object sender, EventArgs e)
         {
-            //    YahooStockMethods yahoo = new YahooStockMethods();
-            this.Size = new Size(1000, 690);
-            //  Hashtable funda =  yahoo.getFundamentals("gild");
+               // YahooStockMethods yahoo = new YahooStockMethods();
+            
+            //  Hashtable funda = YahooStockMethods.getFundamentals("gild");
             //  CalculatorMethods cal = new CalculatorMethods();
-            //  cal.calculateBollingerBands();
+              //cal.calculateBollingerBands();
             //  int rsi = cal.RSI("aapl");
             //  funda = yahoo.getFundamentals("aapl");
             //  cal.ProcessAllMetrics(funda, 20, rsi);
 
-
+           // cal.ProcessAllMetrics(funda, 40, 2, "named", 2);
+           // cal.displayResults();
             //the please wait form that indicates loading
             //  PleaseWait pleaseWait = new PleaseWait();
             // Display form modelessly
@@ -273,14 +274,14 @@ namespace StockPredictor
             //    BagOfWordsTest bwt = new BagOfWordsTest();
             //    bwt.processBagOfWordsTest();
             // pleaseWait.Close();
-            SpellCheckTest sct = new SpellCheckTest();
-            sct.testSpellCheckSpeed();
+            // SpellCheckTest sct = new SpellCheckTest();
+            // sct.testSpellCheckSpeed();
 
             // BingMethods bing = new BingMethods();
-          //  bing.getBinglinks("http://cn.bing.com/news/search?q=gild+Gilead&qft=interval%3d%227%22&form=PTFTNR&intlF=1&FORM=TIPEN1");
+            //  bing.getBinglinks("http://cn.bing.com/news/search?q=gild+Gilead&qft=interval%3d%227%22&form=PTFTNR&intlF=1&FORM=TIPEN1");
 
-           // YahooMinerTest yt = new YahooMinerTest();
-           // yt.testLinkProcessor();
+            // YahooMinerTest yt = new YahooMinerTest();
+            // yt.testLinkProcessor();
 
         }
 
@@ -303,6 +304,7 @@ namespace StockPredictor
             tbDividends.Text = results[5];
             tb50MA.Text = results[6];
             tb200MA.Text = results[7];
+
             tbVerdict.Text = verdict;
         }
     }
