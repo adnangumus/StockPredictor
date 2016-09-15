@@ -360,69 +360,46 @@ namespace StockPredictor.Helpers
 
             if (ChangePercent200Here <= 0)
             {
-                if (ChangePercent200Here > -0.5)
+                if (ChangePercent200Here > -1)
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent50Here
                         + " : Verdict : Strong sell");
                     Moving200 = -2;
                 }
-                if (ChangePercent200Here <= -0.5 && ChangePercent200Here > -1)
+                if (ChangePercent200Here <= -1 && ChangePercent200Here > -2)
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200Here
                          + " : Verdict : sell");
                     Moving200 = -1;
                 }
-                if (ChangePercent200Here <= -1 && ChangePercent200Here > -3)
+                if (ChangePercent200Here <= -2 )
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200Here
                          + " : Verdict : neutral");
                     Moving200 = 0;
                 }
-                if (ChangePercent200Here <= -3 && ChangePercent200Here > -4)
-                {
-                    Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200Here
-                          + " : Verdict : buy");
-                    Moving200 = 1;
-                }
-                if (ChangePercent200Here <= -4)
-                {
-                    Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200Here
-                        + " : Verdict : strong buy");
-                    Moving200 = 2;
-                }
+               
             }
             if (ChangePercent200Here > 0)
             {
-                if (ChangePercent200Here < 0.5)
+                if (ChangePercent200Here < 1)
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200Here
                          + " : Verdict : strong buy");
                     Moving200 = 2;
                 }
-                if (ChangePercent200Here >= 0.5 && ChangePercent200Here < 1)
+                if (ChangePercent200Here >= 1 && ChangePercent200Here < 2)
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200Here
                         + " : Verdict : buy");
                     Moving200 = 1;
                 }
-                if (ChangePercent200Here >= 1 && ChangePercent200Here < 3)
+                if (ChangePercent200Here >= 2)
                 {
                     Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200Here
                          + " : Verdict : neutral");
                     Moving200 = 0;
-                }
-                if (ChangePercent200Here >= 3 && ChangePercent200Here < 4)
-                {
-                    Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200Here
-                        + " : Verdict : sell");
-                    Moving200 = -1;
-                }
-                if (ChangePercent200Here >= 4)
-                {
-                    Form1.Instance.AppendOutputText("\r\nPercentage from 200 day moving average" + ChangePercent200Here
-                         + " : Verdict : strong sell");
-                    Moving200 = -2;
-                }
+                }             
             }
 
         }
@@ -503,7 +480,7 @@ namespace StockPredictor.Helpers
                 Form1.Instance.AppendOutputText("\r\nPEG : sell");
                 Peg = -1;
                     }
-            if (pegHere > 4 && pegHere < 0 )
+            if (pegHere > 4 || pegHere < 0 )
             {
                 Form1.Instance.AppendOutputText("\r\nPEG : strong sell");
                 Peg = -2;
@@ -591,11 +568,11 @@ namespace StockPredictor.Helpers
             SentimentScore = sentiment;
             sentiment = sentiment * 5;
             rsi = rsi * 3;
-            Peg = Peg * 2;
+            int peg = Peg * 2;
             bands = bands * 2;
 
 
-            double total = (sentiment + rsi + bands + Peg + Moving50 + Moving200 + Dividend + PriceBook ) ;
+            double total = (sentiment + rsi + bands + peg + Moving50 + Moving200 + Dividend + PriceBook ) ;
             Form1.Instance.AppendOutputText("\r\n\r\nMethod : " + method);
             if (total >= 18)
             {

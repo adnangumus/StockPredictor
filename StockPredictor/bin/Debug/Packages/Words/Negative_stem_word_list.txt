@@ -97,6 +97,7 @@ fraud
 fraudul
 fright
 frighten
+frustrat
 gawki
 generic
 ghast
@@ -129,6 +130,7 @@ ignor
 ignor
 ill
 immatur
+impati
 imperfect
 imposs
 inan
@@ -142,6 +144,8 @@ insidi
 insipid
 jealous
 jitter
+lack
+lag
 litig
 lose
 loss
@@ -219,6 +223,7 @@ shoddi
 sick
 sicken
 sinist
+sink
 slimi
 smelli
 sob
@@ -242,6 +247,7 @@ terribl
 terrifi
 threaten
 toll
+trap
 trim
 tumbl
 ugli

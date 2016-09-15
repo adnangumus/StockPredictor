@@ -226,7 +226,8 @@ namespace StockPredictor
 
         private void Form1_Load(object sender, EventArgs e)
         {
-          
+            isLong = false;
+            isWide = false;
             //  ALlow main UI thread to properly display please wait form.
             Application.DoEvents();
             //redirect console to text box here
@@ -245,15 +246,15 @@ namespace StockPredictor
 
         private void Test_Click(object sender, EventArgs e)
         {
-               // YahooStockMethods yahoo = new YahooStockMethods();
-            
+            // YahooStockMethods yahoo = new YahooStockMethods();
+
             //  Hashtable funda = YahooStockMethods.getFundamentals("gild");
             //  CalculatorMethods cal = new CalculatorMethods();
-              //cal.calculateBollingerBands();
+            //cal.calculateBollingerBands();
             //  int rsi = cal.RSI("aapl");
             //  funda = yahoo.getFundamentals("aapl");
             //  cal.ProcessAllMetrics(funda, 20, rsi);
-
+           
            // cal.ProcessAllMetrics(funda, 40, 2, "named", 2);
            // cal.displayResults();
             //the please wait form that indicates loading
@@ -296,16 +297,159 @@ namespace StockPredictor
             }
             string[] results = resultsAsString.Split(',');
 
-            tbSentiment.Text = results[0];
-            tbRSI.Text = results[1]; 
-            tbPEG.Text = results[2];
-            tbBollinger.Text = results[3];
-            tbPB.Text = results[4];
-            tbDividends.Text = results[5];
-            tb50MA.Text = results[6];
-            tb200MA.Text = results[7];
+            lbSentiment.Text = results[0];
+            lbRSI.Text = results[1]; 
+            lbPEG.Text = results[2];
+            lbBoll.Text = results[3];
+            lbPB.Text = results[4];
+            lbDividend.Text = results[5];
+            lb50MA.Text = results[6];
+            lb200MA.Text = results[7];
 
-            tbVerdict.Text = verdict;
+            lbVerdict.Text = verdict;
+        }
+        //varibales to store the width of the form
+        private bool isWide { get; set; }
+        private bool isLong { get; set; }
+
+       
+
+        private void btOutput_Click(object sender, EventArgs e)
+        {
+            if (!isWide && !isLong)
+            {
+                this.Size = new Size(1200, 492);
+                btOutput.Text = "Hide Output";
+                isWide = true;
+            }
+            else if (isWide && !isLong)
+            {
+                this.Size = new Size(620, 492);
+                btOutput.Text = "Show Output";
+                isWide = false;
+            }
+            else if (!isWide && isLong)
+            {
+                this.Size = new Size(1200, 690);
+                btOutput.Text = "Show Output";
+                isWide = true;
+            }
+
+            else if (isWide && isLong)
+            {
+                this.Size = new Size(620, 690);
+                btOutput.Text = "Show Output";
+                isWide = false;
+            }
+        }
+
+        private void btLog_Click(object sender, EventArgs e)
+        {
+            if (!isWide && !isLong)
+            {
+                this.Size = new Size(620, 690);
+                btLog.Text = "Hide Log";
+                isLong = true;
+                this.tbOutput.Size = new System.Drawing.Size(551, 560);
+            }
+            else if (isWide && !isLong)
+            {
+                this.Size = new Size(1200, 690);
+                btLog.Text = "Show Log";
+                isLong = true;
+                this.tbOutput.Size = new System.Drawing.Size(551, 560);
+            }
+            else if (!isWide && isLong)
+            {
+                this.Size = new Size(620, 492);
+                btLog.Text = "Show Log";
+                isLong = false;
+                this.tbOutput.Size = new System.Drawing.Size(551, 362);
+            }
+
+            else if (isWide && isLong)
+            {
+                this.Size = new Size(1200, 492);
+                btLog.Text = "Show Log";
+                isLong = false;
+                this.tbOutput.Size = new System.Drawing.Size(551, 362);
+            }
+        }
+
+        private void tbRSI_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbPEG_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbBollinger_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbVerdict_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbPB_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbSentiment_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tb200MA_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tb50MA_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbDividends_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
+
+/*
+private void btLog_Click(object sender, EventArgs e)
+        {
+            if (!isWide && !isLong)
+            {
+                this.Size = new Size(620,690);
+                btLog.Text = "Hide Log";
+                isLong = true;
+            }
+            else if (isWide && !isLong)
+            {
+                this.Size = new Size(1200, 690);
+                btLog.Text = "Show Log";
+                isLong = true;
+            }
+            else if (!isWide && isLong)
+            {
+                this.Size = new Size(620, 492);
+                btLog.Text = "Show Log";
+                isLong = false;
+            }
+           
+            else if (isWide && isLong)
+            {
+                this.Size = new Size(1200, 492);
+                btLog.Text = "Show Log";
+                isLong = false;
+            }
+
+    */
