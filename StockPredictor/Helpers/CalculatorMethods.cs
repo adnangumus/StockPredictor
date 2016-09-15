@@ -161,23 +161,27 @@ namespace StockPredictor.Helpers
         }
 
         //calculate the Bollinger Bonds over a 20 day period
-        public void calculateBollingerBonds(string ticker)
+        public int calculateBollingerBonds(string ticker)
         {
             List<HistoricalStock> data = YahooStockMethods.getHistoricalPriceData(ticker);
            
             double mean = 0;
-            double[] closes = new double[63];
+            double[] closes = new double[20];
             double deviation = 0;
             double squared = 0;
             double standardDeviation = 0;
             double upperBand = 0;
             double lowerBand = 0;
+            double singleDeviationUpperBand = 0;
+            double singleDeviationLowerBand = 0;
+            double lastClose =0 ;
             int i = 0;
             try
             {
                 foreach (HistoricalStock stock in data)
                 {
-                    if (i < 63)
+                    if (i==0) { lastClose = stock.Close; }
+                    if (i < 20)
                     {
                         mean += stock.Close;
                         closes[i] = stock.Close;
@@ -186,11 +190,11 @@ namespace StockPredictor.Helpers
                     }
                    
                     i++;
-                    if(i == 63) { break; }
+                    if(i == 20) { break; }
                 }
-                //find the actual mean of the 20 days of close prices
+                //find the actual mean of the 63 days of close prices
                 mean = mean / closes.Length;
-                for(int j=0; j < closes.Length; j++ )
+                for(int j=0; j < closes.Length-1; j++ )
                 {
                     squared = Math.Pow(closes[j] - mean, 2);
                     deviation += squared;
@@ -198,12 +202,39 @@ namespace StockPredictor.Helpers
                 standardDeviation = Math.Sqrt(deviation);
                 upperBand = mean + (2 * standardDeviation);
                 lowerBand = mean - (2 * standardDeviation);
+                singleDeviationUpperBand = mean + standardDeviation;
+                singleDeviationLowerBand = mean - standardDeviation;
+
                 Form1.Instance.AppendOutputText("\r\nBollinger band information"+"\r\nMean value : " + mean + 
                     "\r\nUpper band : " + upperBand
-                    + "\r\nLower band : " + lowerBand);
+                    + "\r\nLower band : " + lowerBand +
+                    "\r\nSingle Deviation upper band : " + singleDeviationUpperBand +
+                    "\r\nSingle deviation lower band" + singleDeviationLowerBand);
+
+                if (lastClose < upperBand && lastClose > singleDeviationUpperBand)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPrice is in buy zone");
+                    return 2;
+                }
+                else if (lastClose > lowerBand && lastClose < singleDeviationLowerBand)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPrice is in the sell zone");
+                    return -2;
+                }
+                else if (lastClose < lowerBand)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPrice is may experience a rally");
+                    return 1;
+                }
+                else if (lastClose > upperBand)
+                {
+                    Form1.Instance.AppendOutputText("\r\nPrice is may experience a pullback");
+                    return -1;
+                }
+                else { return 0; }
               
             }
-            catch (Exception) { }
+            catch (Exception) { return 0; }
             }
 
 

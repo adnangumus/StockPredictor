@@ -283,7 +283,7 @@ namespace StockPredictor.Helpers
 
             using (WebClient web = new WebClient())
             {
-                DateTime startDate = DateTime.Today.AddDays(-100);
+                DateTime startDate = DateTime.Today.AddDays(-40);
                 DateTime endDate = DateTime.Today;
 
                 //"http://ichart.finance.yahoo.com/table.csv?s=" + ticker + "&d=" + (endDate.Month - 1) + "&e=" + endDate.Day + "&f=" + endDate.Year + "&g=d&a=" + (startDate.Month - 1) + "&b=" + startDate.Day + "&c=" + startDate.Year + "&ignore=.csv"
