@@ -15,16 +15,17 @@ namespace StockPredictor.Helpers
             get;
             set;
         }
-        public void runStockPredictor(string input, bool dontSave)
+        public void runStockPredictor(string ticker, bool dontSave)
         {
-           
-
+            //get the historical price data and set it in the form1
+            Form1.Instance.historicalPriceData = YahooStockMethods.DownloadHistoricalData(ticker);
+            //get the fundamentals of the stock and makes sure it loaded
+            Hashtable funda = YahooStockMethods.getFundamentals(ticker);
             //get the stock RSI over the last two weeks      
             CalculatorMethods cal = new CalculatorMethods();
-           int rsi = cal.RSI(input);
-            //get the fundamentals of the stock and makes sure it loaded
-            YahooStockMethods yahoo = new YahooStockMethods();
-            Hashtable funda = yahoo.getFundamentals(input);
+           int rsi = cal.RSI(ticker);
+            //get the bollinger band verdict
+            int bands = cal.calculateBollingerBands();
             if (String.IsNullOrEmpty(funda["PEG"].ToString())) { Form1.Instance.AppendOutputText("\r\n" + "Failed to load fundamentals : " + "\r\n"); return; }
            
             //hash table for the bag of words method
@@ -33,7 +34,7 @@ namespace StockPredictor.Helpers
             Hashtable nounHT = new Hashtable();
             Hashtable namedHT = new Hashtable();
             List<string> links = new List<string>();
-            links = switchLinks(input);
+            links = switchLinks(ticker);
             //check if the there are any links available 
             if (links.Count == 0) { Form1.Instance.AppendOutputText("\r\n" + "Failed to load links : " + "\r\n"); return; }
             //intiate classes used
@@ -49,10 +50,10 @@ namespace StockPredictor.Helpers
 
                 myPassExcelApp = exl.startExcelApp();
             }
-            Task taskA = new Task(() => hts = pt.processNamedNoun(articles, input, dontSave));
+            Task taskA = new Task(() => hts = pt.processNamedNoun(articles, ticker, dontSave));
             //intialize and set up a thread for processing bag of words
             BagOfWords bag = new BagOfWords();
-            Task taskB = new Task(() => bagHT = (bag.processBagOfWords(articles, input, dontSave)));
+            Task taskB = new Task(() => bagHT = (bag.processBagOfWords(articles, ticker, dontSave)));
             //stat the tasks            
             taskA.Start();
             taskB.RunSynchronously();
@@ -66,19 +67,19 @@ namespace StockPredictor.Helpers
                 hts.Add(bagHT);
                 foreach (Hashtable ht in hts)
                 {
-                    processSaves(ht, input, exl, myPassExcelApp, funda, rsi);
+                    processSaves(ht, ticker, exl, myPassExcelApp, funda, rsi, bands);
                 }
 
                 //randomly generate results
                 RandomGenerator rg = new RandomGenerator();
-                rg.generateRandomResults(input, myPassExcelApp);
+                rg.generateRandomResults(ticker, myPassExcelApp);
                 exl.quitExcel(myPassExcelApp);
             }
             //confirm that the input is correct
-            confirmAllCompleted(input, dontSave);
+            confirmAllCompleted(ticker, dontSave);
         }
 
-        private void processSaves(Hashtable ht, string input, ExcelMethods exl, Application myPassExcelApp, Hashtable funda,int rsi)
+        private void processSaves(Hashtable ht, string input, ExcelMethods exl, Application myPassExcelApp, Hashtable funda,int rsi, int bands)
         {
             //count positive and negative phrases and strong words
             int positivePhraseCount = 0;
@@ -117,7 +118,7 @@ namespace StockPredictor.Helpers
             totalScore = (int)ht["total"];
 
             CalculatorMethods cal = new CalculatorMethods();
-           double finalScore = cal.ProcessAllMetrics(funda, totalScore, rsi, method);
+           double finalScore = cal.ProcessAllMetrics(funda, totalScore, rsi, method, bands);
 
             exl.savePredictorDataToExcel(myPassExcelApp, input, method, elapsedMs, totalScore, wordCount, sentenceCount, posWordCount, negWordCount,
                   posWordPercentage, negWordPercentage,

@@ -321,7 +321,7 @@ namespace StockPredictor.Helpers
                 }
                 catch (Exception)
                 { return null; }
-
+                
                 return retval;
             }
         }
@@ -346,7 +346,7 @@ m8	Percent Change From 50-day Moving Average
     w1  Day's Value Change
     r5: PEG Ratio
     */
-        public Hashtable getFundamentals(string ticker)
+        public static Hashtable getFundamentals(string ticker)
         {
             Hashtable hs = new Hashtable();
             using (WebClient web = new WebClient())

@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using StockPredictor.Helpers;
 using System.Collections;
 using StockPredictor.Models;
+using System.Collections.Generic;
 
 namespace StockPredictor
 {
@@ -24,9 +25,12 @@ namespace StockPredictor
         public string dividend { get; set; }
         public Hashtable fundamentals {get; set;}
         public string verdict { get; set; }
-        public HistoricalStock history { get; set; }
+        public List<HistoricalStock> historicalPriceData { get; set; }
         public double TwoDayOldClosePrice { get; set; }
         public double lastClosePrice { get; set; }
+        public string upperBand { get; set; }
+        public string lowerBand { get; set; }
+        public string mean { get; set; }
       
 
 

@@ -80,7 +80,9 @@ namespace StockPredictor.Helpers
         //get the rsi get the sum of positive and negaitve change and divide it by 14. Then use the RSI formula
         public int RSI(string ticker)
         {
-            List<HistoricalStock> data = YahooStockMethods.getHistoricalPriceData(ticker);
+            //  List<HistoricalStock> data = YahooStockMethods.getHistoricalPriceData(ticker);
+            List<HistoricalStock> data = Form1.Instance.historicalPriceData;
+
             if (data == null)
             {
                 Console.WriteLine("data from yahoo return null. No interent?");
@@ -161,10 +163,10 @@ namespace StockPredictor.Helpers
         }
 
         //calculate the Bollinger Bonds over a 20 day period
-        public int calculateBollingerBonds(string ticker)
+        public int calculateBollingerBands()
         {
-            List<HistoricalStock> data = YahooStockMethods.getHistoricalPriceData(ticker);
-           
+            //  List<HistoricalStock> data = YahooStockMethods.getHistoricalPriceData(ticker);
+            List<HistoricalStock> data = Form1.Instance.historicalPriceData;
             double mean = 0;
             double[] closes = new double[20];
             double deviation = 0;
@@ -211,30 +213,34 @@ namespace StockPredictor.Helpers
                     "\r\nSingle Deviation upper band : " + singleDeviationUpperBand +
                     "\r\nSingle deviation lower band" + singleDeviationLowerBand);
 
-                if (lastClose < upperBand && lastClose > singleDeviationUpperBand)
+                int verdict = 0;
+                //provide a number to represent if it is a strong buy or sell etc.
+                if (lastClose <= upperBand && lastClose >= singleDeviationUpperBand)
                 {
                     Form1.Instance.AppendOutputText("\r\nPrice is in buy zone");
-                    return 2;
+                    verdict = 2;
                 }
-                else if (lastClose > lowerBand && lastClose < singleDeviationLowerBand)
+                else if (lastClose >= lowerBand && lastClose <= singleDeviationLowerBand)
                 {
                     Form1.Instance.AppendOutputText("\r\nPrice is in the sell zone");
-                    return -2;
+                    verdict = -2;
                 }
                 else if (lastClose < lowerBand)
                 {
                     Form1.Instance.AppendOutputText("\r\nPrice is may experience a rally");
-                    return 1;
+                    verdict = 1;
                 }
                 else if (lastClose > upperBand)
                 {
                     Form1.Instance.AppendOutputText("\r\nPrice is may experience a pullback");
-                    return -1;
+                    verdict = -1;
+                  
                 }
-                else { return 0; }
-              
+                else { verdict = 0; }
+                Form1.Instance.bollingerVerdict = verdict;
+                return verdict;
             }
-            catch (Exception) { return 0; }
+            catch (Exception) { Form1.Instance.bollingerVerdict = 0; return 0; }
             }
 
 
@@ -565,19 +571,20 @@ namespace StockPredictor.Helpers
       
 
         //use the methoeds to calcualte the total prospects for the stock
-        public double ProcessAllMetrics(Hashtable funda, int sentimentScore, int rsi, string method)
+        public double ProcessAllMetrics(Hashtable funda, int sentimentScore, int rsi, string method, int bands)
         {
             //process the moving averages
             MovingAverages(funda);
             //process the fundamentals
             ProcessFundamentals(funda);
-            //process the sentiment score
+            //process the sentiment score : weight the more significant scores. Total 13 - min -32 max +32
             int sentiment = ProcessSentimentScores(sentimentScore) *5;
             rsi = rsi * 3;
             peg = peg * 2;
-            double realRSI = Form1.Instance.realRSI;          
-             
-            double total = (sentiment + rsi + moving50 + moving200 + dividend + peg + priceBook) ;
+            bands = bands * 2;
+
+
+            double total = (sentiment + rsi + bands + peg + moving50 + moving200 + dividend + priceBook ) ;
             Form1.Instance.AppendOutputText("\r\n\r\nMethod : " + method);
             if (total >= 18)
             {
