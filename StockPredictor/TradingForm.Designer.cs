@@ -48,13 +48,15 @@ namespace StockPredictor
             this.tbClose = new System.Windows.Forms.TextBox();
             this.cbStrong = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.btPrice = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btTrade
             // 
             this.btTrade.Image = global::StockPredictor.Properties.Resources.tradeSmall;
             this.btTrade.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btTrade.Location = new System.Drawing.Point(180, 81);
+            this.btTrade.Location = new System.Drawing.Point(180, 59);
             this.btTrade.Name = "btTrade";
             this.btTrade.Size = new System.Drawing.Size(128, 66);
             this.btTrade.TabIndex = 0;
@@ -64,7 +66,7 @@ namespace StockPredictor
             // 
             // tbTrade
             // 
-            this.tbTrade.Location = new System.Drawing.Point(207, 52);
+            this.tbTrade.Location = new System.Drawing.Point(207, 31);
             this.tbTrade.Name = "tbTrade";
             this.tbTrade.Size = new System.Drawing.Size(75, 20);
             this.tbTrade.TabIndex = 2;
@@ -72,11 +74,11 @@ namespace StockPredictor
             // tbTradeOutput
             // 
             this.tbTradeOutput.BackColor = System.Drawing.SystemColors.Control;
-            this.tbTradeOutput.Location = new System.Drawing.Point(12, 203);
+            this.tbTradeOutput.Location = new System.Drawing.Point(9, 219);
             this.tbTradeOutput.Multiline = true;
             this.tbTradeOutput.Name = "tbTradeOutput";
             this.tbTradeOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbTradeOutput.Size = new System.Drawing.Size(494, 285);
+            this.tbTradeOutput.Size = new System.Drawing.Size(498, 273);
             this.tbTradeOutput.TabIndex = 4;
             // 
             // cbSell
@@ -91,7 +93,7 @@ namespace StockPredictor
             // 
             // btTest
             // 
-            this.btTest.Location = new System.Drawing.Point(207, 494);
+            this.btTest.Location = new System.Drawing.Point(207, 498);
             this.btTest.Name = "btTest";
             this.btTest.Size = new System.Drawing.Size(75, 23);
             this.btTest.TabIndex = 7;
@@ -162,7 +164,7 @@ namespace StockPredictor
             // cbRetry
             // 
             this.cbRetry.AutoSize = true;
-            this.cbRetry.Location = new System.Drawing.Point(218, 31);
+            this.cbRetry.Location = new System.Drawing.Point(9, 131);
             this.cbRetry.Name = "cbRetry";
             this.cbRetry.Size = new System.Drawing.Size(51, 17);
             this.cbRetry.TabIndex = 16;
@@ -171,7 +173,7 @@ namespace StockPredictor
             // 
             // tbOpen
             // 
-            this.tbOpen.Location = new System.Drawing.Point(238, 148);
+            this.tbOpen.Location = new System.Drawing.Point(238, 163);
             this.tbOpen.Name = "tbOpen";
             this.tbOpen.Size = new System.Drawing.Size(100, 20);
             this.tbOpen.TabIndex = 17;
@@ -180,7 +182,7 @@ namespace StockPredictor
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(150, 150);
+            this.label1.Location = new System.Drawing.Point(150, 165);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(82, 18);
             this.label1.TabIndex = 18;
@@ -190,7 +192,7 @@ namespace StockPredictor
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(147, 182);
+            this.label2.Location = new System.Drawing.Point(147, 195);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(85, 18);
             this.label2.TabIndex = 19;
@@ -198,7 +200,7 @@ namespace StockPredictor
             // 
             // tbClose
             // 
-            this.tbClose.Location = new System.Drawing.Point(239, 179);
+            this.tbClose.Location = new System.Drawing.Point(238, 190);
             this.tbClose.Name = "tbClose";
             this.tbClose.Size = new System.Drawing.Size(100, 20);
             this.tbClose.TabIndex = 20;
@@ -216,12 +218,31 @@ namespace StockPredictor
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(288, 52);
+            this.label4.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(288, 35);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(46, 16);
+            this.label4.Size = new System.Drawing.Size(41, 15);
             this.label4.TabIndex = 23;
             this.label4.Text = "Ticker";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 163);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(106, 13);
+            this.label5.TabIndex = 26;
+            this.label5.Text = "Get Price Information";
+            // 
+            // btPrice
+            // 
+            this.btPrice.Location = new System.Drawing.Point(12, 187);
+            this.btPrice.Name = "btPrice";
+            this.btPrice.Size = new System.Drawing.Size(100, 23);
+            this.btPrice.TabIndex = 24;
+            this.btPrice.Text = "Price";
+            this.btPrice.UseVisualStyleBackColor = true;
+            this.btPrice.Click += new System.EventHandler(this.btPrice_Click);
             // 
             // TradingForm
             // 
@@ -229,7 +250,9 @@ namespace StockPredictor
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::StockPredictor.Properties.Resources.internet;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(528, 519);
+            this.ClientSize = new System.Drawing.Size(528, 523);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.btPrice);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cbStrong);
             this.Controls.Add(this.tbClose);
@@ -277,5 +300,7 @@ namespace StockPredictor
         private System.Windows.Forms.TextBox tbClose;
         private System.Windows.Forms.CheckBox cbStrong;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btPrice;
     }
 }

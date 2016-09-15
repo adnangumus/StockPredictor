@@ -122,7 +122,7 @@ namespace StockPredictor.Helpers
             exl.savePredictorDataToExcel(myPassExcelApp, input, method, elapsedMs, totalScore, wordCount, sentenceCount, posWordCount, negWordCount,
                   posWordPercentage, negWordPercentage,
                    positivePhraseCount, negativePhraseCount,
-                  posPhrasePercentage, negPhrasePercentage, finalScore, rsi);
+                  posPhrasePercentage, negPhrasePercentage, finalScore);
 
 
         }

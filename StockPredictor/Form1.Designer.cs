@@ -33,11 +33,7 @@
             this.Test = new System.Windows.Forms.Button();
             this.tbInput = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btPrice = new System.Windows.Forms.Button();
-            this.tbPriceInput = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.tbConsoleOutput = new System.Windows.Forms.TextBox();
             this.tbOutput = new StockPredictor.CustomTextBox();
             this.cbSave = new System.Windows.Forms.CheckBox();
@@ -54,7 +50,7 @@
             // Run
             // 
             this.Run.Image = global::StockPredictor.Properties.Resources.startble;
-            this.Run.Location = new System.Drawing.Point(224, 84);
+            this.Run.Location = new System.Drawing.Point(140, 79);
             this.Run.Name = "Run";
             this.Run.Size = new System.Drawing.Size(109, 34);
             this.Run.TabIndex = 0;
@@ -63,6 +59,7 @@
             // 
             // Stem
             // 
+            this.Stem.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Stem.Location = new System.Drawing.Point(538, 58);
             this.Stem.Name = "Stem";
             this.Stem.Size = new System.Drawing.Size(75, 23);
@@ -73,6 +70,7 @@
             // 
             // Test
             // 
+            this.Test.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Test.Location = new System.Drawing.Point(538, 90);
             this.Test.Name = "Test";
             this.Test.Size = new System.Drawing.Size(75, 23);
@@ -83,7 +81,7 @@
             // 
             // tbInput
             // 
-            this.tbInput.Location = new System.Drawing.Point(226, 62);
+            this.tbInput.Location = new System.Drawing.Point(142, 58);
             this.tbInput.Name = "tbInput";
             this.tbInput.Size = new System.Drawing.Size(107, 20);
             this.tbInput.TabIndex = 4;
@@ -91,56 +89,23 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(227, 46);
+            this.label1.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(139, 37);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(99, 13);
+            this.label1.Size = new System.Drawing.Size(112, 15);
             this.label1.TabIndex = 5;
             this.label1.Text = "Input Stock Symbol";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // btPrice
-            // 
-            this.btPrice.Location = new System.Drawing.Point(33, 88);
-            this.btPrice.Name = "btPrice";
-            this.btPrice.Size = new System.Drawing.Size(100, 23);
-            this.btPrice.TabIndex = 6;
-            this.btPrice.Text = "Price";
-            this.btPrice.UseVisualStyleBackColor = true;
-            this.btPrice.Click += new System.EventHandler(this.btPrice_Click);
-            // 
-            // tbPriceInput
-            // 
-            this.tbPriceInput.Location = new System.Drawing.Point(34, 64);
-            this.tbPriceInput.Name = "tbPriceInput";
-            this.tbPriceInput.Size = new System.Drawing.Size(100, 20);
-            this.tbPriceInput.TabIndex = 7;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(31, 26);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(106, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Get Price Information";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(227, 26);
+            this.label3.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(137, 9);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(104, 13);
+            this.label3.Size = new System.Drawing.Size(138, 18);
             this.label3.TabIndex = 9;
             this.label3.Text = "Get News Sentiment";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(31, 48);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(99, 13);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Input Stock Symbol";
             // 
             // tbConsoleOutput
             // 
@@ -168,9 +133,10 @@
             // cbSave
             // 
             this.cbSave.AutoSize = true;
-            this.cbSave.Location = new System.Drawing.Point(139, 94);
+            this.cbSave.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbSave.Location = new System.Drawing.Point(255, 58);
             this.cbSave.Name = "cbSave";
-            this.cbSave.Size = new System.Drawing.Size(79, 17);
+            this.cbSave.Size = new System.Drawing.Size(83, 19);
             this.cbSave.TabIndex = 14;
             this.cbSave.Text = "Don\'t Save";
             this.cbSave.UseVisualStyleBackColor = true;
@@ -180,9 +146,9 @@
             this.btTrade.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btTrade.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btTrade.Image = global::StockPredictor.Properties.Resources.tradeSmallxx;
-            this.btTrade.Location = new System.Drawing.Point(538, 21);
+            this.btTrade.Location = new System.Drawing.Point(33, 83);
             this.btTrade.Name = "btTrade";
-            this.btTrade.Size = new System.Drawing.Size(75, 23);
+            this.btTrade.Size = new System.Drawing.Size(87, 28);
             this.btTrade.TabIndex = 15;
             this.btTrade.UseVisualStyleBackColor = false;
             this.btTrade.Click += new System.EventHandler(this.btTrade_Click);
@@ -190,9 +156,10 @@
             // cbRetry
             // 
             this.cbRetry.AutoSize = true;
-            this.cbRetry.Location = new System.Drawing.Point(139, 64);
+            this.cbRetry.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbRetry.Location = new System.Drawing.Point(255, 88);
             this.cbRetry.Name = "cbRetry";
-            this.cbRetry.Size = new System.Drawing.Size(51, 17);
+            this.cbRetry.Size = new System.Drawing.Size(55, 19);
             this.cbRetry.TabIndex = 16;
             this.cbRetry.Text = "Retry";
             this.cbRetry.UseVisualStyleBackColor = true;
@@ -200,9 +167,10 @@
             // cbBing
             // 
             this.cbBing.AutoSize = true;
+            this.cbBing.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbBing.Location = new System.Drawing.Point(472, 94);
             this.cbBing.Name = "cbBing";
-            this.cbBing.Size = new System.Drawing.Size(47, 17);
+            this.cbBing.Size = new System.Drawing.Size(52, 19);
             this.cbBing.TabIndex = 17;
             this.cbBing.Text = "Bing";
             this.cbBing.UseVisualStyleBackColor = true;
@@ -211,9 +179,10 @@
             // cbGoogle
             // 
             this.cbGoogle.AutoSize = true;
+            this.cbGoogle.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbGoogle.Location = new System.Drawing.Point(472, 71);
             this.cbGoogle.Name = "cbGoogle";
-            this.cbGoogle.Size = new System.Drawing.Size(60, 17);
+            this.cbGoogle.Size = new System.Drawing.Size(62, 19);
             this.cbGoogle.TabIndex = 18;
             this.cbGoogle.Text = "Google";
             this.cbGoogle.UseVisualStyleBackColor = true;
@@ -221,9 +190,10 @@
             // cbYahoo
             // 
             this.cbYahoo.AutoSize = true;
+            this.cbYahoo.Font = new System.Drawing.Font("Modern No. 20", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbYahoo.Location = new System.Drawing.Point(472, 46);
             this.cbYahoo.Name = "cbYahoo";
-            this.cbYahoo.Size = new System.Drawing.Size(57, 17);
+            this.cbYahoo.Size = new System.Drawing.Size(55, 18);
             this.cbYahoo.TabIndex = 19;
             this.cbYahoo.Text = "Yahoo";
             this.cbYahoo.UseVisualStyleBackColor = true;
@@ -231,16 +201,17 @@
             // cbDelay
             // 
             this.cbDelay.AutoSize = true;
-            this.cbDelay.Location = new System.Drawing.Point(341, 94);
+            this.cbDelay.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbDelay.Location = new System.Drawing.Point(341, 84);
             this.cbDelay.Name = "cbDelay";
-            this.cbDelay.Size = new System.Drawing.Size(84, 17);
+            this.cbDelay.Size = new System.Drawing.Size(92, 19);
             this.cbDelay.TabIndex = 20;
             this.cbDelay.Text = "1 hour delay";
             this.cbDelay.UseVisualStyleBackColor = true;
             // 
             // tbDelay
             // 
-            this.tbDelay.Location = new System.Drawing.Point(341, 64);
+            this.tbDelay.Location = new System.Drawing.Point(341, 58);
             this.tbDelay.Name = "tbDelay";
             this.tbDelay.Size = new System.Drawing.Size(100, 20);
             this.tbDelay.TabIndex = 21;
@@ -248,9 +219,10 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(338, 46);
+            this.label5.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(338, 37);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(77, 13);
+            this.label5.Size = new System.Drawing.Size(87, 15);
             this.label5.TabIndex = 22;
             this.label5.Text = "Delay: Minutes";
             // 
@@ -273,11 +245,7 @@
             this.Controls.Add(this.cbSave);
             this.Controls.Add(this.tbConsoleOutput);
             this.Controls.Add(this.tbOutput);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.tbPriceInput);
-            this.Controls.Add(this.btPrice);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbInput);
             this.Controls.Add(this.Test);
@@ -299,11 +267,7 @@
         private System.Windows.Forms.Button Test;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbInput;
-        private System.Windows.Forms.Button btPrice;
-        private System.Windows.Forms.TextBox tbPriceInput;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
         private CustomTextBox tbOutput;
         private System.Windows.Forms.TextBox tbConsoleOutput;
         private System.Windows.Forms.CheckBox cbSave;

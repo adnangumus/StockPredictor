@@ -79,7 +79,7 @@ namespace StockPredictor.Helpers
                     Console.WriteLine("Parallel Text retrival time : " + elapsedMs);
                 //out put information to text box   
                 Form1.Instance.AppendOutputText("\r\n");
-                Form1.Instance.AppendOutputText("Parallel Text retrival time : " + elapsedMs + "\r\n");
+                Form1.Instance.AppendOutputText("Parallel Text retrival time : " + elapsedMs + "\r\n" + "\r\nPlease wait.... This can take a few minutes");
                     //  tc.removePunctuation(allArticles)
                     articles = sc.spellCheckArticle(allArticles);
 

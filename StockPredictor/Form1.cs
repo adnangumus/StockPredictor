@@ -1,13 +1,7 @@
 ﻿using System;
-
 using System.ComponentModel;
-
 using System.Windows.Forms;
 using StockPredictor.Helpers;
-using StockPredictor.Models;
-using System.Threading;
-using System.Timers;
-using System.Collections.Generic;
 using System.Collections;
 
 namespace StockPredictor
@@ -22,12 +16,13 @@ namespace StockPredictor
         //the real rsi
        public double realRSI { get; set; }
         //the scores from the moving average ranging from -2 to 2 Strong sell sell neutral buy strong buy
-        public int moving200 {get;set;}
-        public int moving50 { get; set;}
-        public int priceBook { get; set; }
-        public int peg { get; set; }
-        public int dividend { get; set; }
+        public string moving200 {get;set;}
+        public string moving50 { get; set;}
+        public string priceBook { get; set; }
+        public string peg { get; set; }
+        public string dividend { get; set; }
         public Hashtable fundamentals {get; set;}
+        public string verdict { get; set; }
        
       
 
@@ -205,20 +200,7 @@ namespace StockPredictor
         {
 
         }
-        //this button will retrieve price information for stocks
-        private void btPrice_Click(object sender, EventArgs e)
-        {
-            YahooStockMethods yahoo = new YahooStockMethods();
-            //if the the input box is empty or equal to bio run the biotech stock search
-            if(String.IsNullOrEmpty(tbPriceInput.Text) || tbPriceInput.Text.ToLower() == "bio")
-            {
-                yahoo.getBioStockPrices();
-            }
-            else
-            {
-                yahoo.getStockPriceInformation(tbPriceInput.Text.ToUpper());
-            }
-        }
+        
 
         //thread safe console output writer
         private DelegateTextWriter threadSafeWriter() { 
@@ -292,6 +274,21 @@ namespace StockPredictor
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbPriceInput_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
         {
 
         }

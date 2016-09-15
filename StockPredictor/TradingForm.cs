@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using StockPredictor.Tests;
@@ -191,6 +186,19 @@ namespace StockPredictor
             tt.testTrade();
         }
 
-       
+        //this button will retrieve price information for stocks
+        private void btPrice_Click(object sender, EventArgs e)
+        {
+            YahooStockMethods yahoo = new YahooStockMethods();
+            //if the the input box is empty or equal to bio run the biotech stock search
+            if (String.IsNullOrEmpty(tbTrade.Text) || tbTrade.Text.ToLower() == "bio")
+            {
+                yahoo.getBioStockPrices();
+            }
+            else
+            {
+                yahoo.getStockPriceInformation(tbTrade.Text.ToUpper());
+            }
+        }
     }
 }

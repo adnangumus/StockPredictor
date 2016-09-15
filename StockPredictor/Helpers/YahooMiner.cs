@@ -66,8 +66,8 @@ namespace StockPredictor.Helpers
                 //get the link and remove the end
                 if (!decodedUrl.Contains("search.yahoo") && !decodedUrl.Contains("help.yahoo") 
                     && !decodedUrl.Contains("login.yahoo")&& !decodedUrl.Contains("mail.yahoo")
-                    && !decodedUrl.Contains("mozilla") && !decodedUrl.Contains("advertising.yahoo") && !decodedUrl.Contains("info.yahoo")
-                     
+                    && !decodedUrl.Contains("mozilla") && !decodedUrl.Contains("advertising.yahoo") && !decodedUrl.Contains("info.yahoo") 
+                     && !decodedUrl.Contains("flickr")
                     )   
                 {
                   //  Console.WriteLine(decodedUrl);

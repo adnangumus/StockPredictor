@@ -23,7 +23,7 @@ namespace StockPredictor.Helpers
             //add the output data to an excel file
             ExcelMethods em = new ExcelMethods();
             //add the data to special excel file for only this specific out put for this stock
-            em.savePredictorDataToExcel(myPassedExcelApplication, fileName, "Random", elapsedMs, 0, 0,0,0,0,0,0,0,0,0,0,finalScore,0);
+            em.savePredictorDataToExcel(myPassedExcelApplication, fileName, "Random", elapsedMs, 0, 0,0,0,0,0,0,0,0,0,0,finalScore);
         }
     }
 }

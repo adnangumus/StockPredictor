@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using StockPredictor.Models;
 using System.ComponentModel;
 using System.Net;
-using System.Collections.Generic;
+
 using System.Text.RegularExpressions;
 using System.Collections;
 
@@ -60,11 +58,7 @@ namespace StockPredictor.Helpers
                     Form1.Instance.AppendOutputText("Previous stock close price : " + closePrice + "\r\n");
                     Form1.Instance.AppendOutputText("Last trade price : " + lastTradePriceOnly + "\r\n");
                     Form1.Instance.AppendOutputText("Percentage change : " + percentageChange + "\r\n");
-                    Form1.Instance.AppendOutputText("Percentage change : " + quote.Symbol + "\r\n");
-
-                    //store the price information in an excel file
-                    ExcelMethods ex = new ExcelMethods();
-                    ex.savePriceData(quote.Name, quote.Symbol, openPrice, closePrice, percentageChange, lastTradePriceOnly);
+                    Form1.Instance.AppendOutputText("Percentage change : " + quote.Symbol + "\r\n");                   
                 }
                 else
                 {
@@ -112,19 +106,14 @@ namespace StockPredictor.Helpers
                 Console.WriteLine("Symbol : " + quote.Symbol);
              
                 //write the information to the text box
-                Form1.Instance.AppendOutputText("\r\n");
-                Form1.Instance.AppendOutputText(quote.Name + "\r\n" + lastTradeDate + " yesterday " + dateYesterday + "\r\n");
-                Form1.Instance.AppendOutputText("Stock open price : " + openPrice + "\r\n");
-                Form1.Instance.AppendOutputText("Last trade price : " + lastTradePriceOnly + "\r\n");
-                Form1.Instance.AppendOutputText("Percentage change : " + percentageChange + "\r\n");
-                Form1.Instance.AppendOutputText("Previous stock close price : " + closePrice + "\r\n");
-                Form1.Instance.AppendOutputText("Symbol : " + quote.Symbol + "\r\n");
+                TradingForm.Instance.AppendOutputText("\r\n");
+                    TradingForm.Instance.AppendOutputText(quote.Name + "\r\n" + lastTradeDate + " yesterday " + dateYesterday + "\r\n");
+                    TradingForm.Instance.AppendOutputText("Stock open price : " + openPrice + "\r\n");
+                    TradingForm.Instance.AppendOutputText("Last trade price : " + lastTradePriceOnly + "\r\n");
+                    TradingForm.Instance.AppendOutputText("Percentage change : " + percentageChange + "\r\n");
+                    TradingForm.Instance.AppendOutputText("Previous stock close price : " + closePrice + "\r\n");
+                    TradingForm.Instance.AppendOutputText("Symbol : " + quote.Symbol + "\r\n");
 
-
-                if (Form1.Instance.dontSave()) { return; }
-                //store the price information in an excel file
-                ExcelMethods ex = new ExcelMethods();
-                ex.savePriceData(quote.Name, quote.Symbol, openPrice, closePrice, percentageChange, lastTradePriceOnly);
                 }
                 else {
                     Retries++;
@@ -381,8 +370,14 @@ m8	Percent Change From 50-day Moving Average
                     hs.Add("PEG", cols[8].ToString());
                     hs.Add("Dividend", cols[9].ToString());
                     hs.Add("Trend", cols[10].ToString());
-                   
-                }
+                    //store the variables in the form1 instance for saving later
+                    Form1.Instance.priceBook = cols[7].ToString();
+                    Form1.Instance.peg = cols[8].ToString();
+                    Form1.Instance.dividend = cols[9].ToString();
+                    Form1.Instance.moving50 = cols[6].ToString();
+                    Form1.Instance.moving200 = cols[3].ToString();                     
+
+    }
                 catch (Exception)
                 { return null; }
                 Form1.Instance.fundamentals = hs;

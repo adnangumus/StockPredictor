@@ -1,9 +1,9 @@
-﻿using System.Linq;
+﻿
 using System;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Threading;
+
 
 namespace StockPredictor.Helpers
 {
@@ -159,7 +159,7 @@ namespace StockPredictor.Helpers
         public void savePredictorDataToExcel(Excel.Application myPassedExcelApplication, string fileName, string method, string elapsedMs, int totalSentiment, int wordCount, int sentenceCount, int posWordCount, int negWordCount,
            int posWordPercentage, int negWordPercentage,
             int positivePhraseCount, int negativePhraseCount,
-            int posPhrasePercentage, int negPhrasePercentage, double scoreFinal, int rsi)
+            int posPhrasePercentage, int negPhrasePercentage, double scoreFinal)
         {
             lock (locker)
             {
@@ -176,29 +176,12 @@ namespace StockPredictor.Helpers
                 addDataToExcel(date, method, elapsedMs.ToString(), totalSentiment, wordCount, sentenceCount, posWordCount, negWordCount,
                posWordPercentage, negWordPercentage,
                 positivePhraseCount, negativePhraseCount,
-                posPhrasePercentage, negPhrasePercentage, scoreFinal, rsi);
+                posPhrasePercentage, negPhrasePercentage, scoreFinal);
                 closeExcel();
             }
         }
 
-        //save the price data from yahoo to an excel sheet
-        public void savePriceData(string name, string ticker, decimal openPrice, decimal closePrice, decimal changeInPercent, decimal lastTradePriceOnly)
-        {
-            //get the date time to insert into the excel sheet
-            string date = DateTime.Now.ToString();
-            //file reader class for reading files
-            fileReaderWriter frw = new fileReaderWriter();
-            //put the ticker symbol in lower case
-            string fileName = ticker;
-            //set the path for the file
-            getSentimentPath(fileName, "PriceInformation", null);
-            Excel.Application myPassedExcelApplication = null;
-            //open the excel sheet
-            openExcel(myPassedExcelApplication);
-            //add the data to the excel sheet
-            addDataToPriceExcel(date, name, ticker, openPrice, closePrice, changeInPercent, lastTradePriceOnly);
-            closeExcel();
-        }
+       
         //open the excel sheet and pass if the sheet is opened for storing stock price information
         public void openExcel(Excel.Application myPassedExcelApplication)
         {
@@ -249,11 +232,7 @@ namespace StockPredictor.Helpers
             Rownumber = lastRow();
             //add the headings to the excel sheet
 
-            //add the headings for the predictor pages
-            if (isPrice)
-            {
-                addHeadingToPriceExcel();
-            }
+           
             if (isTrade)
             {
                 addHeadingTradingSheet();
@@ -318,21 +297,27 @@ namespace StockPredictor.Helpers
             //add the data to the cells in the rows
             myExcelWorkSheet.Cells[rowNumber, "A"] = "Date";
             myExcelWorkSheet.Cells[rowNumber, "B"] = "ScoreFinal";
-            myExcelWorkSheet.Cells[rowNumber, "C"] = "totalSentiment";
-            myExcelWorkSheet.Cells[rowNumber, "D"] = "posWordPercentage";
-            myExcelWorkSheet.Cells[rowNumber, "E"] = "negWordPercentage";
-            myExcelWorkSheet.Cells[rowNumber, "F"] = "posPhrasePercentage";
-            myExcelWorkSheet.Cells[rowNumber, "G"] = "negPhrasePercentage";
-            myExcelWorkSheet.Cells[rowNumber, "H"] = "ElapsedMs";
-            myExcelWorkSheet.Cells[rowNumber, "I"] = "wordCount";
-            myExcelWorkSheet.Cells[rowNumber, "J"] = "sentenceCount";
-            myExcelWorkSheet.Cells[rowNumber, "K"] = "posWordCount";
-            myExcelWorkSheet.Cells[rowNumber, "L"] = "negWordCount";
-            myExcelWorkSheet.Cells[rowNumber, "M"] = "positivePhraseCount";
-            myExcelWorkSheet.Cells[rowNumber, "N"] = "negativePhraseCount";
-            myExcelWorkSheet.Cells[rowNumber, "O"] = "Method";
-            myExcelWorkSheet.Cells[rowNumber, "P"] = "RSI";
-            myExcelWorkSheet.Cells[rowNumber, "Q"] = "PEG";
+            myExcelWorkSheet.Cells[rowNumber, "C"] = "Verdict";
+            myExcelWorkSheet.Cells[rowNumber, "D"] = "totalSentiment";
+            myExcelWorkSheet.Cells[rowNumber, "E"] = "wordCount";
+            myExcelWorkSheet.Cells[rowNumber, "F"] = "sentenceCount";
+            myExcelWorkSheet.Cells[rowNumber, "G"] = "posWordPercentage";
+            myExcelWorkSheet.Cells[rowNumber, "H"] = "negWordPercentage";
+            myExcelWorkSheet.Cells[rowNumber, "I"] = "posPhrasePercentage";
+            myExcelWorkSheet.Cells[rowNumber, "J"] = "negPhrasePercentage";
+            myExcelWorkSheet.Cells[rowNumber, "K"] = "ElapsedMs";
+            myExcelWorkSheet.Cells[rowNumber, "L"] = "posWordCount";
+            myExcelWorkSheet.Cells[rowNumber, "M"] = "negWordCount";
+            myExcelWorkSheet.Cells[rowNumber, "N"] = "positivePhraseCount";
+            myExcelWorkSheet.Cells[rowNumber, "O"] = "negativePhraseCount";
+            myExcelWorkSheet.Cells[rowNumber, "P"] = "Method";
+            myExcelWorkSheet.Cells[rowNumber, "Q"] = "RSI";
+            myExcelWorkSheet.Cells[rowNumber, "R"] = "PEG";
+            myExcelWorkSheet.Cells[rowNumber, "S"] = "200Moving%";
+            myExcelWorkSheet.Cells[rowNumber, "T"] = "50Moving%";
+            myExcelWorkSheet.Cells[rowNumber, "U"] = "PriceBook";
+            myExcelWorkSheet.Cells[rowNumber, "V"] = "Dividend";
+           
 
             // Auto fit automatically adjust the width of columns of Excel  in givien range .  
             myExcelWorkSheet.Range[myExcelWorkSheet.Cells[1, 1], myExcelWorkSheet.Cells[rowNumber, 13]].EntireColumn.AutoFit();
@@ -344,28 +329,34 @@ namespace StockPredictor.Helpers
         private void addDataToExcel(string date, string method, string elapsedMs, int totalSentiment, int wordCount, int sentenceCount, int posWordCount, int negWordCount,
            int posWordPercentage, int negWordPercentage,
             int positivePhraseCount, int negativePhraseCount,
-            int posPhrasePercentage, int negPhrasePercentage, double scoreFinal, int rsi)
+            int posPhrasePercentage, int negPhrasePercentage, double scoreFinal)
         {
 
             //add the data to the cells
             myExcelWorkSheet.Cells[rowNumber, "A"] = date;
             myExcelWorkSheet.Cells[rowNumber, "B"] = scoreFinal;
-            myExcelWorkSheet.Cells[rowNumber, "C"] = totalSentiment;
-            myExcelWorkSheet.Cells[rowNumber, "D"] = posWordPercentage;
-            myExcelWorkSheet.Cells[rowNumber, "E"] = negWordPercentage;
-            myExcelWorkSheet.Cells[rowNumber, "F"] = posPhrasePercentage;
-            myExcelWorkSheet.Cells[rowNumber, "G"] = negPhrasePercentage;
-            myExcelWorkSheet.Cells[rowNumber, "H"] = elapsedMs;
-            myExcelWorkSheet.Cells[rowNumber, "I"] = wordCount;
-            myExcelWorkSheet.Cells[rowNumber, "J"] = sentenceCount;
-            myExcelWorkSheet.Cells[rowNumber, "K"] = posWordCount;
-            myExcelWorkSheet.Cells[rowNumber, "L"] = negWordCount;
-            myExcelWorkSheet.Cells[rowNumber, "M"] = positivePhraseCount;
-            myExcelWorkSheet.Cells[rowNumber, "N"] = negativePhraseCount;
-            myExcelWorkSheet.Cells[rowNumber, "O"] = method;
+            myExcelWorkSheet.Cells[rowNumber, "C"] = Form1.Instance.verdict;
+            myExcelWorkSheet.Cells[rowNumber, "D"] = totalSentiment;
+            myExcelWorkSheet.Cells[rowNumber, "E"] = wordCount;
+            myExcelWorkSheet.Cells[rowNumber, "F"] = sentenceCount;
+            myExcelWorkSheet.Cells[rowNumber, "G"] = posWordPercentage;
+            myExcelWorkSheet.Cells[rowNumber, "H"] = negWordPercentage;
+            myExcelWorkSheet.Cells[rowNumber, "I"] = posPhrasePercentage;
+            myExcelWorkSheet.Cells[rowNumber, "J"] = negPhrasePercentage;
+            myExcelWorkSheet.Cells[rowNumber, "K"] = elapsedMs;
+            myExcelWorkSheet.Cells[rowNumber, "L"] = posWordCount;
+            myExcelWorkSheet.Cells[rowNumber, "M"] = negWordCount;
+            myExcelWorkSheet.Cells[rowNumber, "N"] = positivePhraseCount;
+            myExcelWorkSheet.Cells[rowNumber, "O"] = negativePhraseCount;
+            myExcelWorkSheet.Cells[rowNumber, "P"] = method;
             //add the fundamental and technical data here
-            myExcelWorkSheet.Cells[rowNumber, "P"] = rsi;
-            myExcelWorkSheet.Cells[rowNumber, "Q"] = Form1.Instance.peg;
+            myExcelWorkSheet.Cells[rowNumber, "Q"] = Form1.Instance.rsi;
+            myExcelWorkSheet.Cells[rowNumber, "R"] = Form1.Instance.peg;
+            myExcelWorkSheet.Cells[rowNumber, "S"] = Form1.Instance.moving200;
+            myExcelWorkSheet.Cells[rowNumber, "T"] = Form1.Instance.moving50;
+            myExcelWorkSheet.Cells[rowNumber, "U"] = Form1.Instance.priceBook;
+            myExcelWorkSheet.Cells[rowNumber, "V"] = Form1.Instance.dividend;
+
             try
             {
                 //format the cells to dispaly the dates
@@ -378,41 +369,7 @@ namespace StockPredictor.Helpers
             catch (Exception ex) { Console.WriteLine("Exception in adding heading : " + ex.Message); }
 
         }
-
-        //method that adds the heading to the newly created excel documents
-        private void addHeadingToPriceExcel()
-        {
-            //add the data to the cells in the rows
-            myExcelWorkSheet.Cells[rowNumber, "A"] = "Date";
-            myExcelWorkSheet.Cells[rowNumber, "B"] = "Name";
-            myExcelWorkSheet.Cells[rowNumber, "C"] = "Ticker";
-            myExcelWorkSheet.Cells[rowNumber, "D"] = "Open Price";
-            myExcelWorkSheet.Cells[rowNumber, "E"] = "LastTradePrice";
-            myExcelWorkSheet.Cells[rowNumber, "F"] = "ChangeInPercent";
-            myExcelWorkSheet.Cells[rowNumber, "G"] = "Previous close price";
-            myExcelWorkSheet.Cells[rowNumber, "H"] = "30 minute mark";
-            // Auto fit automatically adjust the width of columns of Excel  in givien range .  
-            myExcelWorkSheet.Range[myExcelWorkSheet.Cells[1, 1], myExcelWorkSheet.Cells[rowNumber, 6]].EntireColumn.AutoFit();
-            rowNumber++;  // if you put this method inside a loop, you should increase rownumber by one or wat ever is your logic
-        }
-        //method that adds the heading to the newly created excel documents
-        private void addDataToPriceExcel(string date, string name, string ticker, decimal openPrice, decimal closePrice, decimal changeInPercent, decimal lastTradePriceOnly)
-        {
-            //add the data to the cells in the rows
-            myExcelWorkSheet.Cells[rowNumber, "A"] = date;
-            myExcelWorkSheet.Cells[rowNumber, "B"] = name;
-            myExcelWorkSheet.Cells[rowNumber, "C"] = ticker;
-            myExcelWorkSheet.Cells[rowNumber, "D"] = openPrice;
-            myExcelWorkSheet.Cells[rowNumber, "E"] = lastTradePriceOnly;
-            myExcelWorkSheet.Cells[rowNumber, "F"] = changeInPercent;
-            myExcelWorkSheet.Cells[rowNumber, "G"] = closePrice;
-            //format the cells to dispaly the dates
-            Excel.Range rg = (Excel.Range)myExcelWorkSheet.Cells[1, "A"];
-            rg.EntireColumn.NumberFormat = "m/d/yyyy h:mm";
-            // Auto fit automatically adjust the width of columns of Excel  in givien range .  
-            myExcelWorkSheet.Range[myExcelWorkSheet.Cells[1, 1], myExcelWorkSheet.Cells[rowNumber, 6]].EntireColumn.AutoFit();
-            rowNumber++;  // if you put this method inside a loop, you should increase rownumber by one 
-        }
+       
 
         public void closeExcel()
         {

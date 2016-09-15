@@ -181,8 +181,11 @@ namespace StockPredictor.Helpers
 
             double ChangePercent200Here = Convert.ToDouble(cp200);
             double ChangePercent50Here = Convert.ToDouble(cp50);
+          
 
-            if(ChangePercent50Here <= 0)
+            Form1.Instance.AppendOutputText("\r\n ");
+
+            if (ChangePercent50Here <= 0)
             {
                 if (ChangePercent50Here > -0.5)
                 {
@@ -333,10 +336,14 @@ namespace StockPredictor.Helpers
                   //process the fundamentals of the stock
        private void ProcessFundamentals(Hashtable funda)
         {
+            double dividendHere = 0;
            double priceBookHere = Convert.ToDouble(funda["PB"]);
             double pegHere = Convert.ToDouble(funda["PEG"]);
-            double dividendHere = Convert.ToDouble(funda["Dividend"]);
-
+            try { 
+            dividendHere = Convert.ToDouble(funda["Dividend"]);
+            }
+            catch (Exception) { dividendHere = 0; }
+          
             //process the price to book
             if (priceBookHere <= 1)
             {
@@ -362,11 +369,12 @@ namespace StockPredictor.Helpers
             {
                 Form1.Instance.AppendOutputText("\r\nPrice to book: strong sell");
                 priceBook = -2;
-            }         
+            }
 
 
-//process peg
-            if (pegHere <= 1) {
+            //process peg
+            
+            if (pegHere <= 1 && pegHere > 0) {
                 Form1.Instance.AppendOutputText("\r\nPEG : strong buy");
                 peg = 2;
                     }
@@ -385,12 +393,12 @@ namespace StockPredictor.Helpers
                 Form1.Instance.AppendOutputText("\r\nPEG : sell");
                 peg = -1;
                     }
-            if (pegHere > 4)
+            if (pegHere > 4 && pegHere < 0 )
             {
                 Form1.Instance.AppendOutputText("\r\nPEG : strong sell");
                 peg = -2;
                     }
-
+          
             //process dividends
             if (dividendHere ==0)
             {
@@ -462,34 +470,37 @@ namespace StockPredictor.Helpers
             //process the fundamentals
             ProcessFundamentals(funda);
             //process the sentiment score
-            int sentiment = ProcessSentimentScores(sentimentScore) *4;
+            int sentiment = ProcessSentimentScores(sentimentScore) *5;
             rsi = rsi * 3;
-            double realRSI = Form1.Instance.realRSI;
-            //set the peg in the form instance for saving in the excel method
-            Form1.Instance.peg = peg;       
-
-
+            peg = peg * 2;
+            double realRSI = Form1.Instance.realRSI;          
+             
             double total = (sentiment + rsi + moving50 + moving200 + dividend + peg + priceBook) ;
-
-            if (total >= 15)
+            Form1.Instance.AppendOutputText("\r\n\r\nMethod : " + method);
+            if (total >= 18)
             {
-                Form1.Instance.AppendOutputText("\r\n\r\nMethod : " + method +"\r\nTotal score : strong buy : " + total);
+                Form1.Instance.AppendOutputText("\r\nTotal score : strong buy : " + total);
+                Form1.Instance.verdict = "strong buy";
             }
-            if (total >= 5 && total < 15)
+            if (total >= 6 && total < 18)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : buy : " + total);
+                Form1.Instance.verdict = "buy";
             }
-            if (total <= 5 && total > -5)
+            if (total <= 5 && total > -6)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : neutral : " + total);
+                Form1.Instance.verdict = "neutral";
             }
-            if (total < -5 && total > -15)
+            if (total < -6 && total > -18)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : sell : " + total);
+                Form1.Instance.verdict = "sell";
             }
-            if (total <= -15)
+            if (total <= -18)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : strong sell :" + total + "\r\n");
+                Form1.Instance.verdict = "strong sell";
             }
 
             //retrun the total value
