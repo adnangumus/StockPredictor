@@ -246,17 +246,18 @@ namespace StockPredictor
 
         private void Test_Click(object sender, EventArgs e)
         {
+            this.BackColor = SystemColors.Control;
             // YahooStockMethods yahoo = new YahooStockMethods();
-
+           
             //  Hashtable funda = YahooStockMethods.getFundamentals("gild");
-              CalculatorMethods cal = new CalculatorMethods();
+            //CalculatorMethods cal = new CalculatorMethods();
             //cal.calculateBollingerBands();
-              int rsi = cal.CalculateRSI("aapl");
+            //  int rsi = cal.CalculateRSI("aapl");
             //  funda = yahoo.getFundamentals("aapl");
             //  cal.ProcessAllMetrics(funda, 20, rsi);
-           
-           // cal.ProcessAllMetrics(funda, 40, 2, "named", 2);
-           // cal.displayResults();
+
+            // cal.ProcessAllMetrics(funda, 40, 2, "named", 2);
+            // cal.displayResults();
             //the please wait form that indicates loading
             //  PleaseWait pleaseWait = new PleaseWait();
             // Display form modelessly
@@ -368,5 +369,7 @@ private void btLog_Click(object sender, EventArgs e)
                 btLog.Text = "Show Log";
                 isLong = false;
             }
+            get the color from the back ground
+     Console.WriteLine(ColorTranslator.ToHtml(Color.FromArgb(this.BackColor.ToArgb())));
 
     */

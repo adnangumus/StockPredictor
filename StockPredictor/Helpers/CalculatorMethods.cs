@@ -572,9 +572,9 @@ namespace StockPredictor.Helpers
             int sentiment = ProcessSentimentScores(sentimentScore);
             SentimentScore = sentiment;
             sentiment = sentiment * 5;
-            rsi = rsi * 3;
+            rsi = rsi * 4;
             int peg = Peg * 2;
-            bands = bands * 2;
+            bands = bands * 3;
 
 
             double total = (sentiment + rsi + bands + peg + Moving50 + Moving200 + Dividend + PriceBook ) ;

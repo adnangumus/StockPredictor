@@ -188,7 +188,7 @@
             // 
             this.cbDelay.AutoSize = true;
             this.cbDelay.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbDelay.Location = new System.Drawing.Point(8, 97);
+            this.cbDelay.Location = new System.Drawing.Point(6, 106);
             this.cbDelay.Name = "cbDelay";
             this.cbDelay.Size = new System.Drawing.Size(92, 19);
             this.cbDelay.TabIndex = 20;
@@ -552,7 +552,7 @@
             // 
             // pbLoad
             // 
-            this.pbLoad.Image = global::StockPredictor.Properties.Resources.ajax_loader1;
+            this.pbLoad.Image = global::StockPredictor.Properties.Resources.ajax_loader2;
             this.pbLoad.Location = new System.Drawing.Point(86, 184);
             this.pbLoad.Name = "pbLoad";
             this.pbLoad.Size = new System.Drawing.Size(52, 52);

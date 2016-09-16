@@ -63,9 +63,9 @@ namespace StockPredictor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ajax_loader1 {
+        internal static System.Drawing.Bitmap ajax_loader2 {
             get {
-                object obj = ResourceManager.GetObject("ajax_loader1", resourceCulture);
+                object obj = ResourceManager.GetObject("ajax_loader2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
