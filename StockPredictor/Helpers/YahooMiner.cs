@@ -33,9 +33,7 @@ namespace StockPredictor.Helpers
                         string yahooLink = processLink(hrefValue);
                         if(!String.IsNullOrEmpty(yahooLink))
                         { 
-                        links.Add(yahooLink);
-                        Console.WriteLine("");
-                        Console.WriteLine("");
+                        links.Add(yahooLink);                      
                         Console.WriteLine("Yahoo link : " + yahooLink);
                         }
                     }

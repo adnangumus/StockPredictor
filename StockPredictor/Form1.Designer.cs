@@ -68,10 +68,10 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.tbOutput = new StockPredictor.CustomTextBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.Run = new System.Windows.Forms.Button();
-            this.tbInput = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.btOutput = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbInput = new System.Windows.Forms.TextBox();
+            this.Run = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -204,7 +204,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(3, 17);
+            this.label5.Location = new System.Drawing.Point(3, 9);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(101, 45);
             this.label5.TabIndex = 22;
@@ -427,7 +427,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Old English Text MT", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(240, 340);
+            this.label16.Location = new System.Drawing.Point(247, 333);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(109, 34);
             this.label16.TabIndex = 66;
@@ -498,25 +498,16 @@
             this.panel3.Size = new System.Drawing.Size(241, 196);
             this.panel3.TabIndex = 69;
             // 
-            // Run
+            // btOutput
             // 
-            this.Run.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.Run.Font = new System.Drawing.Font("Old English Text MT", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Run.Location = new System.Drawing.Point(43, 86);
-            this.Run.Name = "Run";
-            this.Run.Size = new System.Drawing.Size(144, 61);
-            this.Run.TabIndex = 0;
-            this.Run.Text = "Start";
-            this.Run.UseVisualStyleBackColor = false;
-            this.Run.Click += new System.EventHandler(this.Run_Click);
-            // 
-            // tbInput
-            // 
-            this.tbInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbInput.Location = new System.Drawing.Point(43, 49);
-            this.tbInput.Name = "tbInput";
-            this.tbInput.Size = new System.Drawing.Size(144, 31);
-            this.tbInput.TabIndex = 4;
+            this.btOutput.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btOutput.Location = new System.Drawing.Point(43, 153);
+            this.btOutput.Name = "btOutput";
+            this.btOutput.Size = new System.Drawing.Size(144, 23);
+            this.btOutput.TabIndex = 47;
+            this.btOutput.Text = "Show Output Console";
+            this.btOutput.UseVisualStyleBackColor = true;
+            this.btOutput.Click += new System.EventHandler(this.btOutput_Click);
             // 
             // label1
             // 
@@ -529,23 +520,32 @@
             this.label1.Text = "Input Stock Symbol";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // btOutput
+            // tbInput
             // 
-            this.btOutput.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btOutput.Location = new System.Drawing.Point(43, 153);
-            this.btOutput.Name = "btOutput";
-            this.btOutput.Size = new System.Drawing.Size(144, 23);
-            this.btOutput.TabIndex = 47;
-            this.btOutput.Text = "Show Output Console";
-            this.btOutput.UseVisualStyleBackColor = true;
-            this.btOutput.Click += new System.EventHandler(this.btOutput_Click);
+            this.tbInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbInput.Location = new System.Drawing.Point(43, 49);
+            this.tbInput.Name = "tbInput";
+            this.tbInput.Size = new System.Drawing.Size(144, 31);
+            this.tbInput.TabIndex = 4;
+            // 
+            // Run
+            // 
+            this.Run.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.Run.Font = new System.Drawing.Font("Old English Text MT", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Run.Location = new System.Drawing.Point(43, 86);
+            this.Run.Name = "Run";
+            this.Run.Size = new System.Drawing.Size(144, 61);
+            this.Run.TabIndex = 0;
+            this.Run.Text = "Start";
+            this.Run.UseVisualStyleBackColor = false;
+            this.Run.Click += new System.EventHandler(this.Run_Click);
             // 
             // panel4
             // 
             this.panel4.Controls.Add(this.label5);
             this.panel4.Controls.Add(this.tbDelay);
             this.panel4.Controls.Add(this.cbDelay);
-            this.panel4.Location = new System.Drawing.Point(174, 203);
+            this.panel4.Location = new System.Drawing.Point(174, 177);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(175, 128);
             this.panel4.TabIndex = 70;
@@ -557,7 +557,7 @@
             this.panel5.Controls.Add(this.cbSave);
             this.panel5.Location = new System.Drawing.Point(174, 53);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(175, 128);
+            this.panel5.Size = new System.Drawing.Size(175, 121);
             this.panel5.TabIndex = 71;
             // 
             // panel6

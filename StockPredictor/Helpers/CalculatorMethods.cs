@@ -442,22 +442,22 @@ namespace StockPredictor.Helpers
                 Form1.Instance.AppendOutputText("\r\nPrice to book: strong buy");
                 PriceBook = 2;
             }
-            if (priceBookHere >1 && priceBookHere <=3)
+            if (priceBookHere >1 && priceBookHere <=4)
             {
                 Form1.Instance.AppendOutputText("\r\nPrice to book: buy");
                 PriceBook = 1;
             }
-            if (priceBookHere >3 && priceBookHere <=6)
+            if (priceBookHere >4 && priceBookHere <=7)
             {
                 Form1.Instance.AppendOutputText("\r\nPrice to book: neutral");
                 PriceBook = 0;
             }
-            if (priceBookHere >6 && priceBookHere <=8)
+            if (priceBookHere >7 && priceBookHere <=9)
             {
                 Form1.Instance.AppendOutputText("\r\nPrice to book: sell");
                 PriceBook = -1;
             }
-            if (priceBookHere >8)
+            if (priceBookHere >9)
             {
                 Form1.Instance.AppendOutputText("\r\nPrice to book: strong sell");
                 PriceBook = -2;
