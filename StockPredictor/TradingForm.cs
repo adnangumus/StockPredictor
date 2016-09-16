@@ -113,19 +113,19 @@ namespace StockPredictor
                 Task taskB = new Task(() => tr.autoTrade("BIIB", is20, sellPrice));
                 Task taskC = new Task(() => tr.autoTrade("CELG", is20, sellPrice));
                 Task taskD = new Task(() => tr.autoTrade("HZNP", is20, sellPrice));
-                Task taskE = new Task(() => tr.autoTrade("IBB", is20, sellPrice));
+               // Task taskE = new Task(() => tr.autoTrade("IBB", is20, sellPrice));
                 //stat the tasks
                 taskA.Start();
                 taskB.RunSynchronously();
                 taskC.RunSynchronously();
                 taskD.RunSynchronously();
-                taskE.RunSynchronously();
+              //  taskE.RunSynchronously();
                 //  taskC.RunSynchronously();
                 taskA.GetAwaiter();
                 taskB.Wait();
                 taskC.Wait();
                 taskD.Wait();
-                taskE.Wait();
+              //  taskE.Wait();
                 //tr.autoTrade("GILD", is20, sellPrice);
                 //tr.autoTrade("BIIB", is20, sellPrice);
                 //tr.autoTrade("CELG", is20, sellPrice);

@@ -582,27 +582,27 @@ namespace StockPredictor.Helpers
             if (total >= 18)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : strong buy : " + total);
-                Form1.Instance.verdict = "strong buy";
+                Form1.Instance.verdict = "Strong Buy";
             }
             if (total > 5 && total < 18)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : buy : " + total);
-                Form1.Instance.verdict = "buy";
+                Form1.Instance.verdict = "Buy";
             }
             if (total <= 5 && total >= -5)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : neutral : " + total);
-                Form1.Instance.verdict = "neutral";
+                Form1.Instance.verdict = "Neutral";
             }
             if (total < -5 && total > -18)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : sell : " + total);
-                Form1.Instance.verdict = "sell";
+                Form1.Instance.verdict = "Sell";
             }
             if (total <= -18)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : strong sell :" + total + "\r\n");
-                Form1.Instance.verdict = "strong sell";
+                Form1.Instance.verdict = "Strong Sell";
             }
 
             //retrun the total value
@@ -629,12 +629,12 @@ namespace StockPredictor.Helpers
         //convert the scores to read able strings
         private string ConvertScoreToString(int score)
         {
-            string str = "neutral";
+            string str = "Neutral";
             if (score ==2) { str = "Strong Buy";  }
-            if (score == 1) { str = "Buy"; }
-            if (score == 0) { str = "Neutral"; }
-            if (score == -1) { str = "Sell"; }
-            if (score == -2) { str = "Strong Sell"; }
+            else if (score == 1) { str = "Buy"; }
+            else if (score == 0) { str = "Neutral"; }
+            else if (score == -1) { str = "Sell"; }
+            else if (score == -2) { str = "Strong Sell"; }
             return str;
 
         }

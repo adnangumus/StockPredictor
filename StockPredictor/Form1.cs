@@ -306,6 +306,9 @@ namespace StockPredictor
             lb50MA.Text = results[6];
             lb200MA.Text = results[7];
 
+            if (verdict == "Strong Buy" || verdict == "Buy") { lbVerdict.ForeColor = Color.Green; }
+            else if (verdict == "Sell" || verdict == "Strong Sell") { lbVerdict.ForeColor = Color.Red; }
+            else { lbVerdict.ForeColor = Color.Black; }
             lbVerdict.Text = verdict;
         }
         //varibales to store the width of the form
