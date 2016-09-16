@@ -73,29 +73,9 @@ namespace StockPredictor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Invest {
-            get {
-                object obj = ResourceManager.GetObject("Invest", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap newspaper_and_computer {
             get {
                 object obj = ResourceManager.GetObject("newspaper_and_computer", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap scan_logo_2 {
-            get {
-                object obj = ResourceManager.GetObject("scan_logo_2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +93,9 @@ namespace StockPredictor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap trade {
+        internal static System.Drawing.Bitmap stocks_chart2 {
             get {
-                object obj = ResourceManager.GetObject("trade", resourceCulture);
+                object obj = ResourceManager.GetObject("stocks_chart2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

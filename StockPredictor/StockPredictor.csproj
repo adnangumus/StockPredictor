@@ -352,6 +352,7 @@
     <None Include="Resources\startble.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\stocks_chart2.png" />
     <Content Include="stock.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

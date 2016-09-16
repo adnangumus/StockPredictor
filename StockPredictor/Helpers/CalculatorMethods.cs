@@ -80,8 +80,8 @@ namespace StockPredictor.Helpers
         //get the rsi get the sum of positive and negaitve change and divide it by 14. Then use the RSI formula
         public int CalculateRSI(string ticker)
         {
-            //  List<HistoricalStock> data = YahooStockMethods.getHistoricalPriceData(ticker);
-            List<HistoricalStock> data = Form1.Instance.historicalPriceData;
+             List<HistoricalStock> data = YahooStockMethods.GetHistoricalPriceData(ticker);
+            //List<HistoricalStock> data = Form1.Instance.historicalPriceData;
 
             if (data == null)
             {
@@ -101,23 +101,26 @@ namespace StockPredictor.Helpers
             {
                 foreach (HistoricalStock stock in data)
                 {
+                    change = stock.Close - stock.Open;
                     if (i >=2 && i < 16)
                     {
-                        change = stock.Open - stock.Close;
+                       
                         if (change > 0) { positiveChange += change; }
                         else { negativeChange += change *-1; }
-                        Console.WriteLine(string.Format("Date={0} High={1} Low={2} Open={3} Close{4}", stock.Date, stock.High, stock.Low, stock.Open, stock.Close));
+                       
                         //save the price from two days ago for use later
                         if (i == 2) { Form1.Instance.TwoDayOldClosePrice = stock.Close; } 
                     }
-                    if (i < 2)
+                    if (i >= 1 && i<15)
                     {
-                        change = stock.Open - stock.Close;
+                        change = stock.Close - stock.Open;
                         if (change > 0) { positiveChangeLast += change; }
                         else { negativeChangeLast += change * -1; }
                         Form1.Instance.lastClosePrice = stock.Close;
-                        Console.WriteLine(string.Format("Date={0} High={1} Low={2} Open={3} Close{4}", stock.Date, stock.High, stock.Low, stock.Open, stock.Close));
+                       // Console.WriteLine(string.Format("Date={0} High={1} Low={2} Open={3} Close{4}", stock.Date, stock.High, stock.Low, stock.Open, stock.Close));
                     }
+
+                    Console.WriteLine(string.Format("Date={0} High={1} Low={2} Open={3} Close{4}", stock.Date, stock.High, stock.Low, stock.Open, stock.Close));
                     i++;
                 }
 
@@ -126,13 +129,15 @@ namespace StockPredictor.Helpers
                 double negativeChangeAverage = negativeChange / 14;
                 Double rs = positiveChangeAverage / negativeChangeAverage;
                 rsi = 100 - (100 / (1 + rs));
-                Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nDay old RSI = " + rsi);
+                Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nTwo day old RSI = " + rsi);
                 //calculate todays RSI and if it has crossed the halfway mark
-                double positiveChangeAverageLast = (positiveChangeAverage * 13 + positiveChangeLast)/14;
-                double negativeChangeAverageLast = (negativeChangeAverage * 13 + negativeChangeLast)/14;
+                // double positiveChangeAverageLast = (positiveChangeAverage * 13 + positiveChangeLast)/14;
+                // double negativeChangeAverageLast = (negativeChangeAverage * 13 + negativeChangeLast)/14;
+                double positiveChangeAverageLast = positiveChangeLast/ 14;
+                double negativeChangeAverageLast = negativeChangeLast/ 14;
                 Double rsLast = positiveChangeAverageLast / negativeChangeAverageLast;
                 rsiLast = 100 - (100 / (1 + rsLast));
-                Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nToday's RSI = " + rsiLast);
+                Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nLast close RSI = " + rsiLast);
                 Form1.Instance.realRSI = rsiLast;
 
                 if (rsi < 50 && rsiLast > 50)
@@ -147,12 +152,12 @@ namespace StockPredictor.Helpers
                 }
                 if(rsiLast >= 70)
                 {
-                    Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nRSI sell signal = " + rsi + " " + rsiLast);
+                    Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nRSI sell signal = " + rsiLast);
                     return -2;
                 }
                 if (rsiLast <= 30)
                 {
-                    Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nRSI buy signal = " + rsi + " " + rsiLast);
+                    Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nRSI buy signal = "+ rsiLast);
                     return 2;
                 }
 
@@ -579,17 +584,17 @@ namespace StockPredictor.Helpers
                 Form1.Instance.AppendOutputText("\r\nTotal score : strong buy : " + total);
                 Form1.Instance.verdict = "strong buy";
             }
-            if (total >= 6 && total < 18)
+            if (total > 5 && total < 18)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : buy : " + total);
                 Form1.Instance.verdict = "buy";
             }
-            if (total <= 5 && total > -6)
+            if (total <= 5 && total >= -5)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : neutral : " + total);
                 Form1.Instance.verdict = "neutral";
             }
-            if (total < -6 && total > -18)
+            if (total < -5 && total > -18)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : sell : " + total);
                 Form1.Instance.verdict = "sell";

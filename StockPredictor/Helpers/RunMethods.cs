@@ -66,19 +66,20 @@ namespace StockPredictor.Helpers
                 hts.Add(bagHT);
                 foreach (Hashtable ht in hts)
                 {
-                    processSaves(ht, ticker, exl, myPassExcelApp, funda, rsi, bands, dontSave);
+                    processResults(ht, ticker, exl, myPassExcelApp, funda, rsi, bands, dontSave);
                 }
-
+                //if the results are to be save run the random generator and close the excel app
+            if (!dontSave) { 
                 //randomly generate results
                 RandomGenerator rg = new RandomGenerator();
                 rg.generateRandomResults(ticker, myPassExcelApp);
                 exl.quitExcel(myPassExcelApp);
-           
+            }           
             //confirm that the input is correct
             confirmAllCompleted(ticker, dontSave);
         }
 
-        private void processSaves(Hashtable ht, string input, ExcelMethods exl, Application myPassExcelApp, Hashtable funda,int rsi, int bands, bool dontSave)
+        private void processResults(Hashtable ht, string input, ExcelMethods exl, Application myPassExcelApp, Hashtable funda,int rsi, int bands, bool dontSave)
         {
             //count positive and negative phrases and strong words
             int positivePhraseCount = 0;

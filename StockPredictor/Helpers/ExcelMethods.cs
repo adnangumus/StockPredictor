@@ -90,7 +90,7 @@ namespace StockPredictor.Helpers
 
         }
         //read the score from the sentiment anlysis
-        public int readLatestSentimentScore(Excel.Application myPassedExcelApplication, string fileName, string method)
+        public int readLatestFinalScore(Excel.Application myPassedExcelApplication, string fileName, string method)
         {
             //check if there is sentiment data availble for the stock
             if (!getSentimentPath(fileName, method, myPassedExcelApplication)) { TradingForm.Instance.AppendOutputText("Data on " + fileName + " doesn't exist. Run the sentenment analysis." + "\r\n"); }

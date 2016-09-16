@@ -121,17 +121,11 @@
   <data name="internet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\Packages\Pictures\internet.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Invest" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\bin\Debug\Packages\Pictures\Invest.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="newspaper_and_computer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\Packages\Pictures\newspaper-and-computer.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="world" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\bin\Debug\Packages\Pictures\world.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="trade" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\trade.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="tradeSmall" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tradeSmall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -139,10 +133,10 @@
   <data name="tradeSmallxx" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\tradeSmallxx.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="scan_logo_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\scan-logo-2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="startble" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\startble.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="stocks_chart2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\stocks_chart2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

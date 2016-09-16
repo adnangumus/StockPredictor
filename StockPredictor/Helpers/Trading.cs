@@ -181,28 +181,28 @@ namespace StockPredictor.Helpers
         {
             bool isShort = false;
             ExcelMethods ex = new ExcelMethods();
-            int score = ex.readLatestSentimentScore(myPassedExcelApplication, symbol, method);
+            int score = ex.readLatestFinalScore(myPassedExcelApplication, symbol, method);
             bool isStrong = false;
             //if neutral data is stored then stop the auto trade
             if (score <= 5 && score >= -5) { TradingForm.Instance.AppendOutputText("\r\n" + "Neutral : No trading!" + "\r\n" + method + "\r\n"); return; }  
             //negative scores sell and strong sell        
-            if (score < -5 && score >= -15 )
+            if (score < -5 && score > -18 )
             {
                 isShort = true; isStrong = false;
                 TradingForm.Instance.AppendOutputText("\r\n" + "Sell " + "\r\n" + method + "\r\n");
             }
-            if (score < -15)
+            if (score <= -18)
             {
                 isShort = true; isStrong = true;
                 TradingForm.Instance.AppendOutputText("\r\n" + "Strong sell :" + "\r\n" + method + "\r\n");
             }
             //positive scores buy and strong buy
-            if (score > 5 && score <=15)
+            if (score > 5 && score <18)
             {
                 isShort = false; isStrong = false;
                 TradingForm.Instance.AppendOutputText("\r\n" + "Buy : " + "\r\n" + method + "\r\n");
             };
-            if(score > 15)
+            if(score >= 18)
             {
                 isShort = false; isStrong = true;
                 TradingForm.Instance.AppendOutputText("\r\n" + "Strong buy :" + "\r\n" + method + "\r\n");

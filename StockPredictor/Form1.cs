@@ -226,7 +226,7 @@ namespace StockPredictor
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            isLong = false;
+            
             isWide = false;
             //  ALlow main UI thread to properly display please wait form.
             Application.DoEvents();
@@ -249,9 +249,9 @@ namespace StockPredictor
             // YahooStockMethods yahoo = new YahooStockMethods();
 
             //  Hashtable funda = YahooStockMethods.getFundamentals("gild");
-            //  CalculatorMethods cal = new CalculatorMethods();
+              CalculatorMethods cal = new CalculatorMethods();
             //cal.calculateBollingerBands();
-            //  int rsi = cal.RSI("aapl");
+              int rsi = cal.CalculateRSI("aapl");
             //  funda = yahoo.getFundamentals("aapl");
             //  cal.ProcessAllMetrics(funda, 20, rsi);
            
@@ -310,116 +310,29 @@ namespace StockPredictor
         }
         //varibales to store the width of the form
         private bool isWide { get; set; }
-        private bool isLong { get; set; }
+     
 
        
 
         private void btOutput_Click(object sender, EventArgs e)
         {
-            if (!isWide && !isLong)
+            if (!isWide )
             {
-                this.Size = new Size(1200, 492);
-                btOutput.Text = "Hide Output";
+                this.Size = new Size(1215, 753);
+                btOutput.Text = "Hide Output Console";
                 isWide = true;
             }
-            else if (isWide && !isLong)
+            else if (isWide )
             {
-                this.Size = new Size(620, 492);
-                btOutput.Text = "Show Output";
+                this.Size = new Size(662, 753);
+                btOutput.Text = "Show Output Console";
                 isWide = false;
             }
-            else if (!isWide && isLong)
-            {
-                this.Size = new Size(1200, 690);
-                btOutput.Text = "Show Output";
-                isWide = true;
-            }
-
-            else if (isWide && isLong)
-            {
-                this.Size = new Size(620, 690);
-                btOutput.Text = "Show Output";
-                isWide = false;
-            }
+          
         }
 
-        private void btLog_Click(object sender, EventArgs e)
-        {
-            if (!isWide && !isLong)
-            {
-                this.Size = new Size(620, 690);
-                btLog.Text = "Hide Log";
-                isLong = true;
-                this.tbOutput.Size = new System.Drawing.Size(551, 560);
-            }
-            else if (isWide && !isLong)
-            {
-                this.Size = new Size(1200, 690);
-                btLog.Text = "Show Log";
-                isLong = true;
-                this.tbOutput.Size = new System.Drawing.Size(551, 560);
-            }
-            else if (!isWide && isLong)
-            {
-                this.Size = new Size(620, 492);
-                btLog.Text = "Show Log";
-                isLong = false;
-                this.tbOutput.Size = new System.Drawing.Size(551, 362);
-            }
+      
 
-            else if (isWide && isLong)
-            {
-                this.Size = new Size(1200, 492);
-                btLog.Text = "Show Log";
-                isLong = false;
-                this.tbOutput.Size = new System.Drawing.Size(551, 362);
-            }
-        }
-
-        private void tbRSI_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tbPEG_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tbBollinger_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tbVerdict_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tbPB_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tbSentiment_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tb200MA_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tb50MA_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tbDividends_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
 
