@@ -63,10 +63,8 @@
             this.label15 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.btTrade = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.tbOutput = new StockPredictor.CustomTextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btOutput = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -75,6 +73,9 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.pbLoad = new System.Windows.Forms.PictureBox();
+            this.btTrade = new System.Windows.Forms.Button();
+            this.tbOutput = new StockPredictor.CustomTextBox();
             this.groupBox7.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -82,6 +83,7 @@
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLoad)).BeginInit();
             this.SuspendLayout();
             // 
             // Stem
@@ -433,18 +435,6 @@
             this.label16.TabIndex = 66;
             this.label16.Text = "Results";
             // 
-            // btTrade
-            // 
-            this.btTrade.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.btTrade.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btTrade.Image = global::StockPredictor.Properties.Resources.tradeSmallxx;
-            this.btTrade.Location = new System.Drawing.Point(506, 642);
-            this.btTrade.Name = "btTrade";
-            this.btTrade.Size = new System.Drawing.Size(87, 28);
-            this.btTrade.TabIndex = 15;
-            this.btTrade.UseVisualStyleBackColor = false;
-            this.btTrade.Click += new System.EventHandler(this.btTrade_Click);
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.label2);
@@ -475,27 +465,16 @@
             this.panel2.Size = new System.Drawing.Size(272, 220);
             this.panel2.TabIndex = 68;
             // 
-            // tbOutput
-            // 
-            this.tbOutput.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.tbOutput.Font = new System.Drawing.Font("Arial Rounded MT Bold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbOutput.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.tbOutput.Location = new System.Drawing.Point(670, 65);
-            this.tbOutput.Multiline = true;
-            this.tbOutput.Name = "tbOutput";
-            this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbOutput.Size = new System.Drawing.Size(517, 421);
-            this.tbOutput.TabIndex = 12;
-            // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.pbLoad);
             this.panel3.Controls.Add(this.btOutput);
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.tbInput);
             this.panel3.Controls.Add(this.Run);
-            this.panel3.Location = new System.Drawing.Point(375, 94);
+            this.panel3.Location = new System.Drawing.Point(375, 69);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(241, 196);
+            this.panel3.Size = new System.Drawing.Size(241, 236);
             this.panel3.TabIndex = 69;
             // 
             // btOutput
@@ -571,6 +550,39 @@
             this.panel6.Size = new System.Drawing.Size(151, 203);
             this.panel6.TabIndex = 72;
             // 
+            // pbLoad
+            // 
+            this.pbLoad.Image = global::StockPredictor.Properties.Resources.ajax_loader1;
+            this.pbLoad.Location = new System.Drawing.Point(86, 184);
+            this.pbLoad.Name = "pbLoad";
+            this.pbLoad.Size = new System.Drawing.Size(52, 52);
+            this.pbLoad.TabIndex = 73;
+            this.pbLoad.TabStop = false;
+            // 
+            // btTrade
+            // 
+            this.btTrade.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btTrade.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btTrade.Image = global::StockPredictor.Properties.Resources.tradeSmallxx;
+            this.btTrade.Location = new System.Drawing.Point(506, 642);
+            this.btTrade.Name = "btTrade";
+            this.btTrade.Size = new System.Drawing.Size(87, 28);
+            this.btTrade.TabIndex = 15;
+            this.btTrade.UseVisualStyleBackColor = false;
+            this.btTrade.Click += new System.EventHandler(this.btTrade_Click);
+            // 
+            // tbOutput
+            // 
+            this.tbOutput.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.tbOutput.Font = new System.Drawing.Font("Arial Rounded MT Bold", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbOutput.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.tbOutput.Location = new System.Drawing.Point(670, 65);
+            this.tbOutput.Multiline = true;
+            this.tbOutput.Name = "tbOutput";
+            this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbOutput.Size = new System.Drawing.Size(517, 421);
+            this.tbOutput.TabIndex = 12;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -611,6 +623,7 @@
             this.panel5.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLoad)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -664,6 +677,7 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.PictureBox pbLoad;
     }
 }
 

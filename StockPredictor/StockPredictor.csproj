@@ -353,6 +353,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\stocks_chart2.png" />
+    <None Include="Resources\ajax-loader %281%29.gif" />
+    <None Include="Resources\ajax-loader.gif" />
+    <None Include="Resources\ajax-loader1.gif" />
     <Content Include="stock.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

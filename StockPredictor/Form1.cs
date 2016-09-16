@@ -107,7 +107,7 @@ namespace StockPredictor
 
         private void Run_Click(object sender, EventArgs e)
         {
-           
+            pbLoad.Visible = true;
             //  tbOutput.Text = string.Empty;
             // Set up background worker object & hook up handlers
             BackgroundWorker bgWorker;
@@ -226,7 +226,7 @@ namespace StockPredictor
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            pbLoad.Visible = false;
             isWide = false;
             //  ALlow main UI thread to properly display please wait form.
             Application.DoEvents();
@@ -310,6 +310,7 @@ namespace StockPredictor
             else if (verdict == "Sell" || verdict == "Strong Sell") { lbVerdict.ForeColor = Color.Red; }
             else { lbVerdict.ForeColor = Color.Black; }
             lbVerdict.Text = verdict;
+            pbLoad.Visible = false;
         }
         //varibales to store the width of the form
         private bool isWide { get; set; }
