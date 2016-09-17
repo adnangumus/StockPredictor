@@ -102,7 +102,7 @@ namespace StockPredictor
             //check that there is input before assigning local variable
             if (!String.IsNullOrEmpty(tbTrade.Text) && is20)
             {
-                sellPrice = Decimal.Parse(tbTrade.Text);
+                sellPrice = Decimal.Parse(tbClose.Text);
             }
 
             if (String.IsNullOrEmpty(symbol))
@@ -175,7 +175,7 @@ namespace StockPredictor
             }
             else
             {
-                decimal sellPrice = Decimal.Parse(tbTrade.Text);
+                decimal sellPrice = Decimal.Parse(tbClose.Text);
                 //run the simulated trade
                 tr.simulateTradeMaster(symbol, isShort, is20, sellPrice, isBag, isNoun, isNamed, isRandom,isStrong);
             }
