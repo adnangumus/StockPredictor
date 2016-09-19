@@ -10,7 +10,7 @@ namespace StockPredictor.Helpers
 {
     class RunMethods
     {
-        private int retries
+        private int Retries
         {
             get;
             set;
@@ -54,7 +54,7 @@ namespace StockPredictor.Helpers
             //  taskC.RunSynchronously();
             Task.WaitAll(taskA, taskB);
             //get the historical price data and set it in the form1
-            Form1.Instance.historicalPriceData = YahooStockMethods.GetHistoricalPriceData(ticker);
+            Form1.Instance.HistoricalPriceData = YahooStockMethods.GetHistoricalPriceData(ticker);
            
             //get the stock RSI over the last two weeks      
             CalculatorMethods cal = new CalculatorMethods();
@@ -133,13 +133,13 @@ namespace StockPredictor.Helpers
 
         private void confirmAllCompleted(string input, bool dontSave)
         {
-            if (retries == 0) { retries = 0; };
+            if (Retries == 0) { Retries = 0; };
             string output = Form1.Instance.getTBOutputText();
             //check that the run method executed correctly
             if (!output.Contains(input + "\r\n" + "Bag of words Method") || !output.Contains(input + "\r\n" + "Noun phrase method") || !output.Contains(input + "\r\n" + "Named entities method"))
             {
-                retries++;
-                if (retries < 3)
+                Retries++;
+                if (Retries < 3)
                 {
                     Form1.Instance.AppendOutputText("\r\n" + "failed confirmation" + "\r\n" + input + "\r\n");
                     //run it again

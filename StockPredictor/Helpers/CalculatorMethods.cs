@@ -116,7 +116,7 @@ namespace StockPredictor.Helpers
                         change = stock.Close - stock.Open;
                         if (change > 0) { positiveChangeLast += change; }
                         else { negativeChangeLast += change * -1; }
-                        Form1.Instance.lastClosePrice = stock.Close;
+                        Form1.Instance.LastClosePrice = stock.Close;
                        // Console.WriteLine(string.Format("Date={0} High={1} Low={2} Open={3} Close{4}", stock.Date, stock.High, stock.Low, stock.Open, stock.Close));
                     }
 
@@ -138,7 +138,7 @@ namespace StockPredictor.Helpers
                 Double rsLast = positiveChangeAverageLast / negativeChangeAverageLast;
                 rsiLast = 100 - (100 / (1 + rsLast));
                 Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nLast close RSI = " + rsiLast);
-                Form1.Instance.realRSI = rsiLast;
+                Form1.Instance.RealRSI = rsiLast;
 
                 if (rsi < 50 && rsiLast > 50)
                 {
@@ -171,7 +171,7 @@ namespace StockPredictor.Helpers
         public int calculateBollingerBands()
         {
             //  List<HistoricalStock> data = YahooStockMethods.getHistoricalPriceData(ticker);
-            List<HistoricalStock> data = Form1.Instance.historicalPriceData;
+            List<HistoricalStock> data = Form1.Instance.HistoricalPriceData;
             double mean = 0;
             double[] closes = new double[20];
             double deviation = 0;
@@ -242,10 +242,10 @@ namespace StockPredictor.Helpers
                   
                 }
                 else { verdict = 0; }
-                Form1.Instance.bollingerVerdict = verdict;
+                Form1.Instance.BollingerVerdict = verdict;
                 return verdict;
             }
-            catch (Exception) { Form1.Instance.bollingerVerdict = 0; return 0; }
+            catch (Exception) { Form1.Instance.BollingerVerdict = 0; return 0; }
             }
 
 
@@ -285,7 +285,7 @@ namespace StockPredictor.Helpers
                 average50 = Convert.ToDouble(htFunda["50Average"]);
                 average200 = Convert.ToDouble(htFunda["200Average"]);
                 twoDayOldPrice = Form1.Instance.TwoDayOldClosePrice;
-                lastClose = Form1.Instance.lastClosePrice;
+                lastClose = Form1.Instance.LastClosePrice;
             }
             catch (Exception) { }
             Form1.Instance.AppendOutputText("\r\n ");
@@ -582,27 +582,27 @@ namespace StockPredictor.Helpers
             if (total >= 18)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : strong buy : " + total);
-                Form1.Instance.verdict = "Strong Buy";
+                Form1.Instance.Verdict = "Strong Buy";
             }
             if (total > 5 && total < 18)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : buy : " + total);
-                Form1.Instance.verdict = "Buy";
+                Form1.Instance.Verdict = "Buy";
             }
             if (total <= 5 && total >= -5)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : neutral : " + total);
-                Form1.Instance.verdict = "Neutral";
+                Form1.Instance.Verdict = "Neutral";
             }
             if (total < -5 && total > -18)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : sell : " + total);
-                Form1.Instance.verdict = "Sell";
+                Form1.Instance.Verdict = "Sell";
             }
             if (total <= -18)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : strong sell :" + total + "\r\n");
-                Form1.Instance.verdict = "Strong Sell";
+                Form1.Instance.Verdict = "Strong Sell";
             }
 
             //retrun the total value

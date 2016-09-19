@@ -371,16 +371,16 @@ m8	Percent Change From 50-day Moving Average
                     hs.Add("Dividend", cols[9].ToString());
                     hs.Add("Trend", cols[10].ToString());
                     //store the variables in the form1 instance for saving later
-                    Form1.Instance.priceBook = cols[7].ToString();
-                    Form1.Instance.peg = cols[8].ToString();
-                    Form1.Instance.dividend = cols[9].ToString();
-                    Form1.Instance.moving50 = cols[6].ToString();
-                    Form1.Instance.moving200 = cols[3].ToString();                     
+                    Form1.Instance.PriceBook = cols[7].ToString();
+                    Form1.Instance.Peg = cols[8].ToString();
+                    Form1.Instance.Dividend = cols[9].ToString();
+                    Form1.Instance.Moving50 = cols[6].ToString();
+                    Form1.Instance.Moving200 = cols[3].ToString();                     
 
     }
                 catch (Exception)
                 { return null; }
-                Form1.Instance.fundamentals = hs;
+                Form1.Instance.Fundamentals = hs;
                 return hs;
             }
 

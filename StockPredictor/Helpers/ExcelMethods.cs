@@ -336,7 +336,7 @@ namespace StockPredictor.Helpers
             //add the data to the cells
             myExcelWorkSheet.Cells[rowNumber, "A"] = date;
             myExcelWorkSheet.Cells[rowNumber, "B"] = scoreFinal;
-            myExcelWorkSheet.Cells[rowNumber, "C"] = Form1.Instance.verdict;
+            myExcelWorkSheet.Cells[rowNumber, "C"] = Form1.Instance.Verdict;
             myExcelWorkSheet.Cells[rowNumber, "D"] = totalSentiment;
             myExcelWorkSheet.Cells[rowNumber, "E"] = wordCount;
             myExcelWorkSheet.Cells[rowNumber, "F"] = sentenceCount;
@@ -351,13 +351,13 @@ namespace StockPredictor.Helpers
             myExcelWorkSheet.Cells[rowNumber, "O"] = negativePhraseCount;
             myExcelWorkSheet.Cells[rowNumber, "P"] = method;
             //add the fundamental and technical data here
-            myExcelWorkSheet.Cells[rowNumber, "Q"] = Form1.Instance.rsi;
-            myExcelWorkSheet.Cells[rowNumber, "R"] = Form1.Instance.peg;
-            myExcelWorkSheet.Cells[rowNumber, "S"] = Form1.Instance.moving200;
-            myExcelWorkSheet.Cells[rowNumber, "T"] = Form1.Instance.moving50;
-            myExcelWorkSheet.Cells[rowNumber, "U"] = Form1.Instance.priceBook;
-            myExcelWorkSheet.Cells[rowNumber, "V"] = Form1.Instance.dividend;
-            myExcelWorkSheet.Cells[rowNumber, "W"] = Form1.Instance.bollingerVerdict;
+            myExcelWorkSheet.Cells[rowNumber, "Q"] = Form1.Instance.Rsi;
+            myExcelWorkSheet.Cells[rowNumber, "R"] = Form1.Instance.Peg;
+            myExcelWorkSheet.Cells[rowNumber, "S"] = Form1.Instance.Moving200;
+            myExcelWorkSheet.Cells[rowNumber, "T"] = Form1.Instance.Moving50;
+            myExcelWorkSheet.Cells[rowNumber, "U"] = Form1.Instance.PriceBook;
+            myExcelWorkSheet.Cells[rowNumber, "V"] = Form1.Instance.Dividend;
+            myExcelWorkSheet.Cells[rowNumber, "W"] = Form1.Instance.BollingerVerdict;
 
             try
             {

@@ -66,6 +66,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.pbLoad = new System.Windows.Forms.PictureBox();
             this.btOutput = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.tbInput = new System.Windows.Forms.TextBox();
@@ -73,17 +74,17 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.pbLoad = new System.Windows.Forms.PictureBox();
             this.btTrade = new System.Windows.Forms.Button();
+            this.lbTicker = new System.Windows.Forms.Label();
             this.tbOutput = new StockPredictor.CustomTextBox();
             this.groupBox7.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLoad)).BeginInit();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLoad)).BeginInit();
             this.SuspendLayout();
             // 
             // Stem
@@ -306,7 +307,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Old English Text MT", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(852, 9);
+            this.label13.Location = new System.Drawing.Point(823, 9);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(199, 34);
             this.label13.TabIndex = 49;
@@ -429,7 +430,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Old English Text MT", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(247, 333);
+            this.label16.Location = new System.Drawing.Point(199, 338);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(109, 34);
             this.label16.TabIndex = 66;
@@ -476,6 +477,15 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(241, 236);
             this.panel3.TabIndex = 69;
+            // 
+            // pbLoad
+            // 
+            this.pbLoad.Image = global::StockPredictor.Properties.Resources.ajax_loader2;
+            this.pbLoad.Location = new System.Drawing.Point(86, 184);
+            this.pbLoad.Name = "pbLoad";
+            this.pbLoad.Size = new System.Drawing.Size(52, 52);
+            this.pbLoad.TabIndex = 73;
+            this.pbLoad.TabStop = false;
             // 
             // btOutput
             // 
@@ -550,15 +560,6 @@
             this.panel6.Size = new System.Drawing.Size(151, 203);
             this.panel6.TabIndex = 72;
             // 
-            // pbLoad
-            // 
-            this.pbLoad.Image = global::StockPredictor.Properties.Resources.ajax_loader2;
-            this.pbLoad.Location = new System.Drawing.Point(86, 184);
-            this.pbLoad.Name = "pbLoad";
-            this.pbLoad.Size = new System.Drawing.Size(52, 52);
-            this.pbLoad.TabIndex = 73;
-            this.pbLoad.TabStop = false;
-            // 
             // btTrade
             // 
             this.btTrade.BackColor = System.Drawing.SystemColors.ControlLight;
@@ -570,6 +571,15 @@
             this.btTrade.TabIndex = 15;
             this.btTrade.UseVisualStyleBackColor = false;
             this.btTrade.Click += new System.EventHandler(this.btTrade_Click);
+            // 
+            // lbTicker
+            // 
+            this.lbTicker.AutoSize = true;
+            this.lbTicker.Font = new System.Drawing.Font("Old English Text MT", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTicker.Location = new System.Drawing.Point(321, 338);
+            this.lbTicker.Name = "lbTicker";
+            this.lbTicker.Size = new System.Drawing.Size(0, 34);
+            this.lbTicker.TabIndex = 73;
             // 
             // tbOutput
             // 
@@ -590,6 +600,7 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(646, 714);
+            this.Controls.Add(this.lbTicker);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel4);
@@ -617,13 +628,13 @@
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLoad)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLoad)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -678,6 +689,7 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.PictureBox pbLoad;
+        private System.Windows.Forms.Label lbTicker;
     }
 }
 

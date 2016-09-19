@@ -46,7 +46,7 @@ namespace StockPredictor.Helpers
             HtmlWeb hw = new HtmlWeb();
             String Data = GetURLData(url);
             //if there was an error then the system will retry up to three times
-            while (Data == "" && retries < 3)
+            while (Data == "" && retries < 2)
             {
                 Console.WriteLine("retrying");
                 retries++;

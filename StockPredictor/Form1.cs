@@ -16,24 +16,25 @@ namespace StockPredictor
         static System.Windows.Forms.Timer myTimer = new System.Windows.Forms.Timer();
       
         //ranging from -2 to 2 Strong sell sell neutral buy strong buy
-        public int rsi { get; set; }
+        public int Rsi { get; set; }
         //the real rsi
-        public double realRSI { get; set; }
+        public double RealRSI { get; set; }
         //the scores from the moving average ranging from -2 to 2 Strong sell sell neutral buy strong buy
-        public string moving200 {get;set;}
-        public string moving50 { get; set;}
-        public string priceBook { get; set; }
-        public string peg { get; set; }
-        public string dividend { get; set; }
-        public Hashtable fundamentals {get; set;}
-        public string verdict { get; set; }
-        public List<HistoricalStock> historicalPriceData { get; set; }
+        public string Moving200 {get;set;}
+        public string Moving50 { get; set;}
+        public string PriceBook { get; set; }
+        public string Peg { get; set; }
+        public string Dividend { get; set; }
+        public Hashtable Fundamentals {get; set;}
+        public string Verdict { get; set; }
+        public List<HistoricalStock> HistoricalPriceData { get; set; }
         public double TwoDayOldClosePrice { get; set; }
-        public double lastClosePrice { get; set; }
-        public string upperBand { get; set; }
-        public string lowerBand { get; set; }
-        public string mean { get; set; }
-        public int bollingerVerdict { get; set; }
+        public double LastClosePrice { get; set; }
+        public string UpperBand { get; set; }
+        public string LowerBand { get; set; }
+        public string Mean { get; set; }
+        public int BollingerVerdict { get; set; }
+        public string Ticker { get; set; }
 
 
         public Form1()
@@ -80,6 +81,7 @@ namespace StockPredictor
         {
             return cbRetry.Checked;
         } 
+    
         public bool dontSave()
         {
             return cbSave.Checked;
@@ -166,14 +168,18 @@ namespace StockPredictor
             if (String.IsNullOrEmpty(tbInput.Text) || tbInput.Text.ToLower() == "bio")
             {               
                 rm.runStockPredictor("gild", dontSave);
+                Ticker = "gild";
                 rm.runStockPredictor("hznp", dontSave);
+                Ticker = "HZNP";
                 rm.runStockPredictor("biib", dontSave);
+                Ticker = "BIIB";
                 rm.runStockPredictor("celg", dontSave);
+                Ticker = "CELG";
                // rm.runStockPredictor("ibb", dontSave);
-               
+
                 return;
             }
-
+            Ticker = input.ToUpper();
             rm.runStockPredictor(input, dontSave);
             //   taskC.Wait();
             //time the overall performance
@@ -297,7 +303,7 @@ namespace StockPredictor
                 return;
             }
             string[] results = resultsAsString.Split(',');
-
+            lbTicker.Text = Ticker;
             lbSentiment.Text = results[0];
             lbRSI.Text = results[1]; 
             lbPEG.Text = results[2];
@@ -307,10 +313,10 @@ namespace StockPredictor
             lb50MA.Text = results[6];
             lb200MA.Text = results[7];
 
-            if (verdict == "Strong Buy" || verdict == "Buy") { lbVerdict.ForeColor = Color.Green; }
-            else if (verdict == "Sell" || verdict == "Strong Sell") { lbVerdict.ForeColor = Color.Red; }
+            if (Verdict == "Strong Buy" || Verdict == "Buy") { lbVerdict.ForeColor = Color.Green; }
+            else if (Verdict == "Sell" || Verdict == "Strong Sell") { lbVerdict.ForeColor = Color.Red; }
             else { lbVerdict.ForeColor = Color.Black; }
-            lbVerdict.Text = verdict;
+            lbVerdict.Text = Verdict;
             pbLoad.Visible = false;
         }
         //varibales to store the width of the form
