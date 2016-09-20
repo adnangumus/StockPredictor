@@ -124,7 +124,7 @@ namespace StockPredictor.Helpers
             int score = ex.readLatestFinalScore(myPassedExcelApplication, symbol, method);
             bool isStrong = false;
             //if neutral data is stored then stop the auto trade
-            if (score <= 5 && score >= -5) { TradingForm.Instance.AppendOutputText("\r\n" + "Neutral : No trading!" + "\r\n" + method + "\r\n"); return; }  
+            if (score <= 5 && score >= -5 && !TradingForm.Instance.sellLong()) { TradingForm.Instance.AppendOutputText("\r\n" + "Neutral : No trading!" + "\r\n" + method + "\r\n"); return; }  
             //negative scores sell and strong sell        
             if (score < -5 && score > -18 )
             {
@@ -148,7 +148,7 @@ namespace StockPredictor.Helpers
                 TradingForm.Instance.AppendOutputText("\r\n" + "Strong buy :" + "\r\n" + method + "\r\n");
             }
             //this checks if it is only a long trade
-            if (!TradingForm.Instance.isLongTrade()) { 
+            if (!TradingForm.Instance.isLongTrade() && !TradingForm.Instance.sellLong()) { 
             simulateTrade(symbol, isShort, is20, sellPrice, method, prices, myPassedExcelApplication, isStrong);
             }
             simulateTradeLongStrategy(symbol, isShort, sellPrice, method, prices, myPassedExcelApplication);
