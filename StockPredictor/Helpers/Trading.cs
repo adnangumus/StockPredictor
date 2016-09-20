@@ -60,67 +60,7 @@ namespace StockPredictor.Helpers
             exl.quitExcel(myPassedExcelApplication);
         }
 
-        //simulate day trading
-        private void simulateTrade(string symbol, bool isShort, bool is20, decimal sellPrice, string method, string[] prices, Application myPassedExcelApplication, bool isStrong)
-        {
-            ExcelMethods ex = new ExcelMethods();
-            //set the fileName to be passed for retreiving data
-            string fileName = symbol.ToUpper() + method + "Trade";
-            //get the starting priciple
-            decimal principle = ex.readPrinciple(myPassedExcelApplication, fileName, symbol, is20);
-            string startPrinciple = principle.ToString();
-            decimal startPrice = 0;
-            decimal closePrice = 0;
-            decimal change = 0;
-            //only use half of the principle on risky trades
-            decimal principleHalf = principle / 2;
-
-            //check that data loaded correctly
-            if (string.IsNullOrEmpty(prices[0]) || string.IsNullOrEmpty(prices[1]))
-            {
-                TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load Yahoo financial data" + "\r\n");
-                return;
-            }
-            try { 
-             startPrice = Decimal.Parse(prices[0]);
-             closePrice = Decimal.Parse(prices[1]);
-             change = calculateChangePercent(startPrice, closePrice);
-            }
-            catch (Exception ex2) {
-                Console.WriteLine(ex2.Message);
-                TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load Yahoo financial data" + "\r\n"); return; }
-            bool profitable = false;
-            //check if it is a 20 minute trade
-            if (is20)
-            {
-                //ex.saveTradingData(symbol, is20, principle.ToString(), prices[1], prices[2], isShort, prices[0]);
-                prices[1] = sellPrice.ToString();
-                change = calculateChangePercent(startPrice, sellPrice); ;
-            }
-            if (isShort)
-            {
-                if (!isStrong) { principle = principleHalf; }
-                principle -= principle * (change / 100);
-                if (!isStrong) { principle += principleHalf; }
-            }
-            else
-            {
-                if (!isStrong) { principle = principleHalf; }
-                principle += principle * (change / 100);
-                if (!isStrong) { principle += principleHalf; }
-            }
-            //roud the principle
-            principle = Math.Round(principle, 2);
-            if (principle > Decimal.Parse(startPrinciple)) { profitable = true; }
-            //save the trading data to an excel sheet
-            ex.saveTradingData(myPassedExcelApplication, symbol, fileName, is20, principle.ToString(), startPrinciple, prices[0], prices[1], isShort, change.ToString(), profitable, isStrong);
-            //write information to the text box
-            TradingForm.Instance.AppendOutputText("\r\n" + symbol + "  " + method + "\r\n" + "Start Price : " + prices[0] + "\r\n" +
-                "End Price :" + prices[1] + "\r\n" + "Start Principle : " + startPrinciple + "\r\n" +
-                "Principle Now : " + principle + "\r\n" + "Percentage change : " + change + "\r\n" +
-                "Short Traded : " + isShort + "\r\nStrong trade :" + isStrong
-                );
-        }
+      
 
         //calculate the change percentage in a day
         private decimal calculateChangePercent(decimal open, decimal sell)
@@ -207,10 +147,149 @@ namespace StockPredictor.Helpers
                 isShort = false; isStrong = true;
                 TradingForm.Instance.AppendOutputText("\r\n" + "Strong buy :" + "\r\n" + method + "\r\n");
             }
-
+            //this checks if it is only a long trade
+            if (!TradingForm.Instance.isLongTrade()) { 
             simulateTrade(symbol, isShort, is20, sellPrice, method, prices, myPassedExcelApplication, isStrong);
-           
+            }
+            simulateTradeLongStrategy(symbol, isShort, sellPrice, method, prices, myPassedExcelApplication);
+
         }
+
+        //simulate day trading
+        private void simulateTrade(string symbol, bool isShort, bool is20, decimal sellPrice, string method, string[] prices, Application myPassedExcelApplication, bool isStrong)
+        {
+            ExcelMethods ex = new ExcelMethods();
+            //set the fileName to be passed for retreiving data
+            string fileName = symbol.ToUpper() + method + "Trade";
+            //get the starting priciple
+            decimal principle = ex.readPrinciple(myPassedExcelApplication, fileName, symbol, is20);
+            string startPrinciple = principle.ToString();
+            decimal startPrice = 0;
+            decimal closePrice = 0;
+            decimal change = 0;
+            //only use half of the principle on risky trades
+            decimal principleHalf = principle / 2;
+
+            //check that data loaded correctly
+            if (string.IsNullOrEmpty(prices[0]) || string.IsNullOrEmpty(prices[1]))
+            {
+                TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load Yahoo financial data" + "\r\n");
+                return;
+            }
+            try
+            {
+                startPrice = Decimal.Parse(prices[0]);
+                closePrice = Decimal.Parse(prices[1]);
+                change = calculateChangePercent(startPrice, closePrice);
+            }
+            catch (Exception ex2)
+            {
+                Console.WriteLine(ex2.Message);
+                TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load Yahoo financial data" + "\r\n"); return;
+            }
+            bool profitable = false;
+            //check if it is a 20 minute trade
+            if (is20)
+            {
+                //ex.saveTradingData(symbol, is20, principle.ToString(), prices[1], prices[2], isShort, prices[0]);
+                prices[1] = sellPrice.ToString();
+                change = calculateChangePercent(startPrice, sellPrice); ;
+            }
+            if (isShort)
+            {
+                if (!isStrong) { principle = principleHalf; }
+                principle -= principle * (change / 100);
+                if (!isStrong) { principle += principleHalf; }
+            }
+            else
+            {
+                if (!isStrong) { principle = principleHalf; }
+                principle += principle * (change / 100);
+                if (!isStrong) { principle += principleHalf; }
+            }
+            //roud the principle
+            principle = Math.Round(principle, 2);
+            if (principle > Decimal.Parse(startPrinciple)) { profitable = true; }
+            //save the trading data to an excel sheet
+            ex.saveTradingData(myPassedExcelApplication, symbol, fileName, is20, principle.ToString(), startPrinciple, prices[0], prices[1], isShort, change.ToString(), profitable, isStrong);
+            //write information to the text box
+            TradingForm.Instance.AppendOutputText("\r\n" + symbol + "  " + method + "\r\n" + "Start Price : " + prices[0] + "\r\n" +
+                "End Price :" + prices[1] + "\r\n" + "Start Principle : " + startPrinciple + "\r\n" +
+                "Principle Now : " + principle + "\r\n" + "Percentage change : " + change + "\r\n" +
+                "Short Traded : " + isShort + "\r\nStrong trade :" + isStrong
+                );
+        }
+
+        //trade a hold and long strategy - in this method isSell means that the position should be sold. There is no short trading in this strategy
+        private void simulateTradeLongStrategy(string symbol, bool isSell, decimal sellPrice, string method, string[] prices, Application myPassedExcelApplication)
+        {
+            if (TradingForm.Instance.sellLong()) { isSell = true; };
+            ExcelMethods ex = new ExcelMethods();
+            //set the fileName to be passed for retreiving data
+            string fileName = symbol.ToUpper() + method + "Trade";
+            //get the starting priciple
+            decimal principle = ex.readPrinciple(myPassedExcelApplication, fileName, symbol, false);
+            bool positionHeld = ex.CheckIsHolding(myPassedExcelApplication, fileName, symbol);
+          
+            decimal startPrice = 0;
+            decimal closePrice = 0;
+            double change = 0;
+            //only use half of the principle on risky trades
+            decimal principleHalf = principle / 2;
+            double newPrinciple = 0;
+            double principleDouble = Convert.ToDouble(principle);
+            //check that data loaded correctly
+            if (string.IsNullOrEmpty(prices[0]) || string.IsNullOrEmpty(prices[1]))
+            {
+                TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load Yahoo financial data" + "\r\n");
+                return;
+            }
+            try
+            {
+                startPrice = Decimal.Parse(prices[0]);
+                closePrice = Decimal.Parse(prices[1]);
+               // change = calculateChangePercent(startPrice, closePrice);
+            }
+            catch (Exception ex2)
+            {
+                Console.WriteLine(ex2.Message);
+                TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load Yahoo financial data" + "\r\n"); return;
+            }
+            bool profitable = false;
+          
+            if (isSell && positionHeld)
+            {
+              change =  ex.GetLongHoldPriceChangePrecentage(myPassedExcelApplication, fileName, symbol, Convert.ToDouble(sellPrice));
+                newPrinciple = (100 / principleDouble) * change;
+                newPrinciple += principleDouble;
+            }
+
+            //roud the principle
+            newPrinciple = Math.Round(newPrinciple, 2);
+            if (newPrinciple > principleDouble) { profitable = true; }
+            //ensure that a position isn't held already
+            if (!positionHeld) { 
+            //save the trading data to an excel sheet
+            ex.saveLongHoldTrade(myPassedExcelApplication, symbol, fileName, newPrinciple.ToString(), prices[0], prices[1], isSell, change.ToString(), profitable);
+            }
+            if (isSell && positionHeld) { 
+            //write information to the text box
+            TradingForm.Instance.AppendOutputText("\r\n" + symbol + "  " + method + "\r\n" + "Start Price : " + prices[0] + "\r\n" +
+                "End Price :" + prices[1] + "\r\n" + "Remaining Prinicple : " + newPrinciple + "\r\n" +
+                "Previous Principle : " + principle + "\r\n" + "Percentage change : " + change + "\r\n" 
+               
+                );
+            }
+            else
+            {
+                //write information to the text box
+                TradingForm.Instance.AppendOutputText("\r\n" + symbol + "  " + method + "\r\n" + "Start Price : " + prices[0] + "\r\n" +
+                    "Position Opened :" + prices[0] + "\r\n"
+
+                    );
+            }
+        }
+
     }
 
 }

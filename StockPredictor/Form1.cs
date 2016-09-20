@@ -35,6 +35,8 @@ namespace StockPredictor
         public string Mean { get; set; }
         public int BollingerVerdict { get; set; }
         public string Ticker { get; set; }
+        public double PriceChange { get; set; }
+        public bool IsHolding { get; set; }
 
 
         public Form1()
@@ -166,15 +168,15 @@ namespace StockPredictor
             RunMethods rm = new RunMethods();
             
             if (String.IsNullOrEmpty(tbInput.Text) || tbInput.Text.ToLower() == "bio")
-            {               
-                rm.runStockPredictor("gild", dontSave);
+            {
                 Ticker = "gild";
-                rm.runStockPredictor("hznp", dontSave);
+                rm.runStockPredictor("gild", dontSave);
                 Ticker = "HZNP";
-                rm.runStockPredictor("biib", dontSave);
+                rm.runStockPredictor("hznp", dontSave);
                 Ticker = "BIIB";
-                rm.runStockPredictor("celg", dontSave);
+                rm.runStockPredictor("biib", dontSave);
                 Ticker = "CELG";
+                rm.runStockPredictor("celg", dontSave);
                // rm.runStockPredictor("ibb", dontSave);
 
                 return;
@@ -254,7 +256,7 @@ namespace StockPredictor
         {
             //this.BackColor = SystemColors.Control;
             // YahooStockMethods yahoo = new YahooStockMethods();
-           
+
             //  Hashtable funda = YahooStockMethods.getFundamentals("gild");
             //CalculatorMethods cal = new CalculatorMethods();
             //cal.calculateBollingerBands();
@@ -282,14 +284,17 @@ namespace StockPredictor
             //    BagOfWordsTest bwt = new BagOfWordsTest();
             //    bwt.processBagOfWordsTest();
             // pleaseWait.Close();
-            SpellCheckTest sct = new SpellCheckTest();
-             sct.testSpellCheckSpeed();
+            //  SpellCheckTest sct = new SpellCheckTest();
+            //   sct.testSpellCheckSpeed();
 
             // BingMethods bing = new BingMethods();
             //  bing.getBinglinks("http://cn.bing.com/news/search?q=gild+Gilead&qft=interval%3d%227%22&form=PTFTNR&intlF=1&FORM=TIPEN1");
 
             // YahooMinerTest yt = new YahooMinerTest();
             // yt.testLinkProcessor();
+
+            ExcelMethodsTest emt = new ExcelMethodsTest();
+            emt.testLongTrades();
 
         }
 

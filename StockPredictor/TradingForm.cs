@@ -55,7 +55,16 @@ namespace StockPredictor
         {
             return cbRetry.Checked;
         }
-
+        //check if it is a longtrade only
+        public bool isLongTrade()
+        {
+            return cbLong.Checked;
+        }
+        //check if the long trade is to be sold
+        public bool sellLong()
+        {
+            return cbSellLong.Checked;
+        }
         //get open price
         public decimal getOpenPrice()
         {

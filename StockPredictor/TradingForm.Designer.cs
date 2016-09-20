@@ -50,6 +50,8 @@ namespace StockPredictor
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.btPrice = new System.Windows.Forms.Button();
+            this.cbLong = new System.Windows.Forms.CheckBox();
+            this.cbSellLong = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btTrade
@@ -244,6 +246,26 @@ namespace StockPredictor
             this.btPrice.UseVisualStyleBackColor = true;
             this.btPrice.Click += new System.EventHandler(this.btPrice_Click);
             // 
+            // cbLong
+            // 
+            this.cbLong.AutoSize = true;
+            this.cbLong.Location = new System.Drawing.Point(393, 142);
+            this.cbLong.Name = "cbLong";
+            this.cbLong.Size = new System.Drawing.Size(81, 17);
+            this.cbLong.TabIndex = 27;
+            this.cbLong.Text = "Long Trade";
+            this.cbLong.UseVisualStyleBackColor = true;
+            // 
+            // cbSellLong
+            // 
+            this.cbSellLong.AutoSize = true;
+            this.cbSellLong.Location = new System.Drawing.Point(393, 177);
+            this.cbSellLong.Name = "cbSellLong";
+            this.cbSellLong.Size = new System.Drawing.Size(110, 17);
+            this.cbSellLong.TabIndex = 28;
+            this.cbSellLong.Text = "Sell Long Position";
+            this.cbSellLong.UseVisualStyleBackColor = true;
+            // 
             // TradingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -251,6 +273,8 @@ namespace StockPredictor
             this.BackgroundImage = global::StockPredictor.Properties.Resources.internet;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(528, 523);
+            this.Controls.Add(this.cbSellLong);
+            this.Controls.Add(this.cbLong);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.btPrice);
             this.Controls.Add(this.label4);
@@ -302,5 +326,7 @@ namespace StockPredictor
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btPrice;
+        private System.Windows.Forms.CheckBox cbLong;
+        private System.Windows.Forms.CheckBox cbSellLong;
     }
 }

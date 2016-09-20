@@ -117,7 +117,9 @@ namespace StockPredictor.Helpers
                         if (change > 0) { positiveChangeLast += change; }
                         else { negativeChangeLast += change * -1; }
                         Form1.Instance.LastClosePrice = stock.Close;
-                       // Console.WriteLine(string.Format("Date={0} High={1} Low={2} Open={3} Close{4}", stock.Date, stock.High, stock.Low, stock.Open, stock.Close));
+                        // Console.WriteLine(string.Format("Date={0} High={1} Low={2} Open={3} Close{4}", stock.Date, stock.High, stock.Low, stock.Open, stock.Close));
+                        //get the last days change in price
+                        if (i ==1) { Form1.Instance.PriceChange = change; }
                     }
 
                     Console.WriteLine(string.Format("Date={0} High={1} Low={2} Open={3} Close{4}", stock.Date, stock.High, stock.Low, stock.Open, stock.Close));

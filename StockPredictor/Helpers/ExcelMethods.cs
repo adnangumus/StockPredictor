@@ -65,7 +65,7 @@ namespace StockPredictor.Helpers
             //check if the excel file exists and if it doesn't create one and add the headings            
             if (!File.Exists(excelFilePath + ".xlsx"))
             {
-                createSheet(false, false, myPassedExcelApplication);
+                createSheet(false, false,false, myPassedExcelApplication);
                 return false;
             }
             return true;
@@ -85,12 +85,29 @@ namespace StockPredictor.Helpers
             if (!File.Exists(excelFilePath + ".xlsx"))
             {
                 TradingForm.Instance.AppendOutputText("\r\n" + "Creating trading sheet" + "\r\n");
-                createSheet(false, true, myPassedExcelApplication);
+                createSheet(false, true, false, myPassedExcelApplication);
             }
 
         }
-        //read the score from the sentiment anlysis
-        public int readLatestFinalScore(Excel.Application myPassedExcelApplication, string fileName, string method)
+
+        private void setTradeLongHoldPath(string fileName, string symbol, Excel.Application myPassedExcelApplication)
+        { 
+             //create a path that puts the stock information into unique folders with the name of the stock and method on seperate 
+             //excel sheets
+        fileReaderWriter frw = new fileReaderWriter();
+        string folderPath = Path.Combine(frw.GetAppFolder(), @"packages\Data\Trades\LongTrades\" + symbol).ToString();
+        fileFolderPath = folderPath;
+            string filePath = Path.Combine(fileFolderPath + @"\" + fileName).ToString();
+        ExcelFilePath = filePath;
+            //check if the excel file exists and print a message to the output box            
+            if (!File.Exists(excelFilePath + ".xlsx"))
+            {
+                TradingForm.Instance.AppendOutputText("\r\n" + "Creating trading sheet" + "\r\n");
+                createSheet(false, false, true, myPassedExcelApplication);
+            }
+    }
+    //read the score from the sentiment anlysis
+    public int readLatestFinalScore(Excel.Application myPassedExcelApplication, string fileName, string method)
         {
             //check if there is sentiment data availble for the stock
             if (!getSentimentPath(fileName, method, myPassedExcelApplication)) { TradingForm.Instance.AppendOutputText("Data on " + fileName + " doesn't exist. Run the sentenment analysis." + "\r\n"); }
@@ -135,13 +152,80 @@ namespace StockPredictor.Helpers
             //return the principle as a decimal
             return decimal.Parse(principleStr);
         }
+        
+        //read from an excel sheet - is20 is a trade that takes place within 20minutes of open
+        public bool CheckIsHolding(Excel.Application myPassedExcelApplication, string fileName, string symbol)
+        {
+            fileName += "LongHold";
+            //get the folder and file name
+            setTradeLongHoldPath(fileName, symbol, myPassedExcelApplication);
+            //open the excel sheet
+            openExcel(myPassedExcelApplication);
+            //set the last row
+            Rownumber = lastRow();
+            if (TradingForm.Instance.isRetry()) { Rownumber--; }
+            Excel.Range range = myExcelWorkSheet.get_Range("H" + rowNumber);
+            //read the data from the cell that has the principle
+            bool isHolding = false;
+
+            try
+            {
+                if (range.Value.GetType() == typeof(bool))
+                {
+                    isHolding = range.Value;
+                }
+            }
+            catch (Exception e) { Console.WriteLine(e.Message); }
+            //close the excel sheet
+            closeExcel();
+            Form1.Instance.IsHolding = isHolding;
+            //return the principle as a decimal
+            return isHolding;
+        }
+        //get the price change
+        public double GetLongHoldPriceChangePrecentage(Excel.Application myPassedExcelApplication, string fileName, string symbol, double sellPrice)
+        {
+            fileName += "LongHold";
+            //get the folder and file name
+            setTradeLongHoldPath(fileName, symbol, myPassedExcelApplication);
+            //open the excel sheet
+            openExcel(myPassedExcelApplication);
+            //set the last row
+            Rownumber = lastRow();
+            if (TradingForm.Instance.isRetry()) { Rownumber--; }
+            Excel.Range range = myExcelWorkSheet.get_Range("D" + rowNumber);
+            //read the data from the cell that has the buy price
+            double buyPrice = 0;
+            double change = 0;
+
+            try
+            {
+                if (range.Value.GetType() == typeof(double))
+                {
+                    buyPrice = range.Value;
+                    if(buyPrice > 0 )
+                    {
+                        change = sellPrice - buyPrice;
+                        change = (100 / buyPrice) * change; 
+                    }
+                }
+            }
+            catch (Exception e) { Console.WriteLine(e.Message); }
+            //close the excel sheet
+            closeExcel();
+           
+            //return the principle as a decimal
+            return change;
+        }
+
+
         //save trading data to an excel sheet
         public void saveTradingData(Excel.Application myPassedExcelApplication, string symbol, string fileName, bool is20, string principle, string startPrinciple, string buy, string sell, bool isShort, string change, bool profitable, bool isStrong)
         {
             //get the date time to insert into the excel sheet
             string date = DateTime.Now.ToString();
-
-            if (is20) { fileName += "20"; }
+            //check if the trade is a 20 minute trade
+            if (is20) { fileName += "20"; }            
             //get the folder and file name
             getTradePath(fileName, symbol, myPassedExcelApplication);
 
@@ -152,6 +236,22 @@ namespace StockPredictor.Helpers
             if (TradingForm.Instance.isRetry()) { Rownumber--; }
             //add the data to the excel sheet
             addTradeData(principle, startPrinciple, buy, sell, isShort, change, date, profitable, isStrong);
+            closeExcel();
+        }     
+        //save the data from the second strategy
+        public void saveLongHoldTrade(Excel.Application myPassedExcelApplication, string symbol, string fileName, string principle, string buy, string sell, bool isShort, string change, bool profitable)
+        {
+            //get the date time to insert into the excel sheet
+            string date = DateTime.Now.ToString();
+            fileName += "LongHold";         
+            //get the folder and file name
+            setTradeLongHoldPath(fileName, symbol, myPassedExcelApplication);
+            //open the excel sheet
+            openExcel(myPassedExcelApplication);
+            //check if the retry box is thicked and over right previos data
+//-------- // if (TradingForm.Instance.isRetry()) { Rownumber--; }
+            //add the data to the excel sheet
+           addTradeDataLongHold(principle,buy, sell, isShort, change, date, profitable);
             closeExcel();
         }
 
@@ -206,12 +306,13 @@ namespace StockPredictor.Helpers
             Rownumber = lastRow() + 1;
         }
         //create a new excel work sheet. Open it and add the headings
-        public void createSheet(bool isPrice, bool isTrade, Excel.Application myPassedExcelApplication)
+        public void createSheet(bool isPrice, bool isTrade, bool isHoldingLong, Excel.Application myPassedExcelApplication)
         {
             if (myPassedExcelApplication == null)
             {
                 myExcelApplication = new Excel.Application(); // create Excell App
             }
+           
             else { myExcelApplication = myPassedExcelApplication; }
             myExcelApplication.DisplayAlerts = false; // turn off alerts
 
@@ -236,6 +337,10 @@ namespace StockPredictor.Helpers
             if (isTrade)
             {
                 addHeadingTradingSheet();
+            }
+            else if (isHoldingLong)
+            {
+                addHeadingTradingLongHold();
             }
             else
             {
@@ -318,7 +423,8 @@ namespace StockPredictor.Helpers
             myExcelWorkSheet.Cells[rowNumber, "U"] = "PriceBook";
             myExcelWorkSheet.Cells[rowNumber, "V"] = "Dividend";
             myExcelWorkSheet.Cells[rowNumber, "W"] = "Bollinger";
-
+            myExcelWorkSheet.Cells[rowNumber, "x"] = "PriceChange";
+            myExcelWorkSheet.Cells[rowNumber, "y"] = "UpDown";
 
             // Auto fit automatically adjust the width of columns of Excel  in givien range .  
             myExcelWorkSheet.Range[myExcelWorkSheet.Cells[1, 1], myExcelWorkSheet.Cells[rowNumber, 13]].EntireColumn.AutoFit();
@@ -359,6 +465,22 @@ namespace StockPredictor.Helpers
             myExcelWorkSheet.Cells[rowNumber, "V"] = Form1.Instance.Dividend;
             myExcelWorkSheet.Cells[rowNumber, "W"] = Form1.Instance.BollingerVerdict;
 
+            if (rowNumber > 2)
+            {
+                rowNumber -= 1;
+                myExcelWorkSheet.Cells[rowNumber, "X"] = Form1.Instance.PriceChange;
+                //check if the price change was positive
+                if(Form1.Instance.PriceChange >= 0)
+                {
+                    myExcelWorkSheet.Cells[rowNumber, "Y"] = "Up";
+                }
+                else
+                {
+                    myExcelWorkSheet.Cells[rowNumber, "Y"] = "Down";
+                }
+            }
+
+
             try
             {
                 //format the cells to dispaly the dates
@@ -371,7 +493,74 @@ namespace StockPredictor.Helpers
             catch (Exception ex) { Console.WriteLine("Exception in adding heading : " + ex.Message); }
 
         }
-       
+
+        //add heading to simulated trading work sheet
+        private void addHeadingTradingLongHold()
+        {
+            //add the data to the cells in the rows
+            myExcelWorkSheet.Cells[rowNumber, "A"] = "Date";
+            myExcelWorkSheet.Cells[rowNumber, "B"] = "Profitable";
+            myExcelWorkSheet.Cells[rowNumber, "C"] = "Principle";
+            myExcelWorkSheet.Cells[rowNumber + 1, "C"] = "10000";
+           
+            myExcelWorkSheet.Cells[rowNumber, "D"] = "BuyPrice";
+            myExcelWorkSheet.Cells[rowNumber, "E"] = "SellPrice";
+           
+            myExcelWorkSheet.Cells[rowNumber, "F"] = "Price Change %";
+          
+            myExcelWorkSheet.Cells[rowNumber, "G"] = "Holding";
+
+
+            try
+            {
+                // Auto fit automatically adjust the width of columns of Excel  in givien range .  
+                myExcelWorkSheet.Range[myExcelWorkSheet.Cells[1, 1], myExcelWorkSheet.Cells[rowNumber, 13]].EntireColumn.AutoFit();
+                rowNumber++;  // if you put this method inside a loop, you should increase rownumber by one or wat ever is your logic
+            }
+            catch (Exception ex) { Console.WriteLine("Exception in adding heading : " + ex.Message); }
+        }
+        //add data to trade excel sheets
+        private void addTradeDataLongHold(string principle,string buy, string sell, bool isShort, string change, string date, bool profitable)
+        {
+            rowNumber -= 1;
+          
+            if (isShort)
+            {
+               
+               
+                myExcelWorkSheet.Cells[rowNumber, "B"] = profitable;
+                myExcelWorkSheet.Cells[rowNumber, "E"] = sell;
+                myExcelWorkSheet.Cells[rowNumber, "F"] = change;
+                myExcelWorkSheet.Cells[rowNumber, "G"] = false;
+                rowNumber += 1;
+                myExcelWorkSheet.Cells[rowNumber, "C"] = principle;
+            }
+            //if it isn't to be sold
+            else
+            {
+                //add the data to the cells
+                myExcelWorkSheet.Cells[rowNumber, "A"] = date;
+
+
+                myExcelWorkSheet.Cells[rowNumber, "D"] = buy;
+
+
+
+                myExcelWorkSheet.Cells[rowNumber, "G"] = true;
+
+            }
+
+            try
+            {
+                //format the cells to dispaly the dates
+                Excel.Range rg = (Excel.Range)myExcelWorkSheet.Cells[1, "G"];
+            rg.EntireColumn.NumberFormat = "m/d/yyyy h:mm";
+            // Auto fit automatically adjust the width of columns of Excel  in givien range .  
+            myExcelWorkSheet.Range[myExcelWorkSheet.Cells[1, 1], myExcelWorkSheet.Cells[rowNumber, 6]].EntireColumn.AutoFit();
+            rowNumber++;  // if you put this method inside a loop, you should increase rownumber by one 
+            }
+            catch (Exception ex) { Console.WriteLine("Exception in adding heading : " + ex.Message); }
+        }
 
         public void closeExcel()
         {
