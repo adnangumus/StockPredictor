@@ -63,7 +63,7 @@ namespace StockPredictor
                 if (oSpell.TestWord(word) || isNamedEntity(word))
                 {
                     spellChecked += word + " ";
-                    // Console.WriteLine(word);
+                     Console.WriteLine(word);
                 }
             }
             //add the spell check article to the list with a full stop
