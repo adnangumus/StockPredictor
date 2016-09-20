@@ -1,6 +1,7 @@
 abysmal
 accused
 adverse
+against
 alarming
 allegations
 angry
@@ -21,6 +22,7 @@ bemoan
 beneath
 boring
 broken
+breakdown
 callous
 cannibalize
 chaotic
@@ -185,6 +187,7 @@ pain
 par
 panic
 perturb
+perilous
 pessimistic
 petty
 problem

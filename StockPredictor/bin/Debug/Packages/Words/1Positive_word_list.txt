@@ -22,9 +22,9 @@ Better
 Boost
 bolster
 blockbuster
-breakthrough	
-Bounce	
-Breakthrough	
+breakthrough
+breakout	
+Bounce		
 bull
 Bright	
 Brilliant	
@@ -145,6 +145,7 @@ profit
 Pure
 Quality	
 Radiant
+rally
 Real
 rebound
 recovery 

@@ -44,6 +44,7 @@ lower target
 massiv loss 
 miss earn 
 more pressur 
+move 
 negat earn 
 negat effect 
 negat public 
@@ -51,6 +52,7 @@ not attract
 not exact attract 
 over optimist 
 overpr 
+peril revers 
 price goug 
 price slip 
 price uncertainti 

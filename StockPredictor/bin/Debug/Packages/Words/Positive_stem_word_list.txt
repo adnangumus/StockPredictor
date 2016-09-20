@@ -23,7 +23,7 @@ blockbust
 bolster
 boost
 bounc
-breakthrough
+breakout
 breakthrough
 bright
 brilliant
@@ -146,6 +146,7 @@ proud
 pure
 qualiti
 radiant
+ralli
 real
 rebound
 recoveri

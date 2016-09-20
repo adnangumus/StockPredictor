@@ -20,6 +20,7 @@ belliger
 bemoan
 beneath
 bore
+breakdown
 broken
 callous
 cannib
@@ -182,6 +183,7 @@ oppress
 pain
 panic
 par
+peril
 perturb
 pessimist
 petti
