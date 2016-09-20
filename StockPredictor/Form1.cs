@@ -252,7 +252,7 @@ namespace StockPredictor
 
         private void Test_Click(object sender, EventArgs e)
         {
-            this.BackColor = SystemColors.Control;
+            //this.BackColor = SystemColors.Control;
             // YahooStockMethods yahoo = new YahooStockMethods();
            
             //  Hashtable funda = YahooStockMethods.getFundamentals("gild");
@@ -282,8 +282,8 @@ namespace StockPredictor
             //    BagOfWordsTest bwt = new BagOfWordsTest();
             //    bwt.processBagOfWordsTest();
             // pleaseWait.Close();
-            // SpellCheckTest sct = new SpellCheckTest();
-            // sct.testSpellCheckSpeed();
+            SpellCheckTest sct = new SpellCheckTest();
+             sct.testSpellCheckSpeed();
 
             // BingMethods bing = new BingMethods();
             //  bing.getBinglinks("http://cn.bing.com/news/search?q=gild+Gilead&qft=interval%3d%227%22&form=PTFTNR&intlF=1&FORM=TIPEN1");

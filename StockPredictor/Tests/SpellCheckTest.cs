@@ -18,7 +18,7 @@ namespace StockPredictor.Tests
                     + "Here is a new sentence great news to be scanned for sintax with GILD."
                      + "Here is a new sentence terrible to be scanned for sintax with IBB."
                      + "Here is a new sentence to be crashed scanned for sintax with NASDAQ.";
-
+        string text1 = "Gilead and Biogen are in NASDAQ. John is Xenono drug's master";
         SpellCheck sc = new SpellCheck();
         public void isNamedEntityTest()
         {
@@ -31,7 +31,7 @@ namespace StockPredictor.Tests
             //start a stop watch to time method
             var watch = System.Diagnostics.Stopwatch.StartNew();
             SpellCheck sp = new SpellCheck();
-            sp.spellCheckArticle(text);
+            sp.spellCheckArticle(text1);
             //stop the watch to time method
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
