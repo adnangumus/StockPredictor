@@ -169,7 +169,7 @@ namespace StockPredictor
             
             if (String.IsNullOrEmpty(tbInput.Text) || tbInput.Text.ToLower() == "bio")
             {
-                Ticker = "gild";
+                Ticker = "GILD";
                 rm.runStockPredictor("gild", dontSave);
                 Ticker = "HZNP";
                 rm.runStockPredictor("hznp", dontSave);

@@ -586,7 +586,7 @@ namespace StockPredictor.Helpers
                 Form1.Instance.AppendOutputText("\r\nTotal score : strong buy : " + total);
                 Form1.Instance.Verdict = "Strong Buy";
             }
-            if (total > 5 && total < 18)
+            if (total > 4 && total < 18)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : buy : " + total);
                 Form1.Instance.Verdict = "Buy";
@@ -596,7 +596,7 @@ namespace StockPredictor.Helpers
                 Form1.Instance.AppendOutputText("\r\nTotal score : neutral : " + total);
                 Form1.Instance.Verdict = "Neutral";
             }
-            if (total < -5 && total > -18)
+            if (total < -4 && total > -18)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : sell : " + total);
                 Form1.Instance.Verdict = "Sell";
