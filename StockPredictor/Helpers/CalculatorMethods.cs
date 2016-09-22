@@ -80,8 +80,8 @@ namespace StockPredictor.Helpers
         //get the rsi get the sum of positive and negaitve change and divide it by 14. Then use the RSI formula
         public int CalculateRSI(string ticker)
         {
-             List<HistoricalStock> data = YahooStockMethods.GetHistoricalPriceData(ticker);
-            //List<HistoricalStock> data = Form1.Instance.historicalPriceData;
+            //  List<HistoricalStock> data = YahooStockMethods.GetHistoricalPriceData(ticker);
+            List<HistoricalStock> data = Form1.Instance.HistoricalPriceData;
 
             if (data == null)
             {
@@ -184,6 +184,7 @@ namespace StockPredictor.Helpers
             double singleDeviationUpperBand = 0;
             double singleDeviationLowerBand = 0;
             double lastClose =0 ;
+            double difference = 0;
             int i = 0;
             try
             {
@@ -205,9 +206,14 @@ namespace StockPredictor.Helpers
                 mean = mean / closes.Length;
                 for(int j=0; j < closes.Length-1; j++ )
                 {
-                    squared = Math.Pow(closes[j] - mean, 2);
+                    //find the diference between the mean the value
+                   difference = closes[j] - mean;
+                    //square it
+                  squared = Math.Pow(difference, 2);
+                    //add the squared values together
                     deviation += squared;
                 }
+                deviation = deviation / 20;
                 standardDeviation = Math.Sqrt(deviation);
                 upperBand = mean + (2 * standardDeviation);
                 lowerBand = mean - (2 * standardDeviation);

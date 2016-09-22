@@ -599,7 +599,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(646, 714);
+            this.ClientSize = new System.Drawing.Size(1199, 714);
             this.Controls.Add(this.lbTicker);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel5);

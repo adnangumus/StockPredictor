@@ -37,6 +37,7 @@ namespace StockPredictor
         public string Ticker { get; set; }
         public double PriceChange { get; set; }
         public bool IsHolding { get; set; }
+       
 
 
         public Form1()
@@ -235,7 +236,7 @@ namespace StockPredictor
         private void Form1_Load(object sender, EventArgs e)
         {
             pbLoad.Visible = false;
-            isWide = false;
+            isWide = true;
             //  ALlow main UI thread to properly display please wait form.
             Application.DoEvents();
             //redirect console to text box here
@@ -257,9 +258,12 @@ namespace StockPredictor
             //this.BackColor = SystemColors.Control;
             // YahooStockMethods yahoo = new YahooStockMethods();
 
-            //  Hashtable funda = YahooStockMethods.getFundamentals("gild");
-            //CalculatorMethods cal = new CalculatorMethods();
-            //cal.calculateBollingerBands();
+            //   Hashtable funda = YahooStockMethods.getFundamentals("aapl");
+
+            //get the historical price data and set it in the form1
+            Form1.Instance.HistoricalPriceData = YahooStockMethods.GetHistoricalPriceData("aapl");
+            CalculatorMethods cal = new CalculatorMethods();
+            cal.calculateBollingerBands();
             //  int rsi = cal.CalculateRSI("aapl");
             //  funda = yahoo.getFundamentals("aapl");
             //  cal.ProcessAllMetrics(funda, 20, rsi);
@@ -293,8 +297,8 @@ namespace StockPredictor
             // YahooMinerTest yt = new YahooMinerTest();
             // yt.testLinkProcessor();
 
-            ExcelMethodsTest emt = new ExcelMethodsTest();
-            emt.testLongTrades();
+          //  ExcelMethodsTest emt = new ExcelMethodsTest();
+          //  emt.testLongTrades();
 
         }
 

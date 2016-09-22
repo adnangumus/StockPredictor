@@ -110,10 +110,12 @@ namespace StockPredictor.Helpers
             
             //check if it a 20 minute trade and set the sell price
             if (is20)
-            {                if(closePrice > 0)
+            {
+                if (closePrice > 0)
                 { 
                 prices[1] = closePrice.ToString();
                 }
+            else
                 TradingForm.Instance.AppendOutputText("\r\n" + "Please enter the 20 minute price" + "\r\n"); return;
             }
                 //start the excel application object
@@ -136,9 +138,9 @@ namespace StockPredictor.Helpers
             int score = ex.ReadLatestFinalScore(myPassedExcelApplication, symbol, method);
             bool isStrong = false;
             //if neutral data is stored then stop the auto trade
-            if (score <= 5 && score >= -5 && !TradingForm.Instance.sellLong()) { TradingForm.Instance.AppendOutputText("\r\n" + "Neutral : No trading!" + "\r\n" + method + "\r\n"); return; }  
+            if (score <= 4 && score >= -4 && !TradingForm.Instance.sellLong()) { TradingForm.Instance.AppendOutputText("\r\n" + "Neutral : No trading!" + "\r\n" + method + "\r\n"); return; }  
             //negative scores sell and strong sell        
-            if (score < -5 && score > -18 )
+            if (score < -4 && score > -18 )
             {
                 isShort = true; isStrong = false;
                 TradingForm.Instance.AppendOutputText("\r\n" + "Sell " + "\r\n" + method + "\r\n");
@@ -149,7 +151,7 @@ namespace StockPredictor.Helpers
                 TradingForm.Instance.AppendOutputText("\r\n" + "Strong sell :" + "\r\n" + method + "\r\n");
             }
             //positive scores buy and strong buy
-            if (score > 5 && score <18)
+            if (score > 4 && score <18)
             {
                 isShort = false; isStrong = false;
                 TradingForm.Instance.AppendOutputText("\r\n" + "Buy : " + "\r\n" + method + "\r\n");

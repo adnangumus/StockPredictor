@@ -374,7 +374,7 @@ m8	Percent Change From 50-day Moving Average
                     Form1.Instance.PriceBook = cols[7].ToString();
                     Form1.Instance.Peg = cols[8].ToString();
                     Form1.Instance.Dividend = cols[9].ToString();
-                    Form1.Instance.Moving50 = cols[6].ToString();
+                    Form1.Instance.Moving50 = cols[4].ToString();
                     Form1.Instance.Moving200 = cols[3].ToString();                     
 
     }

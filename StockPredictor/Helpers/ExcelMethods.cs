@@ -462,7 +462,7 @@ namespace StockPredictor.Helpers
             myExcelWorkSheet.Cells[rowNumber, "O"] = negativePhraseCount;
             myExcelWorkSheet.Cells[rowNumber, "P"] = method;
             //add the fundamental and technical data here
-            myExcelWorkSheet.Cells[rowNumber, "Q"] = Form1.Instance.Rsi;
+            myExcelWorkSheet.Cells[rowNumber, "Q"] = Form1.Instance.RealRSI;
             myExcelWorkSheet.Cells[rowNumber, "R"] = Form1.Instance.Peg;
             myExcelWorkSheet.Cells[rowNumber, "S"] = Form1.Instance.Moving200;
             myExcelWorkSheet.Cells[rowNumber, "T"] = Form1.Instance.Moving50;
