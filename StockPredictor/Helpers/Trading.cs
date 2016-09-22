@@ -49,10 +49,10 @@ namespace StockPredictor.Helpers
             ExcelMethods exl = new ExcelMethods();
             Application myPassedExcelApplication = exl.startExcelApp();
             //save the data based on the method used
-            if (isBag) { simulateTrade(symbol, isShort, is20, sellPrice, "Bag", prices, myPassedExcelApplication, isStrong); }
-            if (isNoun) { simulateTrade(symbol, isShort, is20, sellPrice, "Noun", prices, myPassedExcelApplication, isStrong); }
-            if (isNamed) { simulateTrade(symbol, isShort, is20, sellPrice, "Named", prices, myPassedExcelApplication, isStrong); }
-            if (isRandom) { simulateTrade(symbol, isShort, is20, sellPrice, "Random", prices, myPassedExcelApplication, isStrong); }
+            if (isBag) { simulateTrade(symbol, isShort, is20, "Bag", prices, myPassedExcelApplication, isStrong); }
+            if (isNoun) { simulateTrade(symbol, isShort, is20, "Noun", prices, myPassedExcelApplication, isStrong); }
+            if (isNamed) { simulateTrade(symbol, isShort, is20,"Named", prices, myPassedExcelApplication, isStrong); }
+            if (isRandom) { simulateTrade(symbol, isShort, is20, "Random", prices, myPassedExcelApplication, isStrong); }
             if(!isBag && !isNoun && !isNamed && !isRandom) { TradingForm.Instance.AppendOutputText("\r\n" + "Please choose a method - Noun, Bag, Named" + "\r\n");
                 //destroy the excel application
                 exl.quitExcel(myPassedExcelApplication); return; }
@@ -73,55 +73,67 @@ namespace StockPredictor.Helpers
         }
 
         // auto trade used for most of the classes
-        public void autoTrade(string symbol, bool is20, decimal sellPrice)
+        //this method checks that the prices loaded correctly
+        public void autoTrade(string symbol, bool is20)
         {
+           decimal openPrice = TradingForm.Instance.getOpenPrice();
+            decimal closePrice = TradingForm.Instance.getClosePrice();
+
+            string[] prices = new string[2]; ;
+            if (openPrice > 0 && closePrice >0)
+            {
+                prices[0] = openPrice.ToString();
+                prices[1] = closePrice.ToString();
+            }
+            else { 
             //yahoo methods to find change in stock prices
             YahooStockMethods yahoo = new YahooStockMethods();
-            string[] prices = yahoo.getStockPriceChange(symbol);
+            prices = yahoo.getStockPriceChange(symbol);
             //ensure that the data loads correctly
             if (string.IsNullOrEmpty(prices[0]))
             {
                 TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load price data " + symbol);
-                //the 20 minute trade doesn't need to contain a closing price
-                if (is20 && TradingForm.Instance.getOpenPrice() == 0) { TradingForm.Instance.AppendOutputText("\r\n" + "Consider entering an open price manually" + "\r\n"); return; }
-                //allow the trade to go ahead if there is an open price and 20 minute sell price
-                else if (is20 && TradingForm.Instance.getOpenPrice() > 0)
-                {
-                    if(sellPrice > 0) { prices[1] = sellPrice.ToString(); }
-                    else { TradingForm.Instance.AppendOutputText("\r\n" + "Enter a number into 20 minute sale box" + "\r\n"); return; }
-                
-                }
                 //check if the user added the trading prices manually
-                else if (TradingForm.Instance.getOpenPrice() == 0 || TradingForm.Instance.getClosePrice() == 0)
+               if (TradingForm.Instance.getOpenPrice() == 0 || TradingForm.Instance.getClosePrice() == 0)
                 {
-                    TradingForm.Instance.AppendOutputText("\r\n" + "Consider entering open and close prices manually" + "\r\n");
+                    TradingForm.Instance.AppendOutputText("\r\n" + "Consider entering the open and close prices manually" + "\r\n");
                    
                     return;
                 }
-                prices[0] = TradingForm.Instance.getOpenPrice().ToString();
-                Console.WriteLine(symbol); ;
-                Console.WriteLine("Open : " + prices[0]);
-                Console.WriteLine("Close : " + prices[1]);            
-                prices[1] = TradingForm.Instance.getClosePrice().ToString();
+                    prices[0] = openPrice.ToString();
+                    prices[1] = closePrice.ToString();
+                }   
             }
-            //start the excel application object
-            ExcelMethods exl = new ExcelMethods();
+            Console.WriteLine(symbol); ;
+            Console.WriteLine("Open : " + prices[0]);
+            Console.WriteLine("Close : " + prices[1]);
+            
+            //check if it a 20 minute trade and set the sell price
+            if (is20)
+            {                if(closePrice > 0)
+                { 
+                prices[1] = closePrice.ToString();
+                }
+                TradingForm.Instance.AppendOutputText("\r\n" + "Please enter the 20 minute price" + "\r\n"); return;
+            }
+                //start the excel application object
+                ExcelMethods exl = new ExcelMethods();
             Application myPassedExcelApplication = exl.startExcelApp();
 
-            tradeNow(symbol, "Bag", sellPrice, prices, is20, myPassedExcelApplication);
-            tradeNow(symbol, "Noun", sellPrice, prices, is20, myPassedExcelApplication);
-            tradeNow(symbol, "Named", sellPrice, prices, is20, myPassedExcelApplication);
-            tradeNow(symbol, "Random", sellPrice, prices, is20, myPassedExcelApplication);
+            tradeNow(symbol, "Bag", prices, is20, myPassedExcelApplication);
+            tradeNow(symbol, "Noun", prices, is20, myPassedExcelApplication);
+            tradeNow(symbol, "Named", prices, is20, myPassedExcelApplication);
+            tradeNow(symbol, "Random", prices, is20, myPassedExcelApplication);
 
             //destroy the excel application
             exl.quitExcel(myPassedExcelApplication);
         }
         //method used to allow multithreading in the auto trade section
-        private void tradeNow(string symbol, string method, decimal sellPrice, string[] prices, bool is20, Application myPassedExcelApplication)
+        private void tradeNow(string symbol, string method, string[] prices, bool is20, Application myPassedExcelApplication)
         {
             bool isShort = false;
             ExcelMethods ex = new ExcelMethods();
-            int score = ex.readLatestFinalScore(myPassedExcelApplication, symbol, method);
+            int score = ex.ReadLatestFinalScore(myPassedExcelApplication, symbol, method);
             bool isStrong = false;
             //if neutral data is stored then stop the auto trade
             if (score <= 5 && score >= -5 && !TradingForm.Instance.sellLong()) { TradingForm.Instance.AppendOutputText("\r\n" + "Neutral : No trading!" + "\r\n" + method + "\r\n"); return; }  
@@ -149,20 +161,21 @@ namespace StockPredictor.Helpers
             }
             //this checks if it is only a long trade
             if (!TradingForm.Instance.isLongTrade() && !TradingForm.Instance.sellLong()) { 
-            simulateTrade(symbol, isShort, is20, sellPrice, method, prices, myPassedExcelApplication, isStrong);
+            simulateTrade(symbol, isShort, is20, method, prices, myPassedExcelApplication, isStrong);
             }
-            simulateTradeLongStrategy(symbol, isShort, sellPrice, method, prices, myPassedExcelApplication);
+            //run the long trades
+            simulateTradeLongStrategy(symbol, isShort, method, prices, myPassedExcelApplication);
 
         }
 
         //simulate day trading
-        private void simulateTrade(string symbol, bool isShort, bool is20, decimal sellPrice, string method, string[] prices, Application myPassedExcelApplication, bool isStrong)
+        private void simulateTrade(string symbol, bool isShort, bool is20, string method, string[] prices, Application myPassedExcelApplication, bool isStrong)
         {
             ExcelMethods ex = new ExcelMethods();
             //set the fileName to be passed for retreiving data
             string fileName = symbol.ToUpper() + method + "Trade";
             //get the starting priciple
-            decimal principle = ex.readPrinciple(myPassedExcelApplication, fileName, symbol, is20);
+            decimal principle = ex.ReadPrinciple(myPassedExcelApplication, fileName, symbol, is20, false);
             string startPrinciple = principle.ToString();
             decimal startPrice = 0;
             decimal closePrice = 0;
@@ -188,13 +201,7 @@ namespace StockPredictor.Helpers
                 TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load Yahoo financial data" + "\r\n"); return;
             }
             bool profitable = false;
-            //check if it is a 20 minute trade
-            if (is20)
-            {
-                //ex.saveTradingData(symbol, is20, principle.ToString(), prices[1], prices[2], isShort, prices[0]);
-                prices[1] = sellPrice.ToString();
-                change = calculateChangePercent(startPrice, sellPrice); ;
-            }
+          
             if (isShort)
             {
                 if (!isStrong) { principle = principleHalf; }
@@ -221,18 +228,18 @@ namespace StockPredictor.Helpers
         }
 
         //trade a hold and long strategy - in this method isSell means that the position should be sold. There is no short trading in this strategy
-        private void simulateTradeLongStrategy(string symbol, bool isSell, decimal sellPrice, string method, string[] prices, Application myPassedExcelApplication)
+        private void simulateTradeLongStrategy(string symbol, bool isSell, string method, string[] prices, Application myPassedExcelApplication)
         {
             if (TradingForm.Instance.sellLong()) { isSell = true; };
             ExcelMethods ex = new ExcelMethods();
             //set the fileName to be passed for retreiving data
-            string fileName = symbol.ToUpper() + method + "Trade";
+            string fileName = symbol.ToUpper() + method + "TradeLongHold";
             //get the starting priciple
-            decimal principle = ex.readPrinciple(myPassedExcelApplication, fileName, symbol, false);
+            decimal principle = ex.ReadPrinciple(myPassedExcelApplication, fileName, symbol, false, true);
             bool positionHeld = ex.CheckIsHolding(myPassedExcelApplication, fileName, symbol);
           
-            decimal startPrice = 0;
-            decimal closePrice = 0;
+            double startPrice = 0;
+         
             double change = 0;
             //only use half of the principle on risky trades
             decimal principleHalf = principle / 2;
@@ -246,8 +253,8 @@ namespace StockPredictor.Helpers
             }
             try
             {
-                startPrice = Decimal.Parse(prices[0]);
-                closePrice = Decimal.Parse(prices[1]);
+                startPrice = Convert.ToDouble(prices[0]);
+               
                // change = calculateChangePercent(startPrice, closePrice);
             }
             catch (Exception ex2)
@@ -259,35 +266,37 @@ namespace StockPredictor.Helpers
           
             if (isSell && positionHeld)
             {
-              change =  ex.GetLongHoldPriceChangePrecentage(myPassedExcelApplication, fileName, symbol, Convert.ToDouble(sellPrice));
-                newPrinciple = (100 / principleDouble) * change;
-                newPrinciple += principleDouble;
+                //get percent of chnage from the orginal position
+              change =  ex.GetLongHoldPriceChangePrecentage(myPassedExcelApplication, fileName, symbol, startPrice);
+                //change the percentage into a decimal for multiplying
+              double realChange = change / 100;
+                newPrinciple = principleDouble;
+                newPrinciple += principleDouble * realChange;             
             }
 
             //roud the principle
             newPrinciple = Math.Round(newPrinciple, 2);
             if (newPrinciple > principleDouble) { profitable = true; }
             //ensure that a position isn't held already
-            if (!positionHeld) { 
+            if (!positionHeld && !isSell) { 
             //save the trading data to an excel sheet
-            ex.saveLongHoldTrade(myPassedExcelApplication, symbol, fileName, newPrinciple.ToString(), prices[0], prices[1], isSell, change.ToString(), profitable);
-            }
-            if (isSell && positionHeld) { 
-            //write information to the text box
-            TradingForm.Instance.AppendOutputText("\r\n" + symbol + "  " + method + "\r\n" + "Start Price : " + prices[0] + "\r\n" +
-                "End Price :" + prices[1] + "\r\n" + "Remaining Prinicple : " + newPrinciple + "\r\n" +
-                "Previous Principle : " + principle + "\r\n" + "Percentage change : " + change + "\r\n" 
-               
-                );
-            }
-            else
-            {
+            ex.saveLongHoldTrade(myPassedExcelApplication, symbol, fileName, newPrinciple.ToString(), startPrice, startPrice, isSell, change, profitable);
                 //write information to the text box
                 TradingForm.Instance.AppendOutputText("\r\n" + symbol + "  " + method + "\r\n" + "Start Price : " + prices[0] + "\r\n" +
                     "Position Opened :" + prices[0] + "\r\n"
 
                     );
             }
+            else if (isSell && positionHeld) {
+                //save the trading data to an excel sheet
+                ex.saveLongHoldTrade(myPassedExcelApplication, symbol, fileName, newPrinciple.ToString(), startPrice, startPrice, isSell, change, profitable);
+                //write information to the text box
+                TradingForm.Instance.AppendOutputText("\r\n" + symbol + "  " + method + "\r\n" + "Start Price : " + prices[0] + "\r\n" +
+                "End Price :" + prices[1] + "\r\n" + "Remaining Prinicple : " + newPrinciple + "\r\n" +
+                "Previous Principle : " + principleDouble + "\r\n" + "Percentage change : " + change + "\r\n" 
+               
+                );
+            }           
         }
 
     }

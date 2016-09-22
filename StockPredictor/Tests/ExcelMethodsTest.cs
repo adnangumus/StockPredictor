@@ -30,7 +30,7 @@ namespace StockPredictor.Tests
 
             ExcelMethods em = new ExcelMethods();
           //  em.saveLongHoldTrade( myPassedExcelApplication, "test", "testExample", "10000", "100", "", false, "", false);
-            em.saveLongHoldTrade(myPassedExcelApplication, "test", "testExample", "9880", "", "98", true, "-2", false);
+            em.saveLongHoldTrade(myPassedExcelApplication, "test", "testExample", "9880", 0, 98, true, -2, false);
         }
     }
 }

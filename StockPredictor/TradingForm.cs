@@ -107,21 +107,15 @@ namespace StockPredictor
             //get input from user
             string symbol = tbTrade.Text.ToUpper();
             bool is20 = cb20.Checked;
-            decimal sellPrice = 0;
-            //check that there is input before assigning local variable
-            if (!String.IsNullOrEmpty(tbTrade.Text) && is20)
-            {
-                sellPrice = Decimal.Parse(tbClose.Text);
-            }
-
+          
             if (String.IsNullOrEmpty(symbol))
             {
                 //run the simulated trades for companies used in this project
                 AppendOutputText("Running automatic trades " + "\r\n");
-                Task taskA = new Task(() => tr.autoTrade("GILD", is20, sellPrice));
-                Task taskB = new Task(() => tr.autoTrade("BIIB", is20, sellPrice));
-                Task taskC = new Task(() => tr.autoTrade("CELG", is20, sellPrice));
-                Task taskD = new Task(() => tr.autoTrade("HZNP", is20, sellPrice));
+                Task taskA = new Task(() => tr.autoTrade("GILD", is20));
+                Task taskB = new Task(() => tr.autoTrade("BIIB", is20));
+                Task taskC = new Task(() => tr.autoTrade("CELG", is20));
+                Task taskD = new Task(() => tr.autoTrade("HZNP", is20));
                // Task taskE = new Task(() => tr.autoTrade("IBB", is20, sellPrice));
                 //stat the tasks
                 taskA.Start();
@@ -143,7 +137,7 @@ namespace StockPredictor
                 return;
             }
             //run the simulated trade
-            tr.autoTrade(symbol, is20, sellPrice);
+            tr.autoTrade(symbol, is20);
         }
         //this method process manual trade
         private void manualTrade()

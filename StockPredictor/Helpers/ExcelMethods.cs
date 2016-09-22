@@ -52,7 +52,7 @@ namespace StockPredictor.Helpers
             return 0;
         }
         //get the path of sentiment document
-        private bool getSentimentPath(string fileName, string method, Excel.Application myPassedExcelApplication)
+        private bool SetSentimentPath(string fileName, string method, Excel.Application myPassedExcelApplication)
         {
             //file reader class for reading files
             fileReaderWriter frw = new fileReaderWriter();
@@ -71,7 +71,7 @@ namespace StockPredictor.Helpers
             return true;
         }
         //get the path of the rade documents
-        private void getTradePath(string fileName, string symbol, Excel.Application myPassedExcelApplication)
+        private void SetTradePath(string fileName, string symbol, Excel.Application myPassedExcelApplication)
         {
 
             //create a path that puts the stock information into unique folders with the name of the stock and method on seperate 
@@ -90,7 +90,7 @@ namespace StockPredictor.Helpers
 
         }
 
-        private void setTradeLongHoldPath(string fileName, string symbol, Excel.Application myPassedExcelApplication)
+        private void SetTradeLongHoldPath(string fileName, string symbol, Excel.Application myPassedExcelApplication)
         { 
              //create a path that puts the stock information into unique folders with the name of the stock and method on seperate 
              //excel sheets
@@ -107,10 +107,10 @@ namespace StockPredictor.Helpers
             }
     }
     //read the score from the sentiment anlysis
-    public int readLatestFinalScore(Excel.Application myPassedExcelApplication, string fileName, string method)
+    public int ReadLatestFinalScore(Excel.Application myPassedExcelApplication, string fileName, string method)
         {
             //check if there is sentiment data availble for the stock
-            if (!getSentimentPath(fileName, method, myPassedExcelApplication)) { TradingForm.Instance.AppendOutputText("Data on " + fileName + " doesn't exist. Run the sentenment analysis." + "\r\n"); }
+            if (!SetSentimentPath(fileName, method, myPassedExcelApplication)) { TradingForm.Instance.AppendOutputText("Data on " + fileName + " doesn't exist. Run the sentenment analysis." + "\r\n"); }
             int score = 0;
             //open the excel sheet
             openExcel(myPassedExcelApplication);
@@ -125,17 +125,20 @@ namespace StockPredictor.Helpers
             return score;
         }
         //read from an excel sheet - is20 is a trade that takes place within 20minutes of open
-        public decimal readPrinciple(Excel.Application myPassedExcelApplication, string fileName, string symbol, bool is20)
+        public decimal ReadPrinciple(Excel.Application myPassedExcelApplication, string fileName, string symbol, bool is20, bool isLong)
         {
             if (is20) { fileName += "20"; }
+            //check if it is a long trade
+            if (isLong) { SetTradeLongHoldPath(fileName, symbol, myPassedExcelApplication); }
             //get the folder and file name
-            getTradePath(fileName, symbol, myPassedExcelApplication);
+            else { SetTradePath(fileName, symbol, myPassedExcelApplication); }
+           
             //open the excel sheet
             openExcel(myPassedExcelApplication);
             //set the last row
             Rownumber = lastRow();
             if (TradingForm.Instance.isRetry()) { Rownumber--; }
-            Excel.Range range = myExcelWorkSheet.get_Range("A" + rowNumber);
+            Excel.Range range = myExcelWorkSheet.get_Range("C" + rowNumber);
             //read the data from the cell that has the principle
             double principle = 10000;
 
@@ -156,15 +159,16 @@ namespace StockPredictor.Helpers
         //read from an excel sheet - is20 is a trade that takes place within 20minutes of open
         public bool CheckIsHolding(Excel.Application myPassedExcelApplication, string fileName, string symbol)
         {
-            fileName += "LongHold";
+          
             //get the folder and file name
-            setTradeLongHoldPath(fileName, symbol, myPassedExcelApplication);
+            SetTradeLongHoldPath(fileName, symbol, myPassedExcelApplication);
             //open the excel sheet
             openExcel(myPassedExcelApplication);
             //set the last row
             Rownumber = lastRow();
             if (TradingForm.Instance.isRetry()) { Rownumber--; }
-            Excel.Range range = myExcelWorkSheet.get_Range("H" + rowNumber);
+          
+            Excel.Range range = myExcelWorkSheet.get_Range("G" + rowNumber);
             //read the data from the cell that has the principle
             bool isHolding = false;
 
@@ -185,9 +189,9 @@ namespace StockPredictor.Helpers
         //get the price change
         public double GetLongHoldPriceChangePrecentage(Excel.Application myPassedExcelApplication, string fileName, string symbol, double sellPrice)
         {
-            fileName += "LongHold";
+           
             //get the folder and file name
-            setTradeLongHoldPath(fileName, symbol, myPassedExcelApplication);
+            SetTradeLongHoldPath(fileName, symbol, myPassedExcelApplication);
             //open the excel sheet
             openExcel(myPassedExcelApplication);
             //set the last row
@@ -207,6 +211,7 @@ namespace StockPredictor.Helpers
                     {
                         change = sellPrice - buyPrice;
                         change = (100 / buyPrice) * change; 
+
                     }
                 }
             }
@@ -227,7 +232,7 @@ namespace StockPredictor.Helpers
             //check if the trade is a 20 minute trade
             if (is20) { fileName += "20"; }            
             //get the folder and file name
-            getTradePath(fileName, symbol, myPassedExcelApplication);
+            SetTradePath(fileName, symbol, myPassedExcelApplication);
 
 
             //open the excel sheet
@@ -239,13 +244,13 @@ namespace StockPredictor.Helpers
             closeExcel();
         }     
         //save the data from the second strategy
-        public void saveLongHoldTrade(Excel.Application myPassedExcelApplication, string symbol, string fileName, string principle, string buy, string sell, bool isShort, string change, bool profitable)
+        public void saveLongHoldTrade(Excel.Application myPassedExcelApplication, string symbol, string fileName, string principle, double buy, double sell, bool isShort, double change, bool profitable)
         {
             //get the date time to insert into the excel sheet
             string date = DateTime.Now.ToString();
-            fileName += "LongHold";         
+            
             //get the folder and file name
-            setTradeLongHoldPath(fileName, symbol, myPassedExcelApplication);
+            SetTradeLongHoldPath(fileName, symbol, myPassedExcelApplication);
             //open the excel sheet
             openExcel(myPassedExcelApplication);
             //check if the retry box is thicked and over right previos data
@@ -268,7 +273,7 @@ namespace StockPredictor.Helpers
                 //get the date time to insert into the excel sheet
                 string date = DateTime.Now.ToString();
                 //set the path for the file
-                getSentimentPath(fileName, method, myPassedExcelApplication);
+                SetSentimentPath(fileName, method, myPassedExcelApplication);
                 //open the excel sheet
                 openExcel(myPassedExcelApplication);
                 if (Form1.Instance.isRetry()) { Rownumber--; }
@@ -495,6 +500,7 @@ namespace StockPredictor.Helpers
         }
 
         //add heading to simulated trading work sheet
+        //change if change this remember to change the values in the two dependent methods checkisholding and getlongtrade
         private void addHeadingTradingLongHold()
         {
             //add the data to the cells in the rows
@@ -520,7 +526,7 @@ namespace StockPredictor.Helpers
             catch (Exception ex) { Console.WriteLine("Exception in adding heading : " + ex.Message); }
         }
         //add data to trade excel sheets
-        private void addTradeDataLongHold(string principle,string buy, string sell, bool isShort, string change, string date, bool profitable)
+        private void addTradeDataLongHold(string principle,double buy, double sell, bool isShort, double change, string date, bool profitable)
         {
             rowNumber -= 1;
           
