@@ -136,7 +136,7 @@ namespace StockPredictor
             // cb20
             // 
             this.cb20.AutoSize = true;
-            this.cb20.Location = new System.Drawing.Point(10, 82);
+            this.cb20.Location = new System.Drawing.Point(207, 131);
             this.cb20.Name = "cb20";
             this.cb20.Size = new System.Drawing.Size(77, 17);
             this.cb20.TabIndex = 13;
