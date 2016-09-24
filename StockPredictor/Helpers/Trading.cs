@@ -116,7 +116,9 @@ namespace StockPredictor.Helpers
                 prices[1] = closePrice.ToString();
                 }
             else
+                { 
                 TradingForm.Instance.AppendOutputText("\r\n" + "Please enter the 20 minute price" + "\r\n"); return;
+                }
             }
                 //start the excel application object
                 ExcelMethods exl = new ExcelMethods();
@@ -165,8 +167,12 @@ namespace StockPredictor.Helpers
             if (!TradingForm.Instance.isLongTrade() && !TradingForm.Instance.sellLong()) { 
             simulateTrade(symbol, isShort, is20, method, prices, myPassedExcelApplication, isStrong);
             }
+            //don't run the long trades with the 20 minute trades to prevent them from being run twice
+            if(!is20)
+            { 
             //run the long trades
             simulateTradeLongStrategy(symbol, isShort, method, prices, myPassedExcelApplication);
+            }
 
         }
 

@@ -56,9 +56,10 @@ namespace StockPredictor
             // 
             // btTrade
             // 
+            this.btTrade.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btTrade.Image = global::StockPredictor.Properties.Resources.tradeSmall;
             this.btTrade.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btTrade.Location = new System.Drawing.Point(180, 59);
+            this.btTrade.Location = new System.Drawing.Point(209, 164);
             this.btTrade.Name = "btTrade";
             this.btTrade.Size = new System.Drawing.Size(128, 66);
             this.btTrade.TabIndex = 0;
@@ -68,7 +69,7 @@ namespace StockPredictor
             // 
             // tbTrade
             // 
-            this.tbTrade.Location = new System.Drawing.Point(207, 31);
+            this.tbTrade.Location = new System.Drawing.Point(232, 37);
             this.tbTrade.Name = "tbTrade";
             this.tbTrade.Size = new System.Drawing.Size(75, 20);
             this.tbTrade.TabIndex = 2;
@@ -76,28 +77,30 @@ namespace StockPredictor
             // tbTradeOutput
             // 
             this.tbTradeOutput.BackColor = System.Drawing.SystemColors.Control;
-            this.tbTradeOutput.Location = new System.Drawing.Point(9, 219);
+            this.tbTradeOutput.Location = new System.Drawing.Point(9, 236);
             this.tbTradeOutput.Multiline = true;
             this.tbTradeOutput.Name = "tbTradeOutput";
             this.tbTradeOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbTradeOutput.Size = new System.Drawing.Size(498, 273);
+            this.tbTradeOutput.Size = new System.Drawing.Size(550, 273);
             this.tbTradeOutput.TabIndex = 4;
             // 
             // cbSell
             // 
             this.cbSell.AutoSize = true;
-            this.cbSell.Location = new System.Drawing.Point(12, 54);
+            this.cbSell.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbSell.Location = new System.Drawing.Point(9, 61);
             this.cbSell.Name = "cbSell";
-            this.cbSell.Size = new System.Drawing.Size(69, 17);
+            this.cbSell.Size = new System.Drawing.Size(89, 22);
             this.cbSell.TabIndex = 5;
             this.cbSell.Text = "Short sell";
             this.cbSell.UseVisualStyleBackColor = true;
             // 
             // btTest
             // 
-            this.btTest.Location = new System.Drawing.Point(207, 498);
+            this.btTest.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btTest.Location = new System.Drawing.Point(232, 515);
             this.btTest.Name = "btTest";
-            this.btTest.Size = new System.Drawing.Size(75, 23);
+            this.btTest.Size = new System.Drawing.Size(75, 34);
             this.btTest.TabIndex = 7;
             this.btTest.Text = "Test";
             this.btTest.UseVisualStyleBackColor = true;
@@ -106,9 +109,10 @@ namespace StockPredictor
             // cbBag
             // 
             this.cbBag.AutoSize = true;
-            this.cbBag.Location = new System.Drawing.Point(393, 31);
+            this.cbBag.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbBag.Location = new System.Drawing.Point(411, 5);
             this.cbBag.Name = "cbBag";
-            this.cbBag.Size = new System.Drawing.Size(45, 17);
+            this.cbBag.Size = new System.Drawing.Size(52, 22);
             this.cbBag.TabIndex = 10;
             this.cbBag.Text = "Bag";
             this.cbBag.UseVisualStyleBackColor = true;
@@ -116,9 +120,10 @@ namespace StockPredictor
             // cbNamed
             // 
             this.cbNamed.AutoSize = true;
-            this.cbNamed.Location = new System.Drawing.Point(393, 82);
+            this.cbNamed.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbNamed.Location = new System.Drawing.Point(411, 71);
             this.cbNamed.Name = "cbNamed";
-            this.cbNamed.Size = new System.Drawing.Size(60, 17);
+            this.cbNamed.Size = new System.Drawing.Size(71, 22);
             this.cbNamed.TabIndex = 11;
             this.cbNamed.Text = "Named";
             this.cbNamed.UseVisualStyleBackColor = true;
@@ -126,9 +131,10 @@ namespace StockPredictor
             // cbNoun
             // 
             this.cbNoun.AutoSize = true;
-            this.cbNoun.Location = new System.Drawing.Point(393, 59);
+            this.cbNoun.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbNoun.Location = new System.Drawing.Point(411, 35);
             this.cbNoun.Name = "cbNoun";
-            this.cbNoun.Size = new System.Drawing.Size(52, 17);
+            this.cbNoun.Size = new System.Drawing.Size(62, 22);
             this.cbNoun.TabIndex = 12;
             this.cbNoun.Text = "Noun";
             this.cbNoun.UseVisualStyleBackColor = true;
@@ -136,9 +142,10 @@ namespace StockPredictor
             // cb20
             // 
             this.cb20.AutoSize = true;
-            this.cb20.Location = new System.Drawing.Point(10, 82);
+            this.cb20.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb20.Location = new System.Drawing.Point(232, 71);
             this.cb20.Name = "cb20";
-            this.cb20.Size = new System.Drawing.Size(77, 17);
+            this.cb20.Size = new System.Drawing.Size(95, 22);
             this.cb20.TabIndex = 13;
             this.cb20.Text = "20m Trade";
             this.cb20.UseVisualStyleBackColor = true;
@@ -146,9 +153,10 @@ namespace StockPredictor
             // cbRandom
             // 
             this.cbRandom.AutoSize = true;
-            this.cbRandom.Location = new System.Drawing.Point(393, 108);
+            this.cbRandom.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbRandom.Location = new System.Drawing.Point(411, 107);
             this.cbRandom.Name = "cbRandom";
-            this.cbRandom.Size = new System.Drawing.Size(66, 17);
+            this.cbRandom.Size = new System.Drawing.Size(81, 22);
             this.cbRandom.TabIndex = 14;
             this.cbRandom.Text = "Random";
             this.cbRandom.UseVisualStyleBackColor = true;
@@ -156,9 +164,10 @@ namespace StockPredictor
             // cbManual
             // 
             this.cbManual.AutoSize = true;
-            this.cbManual.Location = new System.Drawing.Point(12, 31);
+            this.cbManual.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbManual.Location = new System.Drawing.Point(9, 31);
             this.cbManual.Name = "cbManual";
-            this.cbManual.Size = new System.Drawing.Size(92, 17);
+            this.cbManual.Size = new System.Drawing.Size(119, 22);
             this.cbManual.TabIndex = 15;
             this.cbManual.Text = "Manual Trade";
             this.cbManual.UseVisualStyleBackColor = true;
@@ -166,16 +175,17 @@ namespace StockPredictor
             // cbRetry
             // 
             this.cbRetry.AutoSize = true;
+            this.cbRetry.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbRetry.Location = new System.Drawing.Point(9, 131);
             this.cbRetry.Name = "cbRetry";
-            this.cbRetry.Size = new System.Drawing.Size(51, 17);
+            this.cbRetry.Size = new System.Drawing.Size(62, 22);
             this.cbRetry.TabIndex = 16;
             this.cbRetry.Text = "Retry";
             this.cbRetry.UseVisualStyleBackColor = true;
             // 
             // tbOpen
             // 
-            this.tbOpen.Location = new System.Drawing.Point(238, 163);
+            this.tbOpen.Location = new System.Drawing.Point(265, 110);
             this.tbOpen.Name = "tbOpen";
             this.tbOpen.Size = new System.Drawing.Size(100, 20);
             this.tbOpen.TabIndex = 17;
@@ -183,26 +193,26 @@ namespace StockPredictor
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(150, 165);
+            this.label1.Font = new System.Drawing.Font("Modern No. 20", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(177, 112);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 18);
+            this.label1.Size = new System.Drawing.Size(76, 17);
             this.label1.TabIndex = 18;
             this.label1.Text = "Open Price";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(147, 195);
+            this.label2.Font = new System.Drawing.Font("Modern No. 20", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(177, 140);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 18);
+            this.label2.Size = new System.Drawing.Size(76, 17);
             this.label2.TabIndex = 19;
             this.label2.Text = "Close Price";
             // 
             // tbClose
             // 
-            this.tbClose.Location = new System.Drawing.Point(238, 190);
+            this.tbClose.Location = new System.Drawing.Point(265, 137);
             this.tbClose.Name = "tbClose";
             this.tbClose.Size = new System.Drawing.Size(100, 20);
             this.tbClose.TabIndex = 20;
@@ -210,9 +220,10 @@ namespace StockPredictor
             // cbStrong
             // 
             this.cbStrong.AutoSize = true;
-            this.cbStrong.Location = new System.Drawing.Point(10, 108);
+            this.cbStrong.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbStrong.Location = new System.Drawing.Point(9, 94);
             this.cbStrong.Name = "cbStrong";
-            this.cbStrong.Size = new System.Drawing.Size(68, 17);
+            this.cbStrong.Size = new System.Drawing.Size(87, 22);
             this.cbStrong.TabIndex = 21;
             this.cbStrong.Text = "Is Strong";
             this.cbStrong.UseVisualStyleBackColor = true;
@@ -220,38 +231,41 @@ namespace StockPredictor
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(288, 35);
+            this.label4.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(229, 12);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 15);
+            this.label4.Size = new System.Drawing.Size(91, 18);
             this.label4.TabIndex = 23;
-            this.label4.Text = "Ticker";
+            this.label4.Text = "Enter Ticker";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 163);
+            this.label5.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(6, 167);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(106, 13);
+            this.label5.Size = new System.Drawing.Size(153, 18);
             this.label5.TabIndex = 26;
             this.label5.Text = "Get Price Information";
             // 
             // btPrice
             // 
-            this.btPrice.Location = new System.Drawing.Point(12, 187);
+            this.btPrice.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btPrice.Location = new System.Drawing.Point(9, 203);
             this.btPrice.Name = "btPrice";
-            this.btPrice.Size = new System.Drawing.Size(100, 23);
+            this.btPrice.Size = new System.Drawing.Size(100, 27);
             this.btPrice.TabIndex = 24;
-            this.btPrice.Text = "Price";
+            this.btPrice.Text = "Get Prices";
             this.btPrice.UseVisualStyleBackColor = true;
             this.btPrice.Click += new System.EventHandler(this.btPrice_Click);
             // 
             // cbLong
             // 
             this.cbLong.AutoSize = true;
-            this.cbLong.Location = new System.Drawing.Point(393, 142);
+            this.cbLong.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbLong.Location = new System.Drawing.Point(411, 144);
             this.cbLong.Name = "cbLong";
-            this.cbLong.Size = new System.Drawing.Size(81, 17);
+            this.cbLong.Size = new System.Drawing.Size(103, 22);
             this.cbLong.TabIndex = 27;
             this.cbLong.Text = "Long Trade";
             this.cbLong.UseVisualStyleBackColor = true;
@@ -259,9 +273,10 @@ namespace StockPredictor
             // cbSellLong
             // 
             this.cbSellLong.AutoSize = true;
-            this.cbSellLong.Location = new System.Drawing.Point(393, 177);
+            this.cbSellLong.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbSellLong.Location = new System.Drawing.Point(411, 187);
             this.cbSellLong.Name = "cbSellLong";
-            this.cbSellLong.Size = new System.Drawing.Size(110, 17);
+            this.cbSellLong.Size = new System.Drawing.Size(149, 22);
             this.cbSellLong.TabIndex = 28;
             this.cbSellLong.Text = "Sell Long Position";
             this.cbSellLong.UseVisualStyleBackColor = true;
@@ -270,9 +285,8 @@ namespace StockPredictor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::StockPredictor.Properties.Resources.internet;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(528, 523);
+            this.ClientSize = new System.Drawing.Size(571, 549);
             this.Controls.Add(this.cbSellLong);
             this.Controls.Add(this.cbLong);
             this.Controls.Add(this.label5);
