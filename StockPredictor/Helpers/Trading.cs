@@ -13,39 +13,52 @@ namespace StockPredictor.Helpers
         //simulate trade based on method used
         public void simulateTradeMaster(string symbol, bool isShort, bool is20, decimal sellPrice, bool isBag, bool isNoun, bool isNamed, bool isRandom, bool isStrong)
         {
-            //yahoo methods to find change in stock prices
-            YahooStockMethods yahoo = new YahooStockMethods();
-            string[] prices = yahoo.getStockPriceChange(symbol);
-            //ensure that the data loads correctly
-            if (string.IsNullOrEmpty(prices[0]))
+            decimal openPrice = TradingForm.Instance.getOpenPrice();
+            decimal closePrice = TradingForm.Instance.getClosePrice();
+
+            string[] prices = new string[2]; ;
+            if (openPrice > 0 && closePrice > 0)
             {
-                TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load price data " + symbol);
-                //the 20 minute trade doesn't need to contain a closing price
-                if(is20 && TradingForm.Instance.getOpenPrice() == 0) { TradingForm.Instance.AppendOutputText("\r\n" + "Consider entering an open price manually" + "\r\n"); return; }
-                //allow the trade to go ahead if there is an open price and 20 minute sell price
-                else if (is20 && TradingForm.Instance.getOpenPrice() > 0)
-                {
-                    if (sellPrice > 0) { prices[1] = sellPrice.ToString(); }
-                    else { TradingForm.Instance.AppendOutputText("\r\n" + "Enter a number into 20 minute sale box" + "\r\n"); return; }
-
-                }
-                //check if the user added the trading prices manually
-                else if (TradingForm.Instance.getOpenPrice() == 0 || TradingForm.Instance.getClosePrice() == 0)
-                {
-                    TradingForm.Instance.AppendOutputText("\r\n" + "Consider entering open and close prices manually" + "\r\n");
-
-                    return;
-                }
-                //get the price data from the text boxes 
-                prices[0] = TradingForm.Instance.getOpenPrice().ToString();
-                Console.WriteLine(symbol); ;
-                Console.WriteLine("Open : " + prices[0]);
-                Console.WriteLine("Close : " + prices[1]);
-                prices[1] = TradingForm.Instance.getClosePrice().ToString();
+                prices[0] = openPrice.ToString();
+                prices[1] = closePrice.ToString();
             }
-      
+            else
+            {
+                //yahoo methods to find change in stock prices
+                YahooStockMethods yahoo = new YahooStockMethods();
+                prices = yahoo.getStockPriceChange(symbol);
+                //ensure that the data loads correctly
+                if (string.IsNullOrEmpty(prices[0]))
+                {
+                    TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load price data " + symbol);
+                    //check if the user added the trading prices manually
+                    if (TradingForm.Instance.getOpenPrice() == 0 || TradingForm.Instance.getClosePrice() == 0)
+                    {
+                        TradingForm.Instance.AppendOutputText("\r\n" + "Consider entering the open and close prices manually" + "\r\n");
 
-//start the excel application object
+                        return;
+                    }
+                    prices[0] = openPrice.ToString();
+                    prices[1] = closePrice.ToString();
+                }
+            }
+            Console.WriteLine(symbol); ;
+            Console.WriteLine("Open : " + prices[0]);
+            Console.WriteLine("Close : " + prices[1]);
+
+            //check if it a 20 minute trade and set the sell price
+            if (is20)
+            {
+                if (closePrice > 0)
+                {
+                    prices[1] = closePrice.ToString();
+                }
+                else
+                    TradingForm.Instance.AppendOutputText("\r\n" + "Please enter the 20 minute price" + "\r\n"); return;
+            }
+
+
+            //start the excel application object
             ExcelMethods exl = new ExcelMethods();
             Application myPassedExcelApplication = exl.startExcelApp();
             //save the data based on the method used
@@ -107,18 +120,23 @@ namespace StockPredictor.Helpers
             Console.WriteLine(symbol); ;
             Console.WriteLine("Open : " + prices[0]);
             Console.WriteLine("Close : " + prices[1]);
-            
+
             //check if it a 20 minute trade and set the sell price
             if (is20)
             {
                 if (closePrice > 0)
-                { 
-                prices[1] = closePrice.ToString();
+                {
+                    prices[1] = closePrice.ToString();
                 }
-            else
+                else
+                {
+                    TradingForm.Instance.AppendOutputText("\r\n" + "Please enter the 20 minute price" + "\r\n"); return;
+                }
+
                 { 
                 TradingForm.Instance.AppendOutputText("\r\n" + "Please enter the 20 minute price" + "\r\n"); return;
                 }
+
             }
                 //start the excel application object
                 ExcelMethods exl = new ExcelMethods();
@@ -142,23 +160,23 @@ namespace StockPredictor.Helpers
             //if neutral data is stored then stop the auto trade
             if (score <= 4 && score >= -4 && !TradingForm.Instance.sellLong()) { TradingForm.Instance.AppendOutputText("\r\n" + "Neutral : No trading!" + "\r\n" + method + "\r\n"); return; }  
             //negative scores sell and strong sell        
-            if (score < -4 && score > -18 )
+            if (score < -4 && score > -15 )
             {
                 isShort = true; isStrong = false;
                 TradingForm.Instance.AppendOutputText("\r\n" + "Sell " + "\r\n" + method + "\r\n");
             }
-            if (score <= -18)
+            if (score <= -15)
             {
                 isShort = true; isStrong = true;
                 TradingForm.Instance.AppendOutputText("\r\n" + "Strong sell :" + "\r\n" + method + "\r\n");
             }
             //positive scores buy and strong buy
-            if (score > 4 && score <18)
+            if (score > 4 && score <15)
             {
                 isShort = false; isStrong = false;
                 TradingForm.Instance.AppendOutputText("\r\n" + "Buy : " + "\r\n" + method + "\r\n");
             };
-            if(score >= 18)
+            if(score >= 15)
             {
                 isShort = false; isStrong = true;
                 TradingForm.Instance.AppendOutputText("\r\n" + "Strong buy :" + "\r\n" + method + "\r\n");

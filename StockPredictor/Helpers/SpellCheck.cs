@@ -120,7 +120,7 @@ namespace StockPredictor
             //file writer reader class
             fileReaderWriter frw = new fileReaderWriter();
             //load pos tagger
-            PosTagger pt = new PosTagger();
+            NamedNoun pt = new NamedNoun();
 
             if (word.Contains("_"))
             {

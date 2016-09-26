@@ -67,7 +67,7 @@ namespace StockPredictor.Tests
 //main test for both methods
         public void testNounNamed()
         {
-            PosTagger pt = new PosTagger();
+            NamedNoun pt = new NamedNoun();
             pt.processNamedNoun(badText, "exampleExcel1", false);
         }
      

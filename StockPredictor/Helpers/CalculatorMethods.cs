@@ -587,12 +587,12 @@ namespace StockPredictor.Helpers
 
             double total = (sentiment + rsi + bands + peg + Moving50 + Moving200 + Dividend + PriceBook ) ;
             Form1.Instance.AppendOutputText("\r\n\r\nMethod : " + method);
-            if (total >= 18)
+            if (total >= 15)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : strong buy : " + total);
                 Form1.Instance.Verdict = "Strong Buy";
             }
-            if (total > 4 && total < 18)
+            if (total > 4 && total < 15)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : buy : " + total);
                 Form1.Instance.Verdict = "Buy";
@@ -602,12 +602,12 @@ namespace StockPredictor.Helpers
                 Form1.Instance.AppendOutputText("\r\nTotal score : neutral : " + total);
                 Form1.Instance.Verdict = "Neutral";
             }
-            if (total < -4 && total > -18)
+            if (total < -4 && total > -15)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : sell : " + total);
                 Form1.Instance.Verdict = "Sell";
             }
-            if (total <= -18)
+            if (total <= -15)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : strong sell :" + total + "\r\n");
                 Form1.Instance.Verdict = "Strong Sell";

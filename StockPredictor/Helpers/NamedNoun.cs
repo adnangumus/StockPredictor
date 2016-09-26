@@ -13,7 +13,7 @@ using Microsoft.Office.Interop.Excel;
 
 namespace StockPredictor
 {
-    class PosTagger
+    class NamedNoun
 
     {
         //load the term frequency class with the methods for measuring the frequency of positive and negatiive terms

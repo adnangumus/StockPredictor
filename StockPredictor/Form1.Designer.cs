@@ -494,7 +494,7 @@
             this.btOutput.Name = "btOutput";
             this.btOutput.Size = new System.Drawing.Size(144, 23);
             this.btOutput.TabIndex = 47;
-            this.btOutput.Text = "Show Output Console";
+            this.btOutput.Text = "Hide Output Console";
             this.btOutput.UseVisualStyleBackColor = true;
             this.btOutput.Click += new System.EventHandler(this.btOutput_Click);
             // 

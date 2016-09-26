@@ -39,7 +39,7 @@ namespace StockPredictor.Helpers
         //get the sentences as list from a string. Check that words are spelt 
         //correctly and then put the senteces back in to the lists. Words are stemmed. 
         //Count the amount of words and sentences processed
-        public Hashtable processBagOfWords(string articles, string fileName, bool dontSave)
+        public Hashtable processBagOfWords(string articles, string fileName)
         {
             Console.WriteLine("BagOfWords started");
             //hash table 1=pw 2=nw 3=spw 4=snw 5=pp 6=np 7=wc 8=sc

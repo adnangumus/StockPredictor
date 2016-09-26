@@ -144,6 +144,7 @@ namespace StockPredictor
             this.cb20.AutoSize = true;
             this.cb20.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb20.Location = new System.Drawing.Point(232, 71);
+            this.cb20.Location = new System.Drawing.Point(207, 131);
             this.cb20.Name = "cb20";
             this.cb20.Size = new System.Drawing.Size(95, 22);
             this.cb20.TabIndex = 13;

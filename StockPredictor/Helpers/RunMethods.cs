@@ -34,7 +34,7 @@ namespace StockPredictor.Helpers
             Mining miner = new Mining();
             string articles = miner.getAllArticles(links);
             //intialize and process the named and noun entities
-            PosTagger pt = new PosTagger();
+            NamedNoun pt = new NamedNoun();
             //check if the user wants to save the data
             Application myPassExcelApp = null;
             ExcelMethods exl = new ExcelMethods();
@@ -46,7 +46,7 @@ namespace StockPredictor.Helpers
             Task taskA = new Task(() => hts = pt.processNamedNoun(articles, ticker, dontSave));
             //intialize and set up a thread for processing bag of words
             BagOfWords bag = new BagOfWords();
-            Task taskB = new Task(() => bagHT = (bag.processBagOfWords(articles, ticker, dontSave)));
+            Task taskB = new Task(() => bagHT = (bag.processBagOfWords(articles, ticker)));
             //stat the tasks            
             taskA.Start();
             taskB.RunSynchronously();
@@ -119,6 +119,7 @@ namespace StockPredictor.Helpers
 
             CalculatorMethods cal = new CalculatorMethods();
            double finalScore = cal.ProcessAllMetrics(funda, totalScore, rsi, method, bands);
+//------------------Display results from the named method
             if (method == "Named") { cal.displayResults(); }
           
          if (!dontSave)

@@ -235,7 +235,7 @@
     <Compile Include="Helpers\LinkCleaner.cs" />
     <Compile Include="Helpers\Mining.cs" />
     <Compile Include="Helpers\Porter2.cs" />
-    <Compile Include="Helpers\PosTagger.cs" />
+    <Compile Include="Helpers\NamedNoun.cs" />
     <Compile Include="Helpers\RandomGenerator.cs" />
     <Compile Include="Helpers\RunMethods.cs" />
     <Compile Include="Helpers\SpellCheck.cs" />
