@@ -65,7 +65,7 @@ namespace StockPredictor.Helpers
                 if (!decodedUrl.Contains("search.yahoo") && !decodedUrl.Contains("help.yahoo") 
                     && !decodedUrl.Contains("login.yahoo")&& !decodedUrl.Contains("mail.yahoo")
                     && !decodedUrl.Contains("mozilla") && !decodedUrl.Contains("advertising.yahoo") && !decodedUrl.Contains("info.yahoo") 
-                     && !decodedUrl.Contains("flickr")
+                     && !decodedUrl.Contains("flickr") && !decodedUrl.Contains("yahoo.uservoice")
                     )   
                 {
                   //  Console.WriteLine(decodedUrl);

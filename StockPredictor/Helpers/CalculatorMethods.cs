@@ -532,11 +532,11 @@ namespace StockPredictor.Helpers
         {
             
 
-            if (sentiment <= -25)
+            if (sentiment <= -20)
             {
                 return -2;
             }
-            if (sentiment <= -5 && sentiment > -25)
+            if (sentiment <= -5 && sentiment > -20)
             {
                 return -1;
             }
@@ -544,11 +544,11 @@ namespace StockPredictor.Helpers
             {
                 return 0;
             }
-            if (sentiment >= 5 && sentiment < 25)
+            if (sentiment >= 5 && sentiment < 20)
             {
                 return 1;
             }
-            if (sentiment >= 25)
+            if (sentiment >= 20)
             {
                 return 2;
             }
