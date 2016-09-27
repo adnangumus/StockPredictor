@@ -261,9 +261,11 @@ namespace StockPredictor
             //   Hashtable funda = YahooStockMethods.getFundamentals("aapl");
 
             //get the historical price data and set it in the form1
-            Form1.Instance.HistoricalPriceData = YahooStockMethods.GetHistoricalPriceData("aapl");
-            CalculatorMethods cal = new CalculatorMethods();
-            cal.calculateBollingerBands();
+            Form1.Instance.HistoricalPriceData = YahooStockMethods.GetHistoricalPriceData(tbInput.Text);
+            // CalculatorMethods cal = new CalculatorMethods();
+            // cal.calculateBollingerBands();
+            CalculatorTest caltest = new CalculatorTest();
+            caltest.calculateBollingerBandsYesterday();
             //  int rsi = cal.CalculateRSI("aapl");
             //  funda = yahoo.getFundamentals("aapl");
             //  cal.ProcessAllMetrics(funda, 20, rsi);
@@ -351,8 +353,11 @@ namespace StockPredictor
           
         }
 
-      
-
+        private void tbClear_Click(object sender, EventArgs e)
+        {
+            tbOutput.Text = "";
+            tbConsoleOutput.Text = "";            
+        }
     }
 }
 

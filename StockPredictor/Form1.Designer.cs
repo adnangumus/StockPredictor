@@ -77,6 +77,7 @@
             this.btTrade = new System.Windows.Forms.Button();
             this.lbTicker = new System.Windows.Forms.Label();
             this.tbOutput = new StockPredictor.CustomTextBox();
+            this.tbClear = new System.Windows.Forms.Button();
             this.groupBox7.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -593,6 +594,17 @@
             this.tbOutput.Size = new System.Drawing.Size(517, 421);
             this.tbOutput.TabIndex = 12;
             // 
+            // tbClear
+            // 
+            this.tbClear.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbClear.Location = new System.Drawing.Point(889, 497);
+            this.tbClear.Name = "tbClear";
+            this.tbClear.Size = new System.Drawing.Size(75, 23);
+            this.tbClear.TabIndex = 74;
+            this.tbClear.Text = "Clear Console";
+            this.tbClear.UseVisualStyleBackColor = true;
+            this.tbClear.Click += new System.EventHandler(this.tbClear_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -600,6 +612,7 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1199, 714);
+            this.Controls.Add(this.tbClear);
             this.Controls.Add(this.lbTicker);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel5);
@@ -690,6 +703,7 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.PictureBox pbLoad;
         private System.Windows.Forms.Label lbTicker;
+        private System.Windows.Forms.Button tbClear;
     }
 }
 

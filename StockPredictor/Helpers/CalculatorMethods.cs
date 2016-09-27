@@ -172,6 +172,8 @@ namespace StockPredictor.Helpers
         //calculate the Bollinger Bonds over a 20 day period
         public int calculateBollingerBands()
         {
+            //reset the bollinger verdict
+            Form1.Instance.BollingerVerdict = 0;
             //  List<HistoricalStock> data = YahooStockMethods.getHistoricalPriceData(ticker);
             List<HistoricalStock> data = Form1.Instance.HistoricalPriceData;
             double mean = 0;
