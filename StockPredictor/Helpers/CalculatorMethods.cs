@@ -152,12 +152,12 @@ namespace StockPredictor.Helpers
                     Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nRSI sell signal = " + rsi + " " + rsiLast);
                     return -1;
                 }
-                if(rsiLast >= 70)
+                if(rsiLast >= 68)
                 {
                     Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nRSI sell signal = " + rsiLast);
                     return -2;
                 }
-                if (rsiLast <= 30)
+                if (rsiLast <= 32)
                 {
                     Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nRSI buy signal = "+ rsiLast);
                     return 2;
