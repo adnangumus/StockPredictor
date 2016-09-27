@@ -53,8 +53,7 @@ namespace StockPredictor.Helpers
                 {
                     prices[1] = closePrice.ToString();
                 }
-                else
-                    TradingForm.Instance.AppendOutputText("\r\n" + "Please enter the 20 minute price" + "\r\n"); return;
+                else { TradingForm.Instance.AppendOutputText("\r\n" + "Please enter the 20 minute price" + "\r\n"); return; }                             
             }
 
 
@@ -132,11 +131,6 @@ namespace StockPredictor.Helpers
                 {
                     TradingForm.Instance.AppendOutputText("\r\n" + "Please enter the 20 minute price" + "\r\n"); return;
                 }
-
-                { 
-                TradingForm.Instance.AppendOutputText("\r\n" + "Please enter the 20 minute price" + "\r\n"); return;
-                }
-
             }
                 //start the excel application object
                 ExcelMethods exl = new ExcelMethods();

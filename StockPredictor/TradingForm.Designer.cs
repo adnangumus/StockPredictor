@@ -143,8 +143,7 @@ namespace StockPredictor
             // 
             this.cb20.AutoSize = true;
             this.cb20.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cb20.Location = new System.Drawing.Point(232, 71);
-            this.cb20.Location = new System.Drawing.Point(207, 131);
+            this.cb20.Location = new System.Drawing.Point(225, 71);
             this.cb20.Name = "cb20";
             this.cb20.Size = new System.Drawing.Size(95, 22);
             this.cb20.TabIndex = 13;
@@ -186,7 +185,7 @@ namespace StockPredictor
             // 
             // tbOpen
             // 
-            this.tbOpen.Location = new System.Drawing.Point(265, 110);
+            this.tbOpen.Location = new System.Drawing.Point(265, 105);
             this.tbOpen.Name = "tbOpen";
             this.tbOpen.Size = new System.Drawing.Size(100, 20);
             this.tbOpen.TabIndex = 17;
@@ -195,7 +194,7 @@ namespace StockPredictor
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Modern No. 20", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(177, 112);
+            this.label1.Location = new System.Drawing.Point(177, 107);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(76, 17);
             this.label1.TabIndex = 18;
