@@ -2,8 +2,6 @@ a
 about
 above
 after
-again
-against
 all
 am
 an
