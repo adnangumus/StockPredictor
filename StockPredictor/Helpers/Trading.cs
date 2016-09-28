@@ -97,7 +97,8 @@ namespace StockPredictor.Helpers
                 prices[0] = openPrice.ToString();
                 prices[1] = closePrice.ToString();
             }
-            else { 
+            else
+            { 
             //yahoo methods to find change in stock prices
             YahooStockMethods yahoo = new YahooStockMethods();
             prices = yahoo.getStockPriceChange(symbol);

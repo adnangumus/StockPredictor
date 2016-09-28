@@ -163,7 +163,9 @@ namespace StockPredictor.Helpers
                     Retries++;
                     if (Retries < 4)
                     {
-                        getStockPriceChange(symbol);
+                        Console.WriteLine("Retrying Quotes");
+                        prices = getStockPriceChange(symbol);
+                        return prices;    
                     } //write the information to the text box
                     TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load correct date : " + symbol);
                     prices[0] = "";
