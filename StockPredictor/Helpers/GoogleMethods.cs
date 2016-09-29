@@ -40,7 +40,8 @@ namespace StockPredictor
         //get the links from the google url
         public List<string> getGooglelinks(string url)
         {
-            
+        // String googleUrl = "https://www.google.com/search?q=NASDAQ+" + input + "+" + companyName + "+News&tbm=nws&tbs=qdr:d";
+      //  https://www.google.com/search?q=NASDAQ+gild+gilead+News&tbm=nws&tbs=qdr:d
             List<string> links = new List<string>();
             //use the htmlhelper class to load the urls
             HtmlHelper hh = new HtmlHelper();
