@@ -26,6 +26,7 @@ broken
 callous
 cannib
 chaotic
+clinton
 clumsi
 coars
 cold
@@ -227,6 +228,7 @@ sick
 sicken
 sinist
 sink
+slide
 slimi
 smelli
 sob

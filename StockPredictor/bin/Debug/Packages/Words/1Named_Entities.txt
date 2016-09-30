@@ -43,3 +43,6 @@ Revlimid
 Thalomid
 LNG
 Spirit
+Clinton
+Trump
+election

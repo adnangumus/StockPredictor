@@ -27,7 +27,7 @@ callous
 cannibalize
 chaotic
 clumsy
-clinton
+Clinton
 cut
 coarse
 cold
@@ -230,6 +230,7 @@ sickening
 sinister
 sink
 slimy
+Slide
 smelly
 sobbing
 sorry

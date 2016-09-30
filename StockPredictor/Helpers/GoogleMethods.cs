@@ -89,7 +89,7 @@ namespace StockPredictor
                         if (hrefValue == "#") { }
                         else{ 
                         redirectLink = hrefValue;
-                       // Console.WriteLine(hrefValue);
+                        Console.WriteLine(redirectLink);
                         }
                     }
                 
