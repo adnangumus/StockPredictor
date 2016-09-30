@@ -584,7 +584,7 @@ namespace StockPredictor.Helpers
             sentiment = sentiment * 5;
             rsi = rsi * 4;
             int peg = Peg * 2;
-            bands = bands * 3;
+            bands = bands * 4;
 
 
             double total = (sentiment + rsi + bands + peg + Moving50 + Moving200 + Dividend + PriceBook ) ;
