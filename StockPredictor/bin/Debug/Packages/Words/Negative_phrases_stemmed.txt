@@ -2,6 +2,7 @@
 
 
 
+
 adjust loss 
 artifici boost revenu 
 avoid like plagu 
@@ -20,8 +21,11 @@ declin demand
 declin earn 
 declin unit state 
 decreas earn 
+downgrad 
 earn declin 
 earn miss 
+estim price risk 
+face risk 
 fall cliff 
 fals statement 
 feder prosecutor 
@@ -60,7 +64,9 @@ price uncertainti
 pull money 
 pullback 
 rais concern 
+reduc it price target 
 reduc it stake 
+reduc stake 
 reflect bad 
 reject market author 
 sale decreas 
