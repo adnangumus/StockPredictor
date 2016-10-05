@@ -29,8 +29,7 @@ namespace StockPredictor
         //process named and noun phrases together
         public List<Hashtable> processNamedNoun(string articles, string fileName, bool dontSave)
         {
-            ExcelMethods em = new ExcelMethods();
-
+         
             List<Hashtable> hts = new List<Hashtable>();
             Hashtable nounHT = new Hashtable();
             Hashtable namedHT = new Hashtable();

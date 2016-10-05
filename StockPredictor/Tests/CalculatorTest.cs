@@ -13,7 +13,7 @@ namespace StockPredictor.Tests
         public int calculateBollingerBandsYesterday()
         {
             //reset the bollinger verdict
-            Form1.Instance.BollingerVerdict = 0;
+            Form1.Instance.scanMetrics.BollingerVerdict = 0;
             //  List<HistoricalStock> data = YahooStockMethods.getHistoricalPriceData(ticker);
             List<HistoricalStock> data = Form1.Instance.HistoricalPriceData;
             double mean = 0;
@@ -92,10 +92,10 @@ namespace StockPredictor.Tests
 
                 }
                 else { verdict = 0; }
-                Form1.Instance.BollingerVerdict = verdict;
+                Form1.Instance.scanMetrics.BollingerVerdict = verdict;
                 return verdict;
             }
-            catch (Exception) { Form1.Instance.BollingerVerdict = 0; return 0; }
+            catch (Exception) { Form1.Instance.scanMetrics.BollingerVerdict = 0; return 0; }
         }
 
     }

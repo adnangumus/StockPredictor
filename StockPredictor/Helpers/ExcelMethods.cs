@@ -57,8 +57,13 @@ namespace StockPredictor.Helpers
             //file reader class for reading files
             fileReaderWriter frw = new fileReaderWriter();
             //create a path that puts the stock information into unique folders with the name of the stock and method on seperate 
-            //excel sheets
+            //excel sheets           
             string folderPath = Path.Combine(frw.GetAppFolder(), @"packages\Data\" + fileName).ToString();
+            //save the data from the repeat runs in a different folder
+            if (Form1.Instance.isRepeat() || Form1.Instance.repeatData.RepeaterIsRunning)
+            {
+                folderPath = Path.Combine(frw.GetAppFolder(), @"packages\Data\Repeater\" + fileName).ToString();
+            }
             fileFolderPath = folderPath;
             string filePath = Path.Combine(fileFolderPath + @"\" + fileName + method).ToString();
             ExcelFilePath = filePath;
@@ -106,8 +111,25 @@ namespace StockPredictor.Helpers
                 createSheet(false, false, true, myPassedExcelApplication);
             }
     }
-    //read the score from the sentiment anlysis
-    public int ReadLatestFinalScore(Excel.Application myPassedExcelApplication, string fileName, string method)
+        //used the set the path for repeater trades
+        private void SetRepeaterTradePath(string fileName, string symbol, Excel.Application myPassedExcelApplication)
+        {
+            //create a path that puts the stock information into unique folders with the name of the stock and method on seperate 
+            //excel sheets
+            fileReaderWriter frw = new fileReaderWriter();
+            string folderPath = Path.Combine(frw.GetAppFolder(), @"packages\Data\Trades\RepeaterTrades\" + symbol).ToString();
+            fileFolderPath = folderPath;
+            string filePath = Path.Combine(fileFolderPath + @"\" + fileName).ToString();
+            ExcelFilePath = filePath;
+            //check if the excel file exists and print a message to the output box            
+            if (!File.Exists(excelFilePath + ".xlsx"))
+            {
+                TradingForm.Instance.AppendOutputText("\r\n" + "Creating trading sheet" + "\r\n");
+                createSheet(false, false, true, myPassedExcelApplication);
+            }
+        }
+        //read the score from the sentiment anlysis
+        public int ReadLatestFinalScore(Excel.Application myPassedExcelApplication, string fileName, string method)
         {
             //check if there is sentiment data availble for the stock
             if (!SetSentimentPath(fileName, method, myPassedExcelApplication)) { TradingForm.Instance.AppendOutputText("Data on " + fileName + " doesn't exist. Run the sentenment analysis." + "\r\n"); }
@@ -182,7 +204,7 @@ namespace StockPredictor.Helpers
             catch (Exception e) { Console.WriteLine(e.Message); }
             //close the excel sheet
             closeExcel();
-            Form1.Instance.IsHolding = isHolding;
+            Form1.Instance.scanMetrics.IsHolding = isHolding;
             //return the principle as a decimal
             return isHolding;
         }
@@ -233,8 +255,6 @@ namespace StockPredictor.Helpers
             if (is20) { fileName += "20"; }            
             //get the folder and file name
             SetTradePath(fileName, symbol, myPassedExcelApplication);
-
-
             //open the excel sheet
             openExcel(myPassedExcelApplication);
             //check if the retry box is thicked and over right previos data
@@ -447,7 +467,7 @@ namespace StockPredictor.Helpers
             //add the data to the cells
             myExcelWorkSheet.Cells[rowNumber, "A"] = date;
             myExcelWorkSheet.Cells[rowNumber, "B"] = scoreFinal;
-            myExcelWorkSheet.Cells[rowNumber, "C"] = Form1.Instance.Verdict;
+            myExcelWorkSheet.Cells[rowNumber, "C"] = Form1.Instance.scanMetrics.Verdict;
             myExcelWorkSheet.Cells[rowNumber, "D"] = totalSentiment;
             myExcelWorkSheet.Cells[rowNumber, "E"] = wordCount;
             myExcelWorkSheet.Cells[rowNumber, "F"] = sentenceCount;
@@ -462,20 +482,20 @@ namespace StockPredictor.Helpers
             myExcelWorkSheet.Cells[rowNumber, "O"] = negativePhraseCount;
             myExcelWorkSheet.Cells[rowNumber, "P"] = method;
             //add the fundamental and technical data here
-            myExcelWorkSheet.Cells[rowNumber, "Q"] = Form1.Instance.RealRSI;
-            myExcelWorkSheet.Cells[rowNumber, "R"] = Form1.Instance.Peg;
-            myExcelWorkSheet.Cells[rowNumber, "S"] = Form1.Instance.Moving200;
-            myExcelWorkSheet.Cells[rowNumber, "T"] = Form1.Instance.Moving50;
-            myExcelWorkSheet.Cells[rowNumber, "U"] = Form1.Instance.PriceBook;
-            myExcelWorkSheet.Cells[rowNumber, "V"] = Form1.Instance.Dividend;
-            myExcelWorkSheet.Cells[rowNumber, "W"] = Form1.Instance.BollingerVerdict;
+            myExcelWorkSheet.Cells[rowNumber, "Q"] = Form1.Instance.scanMetrics.RealRSI;
+            myExcelWorkSheet.Cells[rowNumber, "R"] = Form1.Instance.scanMetrics.Peg;
+            myExcelWorkSheet.Cells[rowNumber, "S"] = Form1.Instance.scanMetrics.Moving200;
+            myExcelWorkSheet.Cells[rowNumber, "T"] = Form1.Instance.scanMetrics.Moving50;
+            myExcelWorkSheet.Cells[rowNumber, "U"] = Form1.Instance.scanMetrics.PriceBook;
+            myExcelWorkSheet.Cells[rowNumber, "V"] = Form1.Instance.scanMetrics.Dividend;
+            myExcelWorkSheet.Cells[rowNumber, "W"] = Form1.Instance.scanMetrics.BollingerVerdict;
 
             if (rowNumber > 2)
             {
                 rowNumber -= 1;
-                myExcelWorkSheet.Cells[rowNumber, "X"] = Form1.Instance.PriceChange;
+                myExcelWorkSheet.Cells[rowNumber, "X"] = Form1.Instance.scanMetrics.PriceChange;
                 //check if the price change was positive
-                if(Form1.Instance.PriceChange >= 0)
+                if(Form1.Instance.scanMetrics.PriceChange >= 0)
                 {
                     myExcelWorkSheet.Cells[rowNumber, "Y"] = "Up";
                 }

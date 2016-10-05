@@ -427,14 +427,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="StockPredictor.exe" size="1466880">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="StockPredictor.exe" size="1472000">
       <assemblyIdentity name="StockPredictor" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>stEXl05/lMZ8f8/JSjo9SuimcOXdpSZV8OyYO/TyPgM=</dsig:DigestValue>
+        <dsig:DigestValue>urW7u7aoZX5WvzQk38JWjuho16cz0nUX8IPgafYTscM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

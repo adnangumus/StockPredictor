@@ -237,6 +237,7 @@
     <Compile Include="Helpers\Porter2.cs" />
     <Compile Include="Helpers\NamedNoun.cs" />
     <Compile Include="Helpers\RandomGenerator.cs" />
+    <Compile Include="Helpers\Repeater.cs" />
     <Compile Include="Helpers\RunMethods.cs" />
     <Compile Include="Helpers\SpellCheck.cs" />
     <Compile Include="Helpers\StemMethods.cs" />
@@ -249,6 +250,8 @@
     <Compile Include="Helpers\YahooStockMethods.cs" />
     <Compile Include="Models\HistoricalStock.cs" />
     <Compile Include="Models\Quote.cs" />
+    <Compile Include="Models\RepeaterData.cs" />
+    <Compile Include="Models\ScanMetric.cs" />
     <Compile Include="PleaseWait.cs">
       <SubType>Form</SubType>
     </Compile>

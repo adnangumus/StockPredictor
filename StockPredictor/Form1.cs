@@ -14,30 +14,17 @@ namespace StockPredictor
     {
         //variables used for the timer class
         static System.Windows.Forms.Timer myTimer = new System.Windows.Forms.Timer();
-      
-        //ranging from -2 to 2 Strong sell sell neutral buy strong buy
-        public int Rsi { get; set; }
-        //the real rsi
-        public double RealRSI { get; set; }
-        //the scores from the moving average ranging from -2 to 2 Strong sell sell neutral buy strong buy
-        public string Moving200 {get;set;}
-        public string Moving50 { get; set;}
-        public string PriceBook { get; set; }
-        public string Peg { get; set; }
-        public string Dividend { get; set; }
-        public Hashtable Fundamentals {get; set;}
-        public string Verdict { get; set; }
+
+        //store the historical quotes in the form instance
         public List<HistoricalStock> HistoricalPriceData { get; set; }
-        public double TwoDayOldClosePrice { get; set; }
-        public double LastClosePrice { get; set; }
-        public string UpperBand { get; set; }
-        public string LowerBand { get; set; }
-        public string Mean { get; set; }
-        public int BollingerVerdict { get; set; }
-        public string Ticker { get; set; }
-        public double PriceChange { get; set; }
-        public bool IsHolding { get; set; }
-       
+        //access the model that stores the scan metrics
+        public ScanMetric scanMetrics = new ScanMetric();
+        //data for the repeater that executes every 30 minutes
+        public RepeaterData repeatData = new RepeaterData();
+        public bool isRepeat()
+        {
+            return cbRepeat.Checked;
+        }
 
 
         public Form1()
@@ -170,19 +157,19 @@ namespace StockPredictor
             
             if (String.IsNullOrEmpty(tbInput.Text) || tbInput.Text.ToLower() == "bio")
             {
-                Ticker = "GILD";
+                scanMetrics.Ticker = "GILD";
                 rm.runStockPredictor("gild", dontSave);
-                Ticker = "HZNP";
+                scanMetrics.Ticker = "HZNP";
                 rm.runStockPredictor("hznp", dontSave);
-                Ticker = "BIIB";
+                scanMetrics.Ticker = "BIIB";
                 rm.runStockPredictor("biib", dontSave);
-                Ticker = "CELG";
+                scanMetrics.Ticker = "CELG";
                 rm.runStockPredictor("celg", dontSave);
                // rm.runStockPredictor("ibb", dontSave);
 
                 return;
             }
-            Ticker = input.ToUpper();
+            scanMetrics.Ticker = input.ToUpper();
             rm.runStockPredictor(input, dontSave);
             //   taskC.Wait();
             //time the overall performance
@@ -255,17 +242,35 @@ namespace StockPredictor
 
         private void Test_Click(object sender, EventArgs e)
         {
+          
+            // Set up background worker object & hook up handlers
+            BackgroundWorker bgWorker;
+            bgWorker = new BackgroundWorker();
+            bgWorker.WorkerReportsProgress = true;
+            bgWorker.DoWork += new DoWorkEventHandler(RunTests);
+            bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgWorker_RunWorkerCompleted);
+            // Launch background thread to do the work of reading the file.  
+            bgWorker.RunWorkerAsync();
+            //close the please wait dialogue
+        }
+
+        private void RunTests(object sender, DoWorkEventArgs e)
+        {
+            MiningTest mt = new MiningTest();
+            mt.TestLiveScrap();
+            Repeater rpt = new Repeater();
+            rpt.RunRepeater();
             //this.BackColor = SystemColors.Control;
             // YahooStockMethods yahoo = new YahooStockMethods();
 
             //   Hashtable funda = YahooStockMethods.getFundamentals("aapl");
 
             //get the historical price data and set it in the form1
-            Form1.Instance.HistoricalPriceData = YahooStockMethods.GetHistoricalPriceData(tbInput.Text);
+          //  Form1.Instance.HistoricalPriceData = YahooStockMethods.GetHistoricalPriceData(tbInput.Text);
             // CalculatorMethods cal = new CalculatorMethods();
             // cal.calculateBollingerBands();
-            CalculatorTest caltest = new CalculatorTest();
-            caltest.calculateBollingerBandsYesterday();
+          //  CalculatorTest caltest = new CalculatorTest();
+         //   caltest.calculateBollingerBandsYesterday();
             //  int rsi = cal.CalculateRSI("aapl");
             //  funda = yahoo.getFundamentals("aapl");
             //  cal.ProcessAllMetrics(funda, 20, rsi);
@@ -314,7 +319,7 @@ namespace StockPredictor
                 return;
             }
             string[] results = resultsAsString.Split(',');
-            lbTicker.Text = Ticker;
+            lbTicker.Text = scanMetrics.Ticker;
             lbSentiment.Text = results[0];
             lbRSI.Text = results[1]; 
             lbPEG.Text = results[2];
@@ -324,10 +329,10 @@ namespace StockPredictor
             lb50MA.Text = results[6];
             lb200MA.Text = results[7];
 
-            if (Verdict == "Strong Buy" || Verdict == "Buy") { lbVerdict.ForeColor = Color.Green; }
-            else if (Verdict == "Sell" || Verdict == "Strong Sell") { lbVerdict.ForeColor = Color.Red; }
+            if (scanMetrics.Verdict == "Strong Buy" || scanMetrics.Verdict == "Buy") { lbVerdict.ForeColor = Color.Green; }
+            else if (scanMetrics.Verdict == "Sell" || scanMetrics.Verdict == "Strong Sell") { lbVerdict.ForeColor = Color.Red; }
             else { lbVerdict.ForeColor = Color.Black; }
-            lbVerdict.Text = Verdict;
+            lbVerdict.Text = scanMetrics.Verdict;
             pbLoad.Visible = false;
         }
         //varibales to store the width of the form

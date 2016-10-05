@@ -23,27 +23,27 @@ namespace StockPredictor.Helpers
             if (total >= 15)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : strong buy : " + total);
-                Form1.Instance.Verdict = "Strong Buy";
+                Form1.Instance.scanMetrics.Verdict = "Strong Buy";
             }
             if (total > 4 && total < 15)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : buy : " + total);
-                Form1.Instance.Verdict = "Buy";
+                Form1.Instance.scanMetrics.Verdict = "Buy";
             }
             if (total <= 4 && total >= -4)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : neutral : " + total);
-                Form1.Instance.Verdict = "Neutral";
+                Form1.Instance.scanMetrics.Verdict = "Neutral";
             }
             if (total < -4 && total > -15)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : sell : " + total);
-                Form1.Instance.Verdict = "Sell";
+                Form1.Instance.scanMetrics.Verdict = "Sell";
             }
             if (total <= -15)
             {
                 Form1.Instance.AppendOutputText("\r\nTotal score : strong sell :" + total + "\r\n");
-                Form1.Instance.Verdict = "Strong Sell";
+                Form1.Instance.scanMetrics.Verdict = "Strong Sell";
             }
 
             string elapsedMs = "0";

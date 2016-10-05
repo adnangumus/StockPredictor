@@ -17,10 +17,13 @@ namespace StockPredictor.Helpers
         }
         public void runStockPredictor(string ticker, bool dontSave)
         {
-            //get the fundamentals of the stock and makes sure it loaded
-            Hashtable funda = YahooStockMethods.getFundamentals(ticker);
+            Hashtable funda = new Hashtable();
+            try {
+                //get the fundamentals of the stock and makes sure it loaded
+                funda = YahooStockMethods.getFundamentals(ticker);
             if (String.IsNullOrEmpty(funda["PEG"].ToString())) { Form1.Instance.AppendOutputText("\r\n" + "Failed to load fundamentals : " + "\r\n"); return; }
-           
+            }
+            catch { Form1.Instance.AppendOutputText("\r\n" + "Failed to load fundamentals : " + "\r\n"); return; }
             //hash table for the bag of words method
             Hashtable bagHT = new Hashtable();
             List<Hashtable> hts = new List<Hashtable>();
@@ -33,6 +36,8 @@ namespace StockPredictor.Helpers
             //intiate classes used
             Mining miner = new Mining();
             string articles = miner.getAllArticles(links);
+            //ensure that some news was found
+            if (String.IsNullOrEmpty(articles)) { Form1.Instance.AppendOutputText("\r\nNo articles found\r\n"); return; }
             //intialize and process the named and noun entities
             NamedNoun pt = new NamedNoun();
             //check if the user wants to save the data

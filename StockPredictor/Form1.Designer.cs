@@ -66,6 +66,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.cbRepeat = new System.Windows.Forms.CheckBox();
             this.pbLoad = new System.Windows.Forms.PictureBox();
             this.btOutput = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -469,20 +470,32 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.cbRepeat);
             this.panel3.Controls.Add(this.pbLoad);
             this.panel3.Controls.Add(this.btOutput);
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.tbInput);
             this.panel3.Controls.Add(this.Run);
-            this.panel3.Location = new System.Drawing.Point(375, 69);
+            this.panel3.Location = new System.Drawing.Point(375, 53);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(241, 236);
+            this.panel3.Size = new System.Drawing.Size(241, 264);
             this.panel3.TabIndex = 69;
+            // 
+            // cbRepeat
+            // 
+            this.cbRepeat.AutoSize = true;
+            this.cbRepeat.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbRepeat.Location = new System.Drawing.Point(43, 170);
+            this.cbRepeat.Name = "cbRepeat";
+            this.cbRepeat.Size = new System.Drawing.Size(170, 19);
+            this.cbRepeat.TabIndex = 74;
+            this.cbRepeat.Text = "Execute Every 30 Minutres";
+            this.cbRepeat.UseVisualStyleBackColor = true;
             // 
             // pbLoad
             // 
             this.pbLoad.Image = global::StockPredictor.Properties.Resources.ajax_loader2;
-            this.pbLoad.Location = new System.Drawing.Point(86, 184);
+            this.pbLoad.Location = new System.Drawing.Point(84, 195);
             this.pbLoad.Name = "pbLoad";
             this.pbLoad.Size = new System.Drawing.Size(52, 52);
             this.pbLoad.TabIndex = 73;
@@ -491,7 +504,7 @@
             // btOutput
             // 
             this.btOutput.Font = new System.Drawing.Font("Modern No. 20", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btOutput.Location = new System.Drawing.Point(43, 153);
+            this.btOutput.Location = new System.Drawing.Point(43, 140);
             this.btOutput.Name = "btOutput";
             this.btOutput.Size = new System.Drawing.Size(144, 23);
             this.btOutput.TabIndex = 47;
@@ -513,7 +526,7 @@
             // tbInput
             // 
             this.tbInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbInput.Location = new System.Drawing.Point(43, 49);
+            this.tbInput.Location = new System.Drawing.Point(43, 37);
             this.tbInput.Name = "tbInput";
             this.tbInput.Size = new System.Drawing.Size(144, 31);
             this.tbInput.TabIndex = 4;
@@ -522,7 +535,7 @@
             // 
             this.Run.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.Run.Font = new System.Drawing.Font("Old English Text MT", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Run.Location = new System.Drawing.Point(43, 86);
+            this.Run.Location = new System.Drawing.Point(43, 73);
             this.Run.Name = "Run";
             this.Run.Size = new System.Drawing.Size(144, 61);
             this.Run.TabIndex = 0;
@@ -704,6 +717,7 @@
         private System.Windows.Forms.PictureBox pbLoad;
         private System.Windows.Forms.Label lbTicker;
         private System.Windows.Forms.Button tbClear;
+        private System.Windows.Forms.CheckBox cbRepeat;
     }
 }
 

@@ -52,13 +52,13 @@ namespace StockPredictor.Helpers
                     Console.WriteLine("Percentage change : " + percentageChange);
                     Console.WriteLine("Percentage change : " + quote.Symbol);
                     //write the information to the text box
-                    Form1.Instance.AppendOutputText("\r\n");
-                    Form1.Instance.AppendOutputText(quote.Name + "\r\n");
-                    Form1.Instance.AppendOutputText("Stock open price : " + openPrice + "\r\n");
-                    Form1.Instance.AppendOutputText("Previous stock close price : " + closePrice + "\r\n");
-                    Form1.Instance.AppendOutputText("Last trade price : " + lastTradePriceOnly + "\r\n");
-                    Form1.Instance.AppendOutputText("Percentage change : " + percentageChange + "\r\n");
-                    Form1.Instance.AppendOutputText("Percentage change : " + quote.Symbol + "\r\n");                   
+                    TradingForm.Instance.AppendOutputText("\r\n");
+                    TradingForm.Instance.AppendOutputText(quote.Name + "\r\n");
+                    TradingForm.Instance.AppendOutputText("Stock open price : " + openPrice + "\r\n");
+                    TradingForm.Instance.AppendOutputText("Previous stock close price : " + closePrice + "\r\n");
+                    TradingForm.Instance.AppendOutputText("Last trade price : " + lastTradePriceOnly + "\r\n");
+                    TradingForm.Instance.AppendOutputText("Percentage change : " + percentageChange + "\r\n");
+                    TradingForm.Instance.AppendOutputText("Percentage change : " + quote.Symbol + "\r\n");                   
                 }
                 else
                 {
@@ -67,7 +67,7 @@ namespace StockPredictor.Helpers
                     {
                         getBioStockPrices();
                     } //write the information to the text box
-                    Form1.Instance.AppendOutputText("\r\n" + "Failed to load correct date : " + quote.Symbol);
+                    TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load correct date : " + quote.Symbol);
                     return;
                 }
                 }
@@ -373,16 +373,16 @@ m8	Percent Change From 50-day Moving Average
                     hs.Add("Dividend", cols[9].ToString());
                     hs.Add("Trend", cols[10].ToString());
                     //store the variables in the form1 instance for saving later
-                    Form1.Instance.PriceBook = cols[7].ToString();
-                    Form1.Instance.Peg = cols[8].ToString();
-                    Form1.Instance.Dividend = cols[9].ToString();
-                    Form1.Instance.Moving50 = cols[4].ToString();
-                    Form1.Instance.Moving200 = cols[3].ToString();                     
+                    Form1.Instance.scanMetrics.PriceBook = cols[7].ToString();
+                    Form1.Instance.scanMetrics.Peg = cols[8].ToString();
+                    Form1.Instance.scanMetrics.Dividend = cols[9].ToString();
+                    Form1.Instance.scanMetrics.Moving50 = cols[4].ToString();
+                    Form1.Instance.scanMetrics.Moving200 = cols[3].ToString();                     
 
     }
                 catch (Exception)
                 { return null; }
-                Form1.Instance.Fundamentals = hs;
+                Form1.Instance.scanMetrics.Fundamentals = hs;
                 return hs;
             }
 
