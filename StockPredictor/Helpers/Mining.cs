@@ -59,7 +59,7 @@ namespace StockPredictor.Helpers
             //remove duplicate links
             List<string> distinctLinks = links.Distinct().ToList();
             //add the old links in a repeat execution to distingush breaking news
-            if (Form1.Instance.isRepeat() || Form1.Instance.repeatData.RepeaterIsRunning )
+            if (Form1.Instance.isRepeat() || Form1.Instance.repeatGlobal.RepeaterIsRunning )
             {
                 distinctLinks = CompareLinkLists(distinctLinks);
             }
@@ -98,7 +98,7 @@ namespace StockPredictor.Helpers
         //check if the links are the same and remove the links that were present in the previous search
         private List<string> CompareLinkLists(List<string> links)
         {
-            List<string> oldLinks = Form1.Instance.repeatData.LinksOld;
+            List<string> oldLinks = Form1.Instance.repeatGlobal.LinksOld;
             List<string> newLinks = new List<string>();
             try
             {
@@ -106,7 +106,7 @@ namespace StockPredictor.Helpers
 
                 newLinks = links.Except(oldLinks).ToList();
                 //add the new links to the linksold list
-                if (newLinks.Count() > 0) { Form1.Instance.repeatData.LinksOld.AddRange(newLinks); }
+                if (newLinks.Count() > 0) { Form1.Instance.repeatGlobal.LinksOld.AddRange(newLinks); }
             }
             catch (Exception ex)
             {
@@ -114,7 +114,7 @@ namespace StockPredictor.Helpers
                     Console.WriteLine("There are no old links stored");
                 //if there isn't older links just make the new links the current links
                 newLinks = links;
-                Form1.Instance.repeatData.LinksOld = newLinks;
+                Form1.Instance.repeatGlobal.LinksOld = newLinks;
             }         
             return newLinks;
         }
@@ -122,37 +122,12 @@ namespace StockPredictor.Helpers
 
         //http://stackoverflow.com/questions/29302259/htmlagility-pack-screen-scraping-unable-to-find-a-div-with-hyphen-in-class-name
         //To parse such pages where javascript need to be executed first, for that you could use a web browser control and then pass the html to HAP.
-        public void ScrapLivePricesFromBing(string link)
-        {
-            string text ="";
-            var browser = new System.Windows.Forms.WebBrowser() { ScriptErrorsSuppressed = true };
-
-            //This will be called when the web page loads, it better be a class member since this is just a simple demonstration
-            WebBrowserDocumentCompletedEventHandler onDocumentCompleted = new WebBrowserDocumentCompletedEventHandler((s, evt) => {
-                //Do your HtmlParsingHere
-                var doc = new HtmlAgilityPack.HtmlDocument();
-                doc.LoadHtml(browser.DocumentText);
-
-                foreach (HtmlNode div in doc.DocumentNode.SelectNodes("//div[contains(@class,'b_focusTextMedium')]"))
-                {
-                    //remove the non letters from the text
-                    string str = div.InnerText;
-                    text += str;
-                    Console.WriteLine(str);
-
-                }
-            });
-            
-            //subscribe to the DocumentCompleted event using our above handler before navigating
-            browser.DocumentCompleted += onDocumentCompleted;
-
-            browser.Navigate(link);
-          
-        }
-
         //run the browser thread for getting the live results
-        public void RunBrowserThread(string url)
+        public void RunBrowserThread(string input)
         {
+            //create url string
+            string url = "http://cn.bing.com/search?q=" + input + "&go=Submit&qs=n&pq=" + input + "&sc=8-4&sp=-1&sk=&cvid=5C7A1AF09DF3490881B8B4B575229306&intlF=1&FORM=TIPEN1";
+
             var th = new Thread(() => {
                 var br = new WebBrowser();
                 br.DocumentCompleted += browser_DocumentCompleted;
@@ -161,10 +136,12 @@ namespace StockPredictor.Helpers
             });
             th.SetApartmentState(ApartmentState.STA);
             th.Start();
+            th.Join();
         }
 
         void browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
+            
             var br = sender as WebBrowser;
             if (br.Url == e.Url)
             {
@@ -176,9 +153,19 @@ namespace StockPredictor.Helpers
                 {
                     //remove the non letters from the text
                     string str = div.InnerText;
-                  
+                    Form1.Instance.repeatGlobal.CurrentPrice = Convert.ToDouble(str);
                     Console.WriteLine(str);
 
+                }
+                int i = 1;
+                foreach (HtmlNode td in doc.DocumentNode.SelectNodes("//td[contains(@class,'fin_dtval')]"))
+                {
+                    if (i > 1) { break; }
+                    //remove the non letters from the text
+                    string str1 = td.InnerText;
+                    Form1.Instance.repeatGlobal.OpenPrice = Convert.ToDouble(str1);
+                    Console.WriteLine(str1);
+                    i++;
                 }
                 Application.ExitThread();   // Stops the thread
             }

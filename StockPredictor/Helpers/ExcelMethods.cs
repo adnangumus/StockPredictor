@@ -60,7 +60,7 @@ namespace StockPredictor.Helpers
             //excel sheets           
             string folderPath = Path.Combine(frw.GetAppFolder(), @"packages\Data\" + fileName).ToString();
             //save the data from the repeat runs in a different folder
-            if (Form1.Instance.isRepeat() || Form1.Instance.repeatData.RepeaterIsRunning)
+            if (Form1.Instance.isRepeat() || Form1.Instance.repeatGlobal.RepeaterIsRunning)
             {
                 folderPath = Path.Combine(frw.GetAppFolder(), @"packages\Data\Repeater\" + fileName).ToString();
             }
@@ -149,9 +149,11 @@ namespace StockPredictor.Helpers
         //read from an excel sheet - is20 is a trade that takes place within 20minutes of open
         public decimal ReadPrinciple(Excel.Application myPassedExcelApplication, string fileName, string symbol, bool is20, bool isLong)
         {
-            if (is20) { fileName += "20"; }
+            if (is20) { fileName += "20"; SetTradePath(fileName, symbol, myPassedExcelApplication); }
             //check if it is a long trade
-            if (isLong) { SetTradeLongHoldPath(fileName, symbol, myPassedExcelApplication); }
+            else if (isLong) { SetTradeLongHoldPath(fileName, symbol, myPassedExcelApplication); }
+            //if the application is running in repeater mode then set the trade path differently
+           else if(Form1.Instance.isRepeat() || Form1.Instance.repeatGlobal.RepeaterIsRunning) { SetRepeaterTradePath(fileName, symbol, myPassedExcelApplication); }  
             //get the folder and file name
             else { SetTradePath(fileName, symbol, myPassedExcelApplication); }
            
@@ -255,6 +257,8 @@ namespace StockPredictor.Helpers
             if (is20) { fileName += "20"; }            
             //get the folder and file name
             SetTradePath(fileName, symbol, myPassedExcelApplication);
+             //if the application is running in repeater mode then set the trade path differently
+          if (Form1.Instance.isRepeat() || Form1.Instance.repeatGlobal.RepeaterIsRunning) { SetRepeaterTradePath(fileName, symbol, myPassedExcelApplication); }
             //open the excel sheet
             openExcel(myPassedExcelApplication);
             //check if the retry box is thicked and over right previos data

@@ -15,13 +15,15 @@ namespace StockPredictor.Helpers
             get;
             set;
         }
+
+        private Hashtable Funda = new Hashtable();
+
         public void runStockPredictor(string ticker, bool dontSave)
-        {
-            Hashtable funda = new Hashtable();
+        {           
             try {
                 //get the fundamentals of the stock and makes sure it loaded
-                funda = YahooStockMethods.getFundamentals(ticker);
-            if (String.IsNullOrEmpty(funda["PEG"].ToString())) { Form1.Instance.AppendOutputText("\r\n" + "Failed to load fundamentals : " + "\r\n"); return; }
+                Funda = YahooStockMethods.getFundamentals(ticker);
+            if (String.IsNullOrEmpty(Funda["PEG"].ToString())) { Form1.Instance.AppendOutputText("\r\n" + "Failed to load fundamentals : " + "\r\n"); return; }
             }
             catch { Form1.Instance.AppendOutputText("\r\n" + "Failed to load fundamentals : " + "\r\n"); return; }
             //hash table for the bag of words method
@@ -40,12 +42,12 @@ namespace StockPredictor.Helpers
             if (String.IsNullOrEmpty(articles)) { Form1.Instance.AppendOutputText("\r\nNo articles found\r\n"); return; }
             //intialize and process the named and noun entities
             NamedNoun pt = new NamedNoun();
-            //check if the user wants to save the data
+           //open the excel app for passing to the different methods
             Application myPassExcelApp = null;
             ExcelMethods exl = new ExcelMethods();
+            //check if the user wants to save the data
             if (!dontSave)
             {
-
                 myPassExcelApp = exl.startExcelApp();
             }
             Task taskA = new Task(() => hts = pt.processNamedNoun(articles, ticker, dontSave));
@@ -71,7 +73,7 @@ namespace StockPredictor.Helpers
                 hts.Add(bagHT);
                 foreach (Hashtable ht in hts)
                 {
-                    processResults(ht, ticker, exl, myPassExcelApp, funda, rsi, bands, dontSave);
+                    processResults(ht, ticker, exl, myPassExcelApp, rsi, bands, dontSave);
                 }
                 //if the results are to be save run the random generator and close the excel app
             if (!dontSave) { 
@@ -84,7 +86,7 @@ namespace StockPredictor.Helpers
             confirmAllCompleted(ticker, dontSave);
         }
 
-        private void processResults(Hashtable ht, string input, ExcelMethods exl, Application myPassExcelApp, Hashtable funda,int rsi, int bands, bool dontSave)
+        private void processResults(Hashtable ht, string input, ExcelMethods exl, Application myPassExcelApp,int rsi, int bands, bool dontSave)
         {
             //count positive and negative phrases and strong words
             int positivePhraseCount = 0;
@@ -123,7 +125,7 @@ namespace StockPredictor.Helpers
             totalScore = (int)ht["total"];
 
             CalculatorMethods cal = new CalculatorMethods();
-           double finalScore = cal.ProcessAllMetrics(funda, totalScore, rsi, method, bands);
+           double finalScore = cal.ProcessAllMetrics(Funda, totalScore, rsi, method, bands);
 //------------------Display results from the named method
             if (method == "Named") { cal.displayResults(); }
           
@@ -157,12 +159,11 @@ namespace StockPredictor.Helpers
         //methdo for switching between search engines
         private List<string> switchLinks(string input)
         {
-            //get the companies name from yahoo's api to make the search more specific.
-            YahooStockMethods yahoo = new YahooStockMethods();
+            
             string companyName;
             try
             {
-                companyName = yahoo.getStockName(input);
+                companyName = Funda["Name"].ToString();
             }
             catch (Exception ex)
             {

@@ -251,6 +251,7 @@
     <Compile Include="Models\HistoricalStock.cs" />
     <Compile Include="Models\Quote.cs" />
     <Compile Include="Models\RepeaterData.cs" />
+    <Compile Include="Models\RepeaterGlobalVariables.cs" />
     <Compile Include="Models\ScanMetric.cs" />
     <Compile Include="PleaseWait.cs">
       <SubType>Form</SubType>

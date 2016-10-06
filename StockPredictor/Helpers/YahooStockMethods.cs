@@ -131,28 +131,24 @@ namespace StockPredictor.Helpers
             string[] prices = new string[2];
             string open = "";
             string lastTrade = "";
-            Quotes = new BindingList<Quote>();
-            //Some example tickers
-            Quotes.Add(new Quote(symbol.ToUpper()));
-            //get the data
-            YahooStockEngine.Fetch(Quotes);
+            List<HistoricalStock> quotes = DownloadHistoricalData1Day(symbol);
 
 
-            foreach (Quote quote in Quotes)
+            foreach (HistoricalStock quote in quotes)
             {
                 //check the date corresponds to yesterdays date. This changes because of the time difference and returns inconsistent values
-                DateTime? lastTradeDate = quote.LastTradeDate;
+                DateTime? lastTradeDate = quote.Date;
                 DateTime dateYesterday = DateTime.Today.AddDays(-1);
                 DateTime yahooDate = lastTradeDate ?? DateTime.Today.AddDays(-1);
 
                 if (dateYesterday.Date == yahooDate.Date || yahooDate.Date == DateTime.Today.Date)
                 {
                     //check the date of the last trade
-                    string tradeDate = quote.LastTradeDate.ToString();
+                    string tradeDate = quote.Date.ToString();
                     Console.WriteLine(symbol + " last trade date :" + tradeDate);
                     open = quote.Open.ToString();
                     Console.WriteLine(symbol + " open price : " + open);
-                    lastTrade = quote.LastTradePrice.ToString();
+                    lastTrade = quote.Close.ToString();
                     prices[0] = open;
                     prices[1] = lastTrade;
 
@@ -175,30 +171,15 @@ namespace StockPredictor.Helpers
             return prices;
         }          
         
-
-        public string getStockName(string symbol)
-        {
-            Quotes = new BindingList<Quote>();
-            //Some example tickers
-            Quotes.Add(new Quote(symbol.ToUpper()));
-            //get the data
-            YahooStockEngine.Fetch(Quotes);
-
-            foreach (Quote quote in Quotes)
-            {
-                return quote.Name;               
-            }
-            return "";
-        }
       
         //get the historical data from yahoo
-        public static List<HistoricalStock> DownloadHistoricalData1Week(string ticker)
+        public static List<HistoricalStock> DownloadHistoricalData1Day(string ticker)
         {
             List<HistoricalStock> retval = new List<HistoricalStock>();
            
             using (WebClient web = new WebClient())
             {
-                DateTime startDate = DateTime.Today.AddDays(-7);
+                DateTime startDate = DateTime.Today.AddDays(-1);
                 DateTime endDate = DateTime.Today;
 
                 //"http://ichart.finance.yahoo.com/table.csv?s=" + ticker + "&d=" + (endDate.Month - 1) + "&e=" + endDate.Day + "&f=" + endDate.Year + "&g=d&a=" + (startDate.Month - 1) + "&b=" + startDate.Day + "&c=" + startDate.Year + "&ignore=.csv"
@@ -239,45 +220,7 @@ namespace StockPredictor.Helpers
                 return retval;
             }
         }
-
-            public double getStockPriceTrendWeek(string ticker)
-        {
-            List<HistoricalStock> data = YahooStockMethods.DownloadHistoricalData1Week(ticker);
-            if (data == null)
-            {
-                Console.WriteLine("data from yahoo return null. No interent?");
-                return 0; };
-            int last = data.Count;
-            int i = 1;
-            double open = 0;
-            double lastClose = 0;
-            double change = 0;
-            double trend = 0;
-            try
-            {
-                foreach (HistoricalStock stock in data)
-                {
-                    if (i == 1)
-                    {
-                        lastClose = stock.Close;
-                       
-                    }
-                    if (i == last) { open = stock.Open; }
-                    i++;
-                       Console.WriteLine(string.Format("Date={0} High={1} Low={2} Open={3} Close{4}", stock.Date, stock.High, stock.Low, stock.Open, stock.Close));
-                }
-              
-                change = lastClose - open;
-                trend = (100 / open) * change;
-                Form1.Instance.AppendOutputText("\r\n" + ticker + "\r\nChange = " + change +
-                    "\r\n Open 5 days ago" + open + 
-                    "\r\nLast close and open" + lastClose + "\r\nTrend " + trend);
-            }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
-            Console.WriteLine(trend.ToString());
-            return trend;
-        }
-
+        
         //gett the historical data from yahoo
         public static List<HistoricalStock> GetHistoricalPriceData(string ticker)
         {
@@ -303,11 +246,27 @@ namespace StockPredictor.Helpers
                     //First row is headers so Ignore it
                     for (int i = 1; i < rows.Length; i++)
                     {
+                        //if it is the repeater method feed the live prices in at the beginning
+                        if ((Form1.Instance.isRepeat() || Form1.Instance.repeatGlobal.RepeaterIsRunning) && i == 1)
+                        {
+                            try {
+                            HistoricalStock hs = new HistoricalStock();
+                            hs.Date = DateTime.Now;
+                            hs.Open = Form1.Instance.repeatGlobal.OpenPrice;
+                            hs.High = 0;
+                            hs.Low = 0;
+                            hs.Close = Form1.Instance.repeatGlobal.CurrentPrice;
+                            hs.Volume = 0;
+                            hs.AdjClose = 0;
+                            retval.Add(hs);
+                            }
+                            catch (Exception ex) { Console.WriteLine(ex.Message + " Error in setting the current price in the historical data list"); }
+                        }
+                        else
+                        { 
                         if (rows[i].Replace("n", "").Trim() == "") continue;
-
                         string[] cols = rows[i].Split(',');
-
-                        HistoricalStock hs = new HistoricalStock();
+                        HistoricalStock hs = new HistoricalStock();                                            
                         string date1 = cols[0].ToString();
                         string open1 = cols[1].ToString();
                         hs.Date = DateTime.Parse(cols[0]);
@@ -317,8 +276,9 @@ namespace StockPredictor.Helpers
                         hs.Close = Convert.ToDouble(cols[4]);
                         hs.Volume = Convert.ToDouble(cols[5]);
                         hs.AdjClose = Convert.ToDouble(cols[6]);
-
+                       
                         retval.Add(hs);
+                        }
                     }
                 }
                 catch (Exception)
@@ -357,21 +317,21 @@ m8	Percent Change From 50-day Moving Average
                 try
                 {
                     string data = web.DownloadString(string.Format("http://finance.yahoo.com/d/quotes.csv?s="+ticker+ 
-                        "&f=sm3m4m6m8m5m7p6r5dt7"));
+                        "&f=sm3m4m6m8m5m7p6r5dt7n"));
                     data = data.Replace("r", "");
 
                     string[] cols = data.Split(',');
                     hs.Add("ticker", cols[0].ToString());                
                     hs.Add("50Average", cols[1].ToString());
                     hs.Add("200Average", cols[2].ToString());
-                    hs.Add("200ChangePercent", cols[3].ToString());
-                    hs.Add("50ChangePercent", cols[4].ToString());
+                 
                     hs.Add("200Change", cols[5].ToString());
                     hs.Add("50Change", cols[6].ToString());
                     hs.Add("PB", cols[7].ToString());
                     hs.Add("PEG", cols[8].ToString());
                     hs.Add("Dividend", cols[9].ToString());
                     hs.Add("Trend", cols[10].ToString());
+                    hs.Add("Name", cols[11].ToString());
                     //store the variables in the form1 instance for saving later
                     Form1.Instance.scanMetrics.PriceBook = cols[7].ToString();
                     Form1.Instance.scanMetrics.Peg = cols[8].ToString();
@@ -379,7 +339,26 @@ m8	Percent Change From 50-day Moving Average
                     Form1.Instance.scanMetrics.Moving50 = cols[4].ToString();
                     Form1.Instance.scanMetrics.Moving200 = cols[3].ToString();                     
 
-    }
+  
+                //this is will change the values if it is part of the repeat
+                if(Form1.Instance.isRepeat() || Form1.Instance.repeatGlobal.RepeaterIsRunning)
+                {
+                        try {
+                  double currentPrice =  Form1.Instance.repeatGlobal.CurrentPrice;
+                  double MA50 = Convert.ToDouble(cols[1].ToString());
+                  double MA200 = Convert.ToDouble(cols[2].ToString());
+                  hs.Add("200ChangePercent", calculateFromMA(currentPrice,MA200).ToString());
+                  hs.Add("50ChangePercent", calculateFromMA(currentPrice, MA50).ToString());
+                        }
+                        catch (Exception ex) { Console.WriteLine("Failed to change fundamental data " + ex.Message); }
+                    }
+                //add the data from yahoo's method
+                    else
+                    {
+                        hs.Add("200ChangePercent", cols[3].ToString());
+                        hs.Add("50ChangePercent", cols[4].ToString());
+                    }
+                }
                 catch (Exception)
                 { return null; }
                 Form1.Instance.scanMetrics.Fundamentals = hs;
@@ -388,6 +367,16 @@ m8	Percent Change From 50-day Moving Average
 
 
         }
+
+        //calculate the percentage from moving average
+        private static double calculateFromMA(double current, double MA)
+        {
+            double percentage = 0;
+            double realDif = current - MA;
+            percentage = (current / 100) * realDif; 
+            return percentage;
+        }
+
     }
     }
 

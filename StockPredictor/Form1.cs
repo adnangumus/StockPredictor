@@ -20,7 +20,11 @@ namespace StockPredictor
         //access the model that stores the scan metrics
         public ScanMetric scanMetrics = new ScanMetric();
         //data for the repeater that executes every 30 minutes
-        public RepeaterData repeatData = new RepeaterData();
+        public RepeaterGlobalVariables repeatGlobal = new RepeaterGlobalVariables();
+        public RepeaterData repeatDataNamed = new RepeaterData();
+        public RepeaterData repeatDataNoun = new RepeaterData();
+        public RepeaterData repeatDataBag = new RepeaterData();
+        public RepeaterData repeatDataRandom = new RepeaterData();
         public bool isRepeat()
         {
             return cbRepeat.Checked;
@@ -144,17 +148,21 @@ namespace StockPredictor
        
         // handle the scanning in a back ground worker
         private void runScans()
-        {        
-
-               
+        {
+            //intialize input to defualt input. 
+            string input = tbInput.Text.ToLower();
+            if (isRepeat())
+            {
+                Repeater rpt = new Repeater();
+                if (String.IsNullOrEmpty(tbInput.Text)){ input = "hznp"; }
+                rpt.RunRepeater(input.ToUpper());
+                return;
+            }   
           
             //time the overall methods
             var watch2 = System.Diagnostics.Stopwatch.StartNew();
-            bool dontSave = cbSave.Checked;
-            //intialize input to defualt input. 
-            string input = tbInput.Text.ToLower();
-            RunMethods rm = new RunMethods();
-            
+            bool dontSave = cbSave.Checked;          
+            RunMethods rm = new RunMethods();            
             if (String.IsNullOrEmpty(tbInput.Text) || tbInput.Text.ToLower() == "bio")
             {
                 scanMetrics.Ticker = "GILD";
@@ -242,7 +250,8 @@ namespace StockPredictor
 
         private void Test_Click(object sender, EventArgs e)
         {
-          
+            TradingForm tf = new TradingForm();
+            tf.Show();
             // Set up background worker object & hook up handlers
             BackgroundWorker bgWorker;
             bgWorker = new BackgroundWorker();
@@ -253,13 +262,15 @@ namespace StockPredictor
             bgWorker.RunWorkerAsync();
             //close the please wait dialogue
         }
-
+       
         private void RunTests(object sender, DoWorkEventArgs e)
         {
-            MiningTest mt = new MiningTest();
-            mt.TestLiveScrap();
+          //  MiningTest mt = new MiningTest();
+          //  mt.TestLiveScrap();
+           
             Repeater rpt = new Repeater();
-            rpt.RunRepeater();
+            rpt.RunRepeater("aapl");
+          
             //this.BackColor = SystemColors.Control;
             // YahooStockMethods yahoo = new YahooStockMethods();
 

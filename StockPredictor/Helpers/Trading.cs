@@ -190,7 +190,7 @@ namespace StockPredictor.Helpers
         }
 
         //simulate day trading
-        private void simulateTrade(string symbol, bool isShort, bool is20, string method, string[] prices, Application myPassedExcelApplication, bool isStrong)
+        public void simulateTrade(string symbol, bool isShort, bool is20, string method, string[] prices, Application myPassedExcelApplication, bool isStrong)
         {
             ExcelMethods ex = new ExcelMethods();
             //set the fileName to be passed for retreiving data

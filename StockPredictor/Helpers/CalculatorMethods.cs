@@ -315,13 +315,13 @@ namespace StockPredictor.Helpers
 
             else if (twoDayOldPrice > average200 && lastClose < average200)
             {
-                Form1.Instance.AppendOutputText("\r\nCroessed over the 200 day moving avergae in a bearish manner");
+                Form1.Instance.AppendOutputText("\r\nCrossed over the 200 day moving avergae in a bearish manner");
                 Moving200 = -2;
             }
 
             else if (twoDayOldPrice < average200 && lastClose > average200)
             {
-                Form1.Instance.AppendOutputText("\r\nCroseed over the 200 day moving average in a bullish manner");
+                Form1.Instance.AppendOutputText("\r\nCrossed over the 200 day moving average in a bullish manner");
                 Moving200 = 2;
             }
 
