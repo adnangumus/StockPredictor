@@ -28,8 +28,8 @@ namespace StockPredictor.Helpers
             //get the input as an argument and store it   
             input = str.ToUpper();             
             Form1.Instance.repeatGlobal.RepeaterIsRunning = true;
-            ExecuteScans();
-          //  readScanResultsAndTrade();
+         //   ExecuteScans();
+           readScanResultsAndTrade();
             aTimer = new System.Timers.Timer();
             aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
              aTimer.Interval = 1000 * 60 * 30;
@@ -79,7 +79,7 @@ namespace StockPredictor.Helpers
             {
                 int result = exl.ReadLatestFinalScore(myPassExcelApp, input, method);//read the total scores from the excel file
                 ProcessResults(result, method);
-                if (!noTrading)
+                if (!noTrading || ExecutionTimes > 14)
                 {
                     processTrades(method,trader, myPassExcelApp);
                 }
@@ -94,13 +94,13 @@ namespace StockPredictor.Helpers
             RepeaterData repeatData = GetFieldValue<RepeaterData>(Form1.Instance, callField);
             try { 
             //if the price is less than 1 to determine if it exists
-            if(repeatData.PositionOpenPrice < 1)
+            if(repeatData.PositionOpenPrice < 1 && ExecutionTimes < 15)
             {
                     OpenNewPosition(repeatData);
             }
            else if(repeatData.PositionOpenPrice > 0)
             {
-                    if((!repeatData.IsShortSale && isShort) || (repeatData.IsShortSale && !isShort))
+                    if((!repeatData.IsShortSale && isShort) || (repeatData.IsShortSale && !isShort) || (ExecutionTimes > 14))
                     {
                         if (ExecutionTimes > 14)
                         {

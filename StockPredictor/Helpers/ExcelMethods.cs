@@ -125,7 +125,7 @@ namespace StockPredictor.Helpers
             if (!File.Exists(excelFilePath + ".xlsx"))
             {
                 TradingForm.Instance.AppendOutputText("\r\n" + "Creating trading sheet" + "\r\n");
-                createSheet(false, false, true, myPassedExcelApplication);
+                createSheet(false, true, false, myPassedExcelApplication);
             }
         }
         //read the score from the sentiment anlysis
