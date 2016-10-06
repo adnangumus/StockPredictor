@@ -153,7 +153,10 @@ namespace StockPredictor.Helpers
                 {
                     //remove the non letters from the text
                     string str = div.InnerText;
+                    try {
                     Form1.Instance.repeatGlobal.CurrentPrice = Convert.ToDouble(str);
+                    }
+                    catch { }
                     Console.WriteLine(str);
 
                 }
@@ -163,7 +166,11 @@ namespace StockPredictor.Helpers
                     if (i > 1) { break; }
                     //remove the non letters from the text
                     string str1 = td.InnerText;
-                    Form1.Instance.repeatGlobal.OpenPrice = Convert.ToDouble(str1);
+                    try
+                    {
+                        Form1.Instance.repeatGlobal.OpenPrice = Convert.ToDouble(str1);
+                    }
+                    catch { }
                     Console.WriteLine(str1);
                     i++;
                 }

@@ -28,11 +28,11 @@ namespace StockPredictor.Helpers
             //get the input as an argument and store it   
             input = str.ToUpper();             
             Form1.Instance.repeatGlobal.RepeaterIsRunning = true;
-         //   ExecuteScans();
-           readScanResultsAndTrade();
+            ExecuteScans();
+         //  readScanResultsAndTrade();
             aTimer = new System.Timers.Timer();
             aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-             aTimer.Interval = 1000 * 60 * 30;
+             aTimer.Interval = (1000 * 60) * 30;
             //aTimer.Interval = 1000;
             aTimer.Enabled = true;
         }
@@ -77,8 +77,9 @@ namespace StockPredictor.Helpers
             miner.RunBrowserThread(input);//reload the prices
             foreach (string method in methods)
             {
-                int result = exl.ReadLatestFinalScore(myPassExcelApp, input, method);//read the total scores from the excel file
-                ProcessResults(result, method);
+                    int result = exl.ReadLatestFinalScore(myPassExcelApp, input, method);//read the total scores from the excel file
+                    ProcessResults(result, method);
+                
                 if (!noTrading || ExecutionTimes > 14)
                 {
                     processTrades(method,trader, myPassExcelApp);

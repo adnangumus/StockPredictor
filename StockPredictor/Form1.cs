@@ -103,6 +103,12 @@ namespace StockPredictor
 
         private void Run_Click(object sender, EventArgs e)
         {
+            if (isRepeat())
+            {
+                TradingForm tf = new TradingForm();
+                tf.Show();
+            }
+
             pbLoad.Visible = true;
             //  tbOutput.Text = string.Empty;
             // Set up background worker object & hook up handlers
@@ -265,11 +271,11 @@ namespace StockPredictor
        
         private void RunTests(object sender, DoWorkEventArgs e)
         {
-          //  MiningTest mt = new MiningTest();
-          //  mt.TestLiveScrap();
+            MiningTest mt = new MiningTest();
+           mt.TestLiveScrap();
            
-            Repeater rpt = new Repeater();
-            rpt.RunRepeater("aapl");
+           // Repeater rpt = new Repeater();
+          //  rpt.RunRepeater("aapl");
           
             //this.BackColor = SystemColors.Control;
             // YahooStockMethods yahoo = new YahooStockMethods();
