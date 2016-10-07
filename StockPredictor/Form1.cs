@@ -274,8 +274,8 @@ namespace StockPredictor
             MiningTest mt = new MiningTest();
            mt.TestLiveScrap();
            
-           // Repeater rpt = new Repeater();
-          //  rpt.RunRepeater("aapl");
+            Repeater rpt = new Repeater();
+            rpt.RunRepeater("aapl");
           
             //this.BackColor = SystemColors.Control;
             // YahooStockMethods yahoo = new YahooStockMethods();

@@ -32,7 +32,7 @@ namespace StockPredictor.Helpers
          //  readScanResultsAndTrade();
             aTimer = new System.Timers.Timer();
             aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-             aTimer.Interval = (1000 * 60) * 30;
+             aTimer.Interval = (1000 * 60) * 2;
             //aTimer.Interval = 1000;
             aTimer.Enabled = true;
         }
@@ -147,23 +147,23 @@ namespace StockPredictor.Helpers
             //negative scores sell and strong sell        
             if (score < -4 && score > -15)
             {
-                isShort = true; isStrong = false;
+                isShort = true; isStrong = false; noTrading = false;
                 Form1.Instance.AppendOutputText("\r\n" + "Sell " + "\r\n" + method + "\r\n");
             }
             if (score <= -15)
             {
-                isShort = true; isStrong = true;
+                isShort = true; isStrong = true; noTrading = false;
                 Form1.Instance.AppendOutputText("\r\n" + "Strong sell :" + "\r\n" + method + "\r\n");
             }
             //positive scores buy and strong buy
             if (score > 4 && score < 15)
             {
-                isShort = false; isStrong = false;
+                isShort = false; isStrong = false; noTrading = false;
                 Form1.Instance.AppendOutputText("\r\n" + "Buy : " + "\r\n" + method + "\r\n");
             };
             if (score >= 15)
             {
-                isShort = false; isStrong = true;
+                isShort = false; isStrong = true; noTrading = false;
                 Form1.Instance.AppendOutputText("\r\n" + "Strong buy :" + "\r\n" + method + "\r\n");
             }
         }

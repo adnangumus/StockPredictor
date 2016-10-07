@@ -22,7 +22,7 @@ namespace StockPredictor.Tests
         public void TestLiveScrap()
         {
             // string url = "http://cn.bing.com/search?q=hznp&go=Submit&qs=n&pq=hznp&sc=8-4&sp=-1&sk=&cvid=5C7A1AF09DF3490881B8B4B575229306&intlF=1&FORM=TIPEN1";
-            string input = "hznp";
+            string input = "aapl";
            //  string url = "http://cn.bing.com/search?q=" + input + "&go=Submit&qs=n&pq="+ input +"&sc=8-4&sp=-1&sk=&cvid=5C7A1AF09DF3490881B8B4B575229306&intlF=1&FORM=TIPEN1";
             Mining miner = new Mining();
             //  miner.ScrapLivePrice(url);

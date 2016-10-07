@@ -54,8 +54,8 @@ namespace StockPredictor.Helpers
                 int ppp = tp * p;
                 int positivepercentage = ppp / 100;
                
-                //remove 5% of positive hits as because of noise, then add trend 
-                return ((positivepercentage - 55) *2);
+                //remove 10% of positive hits because of noise
+                return ((positivepercentage - 60) *2);
             }
             else if (n > 0)
             {
@@ -63,7 +63,7 @@ namespace StockPredictor.Helpers
                 int tp = 10000 / total;
                 int nn = tp * n;
                 int negativePercentage = nn / 100;
-                negativePercentage = (negativePercentage + 55) % 100;
+                negativePercentage = (negativePercentage + 60) % 100;
                 negativePercentage = negativePercentage * 2;
                 negativePercentage = negativePercentage * -1;
              
