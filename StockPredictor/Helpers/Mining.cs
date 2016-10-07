@@ -123,7 +123,7 @@ namespace StockPredictor.Helpers
         //http://stackoverflow.com/questions/29302259/htmlagility-pack-screen-scraping-unable-to-find-a-div-with-hyphen-in-class-name
         //To parse such pages where javascript need to be executed first, for that you could use a web browser control and then pass the html to HAP.
         //run the browser thread for getting the live results
-        public void RunBrowserThread(string input)
+        public static void RunBrowserThread(string input)
         {
             //create url string
             string url = "http://cn.bing.com/search?q=" + input + "&go=Submit&qs=n&pq=" + input + "&sc=8-4&sp=-1&sk=&cvid=5C7A1AF09DF3490881B8B4B575229306&intlF=1&FORM=TIPEN1";
@@ -139,9 +139,11 @@ namespace StockPredictor.Helpers
             th.Join();
         }
 
-        void browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        static void browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            
+            //set the values to zero
+            Form1.Instance.repeatGlobal.CurrentPrice = 0;
+            Form1.Instance.repeatGlobal.OpenPrice = 0;
             var br = sender as WebBrowser;
             if (br.Url == e.Url)
             {
@@ -149,6 +151,7 @@ namespace StockPredictor.Helpers
                 //Do your HtmlParsingHere
                 var doc = new HtmlAgilityPack.HtmlDocument();
                 doc.LoadHtml(br.DocumentText);
+               
                 foreach (HtmlNode div in doc.DocumentNode.SelectNodes("//div[contains(@class,'b_focusTextMedium')]"))
                 {
                     //remove the non letters from the text
@@ -166,6 +169,7 @@ namespace StockPredictor.Helpers
                     if (i > 1) { break; }
                     //remove the non letters from the text
                     string str1 = td.InnerText;
+                   
                     try
                     {
                         Form1.Instance.repeatGlobal.OpenPrice = Convert.ToDouble(str1);

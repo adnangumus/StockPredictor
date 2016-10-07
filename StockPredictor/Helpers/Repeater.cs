@@ -58,8 +58,7 @@ namespace StockPredictor.Helpers
         {
             Form1.Instance.repeatGlobal.RepeaterIsRunning = true;
             //read the latest prices        
-            Mining miner = new Mining();          
-             miner.RunBrowserThread(input);          
+            Mining.RunBrowserThread(input);       
             RunMethods rm = new RunMethods();
             rm.runStockPredictor(input, false);
             readScanResultsAndTrade();
@@ -73,8 +72,7 @@ namespace StockPredictor.Helpers
             ExcelMethods exl = new ExcelMethods();
             Microsoft.Office.Interop.Excel.Application myPassExcelApp = exl.startExcelApp();
             Trading trader = new Trading();
-            Mining miner = new Mining();
-            miner.RunBrowserThread(input);//reload the prices
+            Mining.RunBrowserThread(input);    //reload the prices
             foreach (string method in methods)
             {
                     int result = exl.ReadLatestFinalScore(myPassExcelApp, input, method);//read the total scores from the excel file

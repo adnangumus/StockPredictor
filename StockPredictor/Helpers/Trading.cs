@@ -102,8 +102,21 @@ namespace StockPredictor.Helpers
             //yahoo methods to find change in stock prices
             YahooStockMethods yahoo = new YahooStockMethods();
             prices = yahoo.getStockPriceChange(symbol);
-            //ensure that the data loads correctly
-            if (string.IsNullOrEmpty(prices[0]))
+                //if the prices were not returned try scraping it from bing
+                if (string.IsNullOrEmpty(prices[0]))
+                {
+                    Mining.RunBrowserThread(symbol);
+                    if(Form1.Instance.repeatGlobal.OpenPrice > 0 && Form1.Instance.repeatGlobal.CurrentPrice > 0)
+                    { 
+                    //open price
+                    prices[0] = Form1.Instance.repeatGlobal.OpenPrice.ToString();
+                    //close price
+                    prices[1] = Form1.Instance.repeatGlobal.CurrentPrice.ToString();
+                    }
+
+                }
+                //ensure that the data loads correctly
+                if (string.IsNullOrEmpty(prices[0]))
             {
                 TradingForm.Instance.AppendOutputText("\r\n" + "Failed to load price data " + symbol);
                 //check if the user added the trading prices manually

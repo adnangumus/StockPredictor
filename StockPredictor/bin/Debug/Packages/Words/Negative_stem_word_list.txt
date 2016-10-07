@@ -285,7 +285,7 @@ wari
 warn
 weari
 wick
-woeful
+woe
 worri
 wors
 worthless
