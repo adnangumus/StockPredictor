@@ -308,8 +308,10 @@ m8	Percent Change From 50-day Moving Average
     w1  Day's Value Change
     r5: PEG Ratio
     */
+    private static int retryFundamentals = 0;
         public static Hashtable getFundamentals(string ticker)
         {
+            retryFundamentals++;
             Hashtable hs = new Hashtable();
             using (WebClient web = new WebClient())
             {
@@ -324,7 +326,8 @@ m8	Percent Change From 50-day Moving Average
                     hs.Add("ticker", cols[0].ToString());                
                     hs.Add("50Average", cols[1].ToString());
                     hs.Add("200Average", cols[2].ToString());
-                 
+                    hs.Add("200ChangePercent", cols[3].ToString());
+                    hs.Add("50ChangePercent", cols[4].ToString());
                     hs.Add("200Change", cols[5].ToString());
                     hs.Add("50Change", cols[6].ToString());
                     hs.Add("PB", cols[7].ToString());
@@ -347,20 +350,23 @@ m8	Percent Change From 50-day Moving Average
                   double currentPrice =  Form1.Instance.repeatGlobal.CurrentPrice;
                   double MA50 = Convert.ToDouble(cols[1].ToString());
                   double MA200 = Convert.ToDouble(cols[2].ToString());
-                  hs.Add("200ChangePercent", calculateFromMA(currentPrice,MA200).ToString());
-                  hs.Add("50ChangePercent", calculateFromMA(currentPrice, MA50).ToString());
+                  hs["200ChangePercent"] = calculateFromMA(currentPrice,MA200).ToString();
+                  hs["50ChangePercent"] = calculateFromMA(currentPrice, MA50).ToString();
                         }
-                        catch (Exception ex) { Console.WriteLine("Failed to change fundamental data " + ex.Message); }
+                        catch (Exception ex) { Console.WriteLine("Failed to CHANGE fundamental data " + ex.Message); }
                     }
-                //add the data from yahoo's method
-                    else
-                    {
-                        hs.Add("200ChangePercent", cols[3].ToString());
-                        hs.Add("50ChangePercent", cols[4].ToString());
-                    }
+              
                 }
-                catch (Exception)
-                { return null; }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Failed to load fundamental data " + ex.Message);
+                    if(retryFundamentals <3)
+                    {
+                        Console.WriteLine("Retry to load fundamentals " + retryFundamentals); 
+                    hs = getFundamentals(ticker);
+                    }
+                    return null;
+                }
                 Form1.Instance.scanMetrics.Fundamentals = hs;
                 return hs;
             }

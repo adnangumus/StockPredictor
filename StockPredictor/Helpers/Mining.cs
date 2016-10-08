@@ -119,13 +119,18 @@ namespace StockPredictor.Helpers
             return newLinks;
         }
 
-        private static AutoResetEvent _finishScrapNotifier = new AutoResetEvent(false);
+        private static AutoResetEvent _finishScrapNotifier = new AutoResetEvent(false);       
+        private static int retryBrowser = 0;
+        private static string Input;
 
         //http://stackoverflow.com/questions/29302259/htmlagility-pack-screen-scraping-unable-to-find-a-div-with-hyphen-in-class-name
         //To parse such pages where javascript need to be executed first, for that you could use a web browser control and then pass the html to HAP.
         //run the browser thread for getting the live results
         public static void RunBrowserThread(string input)
         {
+            //check if the value has changed and reset the retry count
+            if(Input!=input) { retryBrowser = 0; }
+            Input = input;
             //create url string
             string url = "http://cn.bing.com/search?q=" + input + "&go=Submit&qs=n&pq=" + input + "&sc=8-4&sp=-1&sk=&cvid=5C7A1AF09DF3490881B8B4B575229306&intlF=1&FORM=TIPEN1";
 
@@ -137,8 +142,7 @@ namespace StockPredictor.Helpers
             });
             th.SetApartmentState(ApartmentState.STA);
                th.Start();
-            _finishScrapNotifier.WaitOne();
-          
+            _finishScrapNotifier.WaitOne();         
             //  th.Join();
         }
 
@@ -165,7 +169,6 @@ namespace StockPredictor.Helpers
                         }
                         catch { }
                         Console.WriteLine(str);
-
                     }
                     int i = 1;
                     foreach (HtmlNode td in doc.DocumentNode.SelectNodes("//td[contains(@class,'fin_dtval')]"))
@@ -173,7 +176,6 @@ namespace StockPredictor.Helpers
                         if (i > 1) { break; }
                         //remove the non letters from the text
                         string str1 = td.InnerText;
-
                         try
                         {
                             Form1.Instance.repeatGlobal.OpenPrice = Convert.ToDouble(str1);
@@ -186,12 +188,16 @@ namespace StockPredictor.Helpers
                 catch(Exception ex)
                 {
                     Console.WriteLine("Failed to scrap bing  " + ex.Message);
-                    Application.ExitThread();   // Stops the thread 
-                    _finishScrapNotifier.Set();
+                    Application.ExitThread();   // Stops the thread                    
+                    retryBrowser++;
+                    if (retryBrowser < 3)
+                    {
+                        Console.WriteLine("Retrying browser " + retryBrowser);
+                        RunBrowserThread(Input);
+                    }                   
                 }
                     Application.ExitThread();   // Stops the thread
-                _finishScrapNotifier.Set();
-               
+                _finishScrapNotifier.Set();             
             }
         }
     }

@@ -80,10 +80,12 @@ namespace StockPredictor.Helpers
             {
                 foreach (string ticker in inputArray)
                 {
-                    input = ticker;
+                    input = ticker;//change the input value
                     Form1.Instance.scanMetrics.Ticker = input; // set the ticker for display purposes
                     string callField2 = "repeatGlobal" + input;
-                    //change the input value
+                    //set the prices to zero to prevent mis information
+                    Form1.Instance.repeatGlobal.OpenPrice = 0;
+                    Form1.Instance.repeatGlobal.CurrentPrice = 0;
                     Mining.RunBrowserThread(input);                  
                     //dynamically cal the field     
                     repeatGlobal = GetFieldValue<RepeaterGlobalVariables>(Form1.Instance, callField2);
