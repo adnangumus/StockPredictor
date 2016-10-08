@@ -105,7 +105,8 @@ namespace StockPredictor.Helpers
                 //if the prices were not returned try scraping it from bing
                 if (string.IsNullOrEmpty(prices[0]))
                 {
-                    Mining.RunBrowserThread(symbol);
+                    //change the input value
+                    Mining.RunBrowserThread(symbol);                 
                     if(Form1.Instance.repeatGlobal.OpenPrice > 0 && Form1.Instance.repeatGlobal.CurrentPrice > 0)
                     { 
                     //open price

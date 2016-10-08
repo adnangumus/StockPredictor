@@ -119,6 +119,7 @@ namespace StockPredictor.Helpers
             return newLinks;
         }
 
+        private static AutoResetEvent _finishScrapNotifier = new AutoResetEvent(false);
 
         //http://stackoverflow.com/questions/29302259/htmlagility-pack-screen-scraping-unable-to-find-a-div-with-hyphen-in-class-name
         //To parse such pages where javascript need to be executed first, for that you could use a web browser control and then pass the html to HAP.
@@ -135,8 +136,10 @@ namespace StockPredictor.Helpers
                 Application.Run();
             });
             th.SetApartmentState(ApartmentState.STA);
-            th.Start();
-            th.Join();
+               th.Start();
+            _finishScrapNotifier.WaitOne();
+          
+            //  th.Join();
         }
 
         static void browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
@@ -180,8 +183,15 @@ namespace StockPredictor.Helpers
                         i++;
                     }
                 }
-                catch(Exception ex) { Console.WriteLine("Failed to scrap bing  " + ex.Message); }
-                Application.ExitThread();   // Stops the thread
+                catch(Exception ex)
+                {
+                    Console.WriteLine("Failed to scrap bing  " + ex.Message);
+                    Application.ExitThread();   // Stops the thread 
+                    _finishScrapNotifier.Set();
+                }
+                    Application.ExitThread();   // Stops the thread
+                _finishScrapNotifier.Set();
+               
             }
         }
     }

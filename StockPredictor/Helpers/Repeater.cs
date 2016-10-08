@@ -25,7 +25,6 @@ namespace StockPredictor.Helpers
         private static RepeaterGlobalVariables repeatGlobal;
         private static RepeaterData repeatData;
 
-
         public void RunRepeater(string str)
         {
             ScanAllBio = false;
@@ -47,7 +46,7 @@ namespace StockPredictor.Helpers
          //  readScanResultsAndTrade();
             aTimer = new System.Timers.Timer();
             aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-             aTimer.Interval = (1000 * 60) * 30;
+             aTimer.Interval = (1000 * 60) * 6;
             //aTimer.Interval = 1000;
             aTimer.Enabled = true;
         }
@@ -72,6 +71,7 @@ namespace StockPredictor.Helpers
         //execute the scans
         private static void ExecuteScans()
         {
+           
             Form1.Instance.repeatGlobal.RepeaterIsRunning = true;
             //read the latest prices        
             RunMethods rm = new RunMethods();
@@ -84,7 +84,7 @@ namespace StockPredictor.Helpers
                     Form1.Instance.scanMetrics.Ticker = input; // set the ticker for display purposes
                     string callField2 = "repeatGlobal" + input;
                     //change the input value
-                    Mining.RunBrowserThread(input);
+                    Mining.RunBrowserThread(input);                  
                     //dynamically cal the field     
                     repeatGlobal = GetFieldValue<RepeaterGlobalVariables>(Form1.Instance, callField2);
                     //load the previous links from the last search here
@@ -99,8 +99,8 @@ namespace StockPredictor.Helpers
             //<-----end proccess all bio here ------>
             else   //do this if it isn't on scanning all the metrics
             {
-                Form1.Instance.scanMetrics.Ticker = input; // set the ticker for display purposes
-                Mining.RunBrowserThread(input);
+                Form1.Instance.scanMetrics.Ticker = input; // set the ticker for display purposes 
+                Mining.RunBrowserThread(input);              
                 rm.runStockPredictor(input, false);
                 readScanResultsAndTrade();
             }
@@ -114,7 +114,7 @@ namespace StockPredictor.Helpers
             ExcelMethods exl = new ExcelMethods();
             Microsoft.Office.Interop.Excel.Application myPassExcelApp = exl.startExcelApp();
             Trading trader = new Trading();
-            Mining.RunBrowserThread(input);    //reload the prices
+            Mining.RunBrowserThread(input);          
             foreach (string method in methods)
             {
                     int result = exl.ReadLatestFinalScore(myPassExcelApp, input, method);//read the total scores from the excel file
