@@ -10,8 +10,7 @@ namespace StockPredictor.Models
     {
         public List<string> LinksOld { get; set; }
         public double OpenPrice { get; set; }
-        public double CurrentPrice { get; set; }
-        public double ClosePrice { get; set; }
+        public double CurrentPrice { get; set; }     
         public bool RepeaterIsRunning { get; set; }
 
        

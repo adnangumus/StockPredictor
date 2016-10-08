@@ -20,19 +20,34 @@ namespace StockPredictor.Helpers
         private static bool isStrong;
         private static bool noTrading;
         private static int ExecutionTimes;
+        private static string[] inputArray;
+        private static bool ScanAllBio;
+        private static RepeaterGlobalVariables repeatGlobal;
+        private static RepeaterData repeatData;
+
 
         public void RunRepeater(string str)
         {
+            ScanAllBio = false;
             //the number of times an execution takes place
             ExecutionTimes = 0;
+            if(str.ToUpper() == "BIO") {
+                string[] inputs = new string[4];
+                inputs[0] = "GILD";
+                inputs[1] = "HZNP";
+                inputs[2] = "BIIB";
+                inputs[3] = "CELG";
+                inputArray = inputs;
+                ScanAllBio = true;
+            }
             //get the input as an argument and store it   
-            input = str.ToUpper();             
+           input = str.ToUpper();             
             Form1.Instance.repeatGlobal.RepeaterIsRunning = true;
             ExecuteScans();
          //  readScanResultsAndTrade();
             aTimer = new System.Timers.Timer();
             aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-             aTimer.Interval = (1000 * 60) * 2;
+             aTimer.Interval = (1000 * 60) * 30;
             //aTimer.Interval = 1000;
             aTimer.Enabled = true;
         }
@@ -47,7 +62,8 @@ namespace StockPredictor.Helpers
             {
                 readScanResultsAndTrade();
                 aTimer.Stop();
-                return; }
+                return;
+            }
             Form1.Instance.repeatGlobal.RepeaterIsRunning = true;
             Console.WriteLine("The Elapsed event was raised at {0}", e.SignalTime);
             ExecuteScans();
@@ -58,11 +74,37 @@ namespace StockPredictor.Helpers
         {
             Form1.Instance.repeatGlobal.RepeaterIsRunning = true;
             //read the latest prices        
-            Mining.RunBrowserThread(input);       
             RunMethods rm = new RunMethods();
-            rm.runStockPredictor(input, false);
-            readScanResultsAndTrade();
-        }
+            //<----Run this if it is proccessing all bio stocks at the same time--->
+            if (ScanAllBio)
+            {
+                foreach (string ticker in inputArray)
+                {
+                    input = ticker;
+                    Form1.Instance.scanMetrics.Ticker = input; // set the ticker for display purposes
+                    string callField2 = "repeatGlobal" + input;
+                    //change the input value
+                    Mining.RunBrowserThread(input);
+                    //dynamically cal the field     
+                    repeatGlobal = GetFieldValue<RepeaterGlobalVariables>(Form1.Instance, callField2);
+                    //load the previous links from the last search here
+                    Form1.Instance.repeatGlobal.LinksOld = repeatGlobal.LinksOld;
+                    //run the scans here
+                    rm.runStockPredictor(input, false);
+                    //save the old links here
+                    repeatGlobal.LinksOld = Form1.Instance.repeatGlobal.LinksOld ;
+                    readScanResultsAndTrade();
+                }
+            }
+            //<-----end proccess all bio here ------>
+            else   //do this if it isn't on scanning all the metrics
+            {
+                Form1.Instance.scanMetrics.Ticker = input; // set the ticker for display purposes
+                Mining.RunBrowserThread(input);
+                rm.runStockPredictor(input, false);
+                readScanResultsAndTrade();
+            }
+            }
         //read the results of the scans
        private static void readScanResultsAndTrade()
         {
@@ -83,32 +125,44 @@ namespace StockPredictor.Helpers
                     processTrades(method,trader, myPassExcelApp);
                 }
             }
+            
         }
         //process trades
         public static void processTrades(string method, Trading trader, Microsoft.Office.Interop.Excel.Application myPassExcelApp)
         {
-         
+            try {
+                if(ScanAllBio)
+                {
+                    string callField = "repeatData" + method + input;
+                    //dynamically cal the field     
+                    repeatData = GetFieldValue<RepeaterData>(Form1.Instance, callField);
+                }
+                else//do this if it isn't processing multiple stocks
+                { 
             string callField = "repeatData" + method;
             //dynamically cal the field     
-            RepeaterData repeatData = GetFieldValue<RepeaterData>(Form1.Instance, callField);
+           repeatData = GetFieldValue<RepeaterData>(Form1.Instance, callField);
+                }
+            }
+            catch { Console.WriteLine("Failed to load data variables in repeater --> processtrades"); }
             try { 
             //if the price is less than 1 to determine if it exists
-            if(repeatData.PositionOpenPrice < 1 && ExecutionTimes < 15)
+            if(repeatData.PositionOpenPrice < 1 && ExecutionTimes < 15 && Form1.Instance.repeatGlobal.CurrentPrice > 0)
             {
-                    OpenNewPosition(repeatData);
+                    OpenNewPosition();
             }
-           else if(repeatData.PositionOpenPrice > 0)
+           else if(repeatData.PositionOpenPrice > 0 && Form1.Instance.repeatGlobal.CurrentPrice > 0)
             {
                     if((!repeatData.IsShortSale && isShort) || (repeatData.IsShortSale && !isShort) || (ExecutionTimes > 14))
                     {
                         if (ExecutionTimes > 14)
                         {
-                            SellPosition(repeatData, trader, method, myPassExcelApp);
+                            SellPosition(trader, method, myPassExcelApp);
                         }
                         else
                         { 
-                        SellPosition(repeatData, trader, method, myPassExcelApp);
-                        OpenNewPosition(repeatData);
+                        SellPosition(trader, method, myPassExcelApp);
+                        OpenNewPosition();
                         }
                     }                
 
@@ -123,14 +177,14 @@ namespace StockPredictor.Helpers
             }
         }
         //open a new position
-        private static void OpenNewPosition(RepeaterData repeatData)
+        private static void OpenNewPosition()
         {
             repeatData.PositionOpenPrice = Form1.Instance.repeatGlobal.CurrentPrice;
             repeatData.IsShortSale = isShort;
             repeatData.IsStrong = isStrong;
         }
         //open a new position
-        private static void SellPosition(RepeaterData repeatData, Trading trader, string method, Microsoft.Office.Interop.Excel.Application myPassExcelApp)
+        private static void SellPosition(Trading trader, string method, Microsoft.Office.Interop.Excel.Application myPassExcelApp)
         {
             string[] prices = new string[2];
             prices[0] = repeatData.PositionOpenPrice.ToString();

@@ -151,33 +151,36 @@ namespace StockPredictor.Helpers
                 //Do your HtmlParsingHere
                 var doc = new HtmlAgilityPack.HtmlDocument();
                 doc.LoadHtml(br.DocumentText);
-               
-                foreach (HtmlNode div in doc.DocumentNode.SelectNodes("//div[contains(@class,'b_focusTextMedium')]"))
+                try
                 {
-                    //remove the non letters from the text
-                    string str = div.InnerText;
-                    try {
-                    Form1.Instance.repeatGlobal.CurrentPrice = Convert.ToDouble(str);
-                    }
-                    catch { }
-                    Console.WriteLine(str);
-
-                }
-                int i = 1;
-                foreach (HtmlNode td in doc.DocumentNode.SelectNodes("//td[contains(@class,'fin_dtval')]"))
-                {
-                    if (i > 1) { break; }
-                    //remove the non letters from the text
-                    string str1 = td.InnerText;
-                   
-                    try
+                    foreach (HtmlNode div in doc.DocumentNode.SelectNodes("//div[contains(@class,'b_focusTextMedium')]"))
                     {
-                        Form1.Instance.repeatGlobal.OpenPrice = Convert.ToDouble(str1);
+                        //remove the non letters from the text
+                        string str = div.InnerText;
+                        try {
+                            Form1.Instance.repeatGlobal.CurrentPrice = Convert.ToDouble(str);
+                        }
+                        catch { }
+                        Console.WriteLine(str);
+
                     }
-                    catch { }
-                    Console.WriteLine(str1);
-                    i++;
+                    int i = 1;
+                    foreach (HtmlNode td in doc.DocumentNode.SelectNodes("//td[contains(@class,'fin_dtval')]"))
+                    {
+                        if (i > 1) { break; }
+                        //remove the non letters from the text
+                        string str1 = td.InnerText;
+
+                        try
+                        {
+                            Form1.Instance.repeatGlobal.OpenPrice = Convert.ToDouble(str1);
+                        }
+                        catch { }
+                        Console.WriteLine(str1);
+                        i++;
+                    }
                 }
+                catch(Exception ex) { Console.WriteLine("Failed to scrap bing  " + ex.Message); }
                 Application.ExitThread();   // Stops the thread
             }
         }

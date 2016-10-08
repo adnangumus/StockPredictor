@@ -25,6 +25,31 @@ namespace StockPredictor
         public RepeaterData repeatDataNoun = new RepeaterData();
         public RepeaterData repeatDataBag = new RepeaterData();
         public RepeaterData repeatDataRandom = new RepeaterData();
+        //data for the repeater that executes every 30 minutes
+        public RepeaterGlobalVariables repeatGlobalGILD = new RepeaterGlobalVariables();
+        public RepeaterData repeatDataNamedGILD = new RepeaterData();
+        public RepeaterData repeatDataNounGILD = new RepeaterData();
+        public RepeaterData repeatDataBagGILD = new RepeaterData();
+        public RepeaterData repeatDataRandomGILD = new RepeaterData();
+        //data for the repeater that executes every 30 minutes
+        public RepeaterGlobalVariables repeatGlobalHZNP = new RepeaterGlobalVariables();
+        public RepeaterData repeatDataNamedHZNP = new RepeaterData();
+        public RepeaterData repeatDataNounHZNP = new RepeaterData();
+        public RepeaterData repeatDataBagHZNP = new RepeaterData();
+        public RepeaterData repeatDataRandomHZNP = new RepeaterData();
+        //data for the repeater that executes every 30 minutes
+        public RepeaterGlobalVariables repeatGlobalCELG = new RepeaterGlobalVariables();
+        public RepeaterData repeatDataNamedCELG = new RepeaterData();
+        public RepeaterData repeatDataNounCELG = new RepeaterData();
+        public RepeaterData repeatDataBagCELG = new RepeaterData();
+        public RepeaterData repeatDataRandomCELG = new RepeaterData();
+        //data for the repeater that executes every 30 minutes
+        public RepeaterGlobalVariables repeatGlobalBIIB = new RepeaterGlobalVariables();
+        public RepeaterData repeatDataNamedBIIB = new RepeaterData();
+        public RepeaterData repeatDataNounBIIB = new RepeaterData();
+        public RepeaterData repeatDataBagBIIB = new RepeaterData();
+        public RepeaterData repeatDataRandomBIIB = new RepeaterData();
+
         public bool isRepeat()
         {
             return cbRepeat.Checked;
@@ -160,7 +185,7 @@ namespace StockPredictor
             if (isRepeat())
             {
                 Repeater rpt = new Repeater();
-                if (String.IsNullOrEmpty(tbInput.Text)){ input = "hznp"; }
+                if (String.IsNullOrEmpty(tbInput.Text)){ input = "bio"; }
                 rpt.RunRepeater(input.ToUpper());
                 return;
             }   
