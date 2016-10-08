@@ -166,28 +166,28 @@ namespace StockPredictor.Helpers
             int score = ex.ReadLatestFinalScore(myPassedExcelApplication, symbol, method);
             bool isStrong = false;
             //if neutral data is stored then stop the auto trade
-            if (score <= 4 && score >= -4 && !TradingForm.Instance.sellLong()) { TradingForm.Instance.AppendOutputText("\r\n" + "Neutral : No trading!" + "\r\n" + method + "\r\n"); return; }  
+            if (score <= 4 && score >= -4 && !TradingForm.Instance.sellLong()) { TradingForm.Instance.AppendOutputText("\r\n" + "\r\nNeutral : No trading!" + "\r\n" + method + "\r\n"); return; }  
             //negative scores sell and strong sell        
             if (score < -4 && score > -15 )
             {
                 isShort = true; isStrong = false;
-                TradingForm.Instance.AppendOutputText("\r\n" + "Sell " + "\r\n" + method + "\r\n");
+                TradingForm.Instance.AppendOutputText("\r\n" + "\r\nSell " + "\r\n" + method + "\r\n");
             }
             if (score <= -15)
             {
                 isShort = true; isStrong = true;
-                TradingForm.Instance.AppendOutputText("\r\n" + "Strong sell :" + "\r\n" + method + "\r\n");
+                TradingForm.Instance.AppendOutputText("\r\n" + "\r\nStrong sell :" + "\r\n" + method + "\r\n");
             }
             //positive scores buy and strong buy
             if (score > 4 && score <15)
             {
                 isShort = false; isStrong = false;
-                TradingForm.Instance.AppendOutputText("\r\n" + "Buy : " + "\r\n" + method + "\r\n");
+                TradingForm.Instance.AppendOutputText("\r\n" + "\r\nBuy : " + "\r\n" + method + "\r\n");
             };
             if(score >= 15)
             {
                 isShort = false; isStrong = true;
-                TradingForm.Instance.AppendOutputText("\r\n" + "Strong buy :" + "\r\n" + method + "\r\n");
+                TradingForm.Instance.AppendOutputText("\r\n" + "\r\nStrong buy :" + "\r\n" + method + "\r\n");
             }
             //this checks if it is only a long trade
             if (!TradingForm.Instance.isLongTrade() && !TradingForm.Instance.sellLong()) { 
