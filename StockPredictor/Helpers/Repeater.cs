@@ -24,6 +24,7 @@ namespace StockPredictor.Helpers
         private static bool ScanAllBio;
         private static RepeaterGlobalVariables repeatGlobal;
         private static RepeaterData repeatData;
+        private static int maxExecutionTimes = 14;
 
         public void RunRepeater(string str)
         {
@@ -46,7 +47,7 @@ namespace StockPredictor.Helpers
          //  readScanResultsAndTrade();
             aTimer = new System.Timers.Timer();
             aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-             aTimer.Interval = (1000 * 60) * 6;
+             aTimer.Interval = (1000 * 60) * 30;
             //aTimer.Interval = 1000;
             aTimer.Enabled = true;
         }
@@ -57,7 +58,7 @@ namespace StockPredictor.Helpers
         {
             //control the amount of times the functio executes
             ExecutionTimes++;
-            if(ExecutionTimes > 14)
+            if(ExecutionTimes > maxExecutionTimes)
             {
                 readScanResultsAndTrade();
                 aTimer.Stop();
@@ -122,7 +123,7 @@ namespace StockPredictor.Helpers
                     int result = exl.ReadLatestFinalScore(myPassExcelApp, input, method);//read the total scores from the excel file
                     ProcessResults(result, method);
                 
-                if (!noTrading || ExecutionTimes > 14)
+                if (!noTrading || ExecutionTimes > maxExecutionTimes)
                 {
                     processTrades(method,trader, myPassExcelApp);
                 }
@@ -155,9 +156,9 @@ namespace StockPredictor.Helpers
             }
            else if(repeatData.PositionOpenPrice > 0 && Form1.Instance.repeatGlobal.CurrentPrice > 0)
             {
-                    if((!repeatData.IsShortSale && isShort) || (repeatData.IsShortSale && !isShort) || (ExecutionTimes > 14))
+                    if((!repeatData.IsShortSale && isShort) || (repeatData.IsShortSale && !isShort) || (ExecutionTimes > maxExecutionTimes))
                     {
-                        if (ExecutionTimes > 14)
+                        if (ExecutionTimes > maxExecutionTimes)
                         {
                             SellPosition(trader, method, myPassExcelApp);
                         }
