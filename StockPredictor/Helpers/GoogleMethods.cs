@@ -20,9 +20,10 @@ namespace StockPredictor
             string googleText = "";
             //use the htmlhelper class to load the urls
             HtmlHelper hh = new HtmlHelper();
-            HtmlAgilityPack.HtmlDocument doc = hh.loadURL(url);
+          
             try
             {
+                HtmlAgilityPack.HtmlDocument doc = hh.loadURL(url);
                 foreach (HtmlNode node in doc.DocumentNode.SelectNodes("//div[contains(@class,'st')]"))
                 {
 
@@ -45,9 +46,9 @@ namespace StockPredictor
             List<string> links = new List<string>();
             //use the htmlhelper class to load the urls
             HtmlHelper hh = new HtmlHelper();
-            HtmlAgilityPack.HtmlDocument doc = hh.loadURL(url);
             try {
-             
+            HtmlAgilityPack.HtmlDocument doc = hh.loadURL(url);
+
                 string linkValue = "";
                
                     foreach (HtmlNode link in doc.DocumentNode.SelectNodes("//a[@href]"))
@@ -79,11 +80,12 @@ namespace StockPredictor
             string redirectLink = "";
             //use the htmlhelper class to load the urls
             HtmlHelper hh = new HtmlHelper();
-            HtmlAgilityPack.HtmlDocument doc = hh.loadURL(url);
+          
             try
             {
-                
-                    foreach (HtmlNode link in doc.DocumentNode.SelectNodes("//a[@href]"))
+                HtmlAgilityPack.HtmlDocument doc = hh.loadURL(url);
+
+                foreach (HtmlNode link in doc.DocumentNode.SelectNodes("//a[@href]"))
                     {
                         string hrefValue = link.GetAttributeValue("href", string.Empty);
                         if (hrefValue == "#") { }

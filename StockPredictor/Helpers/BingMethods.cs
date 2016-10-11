@@ -20,10 +20,10 @@ namespace StockPredictor.Helpers
             // HtmlHelper hh = new HtmlHelper();
             // HtmlAgilityPack.HtmlDocument doc = hh.loadURL(url);
             HtmlWeb hw = new HtmlWeb();
-            HtmlAgilityPack.HtmlDocument doc = hw.Load(url);
+          
             try
             {
-
+                HtmlAgilityPack.HtmlDocument doc = hw.Load(url);
                 string linkValue = "";
 
                 foreach (HtmlNode link in doc.DocumentNode.SelectNodes("//a[@href]"))
