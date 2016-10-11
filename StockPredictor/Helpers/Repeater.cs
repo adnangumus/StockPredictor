@@ -24,7 +24,8 @@ namespace StockPredictor.Helpers
         private static bool ScanAllBio;
         private static RepeaterGlobalVariables repeatGlobal;
         private static RepeaterData repeatData;
-        private static int maxExecutionTimes = 14;
+        //this variable is used to cotrol how many times the trader will run.  ExecutionTimes >= maxExecutionTimes
+        private static int maxExecutionTimes = 12;
 
         public void RunRepeater(string str)
         {
@@ -58,7 +59,7 @@ namespace StockPredictor.Helpers
         {
             //control the amount of times the functio executes
             ExecutionTimes++;
-            if(ExecutionTimes > maxExecutionTimes)
+            if(ExecutionTimes >= maxExecutionTimes)
             {
                 readScanResultsAndTrade();
                 aTimer.Stop();
@@ -122,8 +123,8 @@ namespace StockPredictor.Helpers
             {
                     int result = exl.ReadLatestFinalScore(myPassExcelApp, input, method);//read the total scores from the excel file
                     ProcessResults(result, method);
-                
-                if (!noTrading || ExecutionTimes > maxExecutionTimes)
+                //trade when the predictor dictates, on the last run and don't trade on the first run
+                if (!noTrading || ExecutionTimes >= maxExecutionTimes || ExecutionTimes > 0)
                 {
                     processTrades(method,trader, myPassExcelApp);
                 }
@@ -150,15 +151,16 @@ namespace StockPredictor.Helpers
             catch { Console.WriteLine("Failed to load data variables in repeater --> processtrades"); }
             try { 
             //if the price is less than 1 to determine if it exists
-            if(repeatData.PositionOpenPrice < 1 && ExecutionTimes < 15 && Form1.Instance.repeatGlobal.CurrentPrice > 0)
+            if(repeatData.PositionOpenPrice < 1 && ExecutionTimes < maxExecutionTimes && Form1.Instance.repeatGlobal.CurrentPrice > 0)
             {
                     OpenNewPosition();
             }
            else if(repeatData.PositionOpenPrice > 0 && Form1.Instance.repeatGlobal.CurrentPrice > 0)
-            {
-                    if((!repeatData.IsShortSale && isShort) || (repeatData.IsShortSale && !isShort) || (ExecutionTimes > maxExecutionTimes))
+            {        // if there are open positions check the following conditions are met before selling. 
+                    if((!repeatData.IsShortSale && isShort) || (repeatData.IsShortSale && !isShort) || (ExecutionTimes >= maxExecutionTimes) 
+                        || (repeatData.IsStrong && !isStrong) || (!repeatData.IsStrong && isStrong))
                     {
-                        if (ExecutionTimes > maxExecutionTimes)
+                        if (ExecutionTimes >= maxExecutionTimes)
                         {
                             SellPosition(trader, method, myPassExcelApp);
                         }
